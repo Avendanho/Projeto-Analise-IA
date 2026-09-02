@@ -1,0 +1,47 @@
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Caches and logs
+.pytest_cache/
+.mypy_cache/
+logs/
+*.log
+
+# Project specific data and generated files
+AnaliseIA/data/
+AnaliseIA/pdfs/
+AnaliseIA/reports/
+DownloadArtigos/pdfs/
+DownloadArtigos/data/
+DownloadArtigos/reports/
+DownloadArtigos/rejected/
+DownloadArtigos/cache/
+DownloadArtigos/state/
+Encontrar\ DOI\'s/output/
+*.tsv
+
+# Databases
+*.db
+*.sqlite3
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

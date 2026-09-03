@@ -1,43 +1,6 @@
-# Virtual environments
-venv/
-.venv/
-env/
-ENV/
-
-# Python cache
-__pycache__/
-*.py[cod]
-*$py.class
-
-# Environment variables
-.env
-.env.*
-!.env.example
-
-# Caches and logs
-.pytest_cache/
-.mypy_cache/
-logs/
-*.log
-
-# Project specific data and generated files
-AnaliseIA/data/
-AnaliseIA/pdfs/
-AnaliseIA/reports/
-DownloadArtigos/pdfs/
-DownloadArtigos/data/
-DownloadArtigos/reports/
-DownloadArtigos/rejected/
-DownloadArtigos/cache/
-DownloadArtigos/state/
-Encontrar\ DOI\'s/output/
-*.tsv
-
-# Databases
-*.db
-*.sqlite3
-
-# OS generated files
+# ==========================================
+# GERAL: Sistema Operacional e Editores
+# ==========================================
 .DS_Store
 .DS_Store?
 ._*
@@ -45,3 +8,90 @@ Encontrar\ DOI\'s/output/
 .Trashes
 ehthumbs.db
 Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ==========================================
+# PYTHON: Caches e Builds
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ==========================================
+# AMBIENTES VIRTUAIS E DEPENDÊNCIAS
+# ==========================================
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# ==========================================
+# TESTES E LOGS
+# ==========================================
+.pytest_cache/
+.mypy_cache/
+.tox/
+.coverage
+htmlcov/
+*.log
+logs/
+
+# ==========================================
+# DADOS DO PROJETO E ARQUIVOS GERADOS
+# Ignoramos tudo dentro dessas pastas, mas mantemos o .gitkeep para preservar a estrutura
+# ==========================================
+data/*
+!data/.gitkeep
+
+pdfs/*
+!pdfs/.gitkeep
+
+reports/*
+!reports/.gitkeep
+
+images/*
+!images/.gitkeep
+
+output/*
+!output/.gitkeep
+
+downloads/*
+!downloads/.gitkeep
+
+# Bancos de dados locais SQLite
+*.db
+*.sqlite3
+
+# Arquivos temporários e backups
+*.tmp
+*.temp
+*.bak
+
+# ==========================================
+# EXCEÇÕES IMPORTANTES
+# ==========================================
+!.env.example
+!frontend/index.html

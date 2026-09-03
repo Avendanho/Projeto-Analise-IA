@@ -1,0 +1,139 @@
+======================================================================
+RELATÓRIO DE ARTIGOS PESQUISADOS PELO NOME
+======================================================================
+
+Total de títulos encontrados: 14
+Total de pesquisas realizadas: 14
+Downloads concluídos: 4
+Falhas: 10
+
+DETALHAMENTO:
+----------------------------------------------------------------------
+
+1. TÍTULO: BEYOND THE GENETIC CODE: SYSTEMIC REGULATORY MELTDOWN AS A FRAMEWORK FOR PRIMARY EPIGENETIC DISEASES.
+   DOI encontrado: Não encontrado
+   Resolvedor: v4_multi_variant
+   Título localizado: BEYOND THE GENETIC CODE: SYSTEMIC REGULATORY MELTDOWN AS A FRAMEWORK FOR PRIMARY EPIGENETIC DISEASES.
+   Score: 0.94
+   Status: NÃO ENCONTRADO
+   Erro: title_resolve_failed
+   Detalhe: Could not resolve title to DOI or recover a PDF directly: 'BEYOND THE GENETIC CODE: SYSTEMIC REGULATORY MELTDOWN AS A FRAMEWORK FOR PRIMARY EPIGENETIC DISEASES.'
+
+2. TÍTULO: Glutamate transporter dysfunction and major mental illnesses.
+   DOI encontrado: Não encontrado
+   Resolvedor: v4_multi_variant
+   Título localizado: [Glutamate transporter dysfunction and major mental illnesses].
+   Score: 0.96
+   Status: NÃO ENCONTRADO
+   Erro: title_resolve_failed
+   Detalhe: Could not resolve title to DOI or recover a PDF directly: 'Glutamate transporter dysfunction and major mental illnesses.'
+
+3. TÍTULO: Mouse model for human chromosome abnormality.
+   DOI encontrado: Não encontrado
+   Resolvedor: v4_multi_variant
+   Título localizado: [Mouse model for human chromosome abnormality].
+   Score: 0.94
+   Status: NÃO ENCONTRADO
+   Erro: title_resolve_failed
+   Detalhe: Could not resolve title to DOI or recover a PDF directly: 'Mouse model for human chromosome abnormality.'
+
+4. TÍTULO: Humanized mouse model of autism.
+   DOI encontrado: Não encontrado
+   Resolvedor: v4_multi_variant
+   Título localizado: [Humanized mouse model of autism].
+   Score: 0.94
+   Status: NÃO ENCONTRADO
+   Erro: title_resolve_failed
+   Detalhe: Could not resolve title to DOI or recover a PDF directly: 'Humanized mouse model of autism.'
+
+5. TÍTULO: Immunogenetic aspects of autism. Review.
+   DOI encontrado: Não encontrado
+   Resolvedor: v4_multi_variant
+   Título localizado: [Immunogenetic aspects of autism. Review].
+   Score: 0.94
+   Status: NÃO ENCONTRADO
+   Erro: title_resolve_failed
+   Detalhe: Could not resolve title to DOI or recover a PDF directly: 'Immunogenetic aspects of autism. Review.'
+
+6. TÍTULO: The history of vaccinations in the light of the autism epidemic.
+   DOI encontrado: Não encontrado
+   Resolvedor: v4_multi_variant
+   Título localizado: The history of vaccinations in the light of the autism epidemic.
+   Score: 0.96
+   Status: NÃO ENCONTRADO
+   Erro: title_resolve_failed
+   Detalhe: Could not resolve title to DOI or recover a PDF directly: 'The history of vaccinations in the light of the autism epidemic.'
+
+7. TÍTULO: Hyperserotonemia in autism: the potential role of 5HT-related gene variants.
+   DOI encontrado: Não encontrado
+   Resolvedor: v4_multi_variant
+   Título localizado: Hyperserotonemia in autism: the potential role of 5HT-related gene variants.
+   Score: 0.96
+   Status: NÃO ENCONTRADO
+   Erro: title_resolve_failed
+   Detalhe: Could not resolve title to DOI or recover a PDF directly: 'Hyperserotonemia in autism: the potential role of 5HT-related gene variants.'
+
+8. TÍTULO: Generation of mice with glial cell dysfunction.
+   DOI encontrado: Não encontrado
+   Resolvedor: v4_multi_variant
+   Título localizado: [Generation of mice with glial cell dysfunction].
+   Score: 0.96
+   Status: NÃO ENCONTRADO
+   Erro: title_resolve_failed
+   Detalhe: Could not resolve title to DOI or recover a PDF directly: 'Generation of mice with glial cell dysfunction.'
+
+9. TÍTULO: Gene amplifications at chromosome 7 of the human gastric cancer genome.
+   DOI encontrado: 10.3892/ijmm.20.2.225
+   Resolvedor: v4_multi_variant
+   Título localizado: Gene amplifications at chromosome 7 of the human gastric cancer genome.
+   Score: 0.96
+   Status: DOWNLOAD CONCLUÍDO
+   Arquivo: /app/pdfs/Yang_2007_IJMM_Gene_amplifications_at_chromosome_7_of_t.pdf
+   Fonte: unpaywall
+
+10. TÍTULO: Mercury and autism: accelerating evidence?
+   DOI encontrado: Não encontrado
+   Resolvedor: v4_multi_variant
+   Título localizado: Mercury and autism: accelerating evidence?
+   Score: 0.94
+   Status: NÃO ENCONTRADO
+   Erro: title_resolve_failed
+   Detalhe: Could not resolve title to DOI or recover a PDF directly: 'Mercury and autism: accelerating evidence?'
+
+11. TÍTULO: The mTOR/S6K signalling pathway: the role of the TSC1/2 tumour suppressor complex and the proto-oncogene Rheb.
+   DOI encontrado: 10.1002/0470869976.ch9
+   Resolvedor: v4_multi_variant
+   Título localizado: The mTOR/S6K Signalling Pathway: The Role of the TSC1/2 Tumour Suppressor Complex and the Proto‐Oncogene Rheb
+   Score: 0.96
+   Status: DOWNLOAD CONCLUÍDO
+   Arquivo: /app/pdfs/Nobukini_2004_NFS_The_mTOR_S6K_Signalling_Pathway_The_Role.pdf
+   Fonte: zenodo
+
+12. TÍTULO: Adenosine deaminase alleles and autistic disorder: case-control and family-based association studies.
+   DOI encontrado: 10.1002/1096-8628(20001204)96:6<784::aid-ajmg18>3.0.co;2-7
+   Resolvedor: v4_multi_variant
+   Título localizado: Adenosine deaminase alleles and autistic disorder: Case-control and family-based association studies
+   Score: 0.96
+   Status: DOWNLOAD CONCLUÍDO
+   Arquivo: /app/pdfs/Persico_2000_AJMG_Adenosine_deaminase_alleles_and_autistic.pdf
+   Fonte: zenodo
+
+13. TÍTULO: Tetrahydrobiopterin biosynthesis, regeneration and functions.
+   DOI encontrado: 10.1042/bj3470001
+   Resolvedor: v4_multi_variant
+   Título localizado: Tetrahydrobiopterin biosynthesis, regeneration and functions
+   Score: 0.94
+   Status: DOWNLOAD CONCLUÍDO
+   Arquivo: /app/pdfs/Th_ny_2000_BiochemicalJournal_Tetrahydrobiopterin_biosynthesis_regener.pdf
+   Fonte: semantic_scholar
+
+14. TÍTULO: Studies on blood platelets, blood enzymes, and leucocyte chromosome breakage in childhood schizophrenia.
+   DOI encontrado: Não encontrado
+   Resolvedor: v4_multi_variant
+   Título localizado: Studies on blood platelets, blood enzymes, and leucocyte chromosome breakage in childhood schizophrenia.
+   Score: 0.96
+   Status: NÃO ENCONTRADO
+   Erro: title_resolve_failed
+   Detalhe: Could not resolve title to DOI or recover a PDF directly: 'Studies on blood platelets, blood enzymes, and leucocyte chromosome breakage in childhood schizophrenia.'
+
+======================================================================

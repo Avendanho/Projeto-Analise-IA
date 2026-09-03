@@ -1,5 +1,0 @@
-pdf_dir: "pdfs"
-output_dir: "."
-ocr_enabled: true
-cache_enabled: true
-confidence_threshold: "MODERATE"

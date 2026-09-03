@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automação Acadêmica IA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe',
+                            300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6',
+                            600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+</script>
+    <style>
+        /* Progress bar */
+        .progress-bar {
+            height: 4px;
+            background: #e5e7eb;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 2px;
+        }
+        .progress-indeterminate {
+            width: 30%;
+            animation: indeterminate 1.5s ease-in-out infinite;
+        }
+        @keyframes indeterminate {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(430%); }
+        }
+
+        /* Status feed */
+        .status-feed {
+            max-height: 340px;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+        .status-feed::-webkit-scrollbar { width: 4px; }
+        .status-feed::-webkit-scrollbar-track { background: transparent; }
+        .status-feed::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 2px; }
+
+        .status-item {
+            animation: fadeSlideIn 0.3s ease-out;
+        }
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Stepper */
+        .step-connector {
+            height: 2px;
+            flex: 1;
+            transition: background-color 0.5s ease;
+        }
+
+        /* Pulse */
+        @keyframes pulse-ring {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+        .pulse-active::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            border: 2px solid #3b82f6;
+            animation: pulse-ring 1.5s ease-out infinite;
+        }
+
+        /* Spinner */
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .spinner {
+            width: 16px; height: 16px;
+            border: 2px solid #e5e7eb;
+            border-top-color: #3b82f6;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        /* Card hover */
+        .action-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .action-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -8px rgba(0,0,0,0.1);
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.15rem 0.6rem;
+            border-radius: 9999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Tooltip */
+        [data-tooltip] { position: relative; }
+        [data-tooltip]::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            color: #f1f5f9;
+            padding: 0.35rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.7rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            margin-bottom: 6px;
+            z-index: 10;
+        }
+        [data-tooltip]:hover::after { opacity: 1; }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 min-h-screen text-gray-800 font-sans flex flex-col">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-brand-600 rounded-xl flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-gray-900">Automação Acadêmica</h1>
+                    <p class="text-xs text-gray-500">Busca, Download e Análise de Artigos com IA</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button onclick="openSettings()" class="text-gray-500 hover:text-brand-600 transition" title="Configurações de IA">
+                    <i class="fas fa-cog text-xl"></i>
+                </button>
+                <span id="globalStatus" class="badge bg-gray-100 text-gray-500">Pronto</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Stepper -->
+    <div class="max-w-7xl mx-auto px-6 py-6 w-full">
+        <div class="flex items-center justify-center gap-0">
+            <div class="flex flex-col items-center relative">
+                <div id="stepIcon0" class="w-9 h-9 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center text-sm font-bold transition-all duration-300 relative">0</div>
+                <span class="text-xs font-medium text-gray-500 mt-1.5" id="stepLabel0">Upload</span>
+            </div>
+            <div id="conn01" class="step-connector bg-gray-200 mx-2"></div>
+            <div class="flex flex-col items-center relative">
+                <div id="stepIcon1" class="w-9 h-9 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center text-sm font-bold transition-all duration-300 relative">1</div>
+                <span class="text-xs font-medium text-gray-500 mt-1.5" id="stepLabel1">Busca</span>
+            </div>
+            <div id="conn12" class="step-connector bg-gray-200 mx-2"></div>
+            <div class="flex flex-col items-center relative">
+                <div id="stepIcon2" class="w-9 h-9 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center text-sm font-bold transition-all duration-300 relative">2</div>
+                <span class="text-xs font-medium text-gray-500 mt-1.5" id="stepLabel2">Download</span>
+            </div>
+            <div id="conn23" class="step-connector bg-gray-200 mx-2"></div>
+            <div class="flex flex-col items-center relative">
+                <div id="stepIcon3" class="w-9 h-9 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center text-sm font-bold transition-all duration-300 relative">3</div>
+                <span class="text-xs font-medium text-gray-500 mt-1.5" id="stepLabel3">Análise IA</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-6 pb-12 w-full flex-1">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+            <!-- Upload Panel -->
+            <div class="lg:col-span-3">
+                <div class="action-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <div class="p-5 border-b border-gray-100">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-lg">📁</span>
+                            <h2 class="text-base font-bold text-gray-900">Upload de Arquivos</h2>
+                        </div>
+                        <p class="text-xs text-gray-500 leading-relaxed">
+                            Carregue o arquivo de <strong>queries</strong> (nome contendo "quary") ou de <strong>DOIs</strong>.
+                        </p>
+                    </div>
+                    <div class="p-5">
+                        <label class="flex flex-col items-center justify-center w-full h-28 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-brand-400 hover:bg-brand-50/30 transition-colors"
+                               id="dropZone">
+                            <svg class="w-8 h-8 text-gray-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                      d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                            </svg>
+                            <span class="text-xs text-gray-500" id="fileLabel">Clique ou arraste o arquivo</span>
+                            <input type="file" id="fileInput" class="hidden" />
+                        </label>
+                        <button onclick="uploadFile()" class="w-full mt-3 bg-brand-600 hover:bg-brand-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors text-sm flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+                            </svg>
+                            Enviar Arquivo
+                        </button>
+                        <div id="uploadStatus" class="mt-3 text-xs font-medium min-h-[20px]"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Panels -->
+            <div class="lg:col-span-9 grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                <!-- 1. Search -->
+                <div class="action-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+                    <div class="p-5 border-b border-gray-100">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="w-6 h-6 bg-indigo-100 text-indigo-600 rounded-md flex items-center justify-center text-xs font-bold">1</span>
+                            <h2 class="text-base font-bold text-gray-900">Encontrar DOIs</h2>
+                        </div>
+                        <p class="text-xs text-gray-500">Busca artigos nas bases de dados acadêmicas.</p>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        </button>
+                        <label class="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2">Bases de Dados</label>
+                        <div class="grid grid-cols-2 gap-2 mb-4">
+                            <label class="flex items-center gap-2 text-sm cursor-pointer group" data-tooltip="Base biomédica do NCBI">
+                                <input type="checkbox" id="chkPubMed" checked class="rounded text-indigo-600 focus:ring-indigo-500 w-4 h-4">
+                                <span class="group-hover:text-indigo-600 transition-colors">PubMed</span>
+                            </label>
+                            <label class="flex items-center gap-2 text-sm cursor-pointer group" data-tooltip="Elsevier (requer API key)">
+                                <input type="checkbox" id="chkEmbase" class="rounded text-indigo-600 focus:ring-indigo-500 w-4 h-4">
+                                <span class="group-hover:text-indigo-600 transition-colors">Embase</span>
+                            </label>
+                            <label class="flex items-center gap-2 text-sm cursor-pointer group" data-tooltip="Literatura latino-americana">
+                                <input type="checkbox" id="chkLILACS" class="rounded text-indigo-600 focus:ring-indigo-500 w-4 h-4">
+                                <span class="group-hover:text-indigo-600 transition-colors">LILACS</span>
+                            </label>
+                            <label class="flex items-center gap-2 text-sm cursor-pointer group" data-tooltip="Repositório UFMG (fallback)">
+                                <input type="checkbox" id="chkUFMG" checked class="rounded text-indigo-600 focus:ring-indigo-500 w-4 h-4">
+                                <span class="group-hover:text-indigo-600 transition-colors">UFMG</span>
+                            </label>
+                        </div>
+                        <button onclick="startSearch()" id="btnSearch"
+                                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors text-sm flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                            Iniciar Busca
+                        </button>
+                        <div id="progressSearch" class="progress-bar mt-3 hidden"><div class="progress-bar-fill bg-indigo-500 progress-indeterminate"></div></div>
+                        <div id="feedSearch" class="status-feed mt-3 hidden"></div>
+                    </div>
+                </div>
+
+                <!-- 2. Download -->
+                <div class="action-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+                    <div class="p-5 border-b border-gray-100">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="w-6 h-6 bg-emerald-100 text-emerald-600 rounded-md flex items-center justify-center text-xs font-bold">2</span>
+                            <h2 class="text-base font-bold text-gray-900">Baixar Artigos</h2>
+                        </div>
+                        <p class="text-xs text-gray-500">Faz download dos PDFs encontrados.</p>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <label class="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2" data-tooltip="Mais workers = downloads simultâneos">
+                            Workers (Velocidade)
+                        </label>
+                        <div class="flex items-center gap-3 mb-4">
+                            <input type="range" id="dlWorkers" min="1" max="30" value="15"
+                                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
+                                   oninput="document.getElementById('dlVal').innerText=this.value">
+                            <span id="dlVal" class="text-sm font-bold text-emerald-600 bg-emerald-50 rounded-md px-2 py-0.5 min-w-[2rem] text-center">15</span>
+                        </div>
+                        <button onclick="runStep('/api/run/download?workers=' + document.getElementById('dlWorkers').value, 'feedDownload', 'btnDownload', 'progressDownload', 2)"
+                                id="btnDownload"
+                                class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors text-sm flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                            </svg>
+                            Iniciar Download
+                        </button>
+                        <div id="progressDownload" class="progress-bar mt-3 hidden"><div class="progress-bar-fill bg-emerald-500 progress-indeterminate"></div></div>
+                        <div id="feedDownload" class="status-feed mt-3 hidden"></div>
+                    </div>
+                </div>
+
+                <!-- 3. AI Analysis -->
+                <div class="action-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+                    <div class="p-5 border-b border-gray-100">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="w-6 h-6 bg-purple-100 text-purple-600 rounded-md flex items-center justify-center text-xs font-bold">3</span>
+                            <h2 class="text-base font-bold text-gray-900">Análise IA</h2>
+                        </div>
+                        <p class="text-xs text-gray-500">Triagem inteligente dos PDFs via LLM.</p>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <label class="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2" data-tooltip="Lotes enviados para a IA em paralelo">
+                            Workers (Lotes IA)
+                        </label>
+                        <div class="flex items-center gap-3 mb-4">
+                            <input type="range" id="iaWorkers" min="1" max="10" value="4"
+                                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
+                                   oninput="document.getElementById('iaVal').innerText=this.value">
+                            <span id="iaVal" class="text-sm font-bold text-purple-600 bg-purple-50 rounded-md px-2 py-0.5 min-w-[2rem] text-center">4</span>
+                        </div>
+                        
+                        <button onclick="openProtocolModal()"
+                                class="w-full bg-white border border-purple-200 hover:bg-purple-50 text-purple-700 font-semibold py-2 px-4 rounded-lg transition-colors text-sm flex items-center justify-center gap-2 mb-3">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            Configurar Protocolo
+                        </button>
+
+                        <button onclick="runStep('/api/run/analyze?workers=' + document.getElementById('iaWorkers').value, 'feedIA', 'btnIA', 'progressIA', 3)"
+                                id="btnIA"
+                                class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors text-sm flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            Iniciar Análise
+                        </button>
+                        <div id="progressIA" class="progress-bar mt-3 hidden"><div class="progress-bar-fill bg-purple-500 progress-indeterminate"></div></div>
+                        <div id="feedIA" class="status-feed mt-3 hidden"></div>
+                        <a href="/api/report" id="btnReport"
+                           class="hidden mt-4 text-center bg-gray-900 hover:bg-gray-800 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors text-sm items-center justify-center gap-2 inline-flex">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                            Baixar Relatório Final
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Protocol Modal -->
+    <div id="protocolModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden z-50 flex items-center justify-center">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-4xl max-h-[90vh] flex flex-col m-4">
+            <div class="p-5 border-b border-gray-100 flex justify-between items-center">
+                <h2 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                    Protocolo de Triagem (Análise IA)
+                </h2>
+                <button onclick="closeProtocolModal()" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            
+            <div class="p-5 overflow-y-auto flex-1 bg-gray-50">
+                <!-- AI Generator Section -->
+                <div class="mb-6 bg-white p-4 rounded-lg border border-purple-100 shadow-sm">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">✨ Gerar Protocolo com IA</label>
+                    <p class="text-xs text-gray-500 mb-3">Descreva o que você deseja buscar nos artigos (ex: "Quero saber se o artigo foca em autismo e analisa camundongos"). A IA irá formatar isso nas regras exigidas pelo sistema.</p>
+                    <textarea id="aiInstructions" rows="2" class="w-full text-sm p-3 border border-gray-300 rounded-md focus:ring-purple-500 focus:border-purple-500" placeholder="Suas instruções aqui..."></textarea>
+                    <div class="mt-3 flex justify-end">
+                        <button onclick="generateProtocol()" id="btnGenProtocol" class="bg-purple-100 hover:bg-purple-200 text-purple-700 font-semibold py-2 px-4 rounded-md text-sm flex items-center gap-2 transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            Gerar com IA
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Editor Section -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Documento do Protocolo (Edição Manual)</label>
+                    <textarea id="protocolEditor" rows="15" class="w-full text-xs font-mono p-3 border border-gray-300 rounded-md focus:ring-purple-500 focus:border-purple-500 bg-white" spellcheck="false"></textarea>
+                </div>
+            </div>
+            
+            <div class="p-5 border-t border-gray-100 flex justify-between items-center bg-white rounded-b-xl">
+                <span id="protocolStatus" class="text-sm text-gray-500 font-medium"></span>
+                <div class="flex gap-3">
+                    <button onclick="closeProtocolModal()" class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg text-sm font-medium transition-colors">Cancelar</button>
+                    <button onclick="saveProtocol()" id="btnSaveProtocol" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">Salvar Protocolo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <p class="text-xs text-gray-400">Projeto de Automação Acadêmica — Análise com IA</p>
+            <p class="text-xs text-gray-400">FastAPI + SSE + LLM</p>
+        </div>
+    </footer>
+
+    <script>
+        // ========== Protocol Modal ==========
+        async function openProtocolModal() {
+            document.getElementById('protocolModal').classList.remove('hidden');
+            document.getElementById('protocolStatus').textContent = 'Carregando...';
+            try {
+                const res = await fetch('/api/protocol');
+                const data = await res.json();
+                document.getElementById('protocolEditor').value = data.content || '';
+                document.getElementById('protocolStatus').textContent = 'Protocolo carregado.';
+            } catch (err) {
+                document.getElementById('protocolStatus').textContent = 'Erro ao carregar.';
+            }
+        }
+
+        function closeProtocolModal() {
+            document.getElementById('protocolModal').classList.add('hidden');
+        }
+
+        async function saveProtocol() {
+            const content = document.getElementById('protocolEditor').value;
+            const btn = document.getElementById('btnSaveProtocol');
+            btn.disabled = true;
+            btn.textContent = 'Salvando...';
+            try {
+                await fetch('/api/protocol', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ content })
+                });
+                document.getElementById('protocolStatus').innerHTML = '<span class="text-emerald-600">✅ Salvo com sucesso!</span>';
+                setTimeout(closeProtocolModal, 1000);
+            } catch (err) {
+                document.getElementById('protocolStatus').innerHTML = '<span class="text-red-600">❌ Erro ao salvar.</span>';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Salvar Protocolo';
+            }
+        }
+
+        async function generateProtocol() {
+            const instructions = document.getElementById('aiInstructions').value;
+            if (!instructions.trim()) return;
+            
+            const btn = document.getElementById('btnGenProtocol');
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner w-4 h-4 border-purple-500"></span> Gerando...';
+            document.getElementById('protocolStatus').textContent = 'A IA está construindo o protocolo, aguarde...';
+            
+            try {
+                const res = await fetch('/api/generate_protocol', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ instructions })
+                });
+                const data = await res.json();
+                if (data.error) {
+                    document.getElementById('protocolStatus').innerHTML = `<span class="text-red-600">❌ ${data.error}</span>`;
+                } else {
+                    document.getElementById('protocolEditor').value = data.content;
+                    document.getElementById('protocolStatus').innerHTML = '<span class="text-emerald-600">✨ Protocolo gerado! Revise e salve.</span>';
+                }
+            } catch (err) {
+                document.getElementById('protocolStatus').innerHTML = '<span class="text-red-600">❌ Erro na comunicação com a API.</span>';
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
+        }
+
+        // ========== Upload ==========
+        const fileInput = document.getElementById('fileInput');
+        const fileLabel = document.getElementById('fileLabel');
+        const dropZone = document.getElementById('dropZone');
+
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                fileLabel.textContent = fileInput.files[0].name;
+                fileLabel.classList.add('text-brand-600', 'font-semibold');
+            }
+        });
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-brand-400', 'bg-brand-50/50');
+        });
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('border-brand-400', 'bg-brand-50/50');
+        });
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('border-brand-400', 'bg-brand-50/50');
+            if (e.dataTransfer.files.length > 0) {
+                fileInput.files = e.dataTransfer.files;
+                fileLabel.textContent = e.dataTransfer.files[0].name;
+                fileLabel.classList.add('text-brand-600', 'font-semibold');
+            }
+        });
+
+        async function uploadFile() {
+            const statusDiv = document.getElementById('uploadStatus');
+            if (fileInput.files.length === 0) {
+                statusDiv.innerHTML = '<span class="text-amber-600">⚠️ Selecione um arquivo primeiro.</span>';
+                return;
+            }
+            const formData = new FormData();
+            formData.append("file", fileInput.files[0]);
+            statusDiv.innerHTML = '<span class="text-brand-600 flex items-center gap-1.5"><span class="spinner"></span> Enviando...</span>';
+            setStepState(0, 'active');
+            try {
+                const response = await fetch('/api/upload', { method: 'POST', body: formData });
+                const result = await response.json();
+                statusDiv.innerHTML = `<span class="text-emerald-600">✅ ${result.message}</span>`;
+                setStepState(0, 'done');
+            } catch (err) {
+                statusDiv.innerHTML = '<span class="text-red-600">❌ Erro ao enviar o arquivo.</span>';
+                setStepState(0, 'error');
+            }
+        }
+
+        // ========== Stepper ==========
+        function setStepState(step, state) {
+            const icon = document.getElementById(`stepIcon${step}`);
+            const label = document.getElementById(`stepLabel${step}`);
+            icon.className = 'w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 relative';
+            if (state === 'active') {
+                icon.classList.add('bg-brand-600', 'text-white', 'shadow-lg', 'shadow-brand-200', 'pulse-active');
+                label.className = 'text-xs font-semibold text-brand-600 mt-1.5';
+                setGlobalStatus('Executando...', 'bg-blue-100', 'text-blue-700');
+            } else if (state === 'done') {
+                icon.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>';
+                icon.classList.add('bg-emerald-500', 'text-white');
+                label.className = 'text-xs font-semibold text-emerald-600 mt-1.5';
+                const conn = document.getElementById(`conn${step}${step+1}`);
+                if (conn) conn.classList.replace('bg-gray-200', 'bg-emerald-400');
+                setGlobalStatus('Pronto', 'bg-emerald-100', 'text-emerald-700');
+            } else if (state === 'error') {
+                icon.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>';
+                icon.classList.add('bg-red-500', 'text-white');
+                label.className = 'text-xs font-semibold text-red-600 mt-1.5';
+                setGlobalStatus('Erro', 'bg-red-100', 'text-red-700');
+            } else {
+                icon.innerHTML = step;
+                icon.classList.add('bg-gray-200', 'text-gray-500');
+                label.className = 'text-xs font-medium text-gray-500 mt-1.5';
+            }
+        }
+
+        function setGlobalStatus(text, bgClass, textClass) {
+            const badge = document.getElementById('globalStatus');
+            badge.className = `badge ${bgClass} ${textClass}`;
+            badge.textContent = text;
+        }
+
+        // ========== Status Feed (replaces terminal) ==========
+        function addStatusItem(feed, text, type) {
+            // type: 'info', 'success', 'warning', 'error', 'progress'
+            const colors = {
+                info:     { bg: 'bg-blue-50',    border: 'border-blue-200',   text: 'text-blue-800' },
+                success:  { bg: 'bg-emerald-50', border: 'border-emerald-200',text: 'text-emerald-800' },
+                warning:  { bg: 'bg-amber-50',   border: 'border-amber-200',  text: 'text-amber-800' },
+                error:    { bg: 'bg-red-50',      border: 'border-red-200',    text: 'text-red-800' },
+                progress: { bg: 'bg-gray-50',     border: 'border-gray-200',   text: 'text-gray-700' },
+            };
+            const c = colors[type] || colors.progress;
+
+            const item = document.createElement('div');
+            item.className = `status-item ${c.bg} ${c.border} ${c.text} border rounded-lg px-3 py-2 text-xs leading-relaxed mb-1.5`;
+            item.textContent = text;
+            feed.appendChild(item);
+            feed.scrollTop = feed.scrollHeight;
+        }
+
+        function classifyMessage(text) {
+            if (text.startsWith('✅') || text.startsWith('💾'))  return 'success';
+            if (text.startsWith('❌'))                           return 'error';
+            if (text.startsWith('⚠️'))                          return 'warning';
+            if (text.startsWith('📊') || text.startsWith('📋') || text.startsWith('🔄') || text.startsWith('📝') || text.startsWith('ℹ️')) return 'info';
+            if (text.startsWith('🔍') || text.startsWith('⏳') || text.startsWith('🌐') || text.startsWith('📦') || text.startsWith('🤖') || text.startsWith('📄')) return 'progress';
+            return 'progress';
+        }
+
+        // ========== SSE / Run Step ==========
+        function startSearch() {
+            const pb = document.getElementById('chkPubMed').checked;
+            const em = document.getElementById('chkEmbase').checked;
+            const li = document.getElementById('chkLILACS').checked;
+            const uf = document.getElementById('chkUFMG').checked;
+            runStep(`/api/run/search?pubmed=${pb}&embase=${em}&lilacs=${li}&ufmg=${uf}`, 'feedSearch', 'btnSearch', 'progressSearch', 1);
+        }
+
+        function runStep(url, feedId, btnId, progressId, stepIndex) {
+            const feed = document.getElementById(feedId);
+            const btn = document.getElementById(btnId);
+            const progress = document.getElementById(progressId);
+
+            // Reset & show
+            feed.innerHTML = '';
+            feed.classList.remove('hidden');
+            progress.classList.remove('hidden');
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+            setStepState(stepIndex, 'active');
+
+            let receivedDone = false;
+            const source = new EventSource(url);
+
+            source.onmessage = function(event) {
+                const data = event.data;
+
+                if (data === '[CONNECTED]') {
+                    addStatusItem(feed, '🔗 Conectado — processo iniciado', 'info');
+                    return;
+                }
+                if (data === '[DONE]') {
+                    receivedDone = true;
+                    source.close();
+                    addStatusItem(feed, '✅ Tudo pronto! Tarefa finalizada com sucesso.', 'success');
+                    finish(btn, progress, stepIndex, 'done');
+                    if (btnId === 'btnIA') document.getElementById('btnReport').classList.remove('hidden');
+                    return;
+                }
+                if (data.startsWith('[ERROR]')) {
+                    receivedDone = true;
+                    source.close();
+                    const msg = data.replace('[ERROR]', '').trim();
+                    addStatusItem(feed, `❌ ${msg || 'Ocorreu um erro durante o processo.'}`, 'error');
+                    finish(btn, progress, stepIndex, 'error');
+                    return;
+                }
+                if (data.startsWith('[INFO]')) {
+                    addStatusItem(feed, `ℹ️ ${data.replace('[INFO]', '').trim()}`, 'info');
+                    return;
+                }
+
+                // Regular message — already friendly from backend
+                const type = classifyMessage(data);
+                addStatusItem(feed, data, type);
+            };
+
+            source.onerror = function() {
+                source.close();
+                if (!receivedDone) {
+                    addStatusItem(feed, '⚠️ A conexão foi interrompida. Verifique se o servidor está rodando.', 'warning');
+                    finish(btn, progress, stepIndex, 'error');
+                }
+            };
+        }
+
+        function finish(btn, progress, stepIndex, state) {
+            btn.disabled = false;
+            btn.classList.remove('opacity-50', 'cursor-not-allowed');
+            progress.classList.add('hidden');
+            setStepState(stepIndex, state);
+        }
+        // ---- AI Settings Logic ----
+        async function openSettings() {
+            try {
+                const res = await fetch('/api/config');
+                const data = await res.json();
+                
+                const fields = ['GEMINI_API_KEY', 'ANTHROPIC_API_KEY', 'OPENAI_API_KEY', 'LLM_MODEL', 'OLLAMA_BASE_URL', 'NCBI_API_KEY', 'NCBI_EMAIL', 'ELSEVIER_API_KEY'];
+                
+                fields.forEach(f => {
+                    const el = document.getElementById('cfg_' + f.toLowerCase());
+                    if (el) {
+                        el.value = ""; // Always clear to show placeholder
+                        if (data[f]) {
+                            el.placeholder = data[f];
+                        }
+                    }
+                });
+            } catch(e) {
+                console.error("Falha ao carregar config", e);
+            }
+            
+            const modal = document.getElementById('settingsModal');
+            const content = document.getElementById('settingsContent');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+        
+        function closeSettings() {
+            const modal = document.getElementById('settingsModal');
+            const content = document.getElementById('settingsContent');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+        
+        async function saveSettings() {
+            const btn = document.getElementById('btn-save-settings');
+            const originalHtml = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Salvando...';
+            btn.disabled = true;
+            
+            const payload = {};
+            const fields = ['GEMINI_API_KEY', 'ANTHROPIC_API_KEY', 'OPENAI_API_KEY', 'LLM_MODEL', 'OLLAMA_BASE_URL', 'NCBI_API_KEY', 'NCBI_EMAIL', 'ELSEVIER_API_KEY'];
+            
+            fields.forEach(f => {
+                const el = document.getElementById('cfg_' + f.toLowerCase());
+                if (el && el.value.trim() !== "") {
+                    payload[f] = el.value.trim();
+                }
+            });
+            
+            try {
+                const res = await fetch('/api/config', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(payload)
+                });
+                
+                if (res.ok) {
+                    alert("Configurações salvas com sucesso!");
+                    closeSettings();
+                } else {
+                    alert("Erro ao salvar!");
+                }
+            } catch(e) {
+                alert("Erro de conexão!");
+            } finally {
+                btn.innerHTML = originalHtml;
+                btn.disabled = false;
+            }
+        }
+</script>
+
+    
+    <!-- Modal de Configuração -->
+    <div id="settingsModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50 transition-opacity overflow-y-auto pt-10 pb-10">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl overflow-hidden transform transition-all scale-95 opacity-0 my-auto" id="settingsContent">
+            <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50 sticky top-0 z-10">
+                <h3 class="text-lg font-bold text-gray-800"><i class="fas fa-sliders-h text-brand-600 mr-2"></i> Configurações Gerais</h3>
+                <button onclick="closeSettings()" class="text-gray-400 hover:text-gray-600 focus:outline-none">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="p-6 space-y-8 max-h-[70vh] overflow-y-auto">
+                
+                <!-- Inteligência Artificial -->
+                <div>
+                    <h4 class="text-md font-semibold text-brand-700 mb-3 border-b pb-2"><i class="fas fa-robot mr-2"></i> Inteligência Artificial (LLMs)</h4>
+                    <p class="text-xs text-gray-500 mb-4">Senhas para usar LLMs na nuvem. Se vazio, o sistema tenta usar o Ollama Localmente.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 mb-1">Modelo de IA Preferido</label>
+                            <input type="text" id="cfg_llm_model" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none" placeholder="Ex: gpt-4o-mini">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 mb-1">URL Ollama Local</label>
+                            <input type="text" id="cfg_ollama_base_url" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none" placeholder="http://localhost:11434/v1">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 mb-1">OpenAI API Key</label>
+                            <input type="password" id="cfg_openai_api_key" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none" placeholder="sk-proj-...">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 mb-1">Google Gemini API Key</label>
+                            <input type="password" id="cfg_gemini_api_key" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none" placeholder="AIzaSy...">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-bold text-gray-700 mb-1">Anthropic Claude API Key</label>
+                            <input type="password" id="cfg_anthropic_api_key" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none" placeholder="sk-ant-...">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bases de Busca -->
+                <div>
+                    <h4 class="text-md font-semibold text-brand-700 mb-3 border-b pb-2"><i class="fas fa-search mr-2"></i> Bases de Busca Acadêmica</h4>
+                    <p class="text-xs text-gray-500 mb-4">Chaves opcionais para aumentar o limite de velocidade e quantidade de downloads estruturados.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 mb-1">NCBI/PubMed API Key</label>
+                            <input type="password" id="cfg_ncbi_api_key" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none" placeholder="Opcional. Aumenta o limite para 10/s">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 mb-1">Email NCBI / Unpaywall</label>
+                            <input type="email" id="cfg_ncbi_email" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none" placeholder="seu-email@instituicao.br">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-bold text-gray-700 mb-1">Elsevier / Embase API Key</label>
+                            <input type="password" id="cfg_elsevier_api_key" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none" placeholder="Necessário se não houver IP Institucional">
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="p-5 border-t border-gray-100 bg-gray-50 flex justify-end gap-3 sticky bottom-0 z-10">
+                <button onclick="closeSettings()" class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 transition">
+                    Cancelar
+                </button>
+                <button onclick="saveSettings()" class="px-4 py-2 bg-brand-600 text-white rounded-lg text-sm font-medium hover:bg-brand-700 transition flex items-center gap-2" id="btn-save-settings">
+                    <i class="fas fa-save"></i> Salvar Tudo
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

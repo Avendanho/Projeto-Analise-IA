@@ -34,7 +34,7 @@ def get_llm_client() -> Tuple[Callable[[str, str], str], str]:
                 
                 # O Gemini prefere receber system instructions na configuração do modelo
                 response = client.models.generate_content(
-                    model='gemini-2.5-flash',
+                    model='gemini-3.6-flash',
                     contents=contents,
                     config=types.GenerateContentConfig(
                         system_instruction=system_prompt,
@@ -44,7 +44,7 @@ def get_llm_client() -> Tuple[Callable[[str, str], str], str]:
                 )
                 return response.text
                 
-            return gemini_analyze, "Gemini 2.5 Flash"
+            return gemini_analyze, "Gemini 3.6 Flash"
         except Exception as e:
             print(f"⚠️ Aviso: Falha ao inicializar Gemini ({e}). Tentando próximo provider...")
 

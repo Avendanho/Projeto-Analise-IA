@@ -11,14 +11,14 @@ from connectors.lilacs import fetch_lilacs_dois
 from fallback_search import search_web_for_missing_articles
 
 def run():
-    queries = ler_queries_do_arquivo("../quary.txt")
+    queries = ler_queries_do_arquivo("quary.txt")
     bases = ['PubMed']
     
     resultados_contagem = {}
     todos_dois_brutos, todos_sem_doi = [], []
     
     if not bases:
-        print("Nenhuma base primária selecionada! Indo direto para o fallback (se houver).", flush=True)
+        print("⚠️ Nenhuma base primária foi acionada. Pulando direto para varredura secundária...", flush=True)
     
     for base in bases:
         print(f"\n--- Processando {base} ---", flush=True)
@@ -46,20 +46,40 @@ def run():
     dois_unicos = deduplicate_dois(todos_dois_brutos)
     duplicatas = len(todos_dois_brutos) - len(dois_unicos)
     
-    os.makedirs("../output", exist_ok=True)
+    try:
+        import sys, os
+        sys.path.append(os.path.abspath("../analysis"))
+        from prisma_manager import PrismaManager
+        prisma = PrismaManager("../../")
+        prisma.update_identification(list(bases), len(todos_dois_brutos), len(todos_sem_doi), duplicatas)
+    except Exception as e:
+        print(f"Aviso: Falha ao atualizar PRISMA: {e}")
     
-    with open("../output/dois_extraidos.txt", "w", encoding="utf-8") as f:
+    os.makedirs("output", exist_ok=True)
+    
+    with open("output/dois_extraidos.txt", "w", encoding="utf-8") as f:
         for d in dois_unicos: f.write(f"{d}\n")
-    with open("../output/sem_doi.txt", "w", encoding="utf-8") as f:
+    with open("output/sem_doi.txt", "w", encoding="utf-8") as f:
         for r in todos_sem_doi: f.write(f"{r}\n")
-    with open("../output/DOI\'s.txt", "w", encoding="utf-8") as f:
+    with open("output/DOI\'s.txt", "w", encoding="utf-8") as f:
         for d in dois_unicos: f.write(f"{d}\n")
-    with open("../output/Artigos.txt", "w", encoding="utf-8") as f:
+    with open("output/Artigos.txt", "w", encoding="utf-8") as f:
         for d in dois_unicos: f.write(f"{d}\n")
         for r in todos_sem_doi: f.write(f"{r}\n")
         
+    with open("output/artigos_com_links.txt", "w", encoding="utf-8") as f:
+        for d in dois_unicos:
+            f.write(f"DOI: {d}\n")
+            f.write(f"Link: https://doi.org/{d}\n")
+        if todos_sem_doi:
+            f.write("--- ARTIGOS SEM DOI ---\n")
+            for r in todos_sem_doi:
+                f.write(f"Título: {r}\n")
+                encoded_title = r.replace(' ', '+')
+                f.write(f"Link: https://scholar.google.com/scholar?q=\"{encoded_title}\"\n")
+        
     if todos_sem_doi:
-        search_web_for_missing_articles(todos_sem_doi, "../output/manual_review_links.txt", use_ufmg=True)
+        search_web_for_missing_articles(todos_sem_doi, "output/manual_review_links.txt", use_ufmg=True)
         
     display_results_summary(
         results=resultados_contagem,

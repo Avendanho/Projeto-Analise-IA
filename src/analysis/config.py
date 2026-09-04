@@ -7,7 +7,7 @@ ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 
 class Config(BaseModel):
     pdf_dir: str = str(ROOT_DIR / "pdfs")
-    output_dir: str = str(ROOT_DIR / "reports")
+    output_dir: str = str(ROOT_DIR / "relatorio")
     db_dir: str = str(ROOT_DIR / "data")
     genetic_scope: str = "EXPANDED"
     workers: int = 4

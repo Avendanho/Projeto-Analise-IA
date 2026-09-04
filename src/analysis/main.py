@@ -32,7 +32,7 @@ def analyze(workers: int = 10):
     """Executa a análise com modelo LLM usando múltiplas threads"""
     init_db()
     
-    meta_dir = Path(settings.output_dir) / "data" / "extracted"
+    meta_dir = Path(settings.db_dir) / "extracted"
     if not meta_dir.exists():
         console.print("[red]Execute 'scan' primeiro.[/red]")
         raise typer.Exit()
@@ -44,6 +44,10 @@ def analyze(workers: int = 10):
     import concurrent.futures
     from database import save_analysis
     from llm_client import get_llm_client
+    
+    protocol_path = Path(__file__).parent / "protocolo_triagem.txt"
+    protocolo_texto = protocol_path.read_text(encoding="utf-8") if protocol_path.exists() else "Você é um assistente de triagem."
+    
     try:
         analyze_article, provider_name = get_llm_client()
         console.print(f"[bold green]🤖 Usando: {provider_name}[/bold green]")
@@ -62,9 +66,21 @@ def analyze(workers: int = 10):
             text_content = ""
             if content_path.exists():
                 with open(content_path, "r", encoding="utf-8") as f:
-                    text_content = f.read()[:80000]  # Limite expandido para aproveitar contextos maiores
+                    text_content = f.read()
             
-            # Carrega o protocolo modular
+            import hashlib
+            task_hash = hashlib.md5(f"{meta.get('hash', '')}{protocolo_texto}".encode('utf-8')).hexdigest()
+            
+            from database import get_article
+            cached = get_article(article_id)
+            if cached and cached.get('hash') == task_hash and cached.get('status') == 'COMPLETED':
+                try:
+                    c_json = json.loads(cached.get('analysis_json', '{}'))
+                    raw = c_json.get("raw_json", {})
+                    if "confidence_score" in raw:
+                        return  # Ignora artigo já processado com o mesmo texto e protocolo
+                except Exception:
+                    pass
             
             decision = "REVISÃO MANUAL"
             ex_code = None
@@ -73,9 +89,15 @@ def analyze(workers: int = 10):
             raw_json = {}
             
             if text_content.strip():
-                user_prompt = f"Texto do Artigo:\n\n{text_content}"
+                images_dir = content_path.parent / "images"
+                image_paths = []
+                if images_dir.exists():
+                    import glob
+                    image_paths = glob.glob(str(images_dir / "*.*"))
+                
+                user_prompt = f"Texto do Artigo:\n\n{text_content}\n\nREGRAS RÍGIDAS DE TRIAGEM:\n1. A análise DEVE ser extremamente rígida.\n2. Se o artigo falhar em QUALQUER critério, etapa ou categoria estabelecida no protocolo, ele deve ser classificado IMEDIATAMENTE como 'EXCLUIDO'.\n\nIMPORTANTE: Responda obrigatoriamente no formato JSON, garantindo as chaves: 'parecer_final' ('INCLUIDO', 'EXCLUIDO' ou 'REVISÃO MANUAL'), 'justificativa', 'motivo_principal', e 'confidence_score' (número de 0 a 100)."
                 try:
-                    result_text = analyze_article(protocolo_texto, user_prompt)
+                    result_text = analyze_article(protocolo_texto, user_prompt, image_paths)
                     result_json = json.loads(result_text)
                     raw_json = result_json
                     # Adapt to database format
@@ -90,14 +112,15 @@ def analyze(workers: int = 10):
                     justification = result_json.get("justificativa", str(result_json))
                     ex_code = result_json.get("motivo_principal", "-")
                     if ex_code == "-": ex_code = None
-                    conf = str(result_json.get("seguranca", "ALTO")).upper()
+                    try:
+                        conf = int(result_json.get("confidence_score", result_json.get("seguranca", 0)))
+                    except:
+                        conf = 0
                 except Exception as e:
                     justification = f"Erro na API do LLM: {str(e)}"
-                decision = "INCLUIDO"
-                conf = "ALTO"
-                justification = "Mock analysis"
-                
-            mock_analysis = {
+                    raw_json = {"error": str(e)}
+                    
+            final_analysis = {
                 "decision": decision,
                 "exclusion_code": ex_code,
                 "confidence": conf,
@@ -105,8 +128,11 @@ def analyze(workers: int = 10):
                 "raw_json": raw_json
             }
             
+            save_analysis(article_id, meta["filename"], task_hash, final_analysis)
+            
         except Exception as e:
-            pass
+            console.print(f"[red]Error in process_article: {e}[/red]")
+
             
     with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as executor:
         list(track(executor.map(process_article, articles), total=len(articles), description="Analisando com IA..."))
@@ -131,7 +157,7 @@ def status():
 def report():
     """Gera os relatórios (CSV, JSON, MD, e JSONs por pergunta)"""
     console.print("[bold green]Gerando relatórios detalhados...[/bold green]")
-    reports_dir = Path(settings.output_dir) / "reports"
+    reports_dir = Path(settings.output_dir)
     reports_dir.mkdir(parents=True, exist_ok=True)
     
     import json
@@ -154,9 +180,13 @@ def report():
             
     df['parsed'] = df['analysis_json'].apply(parse_json)
     df['justificativa'] = df['parsed'].apply(lambda x: x.get("justificativa", "Sem justificativa."))
-    df['confidence_score'] = df['parsed'].apply(lambda x: x.get("confidence_score", 0))
-    df['key_synthesis'] = df['parsed'].apply(lambda x: x.get("key_synthesis", "N/A"))
-    df['project_value_added'] = df['parsed'].apply(lambda x: x.get("project_value_added", "N/A"))
+    def parse_conf(val):
+        if isinstance(val, int) or isinstance(val, float): return int(val)
+        if isinstance(val, str) and val.isdigit(): return int(val)
+        return val # returns the string like 'ALTO' instead of 0%
+    df['confidence_score'] = df['parsed'].apply(lambda x: parse_conf(x.get("confidence", 0)))
+    df['key_synthesis'] = df['parsed'].apply(lambda x: x.get("raw_json", {}).get("key_synthesis", "N/A"))
+    df['project_value_added'] = df['parsed'].apply(lambda x: x.get("raw_json", {}).get("project_value_added", "N/A"))
     
     # ---------------------------------------------------------
     # Atualizar PRISMA
@@ -224,25 +254,35 @@ def report():
     # Generate RELATORIO_FINAL.md com Data Charts
     # ---------------------------------------------------------
     with open(reports_dir / "RELATORIO_FINAL.md", "w", encoding="utf-8") as f:
-        f.write("# Relatório Detalhado de Triagem por IA\n\n")
-        f.write("## Resumo Estatístico\n")
+        f.write("# 📊 Relatório Detalhado de Triagem por IA\n\n")
+        
         counts = df['decision'].value_counts()
+        f.write("## 📈 Resumo Estatístico\n\n")
+        f.write(f"- ✅ **INCLUÍDOS:** {counts.get('INCLUIDO', 0)}\n")
+        f.write(f"- ❌ **EXCLUÍDOS:** {counts.get('EXCLUIDO', 0)}\n")
+        f.write(f"- ⚠️ **REVISÃO MANUAL:** {counts.get('REVISÃO MANUAL', 0)}\n\n")
+        f.write("---\n\n")
         
-        f.write("```mermaid\npie title Decisão da IA\n")
-        for decision, count in counts.items():
-            f.write(f'  "{decision}": {count}\n')
-        f.write("```\n\n")
-        
-        f.write("### Análise Detalhada dos Artigos\n\n")
+        f.write("## 📄 Análise Detalhada dos Artigos\n\n")
         
         for _, row in df.iterrows():
-            f.write(f"#### ID: {row['article_id']} | Decisão: {row['decision']}\n")
-            f.write(f"- **Arquivo:** {row['filename']}\n")
-            f.write(f"- **Confiança da IA:** {row['confidence_score']}%\n")
-            f.write(f"- **Síntese (Parte Relevante):** {row['key_synthesis']}\n")
-            f.write(f"- **Agregação ao Projeto:** {row['project_value_added']}\n")
-            f.write(f"- **Justificativa Completa:** {row['justificativa']}\n")
-            f.write(f"---\n")
+            decision = row['decision']
+            icon = "✅" if decision == "INCLUIDO" else "❌" if decision == "EXCLUIDO" else "⚠️"
+            f.write(f"### {icon} [{decision}] ID: {row['article_id']}\n\n")
+            f.write(f"**Arquivo:** `{row['filename']}` | **Confiança da IA:** {row['confidence_score']}%\n\n")
+            
+            f.write(f"**Justificativa:**\n> {row['justificativa']}\n\n")
+            
+            if row['exclusion_code'] and row['exclusion_code'] != "-":
+                f.write(f"- **Motivo Principal (Código):** {row['exclusion_code']}\n")
+                
+            if row['key_synthesis'] and row['key_synthesis'] != "N/A":
+                f.write(f"- **Síntese:** {row['key_synthesis']}\n")
+                
+            if row['project_value_added'] and row['project_value_added'] != "N/A":
+                f.write(f"- **Agregação ao Projeto:** {row['project_value_added']}\n")
+                
+            f.write("\n---\n\n")
             
     console.print(f"[bold green]Concluído! Relatórios gerados em: {reports_dir}[/bold green]")
 

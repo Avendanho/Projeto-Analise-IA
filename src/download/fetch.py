@@ -588,38 +588,28 @@ def _envelope_err(code: str, message: str, *, retryable: bool = False, **ctx) ->
 # ---------------------------------------------------------------------------
 
 
-import requests
-from requests.adapters import HTTPAdapter
-from urllib3.util.retry import Retry
-
-# Global session with connection pooling for massive speedups in API calls
-_global_session = requests.Session()
-_retry_strategy = Retry(
-    total=3,
-    status_forcelist=[429, 500, 502, 503, 504],
-    allowed_methods=["HEAD", "GET", "OPTIONS"],
-    backoff_factor=0.5
-)
-_adapter = HTTPAdapter(max_retries=_retry_strategy, pool_connections=50, pool_maxsize=50)
-_global_session.mount("https://", _adapter)
-_global_session.mount("http://", _adapter)
-
 def _get(url: str, *, accept: str = "application/json", timeout: int, user_agent: str | None = None) -> bytes:
     if _is_institutional():
         _rate_limit_gate()
-    headers = {"User-Agent": user_agent or UA, "Accept": accept}
-    
-    try:
-        r = _global_session.get(url, headers=headers, timeout=timeout)
-        if r.status_code in (404, 410, 401, 403):
-            raise urllib.error.HTTPError(url, r.status_code, "HTTP Error", {}, None)
-        r.raise_for_status()
-        return r.content
-    except requests.exceptions.RequestException as e:
-        if isinstance(e, requests.exceptions.HTTPError) and e.response is not None:
-            if e.response.status_code in (404, 410, 401, 403):
-                raise urllib.error.HTTPError(url, e.response.status_code, str(e), {}, None)
-        raise urllib.error.URLError(str(e))
+    req = urllib.request.Request(url, headers={"User-Agent": user_agent or UA, "Accept": accept})
+    last_err = None
+    for attempt in range(2):
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return r.read()
+        except urllib.error.HTTPError as e:
+            if e.code in (404, 410, 401, 403):
+                raise
+            last_err = e
+            if attempt == 0:
+                time.sleep(0.5)
+        except (urllib.error.URLError, TimeoutError, ConnectionResetError, OSError) as e:
+            last_err = e
+            if attempt == 0:
+                time.sleep(0.5)
+    if last_err is not None:
+        raise last_err
+    raise TimeoutError(f"Request timed out for {url}")
 
 
 def _get_json(url: str, *, timeout: int):

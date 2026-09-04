@@ -52,3 +52,13 @@ def save_analysis(article_id: str, filename: str, file_hash: str, analysis: dict
     conn.commit()
     conn.close()
 
+
+def get_article(article_id: str) -> dict:
+    conn = get_db()
+    c = conn.cursor()
+    c.execute("SELECT * FROM articles WHERE article_id = ?", (article_id,))
+    row = c.fetchone()
+    conn.close()
+    if row:
+        return dict(row)
+    return None

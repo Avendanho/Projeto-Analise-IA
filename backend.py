@@ -13,9 +13,9 @@ import asyncio
 root_dir = Path(__file__).parent.absolute()
 load_dotenv(root_dir / ".env")
 
-encontrar_dois_dir = root_dir / "Encontrar DOI's"
-download_artigos_dir = root_dir / "DownloadArtigos"
-analise_ia_dir = root_dir / "AnaliseIA"
+encontrar_dois_dir = root_dir / "src" / "search"
+download_artigos_dir = root_dir / "src" / "download"
+analise_ia_dir = root_dir / "src" / "analysis"
 
 # PDFs são baixados direto na raiz do projeto
 pdfs_root_dir = root_dir / "pdfs"
@@ -60,47 +60,58 @@ def _sse_headers():
 # ---------------------------------------------------------------------------
 _FRIENDLY_PATTERNS = [
     # Busca
-    (re.compile(r"\[PubMed\] Buscando:.*"),      "🔍 Buscando artigos no PubMed..."),
-    (re.compile(r"\[PubMed\] Encontrados (\d+)"), lambda m: f"📊 PubMed: {m.group(1)} artigos encontrados"),
-    (re.compile(r"\[PubMed\] CSV gerado.*"),      "💾 Dados do PubMed salvos"),
-    (re.compile(r"\[Embase\] Buscando:.*"),       "🔍 Buscando artigos no Embase..."),
-    (re.compile(r"\[Embase\] Encontrados (\d+)"), lambda m: f"📊 Embase: {m.group(1)} artigos encontrados"),
-    (re.compile(r"\[Embase\] ERRO:.*"),           "⚠️ Embase: credenciais não configuradas, pulando"),
-    (re.compile(r"\[LILACS\] Buscando:.*"),       "🔍 Buscando artigos no LILACS..."),
-    (re.compile(r"\[LILACS\] Encontrados (\d+)"), lambda m: f"📊 LILACS: {m.group(1)} artigos encontrados"),
-    (re.compile(r"\[LILACS\] Acesso bloqueado.*"),"⚠️ LILACS: acesso temporariamente bloqueado"),
-    (re.compile(r"\[LILACS\] Nenhum artigo.*"),   "ℹ️ LILACS: nenhum artigo encontrado"),
-    (re.compile(r"\[LILACS\] Baixando.*"),        "⏳ Baixando registros do LILACS..."),
+    (re.compile(r"\[PubMed\] Buscando:.*"),      "🔍 Investigando o PubMed... cruzando termos médicos e MeSH!"),
+    (re.compile(r"\[PubMed\] Encontrados (\d+)"), lambda m: f"🎯 Bingo no PubMed! Localizamos {m.group(1)} artigos fresquinhos."),
+    (re.compile(r"\[PubMed\] CSV gerado.*"),      "💾 Metadados do PubMed devidamente empacotados!"),
+    
+    (re.compile(r"\[Embase\] Buscando:.*"),       "🔬 Ativando radares no Embase... mapeando a literatura europeia!"),
+    (re.compile(r"\[Embase\] Encontrados (\d+)"), lambda m: f"🎯 Sucesso no Embase! {m.group(1)} tesouros científicos encontrados."),
+    (re.compile(r"\[Embase\] ERRO:.*"),           "⚠️ Opa, credenciais do Embase não estão configuradas. Pulando essa base!"),
+    
+    (re.compile(r"\[LILACS\] Buscando:.*"),       "🌎 Conectando à BVS... garimpando ciência na América Latina e Caribe!"),
+    (re.compile(r"\[LILACS\] Encontrados (\d+)"), lambda m: f"🎯 Ótimo! {m.group(1)} publicações regionais pescadas no LILACS."),
+    (re.compile(r"\[LILACS\] Acesso bloqueado.*"),"🛡️ LILACS ativou o modo tartaruga (bloqueio antibot). Desviando..."),
+    (re.compile(r"\[LILACS\] Nenhum artigo.*"),   "🤷‍♂️ O LILACS não retornou nada útil desta vez."),
+    (re.compile(r"\[LILACS\] Baixando.*"),        "⏳ Puxando os registros detalhados do LILACS... paciência é uma virtude!"),
+    
     (re.compile(r"\[UFMG\].*"),                   None),  # Filtrar logs técnicos UFMG
-    (re.compile(r"\[Fallback Web\] Iniciando busca web para (\d+)"), lambda m: f"🌐 Buscando na web {m.group(1)} artigos sem DOI..."),
-    (re.compile(r"\[Fallback Web\] Concluído.*"), "✅ Busca web concluída"),
+    
+    (re.compile(r"\[Fallback Web\] Iniciando busca web para (\d+)"), lambda m: f"🌐 Acionando busca ninja na web para encontrar {m.group(1)} artigos sem DOI..."),
+    (re.compile(r"\[Fallback Web\] Concluído.*"), "✅ Varredura na web concluída com sucesso!"),
+    
     # Processamento
-    (re.compile(r"--- Processando (\w+) ---"),    lambda m: f"⏳ Processando {m.group(1)}..."),
-    (re.compile(r"--- Processamento concluído.*"),"⏳ Extraindo DOIs únicos..."),
-    (re.compile(r"Aviso: Nenhuma query.*(\w+).*Pulando"), lambda m: f"⚠️ Nenhuma query para {m.group(1)}, pulando"),
-    (re.compile(r"Nenhuma base primária selecionada"), "⚠️ Nenhuma base selecionada"),
-    # Resumo (cli_menu.py display_results_summary)
-    (re.compile(r"^(\w+): (\d+) artigos$"),       lambda m: f"📋 {m.group(1)}: {m.group(2)} artigos"),
-    (re.compile(r"^-+$"),                          None),  # Filtrar separadores
-    (re.compile(r"Total bruto: (\d+)"),            lambda m: f"📊 Total bruto: {m.group(1)} artigos"),
-    (re.compile(r"DOIs únicos: (\d+)"),            lambda m: f"✅ DOIs únicos: {m.group(1)}"),
-    (re.compile(r"Duplicatas removidas: (\d+)"),   lambda m: f"🔄 Duplicatas removidas: {m.group(1)}"),
-    (re.compile(r"Sem DOI.*: (\d+)"),              lambda m: f"📝 Artigos sem DOI: {m.group(1)}"),
+    (re.compile(r"--- Processando (\w+) ---"),    lambda m: f"🚀 Aquecendo os motores... iniciando varredura na base {m.group(1)}!"),
+    (re.compile(r"--- Processamento concluído.*"),"🧠 Busca finalizada! Extraindo a essência (DOIs únicos) e eliminando clones..."),
+    (re.compile(r"Aviso: Nenhuma query.*(\w+).*Pulando"), lambda m: f"⚠️ [Alerta] Falta de dados na query para {m.group(1)}. Ignorando rota!"),
+    (re.compile(r"Nenhuma base primária selecionada"), "🛑 Calma lá, chefe! Nenhuma base foi selecionada."),
+    
+    # Resumo
+    (re.compile(r"^(\w+): (\d+) artigos$"),       lambda m: f"📊 {m.group(1)} contribuiu com {m.group(2)} artigos na rede!"),
+    (re.compile(r"^-+$"),                          None),
+    (re.compile(r"Total bruto: (\d+)"),            lambda m: f"🛒 Total na cesta de compras: {m.group(1)} artigos brutos."),
+    (re.compile(r"DOIs únicos: (\d+)"),            lambda m: f"💎 Puro suco extraído: {m.group(1)} artigos únicos (DOIs válidos)!"),
+    (re.compile(r"Duplicatas removidas: (\d+)"),   lambda m: f"✂️ Tchau, cópias! {m.group(1)} duplicatas varridas do mapa."),
+    (re.compile(r"Sem DOI.*: (\d+)"),              lambda m: f"🕵️‍♂️ Artigos fantasma (sem DOI): {m.group(1)}."),
+    
     # Download
-    (re.compile(r"Processando lote (\d+)/(\d+)"),  lambda m: f"📦 Baixando lote {m.group(1)} de {m.group(2)}..."),
-    (re.compile(r"(\d+)/(\d+).*sucesso"),          lambda m: f"✅ {m.group(1)} de {m.group(2)} PDFs baixados"),
-    (re.compile(r"Baixando.*10\.\d+"),             None),  # Filtrar DOIs individuais
-    (re.compile(r"^Saved:.*"),                     None),  # Filtrar paths de arquivos salvos
-    (re.compile(r"^(GET|POST|HTTP|Connecting).*"), None),  # Filtrar logs HTTP
-    (re.compile(r"^\s*$"),                         None),  # Filtrar linhas vazias
+    (re.compile(r"Processando lote (\d+)/(\d+)"),  lambda m: f"📦 Puxando PDFs - Lote {m.group(1)} de {m.group(2)} a todo vapor..."),
+    (re.compile(r"(\d+)/(\d+).*sucesso"),          lambda m: f"✅ Missão cumprida: {m.group(1)} de {m.group(2)} PDFs capturados com sucesso!"),
+    (re.compile(r"Baixando.*10\.\d+"),             None),
+    (re.compile(r"^Saved:.*"),                     None),
+    (re.compile(r"^(GET|POST|HTTP|Connecting).*"), None),
+    (re.compile(r"^\s*$"),                         None),
+    
     # Análise IA
-    (re.compile(r"Extraindo texto.*?(\d+)"),       lambda m: f"📄 Extraindo texto do PDF {m.group(1)}..."),
-    (re.compile(r"Analisando.*?(\d+)"),            lambda m: f"🤖 Analisando artigo {m.group(1)} com IA..."),
-    (re.compile(r"Relatório.*gerado"),             "📝 Relatório gerado com sucesso"),
-    # Erros genéricos
-    (re.compile(r"\[.*\] Erro ao processar: (.+)"),lambda m: f"⚠️ Erro: {m.group(1)}"),
-    (re.compile(r"Traceback.*"),                   None),  # Filtrar tracebacks
-    (re.compile(r"^\s+File .*"),                   None),  # Filtrar stack frames
+    (re.compile(r"Extraindo texto.*?(\d+)"),       lambda m: f"📄 Triturando PDF {m.group(1)} e extraindo o néctar do texto..."),
+    (re.compile(r"Analisando.*?(\d+)"),            lambda m: f"🤖 Acordando a IA para devorar o artigo {m.group(1)}..."),
+    (re.compile(r"Relatório.*gerado"),             "📝 Relatório mágico finalizado e salvo com carinho!"),
+    (re.compile(r"✅ Arquivos PRISMA.*"),          "📈 Gráficos e fluxogramas PRISMA devidamente renderizados!"),
+    (re.compile(r"Concluído! Relatórios.*"),       "🎉 Tudo pronto, chefe! Seus resultados estão na mesa."),
+    
+    # Erros
+    (re.compile(r"\[.*\] Erro ao processar: (.+)"),lambda m: f"⚠️ Xi, deu ruim: {m.group(1)}"),
+    (re.compile(r"Traceback.*"),                   None),
+    (re.compile(r"^\s+File .*"),                   None),
 ]
 
 def _transform_message(raw_text: str) -> str | None:
@@ -185,7 +196,7 @@ async def run_command_sse(cmd, cwd, env=None, transform=True):
 
 @app.get("/api/run/search")
 async def run_search(pubmed: bool = True, embase: bool = True, lilacs: bool = True, ufmg: bool = True):
-    src_dir = encontrar_dois_dir / "src"
+    src_dir = encontrar_dois_dir
     env = os.environ.copy()
     env["PYTHONPATH"] = str(src_dir)
     env["PYTHONUNBUFFERED"] = "1"
@@ -213,14 +224,14 @@ from connectors.lilacs import fetch_lilacs_dois
 from fallback_search import search_web_for_missing_articles
 
 def run():
-    queries = ler_queries_do_arquivo("../quary.txt")
+    queries = ler_queries_do_arquivo("quary.txt")
     bases = {bases_str}
     
     resultados_contagem = {{}}
     todos_dois_brutos, todos_sem_doi = [], []
     
     if not bases:
-        print("Nenhuma base primária selecionada! Indo direto para o fallback (se houver).", flush=True)
+        print("⚠️ Nenhuma base primária foi acionada. Pulando direto para varredura secundária...", flush=True)
     
     for base in bases:
         print(f"\\n--- Processando {{base}} ---", flush=True)
@@ -249,27 +260,27 @@ def run():
     duplicatas = len(todos_dois_brutos) - len(dois_unicos)
     
     try:
-        import sys
-        sys.path.append(os.path.abspath("../../AnaliseIA"))
-        from src.prisma_manager import PrismaManager
+        import sys, os
+        sys.path.append(os.path.abspath("../analysis"))
+        from prisma_manager import PrismaManager
         prisma = PrismaManager("../../")
         prisma.update_identification(list(bases), len(todos_dois_brutos), len(todos_sem_doi), duplicatas)
     except Exception as e:
-        print(f"Aviso: Falha ao atualizar PRISMA: {e}")
+        print(f"Aviso: Falha ao atualizar PRISMA: {{e}}")
     
-    os.makedirs("../output", exist_ok=True)
+    os.makedirs("output", exist_ok=True)
     
-    with open("../output/dois_extraidos.txt", "w", encoding="utf-8") as f:
+    with open("output/dois_extraidos.txt", "w", encoding="utf-8") as f:
         for d in dois_unicos: f.write(f"{{d}}\\n")
-    with open("../output/sem_doi.txt", "w", encoding="utf-8") as f:
+    with open("output/sem_doi.txt", "w", encoding="utf-8") as f:
         for r in todos_sem_doi: f.write(f"{{r}}\\n")
-    with open("../output/DOI\\'s.txt", "w", encoding="utf-8") as f:
+    with open("output/DOI\\'s.txt", "w", encoding="utf-8") as f:
         for d in dois_unicos: f.write(f"{{d}}\\n")
-    with open("../output/Artigos.txt", "w", encoding="utf-8") as f:
+    with open("output/Artigos.txt", "w", encoding="utf-8") as f:
         for d in dois_unicos: f.write(f"{{d}}\\n")
         for r in todos_sem_doi: f.write(f"{{r}}\\n")
         
-    with open("../output/artigos_com_links.txt", "w", encoding="utf-8") as f:
+    with open("output/artigos_com_links.txt", "w", encoding="utf-8") as f:
         for d in dois_unicos:
             f.write(f"DOI: {{d}}\\n")
             f.write(f"Link: https://doi.org/{{d}}\\n")
@@ -281,7 +292,7 @@ def run():
                 f.write(f"Link: https://scholar.google.com/scholar?q=\\"{{encoded_title}}\\"\\n")
         
     if todos_sem_doi:
-        search_web_for_missing_articles(todos_sem_doi, "../output/manual_review_links.txt", use_ufmg={use_ufmg_str})
+        search_web_for_missing_articles(todos_sem_doi, "output/manual_review_links.txt", use_ufmg={use_ufmg_str})
         
     display_results_summary(
         results=resultados_contagem,
@@ -324,7 +335,7 @@ async def run_download(workers: int = 15):
         try:
             # Baixa PDFs direto na pasta raiz do projeto
             cmd = [
-                sys.executable, "src/run_parallel.py",
+                sys.executable, "run_parallel.py",
                 "--file", "data/DOI's.txt",
                 "--out", str(pdfs_root_dir),
                 "--workers", str(workers)
@@ -373,9 +384,9 @@ async def run_analyze(workers: int = 4):
 
 @app.get("/api/report")
 async def download_report():
-    final_report_path = analise_ia_dir / "reports" / "RELATORIO_FINAL.md"
+    final_report_path = root_dir / "relatorio" / "RELATORIO_FINAL.md"
     if final_report_path.exists():
-        return FileResponse(final_report_path, filename="RELATORIO_FINAL.md")
+        return FileResponse(final_report_path)
     return {"error": "Relatório não encontrado"}
 
 
@@ -420,6 +431,7 @@ async def generate_protocol(request: GenerateProtocolRequest):
     system_prompt = """Você é um especialista em revisões sistemáticas e IA.
 Transforme as instruções do usuário em um protocolo de triagem padronizado.
 O protocolo deve explicar o objetivo, regras gerais, e dividir as perguntas em etapas (ETAPA 1, ETAPA 2, etc).
+REGRA DE OURO PARA O PROTOCOLO: Adicione uma instrução explícita no protocolo dizendo que a análise deve ser EXTREMAMENTE RÍGIDA e que, se o artigo falhar em qualquer etapa ou categoria mínima, ele deve ser excluído imediatamente.
 Mantenha rigorosamente as chaves e o formato JSON no final do documento como OBRIGATÓRIO.
 Aqui está a estrutura de saída final exigida no protocolo (NÃO REMOVA OU ALTERE A EXIGÊNCIA DESTE JSON no protocolo que você vai gerar, apenas adapte as chaves Q1, Q2, etc conforme as perguntas criadas):
 
@@ -427,13 +439,17 @@ Aqui está a estrutura de saída final exigida no protocolo (NÃO REMOVA OU ALTE
 O formato exato exigido é um objeto JSON com as chaves exatas abaixo:
 {
   "analise_preliminar": "Escreva aqui uma análise preliminar detalhada...",
+  "parecer_final": "INCLUIDO, EXCLUIDO ou REVISÃO MANUAL",
+  "justificativa": "Explicação detalhada da decisão...",
+  "motivo_principal": "Código de exclusão (ex: E1) ou '-'",
+  "confidence_score": 95, // Nível de confiança da IA (número de 0 a 100)
   "Q1": "S", "Q2": "S", // etc...
   "extracted_snippets": {
     "Q1": ["Citação exata verbatim do texto para Q1"],
     "Q2": ["Citação exata verbatim do texto para Q2"]
   },
   "key_synthesis": "Uma síntese...",
-  "exclusion_code": "E0" // E0 para nenhuma, ou E1, E2 etc
+  "project_value_added": "Valor agregado..."
 }
 """
 
@@ -500,7 +516,20 @@ async def get_config():
         "OLLAMA_BASE_URL": os.environ.get("OLLAMA_BASE_URL", ""),
         "NCBI_API_KEY": mask(os.environ.get("NCBI_API_KEY", "")),
         "NCBI_EMAIL": os.environ.get("NCBI_EMAIL", ""),
-        "ELSEVIER_API_KEY": mask(os.environ.get("ELSEVIER_API_KEY", ""))
+        "ELSEVIER_API_KEY": mask(os.environ.get("ELSEVIER_API_KEY", "")),
+        "EMBASE_API_KEY": mask(os.environ.get("EMBASE_API_KEY", "")),
+        "EMBASE_INST_TOKEN": mask(os.environ.get("EMBASE_INST_TOKEN", "")),
+        "SCOPUS_API_KEY": mask(os.environ.get("SCOPUS_API_KEY", "")),
+        "WOS_API_KEY": mask(os.environ.get("WOS_API_KEY", "")),
+        "SPRINGER_API_KEY": mask(os.environ.get("SPRINGER_API_KEY", "")),
+        "SPRINGER_OA_API_KEY": mask(os.environ.get("SPRINGER_OA_API_KEY", "")),
+        "IEEE_API_KEY": mask(os.environ.get("IEEE_API_KEY", "")),
+        "CORE_API_KEY": mask(os.environ.get("CORE_API_KEY", "")),
+        "UNPAYWALL_EMAIL": os.environ.get("UNPAYWALL_EMAIL", ""),
+        "OPENALEX_MAILTO": os.environ.get("OPENALEX_MAILTO", ""),
+        "CROSSREF_MAILTO": os.environ.get("CROSSREF_MAILTO", ""),
+        "NCBI_TOOL_NAME": os.environ.get("NCBI_TOOL_NAME", ""),
+        "PROXY_URL": os.environ.get("PROXY_URL", "")
     }
 
 @app.post("/api/config")
@@ -530,8 +559,11 @@ async def update_config(request: Request):
             lines.append(f"{key}={value}\\n")
 
     keys = [
-        "OPENAI_API_KEY", "GEMINI_API_KEY", "ANTHROPIC_API_KEY",
-        "LLM_MODEL", "OLLAMA_BASE_URL", "NCBI_API_KEY", "NCBI_EMAIL", "ELSEVIER_API_KEY"
+        "OPENAI_API_KEY", "GEMINI_API_KEY", "ANTHROPIC_API_KEY", "LLM_MODEL", "OLLAMA_BASE_URL", 
+        "NCBI_API_KEY", "ELSEVIER_API_KEY", "EMBASE_API_KEY", "EMBASE_INST_TOKEN", 
+        "SCOPUS_API_KEY", "WOS_API_KEY", "SPRINGER_API_KEY", "SPRINGER_OA_API_KEY", 
+        "IEEE_API_KEY", "CORE_API_KEY", "NCBI_EMAIL", "UNPAYWALL_EMAIL", "OPENALEX_MAILTO", 
+        "CROSSREF_MAILTO", "NCBI_TOOL_NAME", "PROXY_URL"
     ]
     for k in keys:
         if k in data:

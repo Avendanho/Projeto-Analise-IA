@@ -24,7 +24,7 @@ def fetch_lilacs_dois(query: str) -> tuple[int, list[str], list[str]]:
         "Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
     }
     
-    print(f"[LILACS] Buscando: {query}")
+    print("🌎 [LILACS] Cruzando fronteiras! Garimpando publicações na América Latina e Caribe...")
     
     dois = []
     no_doi_records = []
@@ -90,7 +90,7 @@ def fetch_lilacs_dois(query: str) -> tuple[int, list[str], list[str]]:
             if resp.status_code != 200:
                 break
                 
-        print(f"[LILACS] Encontrados {total_count} artigos.")
+        print(f"🎯 [LILACS] Sucesso! Capturamos {total_count} publicações regionais.")
         
     except Exception as e:
         print(f"[LILACS] Falha ao conectar: {e}")

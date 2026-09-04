@@ -28,7 +28,7 @@ def fetch_pubmed_dois(query: str) -> tuple[int, list[str], list[str]]:
     if api_key:
         search_params["api_key"] = api_key
         
-    print(f"[PubMed] Buscando: {query}")
+    print("🧠 [PubMed] Traduzindo complexidade! Mapeando termos MESH e iniciando busca profunda...")
     search_resp = requests.post(search_url, data=search_params)
     search_resp.raise_for_status()
     search_data = search_resp.json()
@@ -36,7 +36,7 @@ def fetch_pubmed_dois(query: str) -> tuple[int, list[str], list[str]]:
     count = int(search_data["esearchresult"]["count"])
     pmids = search_data["esearchresult"]["idlist"]
     
-    print(f"[PubMed] Encontrados {count} artigos.")
+    print(f"🎯 [PubMed] Bingo! Localizamos {count} artigos promissores na base.")
     
     if count == 0:
         return 0, [], []
@@ -116,7 +116,7 @@ def fetch_pubmed_dois(query: str) -> tuple[int, list[str], list[str]]:
         writer.writeheader()
         writer.writerows(all_articles_info)
         
-    print(f"[PubMed] CSV gerado com sucesso em {csv_filepath}")
+    print(f"📁 [PubMed] Metadados organizados em CSV ({csv_filepath}).")
         
     return count, dois, no_doi_pmids
 

@@ -95,3 +95,13 @@ downloads/*
 # ==========================================
 !.env.example
 !frontend/index.html
+
+# Additional outputs
+relatorio/*
+!relatorio/.gitkeep
+src/data/
+src/download/data/
+src/download/test_dois.txt
+src/search/output/
+src/search/quary.txt
+patch_modal.html

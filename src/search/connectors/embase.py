@@ -25,7 +25,7 @@ def fetch_embase_dois(query: str) -> tuple[int, list[str], list[str]]:
     # A URL base padrão para busca no Embase via Elsevier API:
     url = "https://api.elsevier.com/content/search/embase"
     
-    print(f"[Embase] Buscando: {query}")
+    print("🔬 [Embase] Vasculhando a nata da pesquisa biomédica europeia...")
     
     # A paginação da Elsevier API normalmente usa `start` e `count` (max 200)
     count = 0
@@ -51,7 +51,7 @@ def fetch_embase_dois(query: str) -> tuple[int, list[str], list[str]]:
             search_results = data.get("search-results", {})
             if total_results is None:
                 total_results = int(search_results.get("opensearch:totalResults", 0))
-                print(f"[Embase] Encontrados {total_results} artigos.")
+                print(f"🎯 [Embase] Radar apitou! {total_results} resultados encontrados.")
                 
             entries = search_results.get("entry", [])
             if not entries:

@@ -21,11 +21,21 @@ def get_llm_client() -> Tuple[Callable[[str, str], str], str]:
             # Testa o cliente rapidamente
             client = genai.Client(api_key=gemini_key)
             
-            def gemini_analyze(system_prompt: str, user_prompt: str) -> str:
+            def gemini_analyze(system_prompt: str, user_prompt: str, image_paths: list = None) -> str:
+                contents = []
+                if image_paths:
+                    from PIL import Image
+                    for img_path in image_paths:
+                        try:
+                            contents.append(Image.open(img_path))
+                        except Exception:
+                            pass
+                contents.append(user_prompt)
+                
                 # O Gemini prefere receber system instructions na configuração do modelo
                 response = client.models.generate_content(
                     model='gemini-2.5-flash',
-                    contents=user_prompt,
+                    contents=contents,
                     config=types.GenerateContentConfig(
                         system_instruction=system_prompt,
                         response_mime_type="application/json",
@@ -45,7 +55,30 @@ def get_llm_client() -> Tuple[Callable[[str, str], str], str]:
             import anthropic
             client = anthropic.Anthropic(api_key=anthropic_key)
             
-            def claude_analyze(system_prompt: str, user_prompt: str) -> str:
+            def claude_analyze(system_prompt: str, user_prompt: str, image_paths: list = None) -> str:
+                content_list = []
+                if image_paths:
+                    import base64
+                    import mimetypes
+                    for img_path in image_paths:
+                        try:
+                            mime_type, _ = mimetypes.guess_type(img_path)
+                            if not mime_type: mime_type = "image/jpeg"
+                            with open(img_path, "rb") as image_file:
+                                encoded = base64.b64encode(image_file.read()).decode("utf-8")
+                            content_list.append({
+                                "type": "image",
+                                "source": {
+                                    "type": "base64",
+                                    "media_type": mime_type,
+                                    "data": encoded
+                                }
+                            })
+                        except Exception:
+                            pass
+                
+                content_list.append({"type": "text", "text": user_prompt})
+                
                 # O Claude também usa system prompts na sua config de mensagem
                 # e podemos forçar JSON garantindo que ele responda como um formato estruturado
                 # Adicionamos um pre-fill "{" para forçar o output JSON
@@ -55,7 +88,7 @@ def get_llm_client() -> Tuple[Callable[[str, str], str], str]:
                     temperature=0.0,
                     system=system_prompt,
                     messages=[
-                        {"role": "user", "content": user_prompt},
+                        {"role": "user", "content": content_list},
                         {"role": "assistant", "content": "{"}
                     ]
                 )
@@ -78,15 +111,30 @@ def get_llm_client() -> Tuple[Callable[[str, str], str], str]:
             import openai
             client = openai.OpenAI(api_key=openai_key)
             
-            def openai_analyze(system_prompt: str, user_prompt: str) -> str:
+            def openai_analyze(system_prompt: str, user_prompt: str, image_paths: list = None) -> str:
+                content_list = []
+                if image_paths:
+                    import base64
+                    for img_path in image_paths:
+                        try:
+                            with open(img_path, "rb") as image_file:
+                                encoded = base64.b64encode(image_file.read()).decode("utf-8")
+                            content_list.append({
+                                "type": "image_url",
+                                "image_url": {"url": f"data:image/jpeg;base64,{encoded}"}
+                            })
+                        except Exception:
+                            pass
+                content_list.append({"type": "text", "text": user_prompt})
+                
                 response = client.chat.completions.create(
                     model="gpt-4o-mini",
                     messages=[
                         {"role": "system", "content": system_prompt},
-                        {"role": "user", "content": user_prompt}
+                        {"role": "user", "content": content_list}
                     ],
                     response_format={"type": "json_object"},
-                    temperature=0.0
+            temperature=0.0
                 )
                 return response.choices[0].message.content
                 
@@ -111,18 +159,34 @@ def get_llm_client() -> Tuple[Callable[[str, str], str], str]:
         except Exception as e:
             pass
             
-    def ollama_analyze(system_prompt: str, user_prompt: str) -> str:
+    def ollama_analyze(system_prompt: str, user_prompt: str, image_paths: list = None) -> str:
         if not client:
             raise Exception("Nenhum provider de IA disponível. Configure as API Keys no .env ou inicie o Ollama local.")
+            
+        content_list = []
+        if image_paths:
+            import base64
+            for img_path in image_paths:
+                try:
+                    with open(img_path, "rb") as image_file:
+                        encoded = base64.b64encode(image_file.read()).decode("utf-8")
+                    content_list.append({
+                        "type": "image_url",
+                        "image_url": {"url": f"data:image/jpeg;base64,{encoded}"}
+                    })
+                except Exception:
+                    pass
+        content_list.append({"type": "text", "text": user_prompt})
             
         response = client.chat.completions.create(
             model=model_name,
             messages=[
                 {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt}
+                {"role": "user", "content": content_list}
             ],
             response_format={"type": "json_object"},
-            temperature=0.0
+            temperature=0.0,
+            extra_body={"options": {"num_ctx": 32768, "num_predict": 2048}}
         )
         return response.choices[0].message.content
         

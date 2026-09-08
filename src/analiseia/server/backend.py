@@ -308,19 +308,19 @@ async def run_analyze(workers: int = 4):
     
     async def sse_wrapper():
         yield "data: ⏳ Iniciando extração de texto dos PDFs...\n\n"
-        async for msg in run_command_sse([sys.executable, "main.py", "scan"], cwd=analise_ia_dir, env=env):
+        async for msg in run_command_sse([sys.executable, str(analise_ia_dir / "main.py"), "scan"], cwd=root_dir, env=env):
             if "[DONE]" in msg: continue
             if "[ERROR]" in msg: yield msg; return
             yield msg
             
         yield "data: 🤖 Iniciando análise com inteligência artificial...\n\n"
-        async for msg in run_command_sse([sys.executable, "main.py", "analyze", "--workers", str(workers)], cwd=analise_ia_dir, env=env):
+        async for msg in run_command_sse([sys.executable, str(analise_ia_dir / "main.py"), "analyze", "--workers", str(workers)], cwd=root_dir, env=env):
             if "[DONE]" in msg: continue
             if "[ERROR]" in msg: yield msg; return
             yield msg
             
         yield "data: 📝 Gerando relatório final...\n\n"
-        async for msg in run_command_sse([sys.executable, "main.py", "report"], cwd=analise_ia_dir, env=env):
+        async for msg in run_command_sse([sys.executable, str(analise_ia_dir / "main.py"), "report"], cwd=root_dir, env=env):
             yield msg
 
     return StreamingResponse(sse_wrapper(), media_type="text/event-stream", headers=_sse_headers())

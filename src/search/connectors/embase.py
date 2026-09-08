@@ -44,7 +44,7 @@ def fetch_embase_dois(query: str) -> tuple[int, list[str], list[str]]:
         }
         
         try:
-            resp = requests.get(url, headers=headers, params=params)
+            resp = requests.get(url, headers=headers, params=params, timeout=15)
             resp.raise_for_status()
             data = resp.json()
             

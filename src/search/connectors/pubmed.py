@@ -32,7 +32,7 @@ def fetch_pubmed_dois(query: str) -> tuple[int, list[str], list[str]]:
         search_params["api_key"] = api_key
         
     print("🧠 [PubMed] Traduzindo complexidade! Mapeando termos MESH e iniciando busca profunda...")
-    search_resp = requests.post(search_url, data=search_params)
+    search_resp = requests.post(search_url, data=search_params, timeout=15)
     search_resp.raise_for_status()
     search_data = search_resp.json()
     
@@ -66,7 +66,7 @@ def fetch_pubmed_dois(query: str) -> tuple[int, list[str], list[str]]:
         if api_key:
             fetch_params["api_key"] = api_key
             
-        fetch_resp = requests.post(fetch_url, data=fetch_params)
+        fetch_resp = requests.post(fetch_url, data=fetch_params, timeout=15)
         fetch_resp.raise_for_status()
         
         root = ET.fromstring(fetch_resp.content)

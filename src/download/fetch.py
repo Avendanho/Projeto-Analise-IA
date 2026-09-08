@@ -641,8 +641,29 @@ def _is_allowed_host(url: str) -> bool:
     return ok
 
 
+_DOWNLOAD_SESSION = None
+
+def _get_download_session():
+    global _DOWNLOAD_SESSION
+    if _DOWNLOAD_SESSION is None:
+        import requests
+        from requests.adapters import HTTPAdapter
+        from urllib3.util.retry import Retry
+        _DOWNLOAD_SESSION = requests.Session()
+        retry = Retry(total=3, backoff_factor=0.5, status_forcelist=[429, 500, 502, 503, 504], allowed_methods=["GET", "HEAD"])
+        adapter = HTTPAdapter(max_retries=retry, pool_connections=20, pool_maxsize=20)
+        _DOWNLOAD_SESSION.mount("http://", adapter)
+        _DOWNLOAD_SESSION.mount("https://", adapter)
+        _DOWNLOAD_SESSION.headers.update({
+            "User-Agent": DOWNLOAD_UA,
+            "Accept": "application/pdf,application/xhtml+xml,text/html;q=0.9,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.9",
+        })
+    return _DOWNLOAD_SESSION
+
+
 def _download(url: str, dest: Path, *, timeout: int) -> str | None:
-    """Download a PDF with GoByPASS403 multi-module bypass and stealth fallback."""
+    """Download a PDF with streaming fast-path, GoByPASS403 fallback, and Cloak fallback."""
     allowed, deny_reason = _url_fetch_allowed(url)
     if not allowed:
         _progress("download_error", reason="host_not_allowed", url=url, detail=deny_reason)
@@ -672,8 +693,6 @@ def _download(url: str, dest: Path, *, timeout: int) -> str | None:
         return None
 
     def _try_cloak() -> bool:
-        """Retry this URL through CloakBrowser. Returns True iff a valid PDF was
-        fetched and written. No-op (False) when the operator hasn't opted in."""
         if not _is_cloak_enabled():
             return False
         data = _cloak_fetch_pdf(url, timeout=timeout)
@@ -683,44 +702,45 @@ def _download(url: str, dest: Path, *, timeout: int) -> str | None:
         _progress("download_cloak_ok", url=url, bytes=len(data))
         return True
 
-    # 1. Primary Attempt: GoByPASS403 Engine (handles browser fingerprint, IP spoofing, path mutations, curl raw)
-    dl_timeout = timeout
-    ok, err = bypass_download_pdf(url, dest, timeout=dl_timeout)
+    # 1. FAST PATH: Streaming download via requests Session
+    session = _get_download_session()
+    try:
+        with session.get(url, stream=True, timeout=(5, timeout), allow_redirects=True) as r:
+            if r.status_code == 200:
+                # Fast check magic bytes without buffering everything
+                first_chunk = r.raw.read(10)
+                if first_chunk.startswith(b"%PDF"):
+                    dest.parent.mkdir(parents=True, exist_ok=True)
+                    tmp_dest = dest.with_name(f".{dest.name}.tmp.{os.getpid()}_{uuid.uuid4().hex[:6]}")
+                    with open(tmp_dest, "wb") as f:
+                        f.write(first_chunk)
+                        # Stream the rest
+                        for chunk in r.iter_content(chunk_size=8192):
+                            if chunk:
+                                f.write(chunk)
+                    
+                    # Optional: validate full PDF here if needed, but streaming implies we trust it for now
+                    from analiseia.platform.filesystem import safe_replace
+                    safe_replace(tmp_dest, dest)
+                    _progress("download_stream_ok", url=url)
+                    return None
+                else:
+                    # Not a PDF by magic bytes, fallback
+                    pass
+    except Exception as e:
+        pass
+
+    # 2. Secondary Attempt: GoByPASS403 Engine
+    ok, err = bypass_download_pdf(url, dest, timeout=timeout)
     if ok:
         _progress("download_bypass403_ok", url=url)
         return None
 
-    # 2. Secondary Attempt: CloakBrowser stealth if enabled
+    # 3. Third Attempt: CloakBrowser stealth if enabled
     if _is_cloak_enabled() and _try_cloak():
         return None
 
-    # 3. Fallback Attempt: Standard urllib
-    _rate_limit_gate()
-    parsed = urllib.parse.urlparse(url)
-    referer = f"{parsed.scheme}://{parsed.netloc}/"
-
-    headers = {
-        "User-Agent": DOWNLOAD_UA,
-        "Accept": "application/pdf,application/xhtml+xml,text/html;q=0.9,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.9",
-        "Connection": "keep-alive",
-        "Referer": referer,
-    }
-
     last_error = err
-    try:
-        req = urllib.request.Request(url, headers=headers)
-        with urllib.request.urlopen(req, timeout=timeout) as r:
-            data = r.read(MAX_PDF_SIZE + 1)
-            fin_res = _finalize(data)
-            if fin_res is None:
-                return None
-            last_error = fin_res
-    except urllib.error.HTTPError as e:
-        last_error = f"http_{e.code}"
-    except Exception as e:
-        last_error = str(e)
-
     # Handle the last error we encountered
     if last_error == "not_a_pdf":
         _progress("download_error", reason="not_a_pdf", url=url)

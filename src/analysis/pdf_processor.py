@@ -8,12 +8,27 @@ import concurrent.futures
 import pymupdf4llm
 from config import settings
 
+_HASH_CACHE = {}
+
 def get_hash(filepath: str) -> str:
+    path = Path(filepath)
+    if not path.exists():
+        return ""
+        
+    stat = path.stat()
+    cache_key = f"{path.absolute()}_{stat.st_size}_{stat.st_mtime_ns}"
+    
+    if cache_key in _HASH_CACHE:
+        return _HASH_CACHE[cache_key]
+        
     h = hashlib.md5()
     with open(filepath, "rb") as f:
         while chunk := f.read(8192):
             h.update(chunk)
-    return h.hexdigest()
+            
+    hash_val = h.hexdigest()
+    _HASH_CACHE[cache_key] = hash_val
+    return hash_val
 
 
 def _trim_references(text: str) -> str:
@@ -42,30 +57,38 @@ def _process_pdf_worker(filepath: str, article_id: str) -> Dict[str, Any]:
     out_dir.mkdir(parents=True, exist_ok=True)
     
     images_dir = out_dir / "images"
-    images_dir.mkdir(parents=True, exist_ok=True)
     
     text = ""
     try:
-        # Extração em Markdown, com imagens
-        text = pymupdf4llm.to_markdown(filepath, write_images=True, image_path=str(images_dir))
+        # Extração Rápida (Fast Path) - sem extrair imagens
+        text = pymupdf4llm.to_markdown(filepath, write_images=False)
         
         # Otimização: Cortar referências para salvar ~30% dos tokens
         original_len = len(text)
         text = _trim_references(text)
         if len(text) < original_len:
             print(f"[{article_id}] Referências cortadas. Tamanho reduzido em {100 - (len(text)/original_len)*100:.1f}%.")
+            
+        quality = "HIGH" if len(text) > 1000 else "LOW"
+        if "Erro" in text:
+            quality = "ERROR"
+            
+        # Fallback para PDF escaneado (baixa qualidade): gerar imagens para possível análise multimodal
+        if quality != "HIGH":
+            images_dir.mkdir(parents=True, exist_ok=True)
+            text_with_images = pymupdf4llm.to_markdown(filepath, write_images=True, image_path=str(images_dir))
+            text = _trim_references(text_with_images)
+            
     except Exception as e:
+        quality = "ERROR"
         text = f"Erro na extração PyMuPDF4LLM: {str(e)}"
             
     if not text.strip():
         text = "Não foi possível extrair o texto do PDF."
+        quality = "ERROR"
         
     with open(out_dir / "content.md", "w", encoding="utf-8") as f:
         f.write(text)
-        
-    quality = "HIGH" if len(text) > 1000 else "LOW"
-    if "Erro" in text:
-        quality = "ERROR"
         
     meta = {
         "article_id": article_id,
@@ -80,8 +103,8 @@ def _process_pdf_worker(filepath: str, article_id: str) -> Dict[str, Any]:
     return meta
 
 def process_pdf(filepath: str, article_id: str) -> Dict[str, Any]:
-    """Extrai texto e imagens do PDF com suporte a timeout para evitar travamentos."""
-    with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+    """Extrai texto e imagens do PDF com suporte a timeout real usando processos isolados."""
+    with concurrent.futures.ProcessPoolExecutor(max_workers=1) as executor:
         future = executor.submit(_process_pdf_worker, filepath, article_id)
         try:
             return future.result(timeout=60)
@@ -99,5 +122,12 @@ def process_pdf(filepath: str, article_id: str) -> Dict[str, Any]:
             }
             with open(out_dir / "metadata.json", "w", encoding="utf-8") as f:
                 json.dump(meta, f, indent=2)
+            
+            # Matar processos filhos (ProcessPoolExecutor isola o crash)
+            for pid in executor._processes:
+                try:
+                    os.kill(pid, 9)
+                except Exception:
+                    pass
             
             return meta

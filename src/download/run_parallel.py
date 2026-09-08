@@ -342,10 +342,6 @@ def _record_download_index(out_dir: Path, doi: str, filepath: str) -> None:
             if _INDEX_CACHE is not None:
                 _INDEX_CACHE[doi.strip().lower()] = filepath
             
-            # Export Basic BibTeX
-            bib_path = out_dir / "bibliografia.bib"
-            with open(bib_path, "a", encoding="utf-8") as f:
-                f.write(f"@article{{{doi.replace('/', '_')},\n  doi = {{{doi}}},\n  file = {{{filepath}}}\n}}\n\n")
         except Exception:
             pass
 
@@ -379,13 +375,8 @@ def _check_already_downloaded(doi: str, out_dir: Path) -> Path | None:
         if p.is_file() and _is_valid_disk_pdf(p):
             return p
 
-    # 2. Check filename matches in out_dir
-    doi_slug = _slug(doi, n=20).lower()
-    for existing in out_dir.glob("*.pdf"):
-        if doi_slug in existing.name.lower():
-            if _is_valid_disk_pdf(existing):
-                _record_download_index(out_dir, doi, existing.name)
-                return existing
+    # Directory scans per missing item cause O(N^2) lockup with 10k items.
+    # If it's not in the index, we just assume it needs downloading.
     return None
 
 
@@ -708,6 +699,17 @@ def run_parallel_workers(
             print(f"{Style.DIM}(Modo não-interativo detectado. Para iniciar, use o botão na interface Web ou rode deep_search.py manualmente.){Style.RESET}\n")
 
 
+    try:
+        if _INDEX_CACHE:
+            bib_path = out_dir / "bibliografia.bib"
+            bib_content = []
+            for d_doi, d_filepath in _INDEX_CACHE.items():
+                bib_content.append(f"@article{{{d_doi.replace('/', '_')},\n  doi = {{{d_doi}}},\n  file = {{{d_filepath}}}\n}}\n")
+            with open(bib_path, "w", encoding="utf-8") as f:
+                f.write("\n".join(bib_content))
+    except Exception:
+        pass
+
     return doi_results, title_results
 
 
@@ -899,6 +901,17 @@ def run_parallel_workers(
                 pass
         else:
             print(f"{Style.DIM}(Modo não-interativo detectado. Para iniciar, use o botão na interface Web ou rode deep_search.py manualmente.){Style.RESET}\n")
+
+    try:
+        if _INDEX_CACHE:
+            bib_path = out_dir / "bibliografia.bib"
+            bib_content = []
+            for d_doi, d_filepath in _INDEX_CACHE.items():
+                bib_content.append(f"@article{{{d_doi.replace('/', '_')},\n  doi = {{{d_doi}}},\n  file = {{{d_filepath}}}\n}}\n")
+            with open(bib_path, "w", encoding="utf-8") as f:
+                f.write("\n".join(bib_content))
+    except Exception:
+        pass
 
     return doi_results, title_results
 

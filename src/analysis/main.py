@@ -103,6 +103,34 @@ def analyze(workers: int = 10):
                     import glob
                     image_paths = glob.glob(str(images_dir / "*.*"))
                 
+                # FAST SCREENING: Pega as primeiras ~5000 palavras (geralmente Título, Abstract e Introdução)
+                fast_text = text_content[:25000]
+                
+                fast_prompt = f"Avalie o seguinte trecho inicial do artigo (Abstract/Introdução):\n\n{fast_text}\n\nDe acordo com o protocolo, responda APENAS com um JSON contendo 'screening_decision' (LIKELY_EXCLUDED, LIKELY_INCLUDED, ou UNCERTAIN) e 'reason'."
+                
+                try:
+                    fast_result = analyze_article(protocolo_texto, fast_prompt, [])
+                    fast_json = json.loads(fast_result)
+                    
+                    if fast_json.get("screening_decision") == "LIKELY_EXCLUDED":
+                        decision = "EXCLUIDO"
+                        ex_code = "FAST_SCREEN_EXCLUSION"
+                        justification = fast_json.get("reason", "Excluído na triagem rápida pelo abstract.")
+                        conf = 95
+                        raw_json = fast_json
+                        
+                        analysis = {
+                            "decision": decision,
+                            "exclusion_code": ex_code,
+                            "confidence": conf,
+                            "justificativa": justification,
+                            "raw_json": raw_json
+                        }
+                        save_analysis(article_id, meta.get('filename', ''), task_hash, analysis)
+                        return
+                except Exception:
+                    pass # Se falhar a triagem rápida, segue para a completa
+                
                 user_prompt = f"Texto do Artigo:\n\n{text_content}\n\nREGRAS RÍGIDAS DE TRIAGEM:\n1. A análise DEVE ser extremamente rígida.\n2. Se o artigo falhar em QUALQUER critério, ele deve ser classificado IMEDIATAMENTE como 'EXCLUIDO'.\n\nIMPORTANTE: Responda OBRIGATORIAMENTE usando o formato JSON EXATO e COMPLETO definido na Seção 14 do protocolo. Você DEVE incluir a 'analise_preliminar' e TODAS as respostas de 'Q1' a 'Q12' antes de dar o 'parecer_final' para garantir que sua lógica esteja correta."
                 try:
                     result_text = analyze_article(protocolo_texto, user_prompt, image_paths)

@@ -14,6 +14,31 @@ def get_hash(filepath: str) -> str:
             h.update(chunk)
     return h.hexdigest()
 
+
+def _trim_references(text: str) -> str:
+    """Corta as referências bibliográficas do final do artigo para economizar tokens."""
+    # Expressão regular para encontrar seções de referências/bibliografia no terço final do texto
+    # Match headers like '# References', '## BIBLIOGRAPHY', 'Literature Cited'
+    pattern = re.compile(r'
+#{1,3}\s*(?:References|Bibliography|Refer[êe]ncias|Literature Cited)\s*
+', re.IGNORECASE)
+    matches = list(pattern.finditer(text))
+    
+    if not matches:
+        # Tenta procurar sem o hashtag, apenas a palavra isolada em maiúsculo no finalzinho
+        pattern2 = re.compile(r'
+(?:REFERENCES|BIBLIOGRAPHY)\s*
+')
+        matches = list(pattern2.finditer(text))
+        
+    if matches:
+        # Pega a última ocorrência (para evitar cortar se a palavra aparecer na introdução)
+        last_match = matches[-1]
+        # Só corta se a ocorrência estiver na segunda metade do texto
+        if last_match.start() > len(text) * 0.5:
+            return text[:last_match.start()].strip()
+    return text
+
 def _process_pdf_worker(filepath: str, article_id: str) -> Dict[str, Any]:
     out_dir = Path(settings.db_dir) / "extracted" / article_id
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -24,7 +49,13 @@ def _process_pdf_worker(filepath: str, article_id: str) -> Dict[str, Any]:
     text = ""
     try:
         # Extração em Markdown, com imagens
-        text = pymupdf4llm.to_markdown(filepath, write_images=True, image_path=str(images_dir))
+                text = pymupdf4llm.to_markdown(filepath, write_images=True, image_path=str(images_dir))
+        
+        # Otimização: Cortar referências para salvar ~30% dos tokens
+        original_len = len(text)
+        text = _trim_references(text)
+        if len(text) < original_len:
+            print(f"[{article_id}] Referências cortadas. Tamanho reduzido em {100 - (len(text)/original_len)*100:.1f}%.")
     except Exception as e:
         text = f"Erro na extração PyMuPDF4LLM: {str(e)}"
             

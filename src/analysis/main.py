@@ -51,6 +51,12 @@ def analyze(workers: int = 10):
     try:
         analyze_article, provider_name = get_llm_client()
         console.print(f"[bold green]🤖 Usando: {provider_name}[/bold green]")
+        
+        # OTIMIZAÇÃO: Se for Ollama Local, travar em 1 worker para não estourar a VRAM do KV Cache
+        if "Ollama" in provider_name:
+            if workers > 1:
+                console.print("[yellow]⚠️ Reduzindo workers para 1 para otimizar VRAM do Ollama Local...[/yellow]")
+                workers = 1
     except Exception as e:
         console.print(f"[bold red]Erro ao inicializar provedor de IA: {e}[/bold red]")
         raise typer.Exit(1)

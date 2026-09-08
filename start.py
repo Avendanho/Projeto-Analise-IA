@@ -8,7 +8,6 @@ Uso:
     start.bat                (Windows, duplo-clique)
     ./start.sh               (Linux/Mac)
 
-NOTA: Para instalar as dependências, execute scripts/install.ps1 (Windows) ou scripts/install.sh (Linux/Mac).
 """
 
 import os

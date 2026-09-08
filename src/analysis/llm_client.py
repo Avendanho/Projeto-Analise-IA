@@ -14,7 +14,9 @@ def get_llm_client() -> Tuple[Callable[[str, str], str], str]:
     
     # 1. Tentar Gemini
     gemini_key = os.environ.get("GEMINI_API_KEY")
-    if gemini_key:
+    preferred = os.environ.get("LLM_PROVIDER", "").lower()
+    
+    if gemini_key and preferred != "ollama":
         try:
             from google import genai
             from google.genai import types
@@ -75,7 +77,7 @@ def get_llm_client() -> Tuple[Callable[[str, str], str], str]:
 
     # 2. Tentar Claude (Anthropic)
     anthropic_key = os.environ.get("ANTHROPIC_API_KEY")
-    if anthropic_key:
+    if anthropic_key and preferred != "ollama":
         try:
             import anthropic
             client = anthropic.Anthropic(api_key=anthropic_key)
@@ -131,7 +133,7 @@ def get_llm_client() -> Tuple[Callable[[str, str], str], str]:
 
     # 3. Tentar OpenAI
     openai_key = os.environ.get("OPENAI_API_KEY")
-    if openai_key:
+    if openai_key and preferred != "ollama":
         try:
             import openai
             client = openai.OpenAI(api_key=openai_key)

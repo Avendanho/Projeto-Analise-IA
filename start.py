@@ -41,16 +41,25 @@ def print_header():
     print()
 
 def check_venv():
-    """Verifica se o ambiente virtual existe."""
+    """Verifica se o ambiente virtual existe e instala as dependências automaticamente."""
     if not VENV_DIR.exists() or not get_venv_python().exists():
-        print("❌ Ambiente virtual não encontrado ou incompleto.")
-        print("   Por favor, execute o script de instalação primeiro:")
-        if platform.system() == "Windows":
-            print("   → scripts\\install.ps1")
-        else:
-            print("   → ./scripts/install.sh")
-        sys.exit(1)
-
+        print("⚙️ Ambiente virtual não encontrado. Criando e instalando dependências automaticamente...")
+        
+        import venv
+        venv.create(str(VENV_DIR), with_pip=True)
+        py = str(get_venv_python())
+        
+        print("📦 Atualizando pip...")
+        subprocess.run([py, "-m", "pip", "install", "--upgrade", "pip"], check=True)
+        
+        print("📦 Instalando dependências (isso pode levar alguns minutos)...")
+        req_file = str(ROOT_DIR / "requirements.txt")
+        subprocess.run([py, "-m", "pip", "install", "-r", req_file, "fastapi", "uvicorn[standard]", "python-multipart"], check=True)
+        
+        print("🎭 Instalando navegadores do Playwright (para busca profunda)...")
+        subprocess.run([py, "-m", "playwright", "install", "chromium"], check=False)
+        print("✅ Instalação concluída com sucesso!\n")
+        
 def setup_env():
     """Alerta caso .env não exista."""
     if not ENV_FILE.exists():

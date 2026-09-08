@@ -22,6 +22,9 @@ def get_llm_client() -> Tuple[Callable[[str, str], str], str]:
             client = genai.Client(api_key=gemini_key)
             
             def gemini_analyze(system_prompt: str, user_prompt: str, image_paths: list = None) -> str:
+                import time
+                import re
+                
                 if not image_paths:
                     input_data = user_prompt
                 else:
@@ -43,13 +46,28 @@ def get_llm_client() -> Tuple[Callable[[str, str], str], str]:
                             pass
                     input_data.append({"type": "text", "text": user_prompt})
                 
-                interaction = client.interactions.create(
-                    model='gemini-3.7-flash',
-                    input=input_data,
-                    system_instruction=system_prompt,
-                    generation_config={"temperature": 0.0, "response_mime_type": "application/json"}
-                )
-                return interaction.output_text
+                max_retries = 5
+                for attempt in range(max_retries):
+                    try:
+                        interaction = client.interactions.create(
+                            model='gemini-3.7-flash',
+                            input=input_data,
+                            system_instruction=system_prompt,
+                            generation_config={"temperature": 0.0, "response_mime_type": "application/json"}
+                        )
+                        return interaction.output_text
+                    except Exception as e:
+                        err_str = str(e).lower()
+                        if "429" in err_str or "quota" in err_str or "too_many_requests" in err_str:
+                            if attempt < max_retries - 1:
+                                wait_time = 45.0
+                                match = re.search(r'retry in ([\d\.]+)s', err_str)
+                                if match:
+                                    wait_time = float(match.group(1)) + 5.0
+                                print(f"⏳ Limite do Gemini atingido (429). Aguardando {wait_time:.1f}s (Tentativa {attempt+1}/{max_retries})...")
+                                time.sleep(wait_time)
+                                continue
+                        raise e
                 
             return gemini_analyze, "Gemini 3.7 Flash"
         except Exception as e:

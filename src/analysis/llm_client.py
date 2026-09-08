@@ -22,15 +22,26 @@ def get_llm_client() -> Tuple[Callable[[str, str], str], str]:
             client = genai.Client(api_key=gemini_key)
             
             def gemini_analyze(system_prompt: str, user_prompt: str, image_paths: list = None) -> str:
-                input_data = []
-                if image_paths:
-                    from PIL import Image
+                if not image_paths:
+                    input_data = user_prompt
+                else:
+                    input_data = []
+                    import base64
+                    import mimetypes
                     for img_path in image_paths:
                         try:
-                            input_data.append(Image.open(img_path))
+                            mime_type, _ = mimetypes.guess_type(img_path)
+                            if not mime_type: mime_type = "image/jpeg"
+                            with open(img_path, "rb") as image_file:
+                                encoded = base64.b64encode(image_file.read()).decode("utf-8")
+                            input_data.append({
+                                "type": "image",
+                                "data": encoded,
+                                "mime_type": mime_type
+                            })
                         except Exception:
                             pass
-                input_data.append(user_prompt)
+                    input_data.append({"type": "text", "text": user_prompt})
                 
                 interaction = client.interactions.create(
                     model='gemini-3.7-flash',

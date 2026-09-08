@@ -129,6 +129,7 @@ def analyze(workers: int = 10):
             }
             
             save_analysis(article_id, meta["filename"], task_hash, final_analysis)
+            print(f"Artigo {article_id[:20]}... triado como: {decision}", flush=True)
             
         except Exception as e:
             console.print(f"[red]Error in process_article: {e}[/red]")
@@ -227,6 +228,25 @@ def report():
         
     # Salvar resultados brutos
     df.drop(columns=['parsed']).to_csv(reports_dir / "resultados.csv", index=False, encoding="utf-8-sig")
+    
+    # ---------------------------------------------------------
+    # Separar PDFs em pastas
+    # ---------------------------------------------------------
+    import shutil
+    console.print("[bold blue]Copiando PDFs para pastas organizadas...[/bold blue]")
+    dir_incluidos = reports_dir / "pdfs_incluidos"
+    dir_excluidos = reports_dir / "pdfs_excluidos"
+    dir_incluidos.mkdir(exist_ok=True)
+    dir_excluidos.mkdir(exist_ok=True)
+    
+    for _, row in df.iterrows():
+        pdf_path = Path(settings.pdf_dir) / row['filename']
+        if pdf_path.exists():
+            if row['decision'] == 'INCLUIDO':
+                shutil.copy2(pdf_path, dir_incluidos / row['filename'])
+            else:
+                shutil.copy2(pdf_path, dir_excluidos / row['filename'])
+    console.print("[bold green]✅ PDFs organizados.[/bold green]")
     
     # ---------------------------------------------------------
     # Gerar JSONs Extrativos por Pergunta

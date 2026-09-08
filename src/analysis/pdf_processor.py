@@ -1,3 +1,4 @@
+import re
 import os
 import json
 import hashlib
@@ -19,16 +20,13 @@ def _trim_references(text: str) -> str:
     """Corta as referências bibliográficas do final do artigo para economizar tokens."""
     # Expressão regular para encontrar seções de referências/bibliografia no terço final do texto
     # Match headers like '# References', '## BIBLIOGRAPHY', 'Literature Cited'
-    pattern = re.compile(r'
-#{1,3}\s*(?:References|Bibliography|Refer[êe]ncias|Literature Cited)\s*
-', re.IGNORECASE)
+    pattern = re.compile(r'\n#{1,3}\s*(?:References|Bibliography|Refer[êe]ncias|Literature Cited)\s*\n', re.IGNORECASE)
     matches = list(pattern.finditer(text))
     
     if not matches:
         # Tenta procurar sem o hashtag, apenas a palavra isolada em maiúsculo no finalzinho
-        pattern2 = re.compile(r'
-(?:REFERENCES|BIBLIOGRAPHY)\s*
-')
+        pattern2 = re.compile(r'\n(?:REFERENCES|BIBLIOGRAPHY)\s*\n')
+
         matches = list(pattern2.finditer(text))
         
     if matches:

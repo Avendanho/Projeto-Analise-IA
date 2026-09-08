@@ -46,7 +46,11 @@ def process_single_fallback(item, use_ufmg, session):
     except Exception as e:
         return {"original_query": item, "locations": [f"Falha na conexão: {str(e)}"]}
 
-def search_web_for_missing_articles(missing_items: list[str], output_file: str = "output/manual_review_links.txt", use_ufmg: bool = True):
+def search_web_for_missing_articles(missing_items: list[str], output_file: str = None, use_ufmg: bool = True):
+    if output_file is None:
+        from pathlib import Path
+        _SCRIPT_DIR = Path(__file__).resolve().parent
+        output_file = str(_SCRIPT_DIR / "output" / "manual_review_links.txt")
     if not missing_items:
         return
         

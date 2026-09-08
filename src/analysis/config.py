@@ -15,7 +15,9 @@ class Config(BaseModel):
     cache_enabled: bool = True
     confidence_threshold: str = "MODERATE"
 
-def load_config(path: str = "config.yaml") -> Config:
+def load_config(path: str = None) -> Config:
+    if path is None:
+        path = str(ROOT_DIR / "config.yaml")
     if os.path.exists(path):
         with open(path, "r", encoding="utf-8") as f:
             data = yaml.safe_load(f) or {}

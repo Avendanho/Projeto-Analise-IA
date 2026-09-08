@@ -629,7 +629,7 @@ def run_parallel_workers(
         if rp.is_dir():
             try:
                 import shutil
-                shutil.rmtree(rp)
+                shutil.rmtree(rp, ignore_errors=True)
             except Exception:
                 pass
 
@@ -674,21 +674,23 @@ def run_parallel_workers(
     
     if progress.failed > 0:
         print(f"{Style.B_YELLOW}Há {progress.failed} itens não encontrados. Deseja realizar uma Busca Profunda Complementar (PubMed & NTRS)? [s/N]{Style.RESET}")
-        import sys
-        import select
         if sys.stdin.isatty():
             try:
-                # timeout for input
-                i, o, e = select.select([sys.stdin], [], [], 30)
-                if i:
-                    ans = sys.stdin.readline().strip().lower()
-                    if ans == 's':
-                        import subprocess
-                        subprocess.run([sys.executable, "src/deep_search.py"])
+                # Cross-platform input with timeout (select.select crashes on Windows)
+                _input_result = [None]
+                def _read_input():
+                    try: _input_result[0] = input().strip().lower()
+                    except (EOFError, OSError): pass
+                _t = threading.Thread(target=_read_input, daemon=True)
+                _t.start()
+                _t.join(timeout=30)
+                if _input_result[0] == 's':
+                    deep_search_path = SCRIPT_DIR / "deep_search.py"
+                    subprocess.run([sys.executable, str(deep_search_path)])
             except Exception:
                 pass
         else:
-            print(f"{Style.DIM}(Modo não-interativo detectado. Para iniciar, use o botão na interface Web ou rode src/deep_search.py manualmente.){Style.RESET}\n")
+            print(f"{Style.DIM}(Modo não-interativo detectado. Para iniciar, use o botão na interface Web ou rode deep_search.py manualmente.){Style.RESET}\n")
 
 
     return doi_results, title_results
@@ -864,21 +866,22 @@ def run_parallel_workers(
     
     if progress.failed > 0:
         print(f"{Style.B_YELLOW}Há {progress.failed} itens não encontrados. Deseja realizar uma Busca Profunda Complementar (PubMed & NTRS)? [s/N]{Style.RESET}")
-        import sys
-        import select
         if sys.stdin.isatty():
             try:
-                # timeout for input
-                i, o, e = select.select([sys.stdin], [], [], 30)
-                if i:
-                    ans = sys.stdin.readline().strip().lower()
-                    if ans == 's':
-                        import subprocess
-                        subprocess.run([sys.executable, "src/deep_search.py"])
+                _input_result = [None]
+                def _read_input():
+                    try: _input_result[0] = input().strip().lower()
+                    except (EOFError, OSError): pass
+                _t = threading.Thread(target=_read_input, daemon=True)
+                _t.start()
+                _t.join(timeout=30)
+                if _input_result[0] == 's':
+                    deep_search_path = SCRIPT_DIR / "deep_search.py"
+                    subprocess.run([sys.executable, str(deep_search_path)])
             except Exception:
                 pass
         else:
-            print(f"{Style.DIM}(Modo não-interativo detectado. Para iniciar, use o botão na interface Web ou rode src/deep_search.py manualmente.){Style.RESET}\n")
+            print(f"{Style.DIM}(Modo não-interativo detectado. Para iniciar, use o botão na interface Web ou rode deep_search.py manualmente.){Style.RESET}\n")
 
     return doi_results, title_results
 

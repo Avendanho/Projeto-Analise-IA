@@ -10,15 +10,22 @@ from fastapi.staticfiles import StaticFiles
 from dotenv import load_dotenv
 import asyncio
 
-root_dir = Path(__file__).parent.absolute()
-load_dotenv(root_dir / ".env")
+# Ensure src is in sys.path
+_src_dir = Path(__file__).resolve().parent.parent.parent
+if str(_src_dir) not in sys.path:
+    sys.path.insert(0, str(_src_dir))
 
-encontrar_dois_dir = root_dir / "src" / "search"
-download_artigos_dir = root_dir / "src" / "download"
-analise_ia_dir = root_dir / "src" / "analysis"
+from analiseia.config.paths import PROJECT_ROOT, ENV_FILE, PDF_DIR, SEARCH_MODULE_DIR, DOWNLOAD_MODULE_DIR, ANALYSIS_MODULE_DIR, SEARCH_OUTPUT_DIR, DOWNLOAD_DATA_DIR
+
+root_dir = PROJECT_ROOT
+load_dotenv(ENV_FILE)
+
+encontrar_dois_dir = SEARCH_MODULE_DIR
+download_artigos_dir = DOWNLOAD_MODULE_DIR
+analise_ia_dir = ANALYSIS_MODULE_DIR
 
 # PDFs são baixados direto na raiz do projeto
-pdfs_root_dir = root_dir / "pdfs"
+pdfs_root_dir = PDF_DIR
 
 app = FastAPI(title="Automação Acadêmica")
 
@@ -33,19 +40,35 @@ async def read_index():
 @app.post("/api/upload")
 async def upload_file(file: UploadFile = File(...)):
     content = await file.read()
-    file_name = file.filename.lower()
     
-    if "quary" in file_name:
+    try:
+        text_content = content.decode('utf-8').strip()
+    except UnicodeDecodeError:
+        text_content = content.decode('latin-1', errors='ignore').strip()
+        
+    lines = [line.strip() for line in text_content.split('\n') if line.strip()]
+    
+    is_doi = False
+    if lines:
+        doi_count = sum(1 for line in lines if line.startswith('10.') or re.search(r'\b10\.\d{4,9}/[-._;()/:A-Z0-9]+\b', line, re.IGNORECASE))
+        if doi_count > 0 and (doi_count / len(lines)) >= 0.5:
+            is_doi = True
+            
+        if re.search(r'\[(PUBMED|EMBASE|LILACS)\]', text_content, re.IGNORECASE):
+            is_doi = False
+
+    if not is_doi:
         dest_path = encontrar_dois_dir / "quary.txt"
+        dest_path.parent.mkdir(parents=True, exist_ok=True)
         with open(dest_path, "wb") as f:
             f.write(content)
-        return {"status": "success", "message": "Arquivo de queries salvo com sucesso."}
+        return {"status": "success", "message": "Identificado como Queries e salvo com sucesso."}
     else:
         dest_path = download_artigos_dir / "data" / "DOI's.txt"
         dest_path.parent.mkdir(parents=True, exist_ok=True)
         with open(dest_path, "wb") as f:
             f.write(content)
-        return {"status": "success", "message": "Arquivo de DOIs salvo com sucesso."}
+        return {"status": "success", "message": "Identificado como DOIs e salvo com sucesso."}
 
 def _sse_headers():
     """Headers padrão para Server-Sent Events."""
@@ -206,111 +229,26 @@ async def run_search(pubmed: bool = True, embase: bool = True, lilacs: bool = Tr
     if embase: selected_bases.append("Embase")
     if lilacs: selected_bases.append("LILACS")
     
-    bases_str = str(selected_bases)
-    use_ufmg_str = "True" if ufmg else "False"
+    import json as _json
+    bases_json = _json.dumps(selected_bases)
+    use_ufmg_str = "true" if ufmg else "false"
     
-    runner_script = src_dir / "headless_runner.py"
-    with open(runner_script, "w") as f:
-        f.write(f'''import os, sys
-from dotenv import load_dotenv
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-load_dotenv("../../.env")
-from main import ler_queries_do_arquivo
-from doi_utils import deduplicate_dois
-from cli_menu import display_results_summary
-from connectors.pubmed import fetch_pubmed_dois
-from connectors.embase import fetch_embase_dois
-from connectors.lilacs import fetch_lilacs_dois
-from fallback_search import search_web_for_missing_articles
-
-def run():
-    queries = ler_queries_do_arquivo("quary.txt")
-    bases = {bases_str}
-    
-    resultados_contagem = {{}}
-    todos_dois_brutos, todos_sem_doi = [], []
-    
-    if not bases:
-        print("⚠️ Nenhuma base primária foi acionada. Pulando direto para varredura secundária...", flush=True)
-    
-    for base in bases:
-        print(f"\\n--- Processando {{base}} ---", flush=True)
-        query = queries.get(base.upper(), queries.get("DEFAULT"))
-        if not query:
-            print(f"Aviso: Nenhuma query encontrada para {{base}}. Pulando.")
-            resultados_contagem[base] = 0
-            continue
-            
-        count, dois, no_doi = 0, [], []
-        try:
-            if base == "PubMed": count, dois, no_doi = fetch_pubmed_dois(query)
-            elif base == "Embase": count, dois, no_doi = fetch_embase_dois(query)
-            elif base == "LILACS": count, dois, no_doi = fetch_lilacs_dois(query)
-            
-            resultados_contagem[base] = count
-            todos_dois_brutos.extend(dois)
-            todos_sem_doi.extend(no_doi)
-        except Exception as e:
-            print(f"[{{base}}] Erro ao processar: {{str(e)}}", flush=True)
-            resultados_contagem[base] = 0
-            
-    print("\\n--- Processamento concluído. Extraindo DOIs únicos... ---", flush=True)
-    
-    dois_unicos = deduplicate_dois(todos_dois_brutos)
-    duplicatas = len(todos_dois_brutos) - len(dois_unicos)
-    
-    try:
-        import sys, os
-        sys.path.append(os.path.abspath("../analysis"))
-        from prisma_manager import PrismaManager
-        prisma = PrismaManager("../../")
-        prisma.update_identification(list(bases), len(todos_dois_brutos), len(todos_sem_doi), duplicatas)
-    except Exception as e:
-        print(f"Aviso: Falha ao atualizar PRISMA: {{e}}")
-    
-    os.makedirs("output", exist_ok=True)
-    
-    with open("output/dois_extraidos.txt", "w", encoding="utf-8") as f:
-        for d in dois_unicos: f.write(f"{{d}}\\n")
-    with open("output/sem_doi.txt", "w", encoding="utf-8") as f:
-        for r in todos_sem_doi: f.write(f"{{r}}\\n")
-    with open("output/DOI\\'s.txt", "w", encoding="utf-8") as f:
-        for d in dois_unicos: f.write(f"{{d}}\\n")
-    with open("output/Artigos.txt", "w", encoding="utf-8") as f:
-        for d in dois_unicos: f.write(f"{{d}}\\n")
-        for r in todos_sem_doi: f.write(f"{{r}}\\n")
-        
-    with open("output/artigos_com_links.txt", "w", encoding="utf-8") as f:
-        for d in dois_unicos:
-            f.write(f"DOI: {{d}}\\n")
-            f.write(f"Link: https://doi.org/{{d}}\\n")
-        if todos_sem_doi:
-            f.write("--- ARTIGOS SEM DOI ---\\n")
-            for r in todos_sem_doi:
-                f.write(f"Título: {{r}}\\n")
-                encoded_title = r.replace(' ', '+')
-                f.write(f"Link: https://scholar.google.com/scholar?q=\\"{{encoded_title}}\\"\\n")
-        
-    if todos_sem_doi:
-        search_web_for_missing_articles(todos_sem_doi, "output/manual_review_links.txt", use_ufmg={use_ufmg_str})
-        
-    display_results_summary(
-        results=resultados_contagem,
-        total_unique=len(dois_unicos),
-        total_duplicates=duplicatas,
-        total_no_doi=len(todos_sem_doi)
-    )
-run()
-''')
+    # Usa o runner.py diretamente em vez de gerar código Python dinamicamente
+    runner_script = src_dir / "runner.py"
+    cmd = [
+        sys.executable, str(runner_script),
+        "--bases", bases_json,
+        "--ufmg", use_ufmg_str,
+    ]
 
     async def sse_wrapper():
         try:
-            async for msg in run_command_sse([sys.executable, "headless_runner.py"], cwd=src_dir, env=env):
+            async for msg in run_command_sse(cmd, cwd=src_dir, env=env):
                 yield msg
                 
-            dois_orig = encontrar_dois_dir / "output" / "DOI's.txt"
+            dois_orig = SEARCH_OUTPUT_DIR / "DOI's.txt"
             if dois_orig.exists():
-                dois_dest = download_artigos_dir / "data" / "DOI's.txt"
+                dois_dest = DOWNLOAD_DATA_DIR / "DOI's.txt"
                 dois_dest.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(dois_orig, dois_dest)
                 yield "data: [INFO] DOIs prontos para a próxima etapa\n\n"
@@ -417,10 +355,9 @@ async def save_protocol(request: ProtocolRequest):
 @app.post("/api/generate_protocol")
 async def generate_protocol(request: GenerateProtocolRequest):
     import sys
-    # Add AnaliseIA to path to import the new client
-    analise_ia_src = str(analise_ia_dir / "src")
-    if analise_ia_src not in sys.path:
-        sys.path.append(analise_ia_src)
+    # Add analysis dir to path
+    if str(analise_ia_dir) not in sys.path:
+        sys.path.insert(0, str(analise_ia_dir))
         
     try:
         from llm_client import get_llm_client
@@ -452,6 +389,9 @@ O formato exato exigido é um objeto JSON com as chaves exatas abaixo:
   "project_value_added": "Valor agregado..."
 }
 """
+
+    instrucoes = request.instructions
+    gemini_key = os.environ.get("GEMINI_API_KEY")
 
     user_prompt = f"""
 Instruções do usuário:
@@ -537,7 +477,7 @@ async def update_config(request: Request):
     data = await request.json()
     from pathlib import Path
     import os
-    env_path = Path(".env")
+    env_path = root_dir / ".env"
     
     lines = []
     if env_path.exists():

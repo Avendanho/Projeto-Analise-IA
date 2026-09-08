@@ -1,7 +1,17 @@
 import os
 import re
+import sys
 from dotenv import load_dotenv
 
+from pathlib import Path
+
+_SCRIPT_DIR = Path(__file__).resolve().parent
+_PROJECT_ROOT = _SCRIPT_DIR.parent.parent
+_ANALISEIA_DIR = _SCRIPT_DIR.parent / "analiseia"
+if str(_ANALISEIA_DIR.parent) not in sys.path:
+    sys.path.insert(0, str(_ANALISEIA_DIR.parent))
+
+from analiseia.config.paths import ENV_FILE, SEARCH_OUTPUT_DIR, QUERY_FILE
 from cli_menu import select_databases, display_results_summary
 from doi_utils import deduplicate_dois
 from connectors.pubmed import fetch_pubmed_dois
@@ -10,14 +20,17 @@ from connectors.lilacs import fetch_lilacs_dois
 from connectors.ufmg import fetch_ufmg_dois
 from fallback_search import search_web_for_missing_articles
 
-def ler_queries_do_arquivo(filepath="quary.txt") -> dict[str, str]:
+def ler_queries_do_arquivo(filepath=None) -> dict[str, str]:
     """
     Lê o arquivo de texto e retorna um dicionário de queries.
     Se o arquivo tiver seções como [PUBMED], separa por base.
     Se não, usa a mesma query para todas (chave 'DEFAULT').
     """
-    if not os.path.exists(filepath):
-        print(f"Erro: Arquivo '{filepath}' não encontrado no diretório atual.")
+    if filepath is None:
+        filepath = QUERY_FILE
+    filepath = Path(filepath)
+    if not filepath.exists():
+        print(f"Erro: Arquivo '{filepath}' não encontrado.")
         exit(1)
         
     with open(filepath, "r", encoding="utf-8") as f:
@@ -47,10 +60,10 @@ def ler_queries_do_arquivo(filepath="quary.txt") -> dict[str, str]:
 
 def main():
     # Carregar variáveis de ambiente
-    load_dotenv()
+    load_dotenv(ENV_FILE)
     
     bases_selecionadas = select_databases()
-    queries = ler_queries_do_arquivo("quary.txt")
+    queries = ler_queries_do_arquivo()
     
     # Extrair se UFMG foi selecionado e remover das primárias
     use_ufmg_fallback = False
@@ -95,21 +108,21 @@ def main():
     duplicatas = total_bruto_dois - len(dois_unicos)
     
     # Salvar resultados
-    os.makedirs("output", exist_ok=True)
+    SEARCH_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     
-    with open("output/dois_extraidos.txt", "w", encoding="utf-8") as f:
+    with open(SEARCH_OUTPUT_DIR / "dois_extraidos.txt", "w", encoding="utf-8") as f:
         for doi in dois_unicos:
             f.write(f"{doi}\n")
             
-    with open("output/sem_doi.txt", "w", encoding="utf-8") as f:
+    with open(SEARCH_OUTPUT_DIR / "sem_doi.txt", "w", encoding="utf-8") as f:
         for record in todos_sem_doi:
             f.write(f"{record}\n")
             
-    with open("output/DOI's.txt", "w", encoding="utf-8") as f:
+    with open(SEARCH_OUTPUT_DIR / "DOI's.txt", "w", encoding="utf-8") as f:
         for doi in dois_unicos:
             f.write(f"{doi}\n")
             
-    with open("output/Artigos.txt", "w", encoding="utf-8") as f:
+    with open(SEARCH_OUTPUT_DIR / "Artigos.txt", "w", encoding="utf-8") as f:
         for doi in dois_unicos:
             f.write(f"{doi}\n")
         for record in todos_sem_doi:
@@ -117,7 +130,7 @@ def main():
             
     # Rodar fallback web para artigos não encontrados
     if todos_sem_doi:
-        search_web_for_missing_articles(todos_sem_doi, "output/manual_review_links.txt", use_ufmg=use_ufmg_fallback)
+        search_web_for_missing_articles(todos_sem_doi, str(SEARCH_OUTPUT_DIR / "manual_review_links.txt"), use_ufmg=use_ufmg_fallback)
             
     # Exibir Resumo Final
     display_results_summary(

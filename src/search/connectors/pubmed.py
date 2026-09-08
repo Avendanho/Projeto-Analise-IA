@@ -3,6 +3,9 @@ import os
 import time
 import xml.etree.ElementTree as ET
 import csv
+from pathlib import Path
+
+_SCRIPT_DIR = Path(__file__).resolve().parent.parent
 
 def fetch_pubmed_dois(query: str) -> tuple[int, list[str], list[str]]:
     """
@@ -109,8 +112,8 @@ def fetch_pubmed_dois(query: str) -> tuple[int, list[str], list[str]]:
         time.sleep(0.34 if not api_key else 0.11)
         
     # Salvar CSV
-    os.makedirs("output", exist_ok=True)
-    csv_filepath = "output/pubmed_articles.csv"
+    os.makedirs(str(_SCRIPT_DIR / "output"), exist_ok=True)
+    csv_filepath = str(_SCRIPT_DIR / "output" / "pubmed_articles.csv")
     with open(csv_filepath, mode="w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=["PMID", "Title", "Journal", "Year", "DOI"])
         writer.writeheader()

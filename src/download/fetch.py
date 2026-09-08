@@ -658,7 +658,14 @@ def _download(url: str, dest: Path, *, timeout: int) -> str | None:
             dest.parent.mkdir(parents=True, exist_ok=True)
             tmp_dest = dest.with_name(f".{dest.name}.tmp.{os.getpid()}_{uuid.uuid4().hex[:6]}")
             tmp_dest.write_bytes(clean_data)
-            tmp_dest.replace(dest)
+            
+            import sys
+            _ANALISEIA_DIR = Path(__file__).resolve().parent.parent / "analiseia"
+            if str(_ANALISEIA_DIR.parent) not in sys.path:
+                sys.path.insert(0, str(_ANALISEIA_DIR.parent))
+            from analiseia.platform.filesystem import safe_replace
+            
+            safe_replace(tmp_dest, dest)
         except OSError as e:
             _progress("download_error", reason="io_error", error=str(e))
             return "io_error"

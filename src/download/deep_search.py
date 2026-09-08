@@ -34,13 +34,15 @@ def run_deep_search():
     print("🚀 INICIANDO BUSCA PROFUNDA (PubMed & NASA NTRS)")
     print("="*60)
     
-    reports_dir = Path("reports")
+    # Use absolute paths relative to script location
+    _SCRIPT_DIR = Path(__file__).resolve().parent
+    reports_dir = _SCRIPT_DIR
     failed_dois = []
     failed_titles = []
     
     report_file = reports_dir / "Relatório_artigos_por_nome.txt"
     if report_file.exists():
-        with open(report_file, "r") as f:
+        with open(report_file, "r", encoding="utf-8") as f:
             lines = f.readlines()
             for line in lines:
                 if "[NÃO ENCONTRADO]" in line:
@@ -51,7 +53,7 @@ def run_deep_search():
                         
     report_dois = reports_dir / "Relatório.txt"
     if report_dois.exists():
-        with open(report_dois, "r") as f:
+        with open(report_dois, "r", encoding="utf-8") as f:
             lines = f.readlines()
             for line in lines:
                 if "[NÃO ENCONTRADO]" in line:

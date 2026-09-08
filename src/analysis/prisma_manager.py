@@ -8,8 +8,19 @@ except ImportError:
     Document = None
 
 class PrismaManager:
-    def __init__(self, output_dir: str):
-        self.state_file = Path(output_dir).parent / "data" / "prisma_state.json"
+    def __init__(self, output_dir: str = None):
+        if output_dir is None:
+            # Default: data/ directory relative to project root
+            data_dir = Path(__file__).resolve().parent.parent.parent / "data"
+        else:
+            out_path = Path(output_dir)
+            # If output_dir looks like project root or relatorio, find data/ accordingly
+            data_candidate = out_path / "data"
+            if data_candidate.exists() or not (out_path.parent / "data").exists():
+                data_dir = data_candidate
+            else:
+                data_dir = out_path.parent / "data"
+        self.state_file = data_dir / "prisma_state.json"
         self.state_file.parent.mkdir(parents=True, exist_ok=True)
         self.state = self._load_state()
 

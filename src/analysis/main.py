@@ -57,7 +57,7 @@ def analyze(workers: int = 10):
         
     def process_article(meta_file):
         try:
-            with open(meta_file, "r") as f:
+            with open(meta_file, "r", encoding="utf-8") as f:
                 meta = json.load(f)
                 
             article_id = meta["article_id"]
@@ -143,7 +143,7 @@ def analyze(workers: int = 10):
 def status():
     """Mostra o status do banco"""
     init_db()
-    conn = sqlite3.connect(Path(settings.output_dir) / "data" / "analysis.db")
+    conn = sqlite3.connect(str(Path(settings.db_dir) / "analysis.db"), timeout=30.0)
     c = conn.cursor()
     try:
         c.execute("SELECT decision, count(*) as c FROM articles GROUP BY decision")
@@ -226,7 +226,7 @@ def report():
         console.print(f"[yellow]Aviso: Falha ao gerar PRISMA: {e}[/yellow]")
         
     # Salvar resultados brutos
-    df.drop(columns=['parsed']).to_csv(reports_dir / "resultados.csv", index=False)
+    df.drop(columns=['parsed']).to_csv(reports_dir / "resultados.csv", index=False, encoding="utf-8-sig")
     
     # ---------------------------------------------------------
     # Gerar JSONs Extrativos por Pergunta

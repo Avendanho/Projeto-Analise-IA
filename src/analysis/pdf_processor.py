@@ -47,7 +47,7 @@ def _process_pdf_worker(filepath: str, article_id: str) -> Dict[str, Any]:
     text = ""
     try:
         # Extração em Markdown, com imagens
-                text = pymupdf4llm.to_markdown(filepath, write_images=True, image_path=str(images_dir))
+        text = pymupdf4llm.to_markdown(filepath, write_images=True, image_path=str(images_dir))
         
         # Otimização: Cortar referências para salvar ~30% dos tokens
         original_len = len(text)

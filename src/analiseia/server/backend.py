@@ -127,8 +127,13 @@ _FRIENDLY_PATTERNS = [
     # Análise IA
     (re.compile(r"Extraindo texto.*?(\d+)"),       lambda m: f"📄 Triturando PDF {m.group(1)} e extraindo o néctar do texto..."),
     (re.compile(r"Analisando.*?(\d+)"),            lambda m: f"🤖 Acordando a IA para devorar o artigo {m.group(1)}..."),
+    (re.compile(r"Artigo (.*?) triado como: INCLUIDO"), lambda m: f"✅ Artigo incluído: {m.group(1)}"),
+    (re.compile(r"Artigo (.*?) triado como: EXCLUIDO"), lambda m: f"❌ Artigo excluído: {m.group(1)}"),
+    (re.compile(r"Artigo (.*?) triado como: REVISÃO MANUAL"), lambda m: f"⚠️ Enviado p/ Revisão: {m.group(1)}"),
     (re.compile(r"Relatório.*gerado"),             "📝 Relatório mágico finalizado e salvo com carinho!"),
     (re.compile(r"✅ Arquivos PRISMA.*"),          "📈 Gráficos e fluxogramas PRISMA devidamente renderizados!"),
+    (re.compile(r"Copiando PDFs para pastas"),     "📁 Copiando e organizando os PDFs originais nas pastas incluídos/excluídos..."),
+    (re.compile(r"✅ PDFs organizados.*"),         "🗂️ Sucesso! Seus PDFs estão separados nas pastas."),
     (re.compile(r"Concluído! Relatórios.*"),       "🎉 Tudo pronto, chefe! Seus resultados estão na mesa."),
     
     # Erros

@@ -95,7 +95,7 @@ def analyze(workers: int = 10):
                     import glob
                     image_paths = glob.glob(str(images_dir / "*.*"))
                 
-                user_prompt = f"Texto do Artigo:\n\n{text_content}\n\nREGRAS RÍGIDAS DE TRIAGEM:\n1. A análise DEVE ser extremamente rígida.\n2. Se o artigo falhar em QUALQUER critério, etapa ou categoria estabelecida no protocolo, ele deve ser classificado IMEDIATAMENTE como 'EXCLUIDO'.\n\nIMPORTANTE: Responda obrigatoriamente no formato JSON, garantindo as chaves: 'parecer_final' ('INCLUIDO', 'EXCLUIDO' ou 'REVISÃO MANUAL'), 'justificativa', 'motivo_principal', e 'confidence_score' (número de 0 a 100)."
+                user_prompt = f"Texto do Artigo:\n\n{text_content}\n\nREGRAS RÍGIDAS DE TRIAGEM:\n1. A análise DEVE ser extremamente rígida.\n2. Se o artigo falhar em QUALQUER critério, ele deve ser classificado IMEDIATAMENTE como 'EXCLUIDO'.\n\nIMPORTANTE: Responda OBRIGATORIAMENTE usando o formato JSON EXATO e COMPLETO definido na Seção 14 do protocolo. Você DEVE incluir a 'analise_preliminar' e TODAS as respostas de 'Q1' a 'Q12' antes de dar o 'parecer_final' para garantir que sua lógica esteja correta."
                 try:
                     result_text = analyze_article(protocolo_texto, user_prompt, image_paths)
                     result_json = json.loads(result_text)

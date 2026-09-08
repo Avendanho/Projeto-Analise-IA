@@ -200,27 +200,41 @@ async def run_command_sse(cmd, cwd, env=None, transform=True):
         stdout=subprocess.PIPE, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL
     )
     
-    while True:
-        try:
-            line = await asyncio.wait_for(process.stdout.readline(), timeout=15.0)
-            if not line:
-                break
-            text = line.decode('utf-8', errors='replace').rstrip()
-            if text:
-                if transform:
-                    friendly = _transform_message(text)
-                    if friendly:
-                        yield f"data: {friendly}\n\n"
-                else:
-                    yield f"data: {text}\n\n"
-        except asyncio.TimeoutError:
-            yield ": ping\n\n"
-        
-    await process.wait()
-    if process.returncode == 0:
-        yield "data: [DONE]\n\n"
-    else:
-        yield f"data: [ERROR] O processo encontrou um problema (código {process.returncode})\n\n"
+    try:
+        while True:
+            try:
+                line = await asyncio.wait_for(process.stdout.readline(), timeout=15.0)
+                if not line:
+                    break
+                text = line.decode('utf-8', errors='replace').rstrip()
+                if text:
+                    if transform:
+                        friendly = _transform_message(text)
+                        if friendly:
+                            yield f"data: {friendly}\n\n"
+                    else:
+                        yield f"data: {text}\n\n"
+            except asyncio.TimeoutError:
+                if process.returncode is not None:
+                    break
+                yield "data: [HEARTBEAT]\n\n"
+                
+        await process.wait()
+        if process.returncode == 0:
+            yield "data: [DONE]\n\n"
+        else:
+            yield f"data: [ERROR] O processo encontrou um problema (código {process.returncode})\n\n"
+            
+    finally:
+        if process.returncode is None:
+            try:
+                process.terminate()
+                await asyncio.wait_for(process.wait(), timeout=5.0)
+            except Exception:
+                try:
+                    process.kill()
+                except Exception:
+                    pass
 
 @app.get("/api/run/search")
 async def run_search(pubmed: bool = True, embase: bool = True, lilacs: bool = True, ufmg: bool = True):
@@ -490,16 +504,27 @@ async def update_config(request: Request):
     def set_env_var(key, value):
         if value is None or "*" in value: return # Ignore empty or masked
         os.environ[key] = value
-        key_found = False
+        
+        # Remove duplicate keys if any exist (keep the first one found or append new)
+        first_found_idx = -1
+        indices_to_remove = []
         for i, line in enumerate(lines):
             if line.startswith(f"{key}="):
-                lines[i] = f"{key}={value}\\n"
-                key_found = True
-                break
-        if not key_found:
-            if lines and not lines[-1].endswith("\\n"):
-                lines.append("\\n")
-            lines.append(f"{key}={value}\\n")
+                if first_found_idx == -1:
+                    first_found_idx = i
+                else:
+                    indices_to_remove.append(i)
+                    
+        # Remove duplicates from bottom to top to preserve indices
+        for i in reversed(indices_to_remove):
+            lines.pop(i)
+            
+        if first_found_idx != -1:
+            lines[first_found_idx] = f"{key}={value}\n"
+        else:
+            if lines and not lines[-1].endswith("\n"):
+                lines[-1] = lines[-1] + "\n"
+            lines.append(f"{key}={value}\n")
 
     keys = [
         "OPENAI_API_KEY", "GEMINI_API_KEY", "ANTHROPIC_API_KEY", "LLM_MODEL", "OLLAMA_BASE_URL", 

@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "analiseia"
+version = "1.0.0"
+description = "Automação de busca e análise de artigos científicos."
+requires-python = ">=3.10"
+dependencies = [
+    "aiohttp>=3.9.0",
+    "anthropic>=0.30",
+    "beautifulsoup4>=4.12.0",
+    "cloakbrowser>=0.1.3",
+    "curl_cffi>=0.7.0",
+    "fastapi",
+    "google-genai>=2.3.0",
+    "lxml",
+    "markitdown[pdf]",
+    "openai",
+    "pandas>=2.1.4",
+    "pdfplumber>=0.11.0",
+    "pillow>=10.0",
+    "playwright>=1.44.0",
+    "pydantic>=2.0.0",
+    "pymupdf>=1.25.0",
+    "pymupdf4llm>=0.0.17",
+    "pypdf>=3.17.0",
+    "pytesseract>=0.3.10",
+    "python-docx>=1.0.0",
+    "python-dotenv>=1.0.0",
+    "python-multipart",
+    "pyyaml>=6.0.1",
+    "questionary>=2.0.0",
+    "requests>=2.31.0",
+    "rich>=13.7.0",
+    "streamlit",
+    "typer>=0.12.0",
+    "urllib3>=2.0.0",
+    "uvicorn[standard]"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0"
+]

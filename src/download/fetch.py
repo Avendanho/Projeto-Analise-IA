@@ -59,7 +59,7 @@ SCHEMA_VERSION = "1.12.0"
 # ---------------------------------------------------------------------------
 
 EMAIL = os.environ.get("UNPAYWALL_EMAIL", "baduarte@sga.pucminas.br").strip()
-CORE_API_KEY = os.environ.get("CORE_API_KEY", "SmDINqZgwEiT0nlXdjk4AybHczC6QPYR").strip()
+CORE_API_KEY = os.environ.get("CORE_API_KEY", "").strip()
 # UA for API calls (Unpaywall requires contact email in the UA per their ToS).
 UA = f"paper-fetch/{CLI_VERSION} (mailto:{EMAIL or 'anonymous'})"
 # UA for PDF downloads — some publishers (e.g., iiarjournals.org) return
@@ -5376,30 +5376,64 @@ def _resolve_title_v4(title: str, *, timeout: int) -> tuple[str | None, dict]:
         sources.append("ieee")
 
     records: list[dict] = []
-    jobs = []
-    with ThreadPoolExecutor(max_workers=min(TITLE_RECOVERY_WORKERS, len(sources))) as pool:
-        # First pass uses the full title only; this minimizes requests for good matches.
-        for source in sources:
-            jobs.append(pool.submit(_search_title_source, source, variants[0], min(timeout, TITLE_RECOVERY_SOURCE_TIMEOUT)))
+    
+    # 1. FAST PATH: Consult the best sources first
+    fast_sources = ["crossref", "semantic_scholar", "openalex"]
+    remaining_sources = [s for s in sources if s not in fast_sources]
+    
+    def check_strong_hit(current_records):
+        ranked = _rank_title_recovery_candidates(title, current_records)
+        if ranked and float(ranked[0].get("rank_score", 0.0)) >= TITLE_STRONG_THRESHOLD:
+            return ranked
+        return None
+
+    # First pass: Fast sources
+    with ThreadPoolExecutor(max_workers=len(fast_sources)) as pool:
+        jobs = [pool.submit(_search_title_source, s, variants[0], min(timeout, TITLE_RECOVERY_SOURCE_TIMEOUT)) for s in fast_sources]
         for fut in as_completed(jobs):
             try:
                 records.extend(fut.result() or [])
+                # Early stopping check
+                strong_hit = check_strong_hit(records)
+                if strong_hit:
+                    # Cancel remaining if supported
+                    for j in jobs: j.cancel()
+                    break
             except Exception:
                 pass
-
+                
+    ranked = check_strong_hit(records)
+    
+    # 2. PARALLEL DISCOVERY if FAST PATH failed
+    if not ranked and remaining_sources:
+        with ThreadPoolExecutor(max_workers=min(TITLE_RECOVERY_WORKERS, len(remaining_sources))) as pool:
+            jobs = [pool.submit(_search_title_source, s, variants[0], min(timeout, TITLE_RECOVERY_SOURCE_TIMEOUT)) for s in remaining_sources]
+            for fut in as_completed(jobs):
+                try:
+                    records.extend(fut.result() or [])
+                    strong_hit = check_strong_hit(records)
+                    if strong_hit:
+                        for j in jobs: j.cancel()
+                        break
+                except Exception:
+                    pass
+                    
     ranked = _rank_title_recovery_candidates(title, records)
 
-    # If no strong candidate exists, use title variants progressively. This is
-    # the important rescue path for punctuation-heavy, subtitle-heavy, and old titles.
+    # 3. If no strong candidate exists, use title variants progressively.
     if not ranked or float(ranked[0].get("rank_score") or 0.0) < TITLE_STRONG_THRESHOLD:
         for variant in variants[1:]:
-            if len(ranked) and float(ranked[0].get("rank_score") or 0.0) >= TITLE_STRONG_THRESHOLD:
+            if ranked and float(ranked[0].get("rank_score") or 0.0) >= TITLE_STRONG_THRESHOLD:
                 break
             with ThreadPoolExecutor(max_workers=min(TITLE_RECOVERY_WORKERS, len(sources))) as pool:
-                futures = [pool.submit(_search_title_source, source, variant, min(timeout, TITLE_RECOVERY_SOURCE_TIMEOUT)) for source in sources]
-                for fut in as_completed(futures):
+                jobs = [pool.submit(_search_title_source, source, variant, min(timeout, TITLE_RECOVERY_SOURCE_TIMEOUT)) for source in sources]
+                for fut in as_completed(jobs):
                     try:
                         records.extend(fut.result() or [])
+                        strong_hit = check_strong_hit(records)
+                        if strong_hit:
+                            for j in jobs: j.cancel()
+                            break
                     except Exception:
                         pass
             ranked = _rank_title_recovery_candidates(title, records)

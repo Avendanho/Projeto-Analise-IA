@@ -75,7 +75,7 @@ def analyze(workers: int = 10):
                     text_content = f.read()
             
             import hashlib
-            task_hash = hashlib.md5(f"{meta.get('hash', '')}{protocolo_texto}".encode('utf-8')).hexdigest()
+            task_hash = hashlib.md5(f"{meta.get('hash', '')}{protocolo_texto}{provider_name}".encode('utf-8')).hexdigest()
             
             from database import get_article
             cached = get_article(article_id)
@@ -84,7 +84,7 @@ def analyze(workers: int = 10):
                     c_json = json.loads(cached.get('analysis_json', '{}'))
                     raw = c_json.get("raw_json", {})
                     if "confidence_score" in raw:
-                        return  # Ignora artigo já processado com o mesmo texto e protocolo
+                        return
                 except Exception:
                     pass
             
@@ -97,7 +97,9 @@ def analyze(workers: int = 10):
             if text_content.strip():
                 images_dir = content_path.parent / "images"
                 image_paths = []
-                if images_dir.exists():
+                
+                # Only send images if text_quality is LOW or ERROR
+                if images_dir.exists() and meta.get("text_quality") != "HIGH":
                     import glob
                     image_paths = glob.glob(str(images_dir / "*.*"))
                 

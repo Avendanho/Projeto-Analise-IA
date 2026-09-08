@@ -305,29 +305,42 @@ import sqlite3
 
 _INDEX_LOCK = threading.Lock()
 
+_INDEX_CACHE: dict[str, str] | None = None
+
 def _get_db(out_dir: Path):
     db_path = out_dir / ".paper_fetch_index.db"
-    conn = sqlite3.connect(db_path, isolation_level=None)
+    conn = sqlite3.connect(db_path, timeout=30.0, isolation_level=None)
     conn.execute("PRAGMA journal_mode=WAL")
     conn.execute("CREATE TABLE IF NOT EXISTS downloads (doi TEXT PRIMARY KEY, filepath TEXT)")
     return conn
 
 def _load_download_index(out_dir: Path) -> dict[str, str]:
+    global _INDEX_CACHE
+    if _INDEX_CACHE is not None:
+        return _INDEX_CACHE
     with _INDEX_LOCK:
+        if _INDEX_CACHE is not None:
+            return _INDEX_CACHE
         try:
             conn = _get_db(out_dir)
             rows = conn.execute("SELECT doi, filepath FROM downloads").fetchall()
             conn.close()
-            return {row[0]: row[1] for row in rows}
+            _INDEX_CACHE = {row[0]: row[1] for row in rows}
+            return _INDEX_CACHE
         except Exception:
-            return {}
+            _INDEX_CACHE = {}
+            return _INDEX_CACHE
 
 def _record_download_index(out_dir: Path, doi: str, filepath: str) -> None:
+    global _INDEX_CACHE
     with _INDEX_LOCK:
         try:
             conn = _get_db(out_dir)
             conn.execute("INSERT OR REPLACE INTO downloads (doi, filepath) VALUES (?, ?)", (doi, filepath))
             conn.close()
+            
+            if _INDEX_CACHE is not None:
+                _INDEX_CACHE[doi.strip().lower()] = filepath
             
             # Export Basic BibTeX
             bib_path = out_dir / "bibliografia.bib"
@@ -337,7 +350,7 @@ def _record_download_index(out_dir: Path, doi: str, filepath: str) -> None:
             pass
 
 
-def _is_valid_disk_pdf(p: Path) -> bool:
+def _is_valid_disk_pdf(p: Path, full_check: bool = False) -> bool:
     try:
         if not p.is_file() or p.stat().st_size < 1024:
             return False
@@ -345,9 +358,11 @@ def _is_valid_disk_pdf(p: Path) -> bool:
             header = f.read(10)
             if not header.startswith(b"%PDF"):
                 return False
-        data = p.read_bytes()
-        valid, _, _ = validate_pdf_data(data)
-        return valid
+        if full_check:
+            data = p.read_bytes()
+            valid, _, _ = validate_pdf_data(data)
+            return valid
+        return True
     except Exception:
         return False
 
@@ -731,6 +746,8 @@ def run_parallel_workers(
     overwrite: bool = False,
     timeout: int = 25,
 ) -> tuple[list[dict], list[dict]]:
+    dois = list(dict.fromkeys(dois))
+    titles = list(dict.fromkeys(titles))
     total_items = len(dois) + len(titles)
     start_time = time.monotonic()
 

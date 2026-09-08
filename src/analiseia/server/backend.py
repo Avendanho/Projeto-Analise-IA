@@ -402,15 +402,13 @@ Instruções do usuário:
         if gemini_key:
             from google import genai
             client = genai.Client(api_key=gemini_key)
-            resp = client.models.generate_content(
-                model='gemini-2.5-flash',
-                contents=user_prompt,
-                config=genai.types.GenerateContentConfig(
-                    system_instruction=system_prompt,
-                    temperature=0.3
-                )
+            interaction = client.interactions.create(
+                model='gemini-3.7-flash',
+                input=user_prompt,
+                system_instruction=system_prompt,
+                generation_config={"temperature": 0.3, "response_mime_type": "application/json"}
             )
-            generated_protocol = resp.text
+            generated_protocol = interaction.output_text
         else:
             openai_key = os.environ.get("OPENAI_API_KEY")
             import openai

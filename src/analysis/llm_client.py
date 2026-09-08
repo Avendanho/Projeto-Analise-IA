@@ -22,29 +22,25 @@ def get_llm_client() -> Tuple[Callable[[str, str], str], str]:
             client = genai.Client(api_key=gemini_key)
             
             def gemini_analyze(system_prompt: str, user_prompt: str, image_paths: list = None) -> str:
-                contents = []
+                input_data = []
                 if image_paths:
                     from PIL import Image
                     for img_path in image_paths:
                         try:
-                            contents.append(Image.open(img_path))
+                            input_data.append(Image.open(img_path))
                         except Exception:
                             pass
-                contents.append(user_prompt)
+                input_data.append(user_prompt)
                 
-                # O Gemini prefere receber system instructions na configuração do modelo
-                response = client.models.generate_content(
-                    model='gemini-3.6-flash',
-                    contents=contents,
-                    config=types.GenerateContentConfig(
-                        system_instruction=system_prompt,
-                        response_mime_type="application/json",
-                        temperature=0.0
-                    )
+                interaction = client.interactions.create(
+                    model='gemini-3.7-flash',
+                    input=input_data,
+                    system_instruction=system_prompt,
+                    generation_config={"temperature": 0.0, "response_mime_type": "application/json"}
                 )
-                return response.text
+                return interaction.output_text
                 
-            return gemini_analyze, "Gemini 3.6 Flash"
+            return gemini_analyze, "Gemini 3.7 Flash"
         except Exception as e:
             print(f"⚠️ Aviso: Falha ao inicializar Gemini ({e}). Tentando próximo provider...")
 

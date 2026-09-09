@@ -3,3872 +3,1291 @@ RELATÓRIO DETALHADO DE PROCESSAMENTO DE DOIS
 ============================================================
 
 RESUMO GERAL:
-  Total de DOIs processados: 640
-  Sucessos (downloads concluídos): 640
-  Requisições negadas (erros de transporte): 0
-  Não encontrados (sem cópia OA disponível): 0
+  Total de DOIs processados: 210
+  Sucessos (downloads concluídos): 192
+  Requisições negadas (erros de transporte): 15
+  Não encontrados (sem cópia OA disponível): 3
 
-Taxa de sucesso: 100.0%
+Taxa de sucesso: 91.4%
 
 UTILIZAÇÃO DAS FONTES:
-  biorxiv: 1/1 (100.0%)
-  cache: 2/2 (100.0%)
-  crossref: 3/3 (100.0%)
-  doaj: 1/1 (100.0%)
-  doi_resolver: 12/12 (100.0%)
-  europe_pmc: 126/126 (100.0%)
-  libgen: 22/22 (100.0%)
-  openalex: 17/17 (100.0%)
-  scihub: 184/184 (100.0%)
-  semantic_scholar: 7/7 (100.0%)
-  unpaywall: 167/167 (100.0%)
-  zenodo: 98/98 (100.0%)
+  cache: 192/192 (100.0%)
+  crossref: 0/3 (0.0%)
+  publisher_direct: 0/7 (0.0%)
+  scihub: 0/4 (0.0%)
+  unpaywall: 0/1 (0.0%)
 
 DETALHAMENTO POR DOI:
 ------------------------------------------------------------
-  1. DOI: 10.1001/archgenpsychiatry.2011.98
-     Status: sucesso
-     Detalhe: Fonte: libgen
-     Fonte: libgen
-     PDF URL: https://libgen.li/get.php?md5=a70a7ece06e8b7fdbcbc68f3ed658cd8&key=KBNU1AUWUI4PALXO
-
-  2. DOI: 10.1001/jamanetworkopen.2019.21644
-     Status: sucesso
-     Detalhe: Fonte: libgen
-     Fonte: libgen
-     PDF URL: https://libgen.li/get.php?md5=4065e42995d5567714263542ce7d7a5a&key=BHHUA8YTBVDHD692
-
-  3. DOI: 10.1001/jamapsychiatry.2022.0407
+  1. DOI: 10.1001/jamanetworkopen.2024.61639
      Status: sucesso
      Detalhe: Fonte: cache
      Fonte: cache
      PDF URL: None
 
-  4. DOI: 10.1002/ajmg.1320390213
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1002/ajmg.1320390213.pdf
-
-  5. DOI: 10.1002/ajmg.a.35841
-     Status: sucesso
-     Detalhe: Fonte: libgen
-     Fonte: libgen
-     PDF URL: https://libgen.li/get.php?md5=91717248f2a04af67b218c8660119553&key=4Y1SA3UX26CXLBD0
-
-  6. DOI: 10.1002/ajmg.a.35860
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1002/ajmg.a.35860.pdf
-
-  7. DOI: 10.1002/ajmg.a.38521
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1002/ajmg.a.38521.pdf
-
-  8. DOI: 10.1002/ajmg.a.61430
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1002/ajmg.a.61430.pdf
-
-  9. DOI: 10.1002/ajmg.a.63953
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/20355113/files/ICMCRJ-5-2036.pdf/content
-
- 10. DOI: 10.1002/ajmg.b.20147
-     Status: sucesso
-     Detalhe: Fonte: libgen
-     Fonte: libgen
-     PDF URL: https://libgen.li/get.php?md5=f01a8f7e08a41dce56b3081d9f0b2e0a&key=41NFNNTWFE7YY5QT
-
- 11. DOI: 10.1002/ajmg.b.30940
-     Status: sucesso
-     Detalhe: Fonte: libgen
-     Fonte: libgen
-     PDF URL: https://libgen.li/get.php?md5=56803728fa58cd96b8499a90de59bc08&key=IVWSFSZDP5QVNTH0
-
- 12. DOI: 10.1002/ajmg.b.32391
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1002/ajmg.b.32391.pdf
-
- 13. DOI: 10.1002/ajmg.b.32473
-     Status: sucesso
-     Detalhe: Fonte: libgen
-     Fonte: libgen
-     PDF URL: https://libgen.li/get.php?md5=01bc61aa553d2209f975465e11f64435&key=NRBFDGTYGDEPXXGO
-
- 14. DOI: 10.1002/ajmg.b.32567
-     Status: sucesso
-     Detalhe: Fonte: libgen
-     Fonte: libgen
-     PDF URL: https://libgen.li/get.php?md5=5042b5fee6d7dca89f16746bbd41a0b5&key=MRWH1BSK17T46TIU
-
- 15. DOI: 10.1002/ajmg.b.32952
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://impactfactor.org/PDF/IJPCR/14/IJPCR,Vol14,Issue11,Article123.pdf
-
- 16. DOI: 10.1002/ajmg.b.33012
+  2. DOI: 10.1001/jamaoncol.2020.2965
      Status: sucesso
      Detalhe: Fonte: cache
      Fonte: cache
      PDF URL: None
 
- 17. DOI: 10.1002/ajmg.b.33061
+  3. DOI: 10.1001/jamaoncol.2022.3846
      Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/15773961/files/65%20WJPSR%201341.pdf/content
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
- 18. DOI: 10.1002/ajmga.70053
+  4. DOI: 10.1002/advs.202100974
      Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/14715808/files/ICMCRJ-4-1627.pdf/content
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
- 19. DOI: 10.1002/ana.21180
+  5. DOI: 10.1002/cam4.3575
      Status: sucesso
-     Detalhe: Fonte: libgen
-     Fonte: libgen
-     PDF URL: https://libgen.li/get.php?md5=c300380a2070c8de9f383ffa5e087de0&key=A35OXR88MM5K8BFM
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
- 20. DOI: 10.1002/aur.109
+  6. DOI: 10.1002/cam4.5091
      Status: sucesso
-     Detalhe: Fonte: libgen
-     Fonte: libgen
-     PDF URL: https://libgen.li/get.php?md5=d9d5b0569203b764740f78c50e35e690&key=IMN797Q2M3AJLMDH
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
- 21. DOI: 10.1002/aur.1227
+  7. DOI: 10.1002/cam4.6267
      Status: sucesso
-     Detalhe: Fonte: libgen
-     Fonte: libgen
-     PDF URL: https://libgen.li/get.php?md5=c8a7f804c49b05531a0ca116d000776f&key=CF4Y3QTGUKLJ2I84
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
- 22. DOI: 10.1002/aur.1428
+  8. DOI: 10.1002/cam4.70336
      Status: sucesso
-     Detalhe: Fonte: libgen
-     Fonte: libgen
-     PDF URL: https://libgen.li/get.php?md5=6f3d5e5265b94a2c982012918c5f5981&key=NNYYJUR5JKHSCV2X
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
- 23. DOI: 10.1002/aur.1565
+  9. DOI: 10.1002/cncr.32905
      Status: sucesso
-     Detalhe: Fonte: libgen
-     Fonte: libgen
-     PDF URL: https://libgen.li/get.php?md5=2fb80ee3771b42c59b7bd37ae8af7f79&key=2DYJLKPMPYMNQ83F
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
- 24. DOI: 10.1002/aur.1670
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1002/aur.1670.pdf
-
- 25. DOI: 10.1002/aur.197
-     Status: sucesso
-     Detalhe: Fonte: libgen
-     Fonte: libgen
-     PDF URL: https://libgen.li/get.php?md5=73495d5ade06c3fdb0ef79889da58138&key=SXZO0VC6NN7CXWE8
-
- 26. DOI: 10.1002/aur.2217
-     Status: sucesso
-     Detalhe: Fonte: libgen
-     Fonte: libgen
-     PDF URL: https://libgen.li/get.php?md5=d509cde0dade6bcf03810ef7a2654ad3&key=K1WPL95T9OMY022I
-
- 27. DOI: 10.1002/aur.2279
-     Status: sucesso
-     Detalhe: Fonte: libgen
-     Fonte: libgen
-     PDF URL: https://libgen.li/get.php?md5=684dde6527feb1f108bdfa83901b00fc&key=DDLTGNUPEHSWP20L
-
- 28. DOI: 10.1002/aur.2688
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/11057636/files/GSCBPS-2024-0104.pdf/content
-
- 29. DOI: 10.1002/aur.27
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1002/aur.27.pdf
-
- 30. DOI: 10.1002/cti2.1211
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC7662086?pdf=render
-
- 31. DOI: 10.1002/ctm2.215
-     Status: sucesso
-     Detalhe: Fonte: libgen
-     Fonte: libgen
-     PDF URL: https://libgen.li/get.php?md5=023c07c0ad81616fb5db2a9e0dd4014a&key=FJ7OGC6NFJL9CPNT
-
- 32. DOI: 10.1002/dneu.22044
-     Status: sucesso
-     Detalhe: Fonte: libgen
-     Fonte: libgen
-     PDF URL: https://libgen.li/get.php?md5=02cd20297ed6ad77f7f772a00035c8de&key=02UAHLLB7RKKBW8B
-
- 33. DOI: 10.1002/dneu.22046
-     Status: sucesso
-     Detalhe: Fonte: semantic_scholar
-     Fonte: semantic_scholar
-     PDF URL: https://europepmc.org/articles/pmc4365477?pdf=render
-
- 34. DOI: 10.1002/dneu.22657
-     Status: sucesso
-     Detalhe: Fonte: libgen
-     Fonte: libgen
-     PDF URL: https://libgen.li/get.php?md5=464c1871ae8640f6fc13c5ba0c1ebf79&key=MEA3CZOR8B8OBH7W
-
- 35. DOI: 10.1002/dneu.22995
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC12340474?pdf=render
-
- 36. DOI: 10.1002/glia.23176
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1002/glia.23176.pdf
-
- 37. DOI: 10.1002/glia.24325
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/15861191/files/R%C3%B6sing_2024_DM2.pdf/content
-
- 38. DOI: 10.1002/jcv2.12117
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC10242846?pdf=render
-
- 39. DOI: 10.1002/mco2.380
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/6769418/files/Hornberg%20et%20al%202020.pdf/content
-
- 40. DOI: 10.1002/mgg3.2191
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC10422071?pdf=render
-
- 41. DOI: 10.1002/mgg3.786
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC6687626?pdf=render
-
- 42. DOI: 10.1002/mrdd.20086
-     Status: sucesso
-     Detalhe: Fonte: libgen
-     Fonte: libgen
-     PDF URL: https://libgen.li/get.php?md5=3ad5cb8aa56778661f93a8db3eefd18a&key=BFHHC4RUK3INKC9E
-
- 43. DOI: 10.1002/stem.1180
-     Status: sucesso
-     Detalhe: Fonte: libgen
-     Fonte: libgen
-     PDF URL: https://libgen.li/get.php?md5=9f9ba9fd8d81259b4b7ddb2a35b2979c&key=ESC4SXNZGF4CRPOS
-
- 44. DOI: 10.1006/nbdi.2002.0479
-     Status: sucesso
-     Detalhe: Fonte: libgen
-     Fonte: libgen
-     PDF URL: https://libgen.li/get.php?md5=f36aa1bc434e1416711413fde2f72d41&key=76TMHLE1DO3KDPMY
-
- 45. DOI: 10.1007/978-1-4419-6448-9_8
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1007/978-1-4419-6448-9_8.pdf
-
- 46. DOI: 10.1007/978-1-4939-9554-7_29
-     Status: sucesso
-     Detalhe: Fonte: libgen
-     Fonte: libgen
-     PDF URL: https://libgen.li/get.php?md5=9f35c41d93445a1074d2ec309e68c9a7&key=BJZFRTOO534Y2328
-
- 47. DOI: 10.1007/978-3-030-30402-7_4
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/22144598/files/Aggressive%20Behaviour%20and%20Autism%20Spectrum%20Disorder%20%E2%80%93%20Focusing%20on%20the%20Genetic%20Landscape.pptx.pdf/content
-
- 48. DOI: 10.1007/978-3-030-45493-7_1
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/10052570/files/5%20a-case-of-tuberous-sclerosis-with-behavioral-problems-and-poor-scholastic-performance.pdf/content
-
- 49. DOI: 10.1007/978-3-031-64839-7_11
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/16883017/files/28-1508-2025.pdf/content
-
- 50. DOI: 10.1007/978-3-319-52498-6_9
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1007/978-3-319-52498-6_9.pdf
-
- 51. DOI: 10.1007/978-981-13-9913-8_7
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/14795014/files/glia2010.pdf/content
-
- 52. DOI: 10.1007/bf02409837
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1007/bf02409837.pdf
-
- 53. DOI: 10.1007/s00204-023-03604-2
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/17990638/files/ESA%20Vol-IV%20Iss2%20938-950.pdf/content
-
- 54. DOI: 10.1007/s00381-020-04705-4
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1007/s00381-020-04705-4.pdf
-
- 55. DOI: 10.1007/s00401-009-0560-x
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
+ 10. DOI: 10.1002/cncr.35159
+     Status: requisição negada
+     Detalhe: Erro: download_network_error
      Fonte: unpaywall
-     PDF URL: https://link.springer.com/content/pdf/10.1007/s00401-009-0560-x.pdf
+     PDF URL: https://onlinelibrary.wiley.com/doi/pdfdirect/10.1002/cncr.35159
 
- 56. DOI: 10.1007/s00401-016-1553-1
+ 11. DOI: 10.1002/cncr.35329
      Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1007/s00401-016-1553-1.pdf
-
- 57. DOI: 10.1007/s00401-017-1736-4
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1007/s00401-017-1736-4.pdf
-
- 58. DOI: 10.1007/s00401-019-02002-2
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1007/s00401-019-02002-2.pdf
-
- 59. DOI: 10.1007/s00401-026-03022-5
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC13190377?pdf=render
-
- 60. DOI: 10.1007/s00431-025-05982-4
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: http://impactfactor.org/PDF/IJPCR/16/IJPCR,Vol16,Issue10,Article231.pdf
-
- 61. DOI: 10.1007/s00439-006-0301-3
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1007/s00439-006-0301-3.pdf
-
- 62. DOI: 10.1007/s00439-017-1837-0
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1007/s00439-017-1837-0.pdf
-
- 63. DOI: 10.1007/s00439-021-02404-x
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/17077108/files/ARIMS%205119.pdf/content
-
- 64. DOI: 10.1007/s00787-014-0537-8
-     Status: sucesso
-     Detalhe: Fonte: doi_resolver
-     Fonte: doi_resolver
-     PDF URL: https://media.springernature.com/original/springer-static/esm/art%3A10.1007%2Fs00787-014-0537-8/MediaObjects/787_2014_537_MOESM1_ESM.pdf
-
- 65. DOI: 10.1007/s10048-009-0171-7
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1007/s10048-009-0171-7.pdf
-
- 66. DOI: 10.1007/s10048-013-0363-z
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1007/s10048-013-0363-z.pdf
-
- 67. DOI: 10.1007/s100480050064
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1007/s100480050064.pdf
-
- 68. DOI: 10.1007/s10534-026-00833-7
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://link.springer.com/content/pdf/10.1007/s10534-026-00833-7.pdf
-
- 69. DOI: 10.1007/s10539-021-09801-6
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://link.springer.com/content/pdf/10.1007/s10539-021-09801-6.pdf
-
- 70. DOI: 10.1007/s10571-020-00882-7
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC11448616?pdf=render
-
- 71. DOI: 10.1007/s10571-025-01574-w
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://link.springer.com/content/pdf/10.1007/s10571-025-01574-w.pdf
-
- 72. DOI: 10.1007/s10803-019-03921-5
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1007/s10803-019-03921-5.pdf
-
- 73. DOI: 10.1007/s10803-019-04231-6
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1007/s10803-019-04231-6.pdf
-
- 74. DOI: 10.1007/s10803-022-05636-6
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/17645648/files/Heteropaternal%20Superfecundation%20-HBRP%20Publication.pdf/content
-
- 75. DOI: 10.1007/s10803-026-07497-9
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/10617215/files/Whole%20Exome%20Sequencing%20(WES)%20in%20Clinical%20Diagnostics%20-%20Challenges%20and%20Opportunities.pdf/content
-
- 76. DOI: 10.1007/s11011-026-01904-x
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/7342151/files/2204_THz%20Metastructures%20for%20Noninvasive%20Biomedical%20Sensing%20and%20Characterization%20in%20Future%20Health%20Care.pdf/content
-
- 77. DOI: 10.1007/s11033-018-4191-y
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1007/s11033-018-4191-y.pdf
-
- 78. DOI: 10.1007/s11033-025-10604-1
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://link.springer.com/content/pdf/10.1007/s11033-025-10604-1.pdf
-
- 79. DOI: 10.1007/s11064-021-03299-w
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1007/s11064-021-03299-w.pdf
-
- 80. DOI: 10.1007/s11064-025-04471-2
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/19065132/files/Dravet%20Syndrome%20Expanding%20Perspectives%20-Formatted%20Paper.pdf/content
-
- 81. DOI: 10.1007/s11427-015-4941-1
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://link.springer.com/content/pdf/10.1007/s11427-015-4941-1.pdf
-
- 82. DOI: 10.1007/s11910-003-0067-0
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1007/s11910-003-0067-0.pdf
-
- 83. DOI: 10.1007/s11920-001-0006-1
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1007/s11920-001-0006-1.pdf
-
- 84. DOI: 10.1007/s12017-015-8378-2
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1007/s12017-015-8378-2.pdf
-
- 85. DOI: 10.1007/s12031-025-02359-y
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/1153850/files/10.21307_sjcapp-2017-001.pdf/content
-
- 86. DOI: 10.1007/s12031-025-02390-z
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/13982381/files/SROC%20III%2032-33.pdf/content
-
- 87. DOI: 10.1007/s12031-025-02399-4
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/10939562/files/The%20scientific%20heritage%20No%20134%20(134)%20(2024)-30-32.pdf/content
-
- 88. DOI: 10.1007/s12031-025-02420-w
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/15803833/files/List%20of%20strains,plasmids,primers.pdf/content
-
- 89. DOI: 10.1007/s12031-025-02422-8
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/10939562/files/The%20scientific%20heritage%20No%20134%20(134)%20(2024)-30-32.pdf/content
-
- 90. DOI: 10.1007/s12031-026-02496-y
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/8351174/files/1047-Article%20Text-3032-1-10-20230915.pdf/content
-
- 91. DOI: 10.1007/s12035-017-0692-2
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1007/s12035-017-0692-2.pdf
-
- 92. DOI: 10.1007/s12035-020-01881-x
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1007/s12035-020-01881-x.pdf
-
- 93. DOI: 10.1007/s12035-022-02819-1
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/9749/files/TEI_of_Athens_Physiotherapy_Dpt_Papathanasiou_G_-_Editor._Curriculum_Design_-_Course_Description.pdf/content
-
- 94. DOI: 10.1007/s12035-024-04506-9
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci-hub.ru/storage/2024/6091474/550cbf401754290a184a3e9a08e6b0654661213b18a2a9e784371702ab210777/The-Multifaceted-Role-of-L-Type-Amino-Acid-Transporter-1-at-the-Blood-Brain-Barrier-Structural.pdf#view=FitH&navpanes=0
-
- 95. DOI: 10.1007/s12035-024-04637-z
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/14604562/files/Development%20of%20Functional%20Clothing%20for%20Sensory%20Sensitivities%20and%20Stimming%20Behavior%20of%20Children%20with%20Autism%20Spectrum%20Disorder.pdf/content
-
- 96. DOI: 10.1007/s40291-018-0352-x
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://link.springer.com/content/pdf/10.1007/s40291-018-0352-x.pdf
-
- 97. DOI: 10.1007/s44192-026-00540-2
-     Status: sucesso
-     Detalhe: Fonte: doi_resolver
-     Fonte: doi_resolver
-     PDF URL: https://link.springer.com/content/pdf/10.1007/s44192-026-00540-2_reference.pdf
-
- 98. DOI: 10.1016/0165-1781(96)02882-x
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/0165-1781%252896%252902882-x.pdf
-
- 99. DOI: 10.1016/b978-0-12-386467-3.00002-9
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/B978-0-12-386467-3.00002-9.pdf
-
-100. DOI: 10.1016/b978-0-444-62702-5.00006-8
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/B978-0-444-62702-5.00006-8.pdf
-
-101. DOI: 10.1016/bs.pmbts.2020.03.007
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/bs.pmbts.2020.03.007.pdf
-
-102. DOI: 10.1016/bs.pmbts.2020.04.013
-     Status: sucesso
-     Detalhe: Fonte: semantic_scholar
-     Fonte: semantic_scholar
-     PDF URL: https://europepmc.org/articles/pmc7252167?pdf=render
-
-103. DOI: 10.1016/j.ajhg.2011.02.009
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC3071909?pdf=render
-
-104. DOI: 10.1016/j.ajhg.2016.07.019
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC5065650?pdf=render
-
-105. DOI: 10.1016/j.ajhg.2024.07.002
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC11339625?pdf=render
-
-106. DOI: 10.1016/j.ajps.2019.09.002
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC7193445?pdf=render
-
-107. DOI: 10.1016/j.amsu.2020.11.084
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC7779952?pdf=render
-
-108. DOI: 10.1016/j.anngen.2004.03.001
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.anngen.2004.03.001.pdf
-
-109. DOI: 10.1016/j.arcmed.2017.11.006
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.arcmed.2017.11.006.pdf
-
-110. DOI: 10.1016/j.autrev.2011.05.006
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.autrev.2011.05.006.pdf
-
-111. DOI: 10.1016/j.autrev.2016.01.011
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.autrev.2016.01.011.pdf
-
-112. DOI: 10.1016/j.bbadis.2021.166185
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.bbadis.2021.166185.pdf
-
-113. DOI: 10.1016/j.bbamcr.2015.12.005
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC4880039?pdf=render
-
-114. DOI: 10.1016/j.bbi.2014.10.002
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.bbi.2014.10.002.pdf
-
-115. DOI: 10.1016/j.bbi.2017.09.007
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.bbi.2017.09.007.pdf
-
-116. DOI: 10.1016/j.bbi.2020.09.033
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC7534661?pdf=render
-
-117. DOI: 10.1016/j.bbi.2023.06.009
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/7897238/files/978-617-7319-65-7%20Chapter%204.pdf/content
-
-118. DOI: 10.1016/j.bbi.2023.09.010
-     Status: sucesso
-     Detalhe: Fonte: openalex
-     Fonte: openalex
-     PDF URL: https://repository.ubn.ru.nl//bitstream/handle/2066/301247/301247.pdf
-
-119. DOI: 10.1016/j.bbi.2024.09.001
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/14326914/files/1998-Article%20Text-5108-1-10-20241206.pdf/content
-
-120. DOI: 10.1016/j.bbi.2025.07.004
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/16883017/files/28-1508-2025.pdf/content
-
-121. DOI: 10.1016/j.bbi.2026.106986
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/7869612/files/1-s2.0-S0165032723003828-main.pdf/content
-
-122. DOI: 10.1016/j.bbih.2022.100473
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC9166394?pdf=render
-
-123. DOI: 10.1016/j.bbih.2022.100557
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC9706134?pdf=render
-
-124. DOI: 10.1016/j.bbih.2023.100698
-     Status: sucesso
-     Detalhe: Fonte: openalex
-     Fonte: openalex
-     PDF URL: https://repository.ubn.ru.nl/bitstream/handle/2066/299960/1/299960.pdf
-
-125. DOI: 10.1016/j.bbih.2024.100808
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC11231722?pdf=render
-
-126. DOI: 10.1016/j.bbrc.2007.06.051
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.bbrc.2007.06.051.pdf
-
-127. DOI: 10.1016/j.bcp.2024.116358
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/18060406/files/09.pdf/content
-
-128. DOI: 10.1016/j.biochi.2018.11.016
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.biochi.2018.11.016.pdf
-
-129. DOI: 10.1016/j.biochi.2021.02.018
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.biochi.2021.02.018.pdf
-
-130. DOI: 10.1016/j.biopsych.2014.05.024
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.biopsych.2014.05.024.pdf
-
-131. DOI: 10.1016/j.biopsych.2023.07.022
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC10874584?pdf=render
-
-132. DOI: 10.1016/j.biopsych.2026.03.996
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/15593671/files/978-617-8360-21-4.pdf/content
-
-133. DOI: 10.1016/j.blre.2017.03.005
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.blre.2017.03.005.pdf
-
-134. DOI: 10.1016/j.bpsgos.2022.03.015
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC10382699?pdf=render
-
-135. DOI: 10.1016/j.braindev.2005.09.003
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.braindev.2005.09.003.pdf
-
-136. DOI: 10.1016/j.braindev.2007.01.010
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.braindev.2007.01.010.pdf
-
-137. DOI: 10.1016/j.braindev.2018.06.011
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.braindev.2018.06.011.pdf
-
-138. DOI: 10.1016/j.braindev.2026.104519
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/16883017/files/28-1508-2025.pdf/content
-
-139. DOI: 10.1016/j.brainres.2006.03.078
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.brainres.2006.03.078.pdf
-
-140. DOI: 10.1016/j.brainresbull.2025.111411
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: http://impactfactor.org/PDF/IJPCR/16/IJPCR,Vol16,Issue10,Article151.pdf
-
-141. DOI: 10.1016/j.cca.2025.120455
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: http://impactfactor.org/PDF/IJPCR/16/IJPCR,Vol16,Issue9,Article239.pdf
-
-142. DOI: 10.1016/j.cell.2015.11.034
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.cell.2015.11.034.pdf
-
-143. DOI: 10.1016/j.cell.2016.10.031
-     Status: sucesso
-     Detalhe: Fonte: openalex
-     Fonte: openalex
-     PDF URL: https://escholarship.org/content/qt1932x75p/qt1932x75p.pdf
-
-144. DOI: 10.1016/j.cell.2021.07.039
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/7006199/files/openreseurope-2-15811.pdf/content
-
-145. DOI: 10.1016/j.cell.2024.02.035
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/808876/files/02.%20TITE%20ESTABLISHING%20AN%20INTEGRATED%20DIAGNOSTIC%20-%20Victoria%20Zakopoulou.pdf/content
-
-146. DOI: 10.1016/j.cellsig.2026.112566
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/242550/files/P-REX%20D5.1%20Comparison%20of%20sludge%20related%20processes.pdf/content
-
-147. DOI: 10.1016/j.celrep.2020.107685
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.celrep.2020.107685.pdf
-
-148. DOI: 10.1016/j.celrep.2021.109315
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.celrep.2021.109315.pdf
-
-149. DOI: 10.1016/j.celrep.2022.111085
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/10052570/files/5%20a-case-of-tuberous-sclerosis-with-behavioral-problems-and-poor-scholastic-performance.pdf/content
-
-150. DOI: 10.1016/j.clim.2008.11.002
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.clim.2008.11.002.pdf
-
-151. DOI: 10.1016/j.clineuro.2022.107375
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/12511026/files/2024-1-1_10-15.pdf/content
-
-152. DOI: 10.1016/j.clinthera.2013.04.009
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.clinthera.2013.04.009.pdf
-
-153. DOI: 10.1016/j.compbiomed.2022.106334
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/18886890/files/4.pdf/content
-
-154. DOI: 10.1016/j.conb.2019.01.004
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.conb.2019.01.004.pdf
-
-155. DOI: 10.1016/j.conb.2019.03.007
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.conb.2019.03.007.pdf
-
-156. DOI: 10.1016/j.cyto.2015.10.002
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.cyto.2015.10.002.pdf
-
-157. DOI: 10.1016/j.dib.2019.104561
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC6811979?pdf=render
-
-158. DOI: 10.1016/j.ejmg.2010.06.004
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.ejmg.2010.06.004.pdf
-
-159. DOI: 10.1016/j.ejmg.2016.05.004
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.ejmg.2016.05.004.pdf
-
-160. DOI: 10.1016/j.ejmg.2018.04.008
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.ejmg.2018.04.008.pdf
-
-161. DOI: 10.1016/j.envpol.2019.07.066
-     Status: sucesso
-     Detalhe: Fonte: semantic_scholar
-     Fonte: semantic_scholar
-     PDF URL: https://escholarship.org/content/qt7hv456vb/qt7hv456vb.pdf
-
-162. DOI: 10.1016/j.envres.2018.05.020
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.envres.2018.05.020.pdf
-
-163. DOI: 10.1016/j.eurpsy.2013.02.005
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.eurpsy.2013.02.005.pdf
-
-164. DOI: 10.1016/j.expneurol.2017.04.001
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.expneurol.2017.04.001.pdf
-
-165. DOI: 10.1016/j.expneurol.2021.113723
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.expneurol.2021.113723.pdf
-
-166. DOI: 10.1016/j.gene.2012.01.020
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.gene.2012.01.020.pdf
-
-167. DOI: 10.1016/j.gene.2013.10.020
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.gene.2013.10.020.pdf
-
-168. DOI: 10.1016/j.gene.2017.10.035
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.gene.2017.10.035.pdf
-
-169. DOI: 10.1016/j.gene.2021.146021
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/48590/files/IJCTD-2332-2926-02-003e.pdf/content
-
-170. DOI: 10.1016/j.humimm.2008.12.009
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.humimm.2008.12.009.pdf
-
-171. DOI: 10.1016/j.ijdevneu.2013.02.008
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.ijdevneu.2013.02.008.pdf
-
-172. DOI: 10.1016/j.ijheh.2024.114514
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/7573195/files/van%20den%20Bosch_2021_protocol.pdf/content
-
-173. DOI: 10.1016/j.immuni.2018.04.016
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.immuni.2018.04.016.pdf
-
-174. DOI: 10.1016/j.isci.2023.107476
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC10433130?pdf=render
-
-175. DOI: 10.1016/j.jaac.2012.04.010
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.jaac.2012.04.010.pdf
-
-176. DOI: 10.1016/j.jad.2025.01.050
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: http://impactfactor.org/PDF/IJTPR/14/IJTPR,Vol14,Issue11,Article42.pdf
-
-177. DOI: 10.1016/j.jbi.2016.08.008
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.jbi.2016.08.008.pdf
-
-178. DOI: 10.1016/j.jdermsci.2015.04.005
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.jdermsci.2015.04.005.pdf
-
-179. DOI: 10.1016/j.jneuroim.2010.10.019
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.jneuroim.2010.10.019.pdf
-
-180. DOI: 10.1016/j.jneuroim.2014.12.003
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.jneuroim.2014.12.003.pdf
-
-181. DOI: 10.29245/2572.942x/2024/2.1301
-     Status: sucesso
-     Detalhe: Fonte: doi_resolver
-     Fonte: doi_resolver
-     PDF URL: https://www.jneurology.com/articles/commentary-association-nkgklr-gene-variants-epilepsy-autism-spectrum-disorder.pdf
-
-182. DOI: 10.1016/j.jneuroim.2023.578194
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/16883017/files/28-1508-2025.pdf/content
-
-183. DOI: 10.1016/j.jphs.2018.12.007
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.jphs.2018.12.007.pdf
-
-184. DOI: 10.1016/j.jpsychires.2014.07.021
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.jpsychires.2014.07.021.pdf
-
-185. DOI: 10.1016/j.mcn.2015.11.006
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.mcn.2015.11.006.pdf
-
-186. DOI: 10.1016/j.medj.2026.101034
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/6258700/files/Bonsi2021.pdf/content
-
-187. DOI: 10.1016/j.mehy.2004.09.020
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.mehy.2004.09.020.pdf
-
-188. DOI: 10.1016/j.mehy.2007.01.027
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.mehy.2007.01.027.pdf
-
-189. DOI: 10.1016/j.micron.2019.102732
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.micron.2019.102732.pdf
-
-190. DOI: 10.1016/j.mrrev.2018.03.001
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.mrrev.2018.03.001.pdf
-
-191. DOI: 10.1016/j.nbd.2010.11.010
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.nbd.2010.11.010.pdf
-
-192. DOI: 10.1016/j.nbd.2010.12.001
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.nbd.2010.12.001.pdf
-
-193. DOI: 10.1016/j.nbd.2011.03.016
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.nbd.2011.03.016.pdf
-
-194. DOI: 10.1016/j.nbd.2022.105840
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/1153832/files/10.21307_sjcapp-2016-002.pdf/content
-
-195. DOI: 10.1016/j.nbd.2023.106393
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/4771070/files/2021%20-%20Wi%C3%9Ffeld%20-%20Deletion%20of%20Alzheimer's%20disease-associated%20CD33%20results%20in%20an%20inflammatory%20human%20microglia%20phenotype.pdf/content
-
-196. DOI: 10.1016/j.nbd.2025.107227
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/16255668/files/EJMNS%200712.pdf/content
-
-197. DOI: 10.1016/j.neubiorev.2018.07.001
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.neubiorev.2018.07.001.pdf
-
-198. DOI: 10.1016/j.neubiorev.2022.104892
-     Status: sucesso
-     Detalhe: Fonte: openalex
-     Fonte: openalex
-     PDF URL: https://knowledge.lancashire.ac.uk/id/eprint/44168/1/1-s2.0-S0149763422003815-main.pdf
-
-199. DOI: 10.1016/j.neubiorev.2023.105338
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/7897238/files/978-617-7319-65-7%20Chapter%204.pdf/content
-
-200. DOI: 10.1016/j.neubiorev.2024.105731
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/6990649/files/0854%20220814%20Legends%20Cerebral.pdf/content
-
-201. DOI: 10.1016/j.neuint.2009.07.008
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.neuint.2009.07.008.pdf
-
-202. DOI: 10.1016/j.neuint.2021.105076
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.neuint.2021.105076.pdf
-
-203. DOI: 10.1016/j.neulet.2016.03.043
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.neulet.2016.03.043.pdf
-
-204. DOI: 10.1016/j.neuro.2006.03.017
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.neuro.2006.03.017.pdf
-
-205. DOI: 10.1016/j.neuron.2011.03.020
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.neuron.2011.03.020.pdf
-
-206. DOI: 10.1016/j.neuron.2017.09.053
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.neuron.2017.09.053.pdf
-
-207. DOI: 10.1016/j.neuropharm.2015.07.035
-     Status: sucesso
-     Detalhe: Fonte: semantic_scholar
-     Fonte: semantic_scholar
-     PDF URL: https://eprints.gla.ac.uk/119564/1/119564.pdf
-
-208. DOI: 10.1016/j.neuroscience.2015.11.010
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.neuroscience.2015.11.010.pdf
-
-209. DOI: 10.1016/j.neuroscience.2017.06.012
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.neuroscience.2017.06.012.pdf
-
-210. DOI: 10.1016/j.neuroscience.2021.04.006
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.neuroscience.2021.04.006.pdf
-
-211. DOI: 10.1016/j.nlm.2018.05.004
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.nlm.2018.05.004.pdf
-
-212. DOI: 10.1016/j.omtm.2019.08.003
-     Status: sucesso
-     Detalhe: Fonte: openalex
-     Fonte: openalex
-     PDF URL: http://psasir.upm.edu.my/id/eprint/81248/1/Long-term%20therapeutic%20efficacy%20of%20intravenous%20AAV.pdf
-
-213. DOI: 10.1016/j.patbio.2009.12.005
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.patbio.2009.12.005.pdf
-
-214. DOI: 10.1016/j.pcl.2015.03.005
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.pcl.2015.03.005.pdf
-
-215. DOI: 10.1016/j.pediatrneurol.2016.07.003
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.pediatrneurol.2016.07.003.pdf
-
-216. DOI: 10.1016/j.pediatrneurol.2024.01.002
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/7492602/files/Dubey%20et%20al.,%20Hum%20Mol%20Genet..pdf/content
-
-217. DOI: 10.1016/j.phrs.2018.03.020
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.phrs.2018.03.020.pdf
-
-218. DOI: 10.1016/j.phrs.2018.07.010
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.phrs.2018.07.010.pdf
-
-219. DOI: 10.1016/j.phrs.2019.104579
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.phrs.2019.104579.pdf
-
-220. DOI: 10.1016/j.pnpbp.2007.02.016
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.pnpbp.2007.02.016.pdf
-
-221. DOI: 10.1016/j.pnpbp.2014.09.004
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.pnpbp.2014.09.004.pdf
-
-222. DOI: 10.1016/j.pnpbp.2016.07.001
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.pnpbp.2016.07.001.pdf
-
-223. DOI: 10.1016/j.pnpbp.2020.109999
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.pnpbp.2020.109999.pdf
-
-224. DOI: 10.1016/j.pnpbp.2020.110134
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.pnpbp.2020.110134.pdf
-
-225. DOI: 10.1016/j.pnpbp.2022.110534
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/20304596/files/Hemila_CommentOnChen2022.pdf/content
-
-226. DOI: 10.1016/j.psychres.2017.10.018
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.psychres.2017.10.018.pdf
-
-227. DOI: 10.1016/j.psychres.2022.114586
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/7113088/files/Proceedings%20Nov%2021%20Conference%20Mental%20Health-181-190.pdf/content
-
-228. DOI: 10.1016/j.psychres.2026.117287
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/16184032/files/4.1.2.pdf/content
-
-229. DOI: 10.1016/j.reprotox.2022.11.004
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/4036219/files/Features%20of%20the%20nutrition%20for%20the%20autism%20spectrum%20disorders.pdf/content
-
-230. DOI: 10.1016/j.revmed.2021.03.003
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.revmed.2021.03.003.pdf
-
-231. DOI: 10.1016/j.siny.2020.101115
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.siny.2020.101115.pdf
-
-232. DOI: 10.1016/j.spen.2024.101155
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/10052570/files/5%20a-case-of-tuberous-sclerosis-with-behavioral-problems-and-poor-scholastic-performance.pdf/content
-
-233. DOI: 10.1016/j.therap.2020.12.005
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.therap.2020.12.005.pdf
-
-234. DOI: 10.1016/j.tox.2018.07.014
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.tox.2018.07.014.pdf
-
-235. DOI: 10.1016/j.xhgg.2024.100345
-     Status: sucesso
-     Detalhe: Fonte: openalex
-     Fonte: openalex
-     PDF URL: https://escholarship.org/content/qt4nc359j3/qt4nc359j3.pdf?t=sm5yr6
-
-236. DOI: 10.1016/j.yfrne.2014.03.006
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.yfrne.2014.03.006.pdf
-
-237. DOI: 10.1016/j.ymgme.2010.11.162
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.ymgme.2010.11.162.pdf
-
-238. DOI: 10.1016/j.ymgme.2011.12.016
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/j.ymgme.2011.12.016.pdf
-
-239. DOI: 10.1016/j.ymgmr.2018.06.001
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC6005789?pdf=render
-
-240. DOI: 10.1016/s0014-2999(00)00814-1
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/s0014-2999%252800%252900814-1.pdf
-
-241. DOI: 10.1016/s0361-9230(01)00642-6
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/s0361-9230%252801%252900642-6.pdf
-
-242. DOI: 10.1016/s0924-9338(02)00640-5
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/s0924-9338%252802%252900640-5.pdf
-
-243. DOI: 10.1016/s1734-1140(12)70926-x
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1016/S1734-1140%252812%252970926-X.pdf
-
-244. DOI: 10.1017/neu.2019.18
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1017/neu.2019.18.pdf
-
-245. DOI: 10.1017/s0012162206000880
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/4508142/files/Nested_state_hierarchy.pdf/content
-
-246. DOI: 10.1017/s095442242500006x
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.cambridge.org/core/services/aop-cambridge-core/content/view/8C0A88781C6D8AA31EC662D01CD5BFB5/S095442242500006Xa.pdf/div-class-title-zinc-ion-dyshomeostasis-in-autism-spectrum-disorder-div.pdf
-
-247. DOI: 10.1021/acschemneuro.5c00240
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/10939562/files/The%20scientific%20heritage%20No%20134%20(134)%20(2024)-30-32.pdf/content
-
-248. DOI: 10.1021/acschemneuro.8b00689
-     Status: sucesso
-     Detalhe: Fonte: semantic_scholar
-     Fonte: semantic_scholar
-     PDF URL: https://figshare.com/articles/journal_contribution/Human_Serotonin_Transporter_Coding_Variation_Establishes_Conformational_Bias_with_Functional_Consequences/7675733/1/files/14259743.pdf
-
-249. DOI: 10.1038/ejhg.2010.180
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC3062005?pdf=render
-
-250. DOI: 10.1038/mp.2008.21
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1038/mp.2008.21.pdf
-
-251. DOI: 10.1038/mp.2008.63
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1038/mp.2008.63.pdf
-
-252. DOI: 10.1038/mp.2010.115
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1038/mp.2010.115.pdf
-
-253. DOI: 10.1038/mp.2015.64
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1038/mp.2015.64.pdf
-
-254. DOI: 10.1038/mp.2017.15
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/mp201715.pdf
-
-255. DOI: 10.1038/mp.2017.196
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/mp2017196.pdf
-
-256. DOI: 10.1038/nature20612
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://escholarship.org/content/qt8m81p43x/qt8m81p43x.pdf
-
-257. DOI: 10.1038/ncomms3510
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/ncomms3510.pdf
-
-258. DOI: 10.1038/nrdp.2016.35
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1038/nrdp.2016.35.pdf
-
-259. DOI: 10.1038/s41380-019-0495-0
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1038/s41380-019-0495-0.pdf
-
-260. DOI: 10.1038/s41380-021-01324-6
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s41380-021-01324-6.pdf
-
-261. DOI: 10.1038/s41380-021-01418-1
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s41380-021-01418-1.pdf
-
-262. DOI: 10.1038/s41380-021-01427-0
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s41380-021-01427-0.pdf
-
-263. DOI: 10.1038/s41380-022-01826-x
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s41380-022-01826-x.pdf
-
-264. DOI: 10.1038/s41380-022-01854-7
-     Status: sucesso
-     Detalhe: Fonte: doi_resolver
-     Fonte: doi_resolver
-     PDF URL: https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41380-022-01854-7/MediaObjects/41380_2022_1854_MOESM2_ESM.pdf
-
-265. DOI: 10.1038/s41380-024-02518-4
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC10571631?pdf=render
-
-266. DOI: 10.1038/s41380-024-02879-w
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s41380-024-02879-w.pdf
-
-267. DOI: 10.1038/s41380-025-02997-z
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC12339388?pdf=render
-
-268. DOI: 10.1038/s41380-026-03606-3
-     Status: sucesso
-     Detalhe: Fonte: doi_resolver
-     Fonte: doi_resolver
-     PDF URL: https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41380-026-03606-3/MediaObjects/41380_2026_3606_MOESM2_ESM.pdf
-
-269. DOI: 10.1038/s41380-026-03754-6
-     Status: sucesso
-     Detalhe: Fonte: doi_resolver
-     Fonte: doi_resolver
-     PDF URL: https://s3.amazonaws.com/sf-web-assets-prod/wp-content/uploads/sites/2/2021/06/15165956/SFARI_RDA.pdf
-
-270. DOI: 10.1038/s41386-022-01306-4
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC9117200?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-271. DOI: 10.1038/s41386-024-01859-6
+ 12. DOI: 10.1002/cnr2.1894
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s41386-024-01859-6.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-272. DOI: 10.1038/s41390-019-0405-9
+ 13. DOI: 10.1002/ijc.32655
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC11906117?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-273. DOI: 10.1038/s41390-020-1002-7
-     Status: sucesso
-     Detalhe: Fonte: scihub
+ 14. DOI: 10.1002/ijc.33234
+     Status: requisição negada
+     Detalhe: Erro: download_network_error
      Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1038/s41390-020-1002-7.pdf
-
-274. DOI: 10.1038/s41390-021-01806-x
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/14185608/files/Social%20Orienting%20manuscript_R1_FINAL%20_revisedJune2024.pdf/content
-
-275. DOI: 10.1038/s41392-022-01225-2
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s41392-022-01225-2.pdf
-
-276. DOI: 10.1038/s41398-018-0167-x
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s41398-018-0167-x.pdf
+     PDF URL: https://sci.bban.top/pdf/10.1002/ijc.33234.pdf
 
-277. DOI: 10.1038/s41398-020-00904-4
+ 15. DOI: 10.1002/ijc.34687
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s41398-020-00904-4.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-278. DOI: 10.1038/s41398-020-0848-0
+ 16. DOI: 10.1002/jcp.29398
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s41398-020-0848-0.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-279. DOI: 10.1038/s41398-021-01415-6
+ 17. DOI: 10.1002/jcp.31015
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s41398-021-01415-6.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-280. DOI: 10.1038/s41398-021-01472-x
+ 18. DOI: 10.1007/s00259-023-06394-y
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s41398-021-01472-x.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-281. DOI: 10.1038/s41398-023-02478-3
+ 19. DOI: 10.1007/s00280-022-04430-6
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s41398-023-02478-3.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-282. DOI: 10.1038/s41398-023-02550-y
+ 20. DOI: 10.1007/s00432-021-03696-2
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s41398-023-02550-y.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-283. DOI: 10.1038/s41398-024-03005-8
+ 21. DOI: 10.1007/s00432-026-06425-9
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s41398-024-03005-8.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-284. DOI: 10.1038/s41398-025-03429-w
+ 22. DOI: 10.1007/s10549-020-05647-w
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s41398-025-03429-w.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-285. DOI: 10.1038/s41467-021-23843-0
+ 23. DOI: 10.1007/s10549-021-06446-7
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s41467-021-23843-0.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-286. DOI: 10.1038/s41467-026-71769-2
+ 24. DOI: 10.1007/s10549-022-06692-3
      Status: sucesso
-     Detalhe: Fonte: openalex
-     Fonte: openalex
-     PDF URL: https://digitalcommons.library.tmc.edu/cgi/viewcontent.cgi?article=4414&context=uthmed_docs
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-287. DOI: 10.1038/s41467-026-71922-x
+ 25. DOI: 10.1007/s10549-022-06780-4
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC13276046?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-288. DOI: 10.1038/s41525-025-00495-3
+ 26. DOI: 10.1007/s10549-022-06785-z
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s41525-025-00495-3.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-289. DOI: 10.1038/s41586-018-0416-4
+ 27. DOI: 10.1007/s10549-023-07011-0
      Status: sucesso
-     Detalhe: Fonte: doi_resolver
-     Fonte: doi_resolver
-     PDF URL: https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41586-018-0416-4/MediaObjects/41586_2018_416_MOESM1_ESM.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-290. DOI: 10.1038/s41586-019-1135-1
+ 28. DOI: 10.1007/s10549-023-07046-3
      Status: sucesso
-     Detalhe: Fonte: doi_resolver
-     Fonte: doi_resolver
-     PDF URL: https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41586-019-1135-1/MediaObjects/41586_2019_1135_MOESM1_ESM.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-291. DOI: 10.1038/s41586-022-05377-7
+ 29. DOI: 10.1007/s10549-023-07068-x
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s41586-022-05377-7.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-292. DOI: 10.1038/s41586-024-08351-7
+ 30. DOI: 10.1007/s10549-024-07436-1
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC12589127?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-293. DOI: 10.1038/s41586-026-10515-6
+ 31. DOI: 10.1007/s10549-024-07502-8
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC13345903?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-294. DOI: 10.1038/s41598-017-06145-8
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s41598-017-06145-8.pdf
-
-295. DOI: 10.1038/s41598-018-25974-9
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s41598-018-25974-9.pdf
-
-296. DOI: 10.1038/s41598-022-15279-3
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s41598-022-15279-3.pdf
-
-297. DOI: 10.1038/s41598-025-15476-w
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s41598-025-15476-w.pdf
-
-298. DOI: 10.1038/s41598-025-98020-0
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s41598-025-98020-0.pdf
-
-299. DOI: 10.1038/s43856-025-00975-8
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s43856-025-00975-8.pdf
-
-300. DOI: 10.1038/s44184-022-00012-9
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s44184-022-00012-9.pdf
-
-301. DOI: 10.1038/s44220-026-00660-2
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/s44220-026-00660-2.pdf
-
-302. DOI: 10.1038/s44319-026-00846-w
-     Status: sucesso
-     Detalhe: Fonte: crossref
+ 32. DOI: 10.1007/s10549-025-07687-6
+     Status: requisição negada
+     Detalhe: Erro: download_network_error
      Fonte: crossref
-     PDF URL: https://link.springer.com/content/pdf/10.1038/s44319-026-00846-w.pdf
+     PDF URL: https://link.springer.com/article/10.1007/s10549-025-07687-6/fulltext.html
 
-303. DOI: 10.1038/sj.ejhg.5201644
+ 33. DOI: 10.1007/s10549-025-07747-x
      Status: sucesso
-     Detalhe: Fonte: scihub
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 34. DOI: 10.1007/s10549-026-08011-6
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 35. DOI: 10.1007/s10689-020-00213-1
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 36. DOI: 10.1007/s10689-022-00304-1
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 37. DOI: 10.1007/s11033-022-07129-2
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 38. DOI: 10.1007/s12282-022-01342-4
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 39. DOI: 10.1007/s12282-023-01465-2
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 40. DOI: 10.1007/s12282-024-01603-4
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 41. DOI: 10.1007/s12282-025-01740-4
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 42. DOI: 10.1007/s12282-026-01878-9
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 43. DOI: 10.1007/s12325-022-02302-2
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 44. DOI: 10.1016/j.anndiagpath.2025.152576
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 45. DOI: 10.1016/j.annonc.2020.11.009
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 46. DOI: 10.1016/j.annonc.2021.09.003
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 47. DOI: 10.1016/j.bbadis.2019.165561
+     Status: requisição negada
+     Detalhe: Erro: download_network_error
      Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1038/sj.ejhg.5201644.pdf
+     PDF URL: https://sci.bban.top/pdf/10.1016/j.bbadis.2019.165561.pdf
 
-304. DOI: 10.1038/sj.mp.4000850
+ 48. DOI: 10.1016/j.bbadis.2024.167523
      Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1038/sj.mp.4000850.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-305. DOI: 10.1038/sj.mp.4001069
+ 49. DOI: 10.1016/j.bbcan.2022.188678
      Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1038/sj.mp.4001069.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-306. DOI: 10.1038/sj.mp.4001099
+ 50. DOI: 10.1016/j.bcp.2023.115545
      Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1038/sj.mp.4001099.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-307. DOI: 10.1038/sj.mp.4001409
+ 51. DOI: 10.1016/j.biopha.2022.114090
      Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1038/sj.mp.4001409.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-308. DOI: 10.1038/sj.mp.4001714
+ 52. DOI: 10.1016/j.bmc.2022.116739
      Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1038/sj.mp.4001714.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-309. DOI: 10.1038/sj.npp.1301406
+ 53. DOI: 10.1016/j.breast.2022.08.012
      Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1038/sj.npp.1301406.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-310. DOI: 10.1038/sj/mp/4000923
+ 54. DOI: 10.1016/j.breast.2022.10.009
      Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/4766468/files/13041_2021_Article_789.pdf/content
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-311. DOI: 10.1038/srep34325
+ 55. DOI: 10.1016/j.breast.2022.10.014
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/srep34325.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-312. DOI: 10.1038/tp.2011.48
+ 56. DOI: 10.1016/j.breast.2023.04.002
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/tp201148.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-313. DOI: 10.1038/tp.2013.16
+ 57. DOI: 10.1016/j.breast.2023.103620
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/tp201316.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-314. DOI: 10.1038/tp.2016.46
+ 58. DOI: 10.1016/j.breast.2024.103834
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/tp201646.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-315. DOI: 10.1038/tp.2016.87
+ 59. DOI: 10.1016/j.cancergen.2022.02.008
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/tp201687.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-316. DOI: 10.1038/tp.2017.173
+ 60. DOI: 10.1016/j.cancergen.2025.06.004
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/tp2017173.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-317. DOI: 10.1038/tp.2017.87
+ 61. DOI: 10.1016/j.canlet.2024.216820
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.nature.com/articles/tp201787.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-318. DOI: 10.1073/pnas.0809449106
+ 62. DOI: 10.1016/j.canlet.2024.217182
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC2632716?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-319. DOI: 10.1073/pnas.1512957112
+ 63. DOI: 10.1016/j.cbi.2023.110567
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC4687542?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-320. DOI: 10.1073/pnas.1603282113
+ 64. DOI: 10.1016/j.cellsig.2021.110229
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC4878475?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-321. DOI: 10.1073/pnas.1707663115
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC5798319?pdf=render
-
-322. DOI: 10.1073/pnas.2402206121
-     Status: sucesso
-     Detalhe: Fonte: openalex
-     Fonte: openalex
-     PDF URL: https://discovery.dundee.ac.uk/ws/files/139688827/khan-et-al-2024-loss-of-primary-cilia-and-dopaminergic-neuroprotection-in-pathogenic-lrrk2-driven-and-idiopathic.pdf
-
-323. DOI: 10.1074/jbc.m113.458612
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC3707701?pdf=render
-
-324. DOI: 10.1074/jbc.m114.581892
-     Status: sucesso
-     Detalhe: Fonte: openalex
-     Fonte: openalex
-     PDF URL: https://eprints.lib.hokudai.ac.jp/repo/huscap/all/59282/JBC290-4 2303-2311.pdf
-
-325. DOI: 10.1080/08820139.2020.1870489
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1080/08820139.2020.1870489.pdf
-
-326. DOI: 10.1080/09273948.2021.1993268
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: http://impactfactor.org/PDF/IJTPR/13/IJTPR,Vol13,Issue4,Article5.pdf
-
-327. DOI: 10.1080/1744666x.2019.1596800
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1080/1744666X.2019.1596800.pdf
-
-328. DOI: 10.1080/19490976.2020.1854967
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC7808426?pdf=render
-
-329. DOI: 10.1080/19490976.2024.2385117
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/4308193/files/GSCBPS-2020-0367.pdf/content
-
-330. DOI: 10.1080/19585969.2025.2460798
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/17147628/files/liu-et-al-2023-association-between-whole-blood-derived-mitochondrial-dna-copy-number-low-density-lipoprotein.pdf/content
-
-331. DOI: 10.1083/jcb.201910053
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/1206266/files/Review_AxoActin_MCN_preprint.pdf/content
-
-332. DOI: 10.1086/432648
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC1224529?pdf=render
-
-333. DOI: 10.1093/bib/bbae323
-     Status: sucesso
-     Detalhe: Fonte: openalex
-     Fonte: openalex
-     PDF URL: https://escholarship.org/content/qt0vq4n3c4/qt0vq4n3c4.pdf
-
-334. DOI: 10.1093/brain/awaa028
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1093/brain%252Fawaa028.pdf
-
-335. DOI: 10.1093/brain/awab087
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC8370404?pdf=render
-
-336. DOI: 10.1093/brain/awab207
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/12818486/files/Figure_S1.pdf/content
-
-337. DOI: 10.1093/braincomms/fcac144
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/12818486/files/Figure_S1.pdf/content
-
-338. DOI: 10.1093/cercor/bhz115
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC7306174?pdf=render
-
-339. DOI: 10.1093/genetics/iyaf040
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/12818486/files/Figure_S1.pdf/content
-
-340. DOI: 10.1093/hmg/ddab175
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/12818486/files/Figure_S1.pdf/content
-
-341. DOI: 10.1093/hmg/ddad155
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC10695679?pdf=render
-
-342. DOI: 10.1093/hmg/ddn300
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1093/hmg%252Fddn300.pdf
-
-343. DOI: 10.1093/hmg/ddr418
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC3221541?pdf=render
-
-344. DOI: 10.1093/hmg/ddu031
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC4030776?pdf=render
-
-345. DOI: 10.1093/hmg/ddu201
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC4140467?pdf=render
-
-346. DOI: 10.1093/hmg/ddu523
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1093/hmg%252Fddu523.pdf
-
-347. DOI: 10.1093/hmg/ddw134
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1093/hmg%252Fddw134.pdf
-
-348. DOI: 10.1093/hmg/ddw252
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1093/hmg%252Fddw252.pdf
-
-349. DOI: 10.1093/hmg/ddy421
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1093/hmg%252Fddy421.pdf
-
-350. DOI: 10.1093/jn/nxaa454
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1093/jn%252Fnxaa454.pdf
-
-351. DOI: 10.1093/nar/gkw120
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC4824117?pdf=render
-
-352. DOI: 10.1093/ntr/ntz099
-     Status: sucesso
-     Detalhe: Fonte: openalex
-     Fonte: openalex
-     PDF URL: https://repository.ubn.ru.nl//bitstream/handle/2066/219016/219016.pdf
-
-353. DOI: 10.1093/sleep/zsz255
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC7157183?pdf=render
-
-354. DOI: 10.1097/00004703-200602000-00012
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1097/00004703-200602000-00012.pdf
-
-355. DOI: 10.1097/00041444-200106000-00008
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1097/00041444-200106000-00008.pdf
-
-356. DOI: 10.1097/chi.0b013e3181a5e3d5
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1097/CHI.0b013e3181a5e3d5.pdf
-
-357. DOI: 10.1097/dbp.0000000000000126
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1097/DBP.0000000000000126.pdf
-
-358. DOI: 10.1097/dbp.0000000000001266
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/10441197/files/PERSPECTIVE-1.pdf/content
-
-359. DOI: 10.1097/md.0000000000045225
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC12795056?pdf=render
-
-360. DOI: 10.1097/mib.0000000000001250
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1097/MIB.0000000000001250.pdf
-
-361. DOI: 10.1097/mop.0000000000000546
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1097/MOP.0000000000000546.pdf
-
-362. DOI: 10.1097/mpg.0000000000002293
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1097/mpg.0000000000002293.pdf
-
-363. DOI: 10.1097/wco.0b013e328336a01f
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1097/wco.0b013e328336a01f.pdf
-
-364. DOI: 10.1097/yco.0000000000001063
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/205202/files/%D0%93%D0%BE%D1%80%D1%88%D0%BA%D0%BE%D0%B2%E2%80%93%D0%9A%D0%B0%D0%BD%D1%82%D0%B0%D0%BA%D1%83%D0%B7%D0%B5%D0%BD%20%D0%92.%D0%90.,%20%D0%A8%D0%BF%D0%B8%D0%BA%D0%B0%D0%BB%D0%BE%D0%B2%D0%B0%20%D0%9C.%D0%90.%20.pdf/content
-
-365. DOI: 10.1097/ypg.0000000000000034
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1097/ypg.0000000000000034.pdf
-
-366. DOI: 10.1097/ypg.0b013e3282f97df7
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1097/ypg.0b013e3282f97df7.pdf
-
-367. DOI: 10.1098/rstb.2008.0143
-     Status: sucesso
-     Detalhe: Fonte: semantic_scholar
-     Fonte: semantic_scholar
-     PDF URL: https://europepmc.org/articles/pmc2674096?pdf=render
-
-368. DOI: 10.1098/rstb.2013.0514
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC4142035?pdf=render
-
-369. DOI: 10.1101/2023.07.08.548192
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.biorxiv.org/content/biorxiv/early/2023/07/08/2023.07.08.548192.full.pdf
-
-370. DOI: 10.1101/2023.08.22.23294267
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.medrxiv.org/content/medrxiv/early/2023/08/24/2023.08.22.23294267.full.pdf
-
-371. DOI: 10.1101/2023.12.15.571738
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.biorxiv.org/content/biorxiv/early/2023/12/16/2023.12.15.571738.full.pdf
-
-372. DOI: 10.1101/2024.01.15.575737
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.biorxiv.org/content/biorxiv/early/2024/01/16/2024.01.15.575737.full.pdf
-
-373. DOI: 10.1101/2024.01.29.24301949
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.medrxiv.org/content/medrxiv/early/2024/01/31/2024.01.29.24301949.full.pdf
-
-374. DOI: 10.1101/2024.04.15.24305828
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.medrxiv.org/content/medrxiv/early/2024/04/15/2024.04.15.24305828.full.pdf
-
-375. DOI: 10.1101/2024.05.22.595175
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC11142199?pdf=render
-
-376. DOI: 10.1101/2024.06.26.600491
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.biorxiv.org/content/biorxiv/early/2024/06/27/2024.06.26.600491.full.pdf
+ 65. DOI: 10.1016/j.clbc.2024.09.018
+     Status: requisição negada
+     Detalhe: Erro: download_network_error
+     Fonte: publisher_direct
+     PDF URL: https://www.sciencedirect.com/science/article/pii/S1526820924002775/pdfft
 
-377. DOI: 10.1101/2024.10.07.617121
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC11482767?pdf=render
-
-378. DOI: 10.1101/2025.06.04.657874
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.biorxiv.org/content/biorxiv/early/2025/06/04/2025.06.04.657874.full.pdf
-
-379. DOI: 10.1101/2025.07.10.664109
-     Status: sucesso
-     Detalhe: Fonte: biorxiv
-     Fonte: biorxiv
-     PDF URL: https://www.biorxiv.org/content/10.1101/2025.07.10.664109v1.full.pdf
-
-380. DOI: 10.1101/2025.08.01.668222
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.biorxiv.org/content/biorxiv/early/2025/08/01/2025.08.01.668222.full.pdf
-
-381. DOI: 10.1101/2025.08.19.25333388
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.medrxiv.org/content/medrxiv/early/2025/08/24/2025.08.19.25333388.full.pdf
-
-382. DOI: 10.1101/2025.08.27.25333852
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.medrxiv.org/content/medrxiv/early/2025/08/27/2025.08.27.25333852.full.pdf
-
-383. DOI: 10.1101/2025.09.19.25336146
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC12458961?pdf=render
-
-384. DOI: 10.1101/2025.09.24.678397
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.biorxiv.org/content/biorxiv/early/2025/09/25/2025.09.24.678397.full.pdf
-
-385. DOI: 10.1101/2025.11.05.686845
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC12637482?pdf=render
-
-386. DOI: 10.1101/mcs.a003756
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC6549575?pdf=render
+ 66. DOI: 10.1016/j.clbc.2026.04.014
+     Status: requisição negada
+     Detalhe: Erro: download_network_error
+     Fonte: publisher_direct
+     PDF URL: https://www.sciencedirect.com/science/article/pii/S1526820926000686/pdfft
 
-387. DOI: 10.1101/mcs.a004721
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC7304355?pdf=render
-
-388. DOI: 10.1111/aji.13911
-     Status: sucesso
-     Detalhe: Fonte: doaj
-     Fonte: doaj
-     PDF URL: http://tru.uni-sz.bg/tsj/Volume%2021,%202023,%20Number%204,%20Series%20Biomedical%20Sciences/12-RafahDjasem.pdf
-
-389. DOI: 10.1111/cge.13096
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1111/cge.13096.pdf
-
-390. DOI: 10.1111/cge.13383
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1111/cge.13383.pdf
-
-391. DOI: 10.1111/cge.13450
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1111/cge.13450.pdf
+ 67. DOI: 10.1016/j.clinre.2022.101880
+     Status: requisição negada
+     Detalhe: Erro: download_network_error
+     Fonte: publisher_direct
+     PDF URL: https://www.sciencedirect.com/science/article/pii/S2210740122000237/pdfft
 
-392. DOI: 10.1111/dmcn.13432
+ 68. DOI: 10.1016/j.critrevonc.2023.104109
      Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1111/dmcn.13432.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-393. DOI: 10.1111/dmcn.15289
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC9545914?pdf=render
-
-394. DOI: 10.1111/dmcn.16276
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/18180907/files/ICMA%200101.pdf/content
-
-395. DOI: 10.1111/epi.12627
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1111/epi.12627.pdf
+ 69. DOI: 10.1016/j.ctrv.2024.102695
+     Status: requisição negada
+     Detalhe: Erro: download_network_error
+     Fonte: publisher_direct
+     PDF URL: https://www.sciencedirect.com/science/article/pii/S0305737224000136/pdfft
 
-396. DOI: 10.1111/epi.12680
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1111/epi.12680.pdf
+ 70. DOI: 10.1016/j.currproblcancer.2022.100843
+     Status: requisição negada
+     Detalhe: Erro: download_network_error
+     Fonte: publisher_direct
+     PDF URL: https://www.sciencedirect.com/science/article/pii/S0147027222000010/pdfft
 
-397. DOI: 10.1111/epi.18209
+ 71. DOI: 10.1016/j.ejca.2019.12.003
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://findresearcher.sdu.dk/ws/files/286073280/epi.18209.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-398. DOI: 10.1111/j.1528-1167.2005.00305.x
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1111/j.1528-1167.2005.00305.x.pdf
+ 72. DOI: 10.1016/j.ejca.2020.12.007
+     Status: requisição negada
+     Detalhe: Erro: download_network_error
+     Fonte: publisher_direct
+     PDF URL: https://www.sciencedirect.com/science/article/pii/S0959804920314210/pdfft
 
-399. DOI: 10.1111/j.1601-183x.2011.00710.x
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1111/j.1601-183x.2011.00710.x.pdf
+ 73. DOI: 10.1016/j.ejca.2026.116937
+     Status: requisição negada
+     Detalhe: Erro: download_network_error
+     Fonte: publisher_direct
+     PDF URL: https://www.sciencedirect.com/science/article/pii/S0959804926007185/pdfft
 
-400. DOI: 10.1111/j.1750-3639.2007.00102.x
+ 74. DOI: 10.1016/j.esmoop.2023.101207
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC8095519?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-401. DOI: 10.1111/jnc.15241
+ 75. DOI: 10.1016/j.freeradbiomed.2024.11.028
      Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1111/jnc.15241.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-402. DOI: 10.1111/jnc.15331
+ 76. DOI: 10.1016/j.ijrobp.2024.06.037
      Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1111/jnc.15331.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-403. DOI: 10.1111/jnc.15460
+ 77. DOI: 10.1016/j.jconrel.2024.11.061
      Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1111/jnc.15460.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-404. DOI: 10.1111/jnc.15976
+ 78. DOI: 10.1016/j.jss.2019.12.040
      Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/8042742/files/E5205019521.pdf/content
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-405. DOI: 10.1111/jnc.70061
+ 79. DOI: 10.1016/j.jss.2019.12.047
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC12032442?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-406. DOI: 10.1111/jog.15516
+ 80. DOI: 10.1016/j.modpat.2023.100306
      Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/7313856/files/sleepduration.pdf/content
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-407. DOI: 10.1111/pai.13236
+ 81. DOI: 10.1016/j.molcel.2021.09.005
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC7228270?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-408. DOI: 10.1111/pcn.13847
+ 82. DOI: 10.1016/j.mrfmmm.2020.111693
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC12319652?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-409. DOI: 10.1124/mi.4.2.8
+ 83. DOI: 10.1016/j.mri.2024.110214
      Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/14829631/files/GSCBPS-2024-0454.pdf/content
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-410. DOI: 10.1126/sciadv.abf2073
+ 84. DOI: 10.1016/j.phytochem.2026.114805
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC8448451?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-411. DOI: 10.1126/sciadv.adn7655
+ 85. DOI: 10.1016/j.prp.2023.154514
      Status: sucesso
-     Detalhe: Fonte: openalex
-     Fonte: openalex
-     PDF URL: https://escholarship.org/content/qt6fm991c4/qt6fm991c4.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-412. DOI: 10.1126/sciadv.ady2977
+ 86. DOI: 10.1016/j.taap.2025.117439
      Status: sucesso
-     Detalhe: Fonte: openalex
-     Fonte: openalex
-     PDF URL: https://digitalcommons.library.tmc.edu/context/molecular_med/article/1075/viewcontent/sciadv.ady2977_compressed.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-413. DOI: 10.1126/science.aat8127
+ 87. DOI: 10.1016/j.yexcr.2025.114815
      Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1126/science.aat8127.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-414. DOI: 10.1126/science.adh2602
+ 88. DOI: 10.1038/s10038-020-00849-y
      Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/17697634/files/2025_AAM%20-%20Zaremba%20et%20al.pdf/content
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-415. DOI: 10.1128/mbio.00261-11
+ 89. DOI: 10.1038/s10038-020-0729-7
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC3252763?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-416. DOI: 10.1128/msphere.00442-26
+ 90. DOI: 10.1038/s10038-021-00911-3
      Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/19916679/files/MARGS%20274.pdf/content
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-417. DOI: 10.1136/archdischild-2011-300585
+ 91. DOI: 10.1038/s41416-023-02226-w
      Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1136/archdischild-2011-300585.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-418. DOI: 10.1136/bcr-2020-235972
+ 92. DOI: 10.1038/s41416-023-02349-0
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC7735107?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-419. DOI: 10.1136/jmg-2024-110224
+ 93. DOI: 10.1038/s41467-020-16936-9
      Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://impactfactor.org/PDF/IJPCR/14/IJPCR,Vol14,Issue1,Article25.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-420. DOI: 10.1155/2011/398636
+ 94. DOI: 10.1038/s41467-020-17537-2
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC3420760?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-421. DOI: 10.1155/2013/476276
+ 95. DOI: 10.1038/s41467-023-37537-2
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC3774962?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-422. DOI: 10.1155/2013/723269
+ 96. DOI: 10.1038/s41586-022-05249-0
      Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1155/2013%252F723269.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-423. DOI: 10.1155/2014/480980
+ 97. DOI: 10.1038/s41586-024-07384-2
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC3913335?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-424. DOI: 10.1155/2014/761279
+ 98. DOI: 10.1038/s41588-020-0609-2
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC4119898?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-425. DOI: 10.1155/humu/5522396
+ 99. DOI: 10.1038/s41598-020-63759-1
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC13379949?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-426. DOI: 10.1155/tswj/4373377
+100. DOI: 10.1038/s41598-021-82990-y
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC13136933?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-427. DOI: 10.1159/000452336
+101. DOI: 10.1038/s41598-021-94403-1
      Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1159/000452336.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-428. DOI: 10.1159/000453258
+102. DOI: 10.1038/s41598-023-48231-0
      Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1159/000453258.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-429. DOI: 10.1159/000541908
+103. DOI: 10.1038/s41598-024-54732-3
      Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/4664181/files/jbres1201.pdf/content
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-430. DOI: 10.1159/000550301
+104. DOI: 10.1038/s41598-024-62991-3
      Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/4664181/files/jbres1201.pdf/content
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-431. DOI: 10.1172/jci179238
+105. DOI: 10.1038/s41598-025-24447-0
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC11364378?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-432. DOI: 10.1172/jci84877
+106. DOI: 10.1038/s41598-026-35774-1
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC4887174?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-433. DOI: 10.1177/0333102411420584
+107. DOI: 10.1038/s41598-026-43392-0
      Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1177/0333102411420584.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-434. DOI: 10.1177/08830738261452774
+108. DOI: 10.1038/s41598-026-52778-z
      Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/17185961/files/deClercq_2025_PsychoOncologySuicide_Review.pdf/content
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-435. DOI: 10.1177/15353702231209419
+109. DOI: 10.1038/s43018-020-00148-7
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC10800134?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-436. DOI: 10.1186/1471-2350-12-29
+110. DOI: 10.1073/pnas.2402849121
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://bmcmedgenet.biomedcentral.com/counter/pdf/10.1186/1471-2350-12-29
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-437. DOI: 10.1186/1471-2431-12-89
+111. DOI: 10.1080/07391102.2023.2243352
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://bmcpediatr.biomedcentral.com/counter/pdf/10.1186/1471-2431-12-89
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-438. DOI: 10.1186/1742-2094-10-46
+112. DOI: 10.1080/14737140.2024.2333320
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://jneuroinflammation.biomedcentral.com/counter/pdf/10.1186/1742-2094-10-46
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-439. DOI: 10.1186/2040-2392-4-51
+113. DOI: 10.1080/15257770.2024.2357267
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://molecularautism.biomedcentral.com/counter/pdf/10.1186/2040-2392-4-51
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-440. DOI: 10.1186/2040-2392-5-10
+114. DOI: 10.1093/jnci/djaa175
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://molecularautism.biomedcentral.com/counter/pdf/10.1186/2040-2392-5-10
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-441. DOI: 10.1186/s10020-021-00304-4
+115. DOI: 10.1093/jncics/pkac045
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://molmed.biomedcentral.com/track/pdf/10.1186/s10020-021-00304-4
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-442. DOI: 10.1186/s11689-024-09543-y
+116. DOI: 10.1093/oncolo/oyad139
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC11112784?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-443. DOI: 10.1186/s11689-024-09572-7
+117. DOI: 10.1093/oncolo/oyaf052
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://link.springer.com/content/pdf/10.1186/s11689-024-09572-7.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-444. DOI: 10.1186/s11689-024-09583-4
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://jneurodevdisorders.biomedcentral.com/counter/pdf/10.1186/s11689-024-09583-4
+118. DOI: 10.1097/pai.0000000000001231
+     Status: não encontrado
+     Detalhe: Erro: not_found
+     Fonte: None
+     PDF URL: None
 
-445. DOI: 10.1186/s12862-018-1199-9
-     Status: sucesso
-     Detalhe: Fonte: crossref
+119. DOI: 10.1111/ahg.12488
+     Status: requisição negada
+     Detalhe: Erro: download_network_error
      Fonte: crossref
-     PDF URL: http://link.springer.com/content/pdf/10.1186/s12862-018-1199-9.pdf
+     PDF URL: https://onlinelibrary.wiley.com/doi/full-xml/10.1111/ahg.12488
 
-446. DOI: 10.1186/s12864-016-2858-0
+120. DOI: 10.1111/ahg.12577
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://bmcgenomics.biomedcentral.com/track/pdf/10.1186/s12864-016-2858-0
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-447. DOI: 10.1186/s12881-017-0394-7
+121. DOI: 10.1111/cas.16174
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://bmcmedgenet.biomedcentral.com/counter/pdf/10.1186/s12881-017-0394-7
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-448. DOI: 10.1186/s12888-020-02503-5
+122. DOI: 10.1111/imm.13673
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://bmcpsychiatry.biomedcentral.com/track/pdf/10.1186/s12888-020-02503-5
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-449. DOI: 10.1186/s12888-023-05433-0
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://bmcpsychiatry.biomedcentral.com/counter/pdf/10.1186/s12888-023-05433-0
+123. DOI: 10.1111/tbj.13972
+     Status: requisição negada
+     Detalhe: Erro: download_network_error
+     Fonte: scihub
+     PDF URL: https://sci.bban.top/pdf/10.1111/tbj.13972.pdf
 
-450. DOI: 10.1186/s12888-024-05529-1
+124. DOI: 10.1111/vco.12685
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://bmcpsychiatry.biomedcentral.com/counter/pdf/10.1186/s12888-024-05529-1
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-451. DOI: 10.1186/s12888-024-05927-5
+125. DOI: 10.1126/scitranslmed.abn1926
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC11212275?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-452. DOI: 10.1186/s12888-024-06148-6
+126. DOI: 10.1136/jmg-2023-109671
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://bmcpsychiatry.biomedcentral.com/counter/pdf/10.1186/s12888-024-06148-6
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-453. DOI: 10.1186/s12888-024-06392-w
+127. DOI: 10.1139/cjpp-2023-0031
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://bmcpsychiatry.biomedcentral.com/counter/pdf/10.1186/s12888-024-06392-w
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-454. DOI: 10.1186/s12905-024-03234-5
+128. DOI: 10.1155/2024/7353984
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC11229200?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-455. DOI: 10.1186/s12967-022-03625-y
+129. DOI: 10.1158/0008-5472.can-19-2374
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://translational-medicine.biomedcentral.com/counter/pdf/10.1186/s12967-022-03625-y
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-456. DOI: 10.1186/s13023-023-02863-7
+130. DOI: 10.1158/0008-5472.can-19-2739
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://ojrd.biomedcentral.com/counter/pdf/10.1186/s13023-023-02863-7
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-457. DOI: 10.1186/s13041-015-0121-2
+131. DOI: 10.1158/0008-5472.can-24-1404
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://molecularbrain.biomedcentral.com/counter/pdf/10.1186/s13041-015-0121-2
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-458. DOI: 10.1186/s13041-026-01280-8
+132. DOI: 10.1158/1078-0432.ccr-19-0664
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC13308187?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-459. DOI: 10.1186/s13052-025-01910-2
+133. DOI: 10.1158/1078-0432.ccr-22-0749
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC11905720?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-460. DOI: 10.1186/s13052-026-02245-2
+134. DOI: 10.1158/1078-0432.ccr-23-0370
      Status: sucesso
-     Detalhe: Fonte: crossref
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+135. DOI: 10.1158/1078-0432.ccr-23-1696
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+136. DOI: 10.1158/1078-0432.ccr-25-1818
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+137. DOI: 10.1158/1940-6207.capr-25-0081
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+138. DOI: 10.1158/2767-9764.crc-23-0277
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+139. DOI: 10.1159/000515790
+     Status: requisição negada
+     Detalhe: Erro: download_network_error
+     Fonte: scihub
+     PDF URL: https://sci.bban.top/pdf/10.1159/000515790.pdf
+
+140. DOI: 10.1159/000532095
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+141. DOI: 10.11604/pamj.2023.45.102.36431
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+142. DOI: 10.1177/0300060521991019
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+143. DOI: 10.1177/10732748261424961
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+144. DOI: 10.1177/10781552251320049
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+145. DOI: 10.1177/1535370220957255
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+146. DOI: 10.1186/s11658-025-00754-2
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+147. DOI: 10.1186/s12860-025-00548-6
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+148. DOI: 10.1186/s12880-020-00483-2
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+149. DOI: 10.1186/s12885-020-6605-1
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+150. DOI: 10.1186/s12885-022-09761-4
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+151. DOI: 10.1186/s12885-022-09903-8
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+152. DOI: 10.1186/s12885-023-11229-y
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+153. DOI: 10.1186/s12885-024-12274-x
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+154. DOI: 10.1186/s12916-023-03233-7
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+155. DOI: 10.1186/s13058-020-01313-7
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+156. DOI: 10.1186/s13058-021-01428-5
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+157. DOI: 10.1186/s13058-024-01872-z
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+158. DOI: 10.1186/s13058-024-01954-y
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+159. DOI: 10.1186/s13058-026-02279-8
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+160. DOI: 10.1186/s13073-023-01262-8
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+161. DOI: 10.1186/s13148-025-01885-1
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+162. DOI: 10.1186/s13256-023-04139-x
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+163. DOI: 10.1186/s13256-024-04685-y
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+164. DOI: 10.1186/s40246-022-00447-3
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+165. DOI: 10.1200/go.23.00285
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+166. DOI: 10.1200/po-24-00679
+     Status: não encontrado
+     Detalhe: Erro: not_found
+     Fonte: None
+     PDF URL: None
+
+167. DOI: 10.1200/po.22.00337
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+168. DOI: 10.1200/po.22.00446
+     Status: não encontrado
+     Detalhe: Erro: not_found
+     Fonte: None
+     PDF URL: None
+
+169. DOI: 10.1245/s10434-021-10870-w
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+170. DOI: 10.1245/s10434-022-13056-0
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+171. DOI: 10.1245/s10434-025-17204-0
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+172. DOI: 10.1245/s10434-025-18713-8
+     Status: requisição negada
+     Detalhe: Erro: download_network_error
      Fonte: crossref
-     PDF URL: https://link.springer.com/content/pdf/10.1186/s13052-026-02245-2.pdf
+     PDF URL: https://link.springer.com/article/10.1245/s10434-025-18713-8
 
-461. DOI: 10.1186/s13059-022-02605-1
+173. DOI: 10.1261/rna.081080.126
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://genomebiology.biomedcentral.com/counter/pdf/10.1186/s13059-022-02605-1
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-462. DOI: 10.1186/s13059-022-02799-4
+174. DOI: 10.12659/ajcr.943882
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://genomebiology.biomedcentral.com/counter/pdf/10.1186/s13059-022-02799-4
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-463. DOI: 10.1186/s13073-018-0576-8
+175. DOI: 10.12659/ajcr.951196
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://genomemedicine.biomedcentral.com/counter/pdf/10.1186/s13073-018-0576-8
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-464. DOI: 10.1186/s13195-019-0475-2
+176. DOI: 10.1371/journal.pone.0235025
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://alzres.biomedcentral.com/counter/pdf/10.1186/s13195-019-0475-2
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-465. DOI: 10.1186/s13229-017-0130-3
+177. DOI: 10.1371/journal.pone.0332860
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://molecularautism.biomedcentral.com/counter/pdf/10.1186/s13229-017-0130-3
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-466. DOI: 10.1186/s13229-017-0134-z
+178. DOI: 10.1371/journal.pone.0356762
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://molecularautism.biomedcentral.com/track/pdf/10.1186/s13229-017-0134-z
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-467. DOI: 10.1186/s13229-017-0147-7
+179. DOI: 10.14670/hh-18-501
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://molecularautism.biomedcentral.com/track/pdf/10.1186/s13229-017-0147-7
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-468. DOI: 10.1186/s13229-017-0148-6
+180. DOI: 10.2174/1389450121666200203162541
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://molecularautism.biomedcentral.com/counter/pdf/10.1186/s13229-017-0148-6
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-469. DOI: 10.1186/s13229-020-0320-2
+181. DOI: 10.2174/1568009622666220214092207
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://molecularautism.biomedcentral.com/track/pdf/10.1186/s13229-020-0320-2
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-470. DOI: 10.1186/s13578-022-00916-1
+182. DOI: 10.21873/anticanres.17522
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://cellandbioscience.biomedcentral.com/counter/pdf/10.1186/s13578-022-00916-1
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-471. DOI: 10.1186/s13643-017-0448-0
+183. DOI: 10.31557/apjcp.2023.24.9.3139
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://systematicreviewsjournal.biomedcentral.com/track/pdf/10.1186/s13643-017-0448-0
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-472. DOI: 10.1186/s40246-016-0063-5
+184. DOI: 10.32604/or.2026.076384
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://humgenomics.biomedcentral.com/counter/pdf/10.1186/s40246-016-0063-5
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-473. DOI: 10.1186/s40246-025-00801-1
+185. DOI: 10.3389/bjbs.2026.16013
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://link.springer.com/content/pdf/10.1186/s40246-025-00801-1.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-474. DOI: 10.1186/s40478-019-0841-0
+186. DOI: 10.3389/fimmu.2024.1407837
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://actaneurocomms.biomedcentral.com/track/pdf/10.1186/s40478-019-0841-0
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-475. DOI: 10.1186/s41232-025-00374-5
+187. DOI: 10.3390/biom14060625
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://inflammregen.biomedcentral.com/counter/pdf/10.1186/s41232-025-00374-5
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-476. DOI: 10.1192/j.eurpsy.2019.6
+188. DOI: 10.3390/cells13010049
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.cambridge.org/core/services/aop-cambridge-core/content/view/09DD61F2635CA5A368D9B42A0482794F/S0924933819000063a.pdf/div-class-title-an-atlas-of-genetic-correlations-between-psychiatric-disorders-and-human-blood-plasma-proteome-div.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-477. DOI: 10.1212/wnl.0000000000207799
+189. DOI: 10.3390/cells14201602
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC10663002?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-478. DOI: 10.1212/wnl.53.7.1384
+190. DOI: 10.3390/cells9040941
      Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1212/WNL.53.7.1384.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-479. DOI: 10.1242/dmm.017400
+191. DOI: 10.3390/genes12020150
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://journals.biologists.com/dmm/article-pdf/8/1/1/1867672/1.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-480. DOI: 10.1242/dmm.049861
+192. DOI: 10.3390/genes17060693
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC10740172?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-481. DOI: 10.12688/f1000research.11110.1
+193. DOI: 10.3390/ijms21103670
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://f1000research.com/articles/6-859/v1/pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-482. DOI: 10.12771/emj.2024.e18
+194. DOI: 10.3390/ijms242015334
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC12093583?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-483. DOI: 10.1371/journal.pone.0010534
+195. DOI: 10.3390/ijms25063108
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0010534&type=printable
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-484. DOI: 10.1371/journal.pone.0024691
+196. DOI: 10.3390/ijms25116274
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0024691&type=printable
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-485. DOI: 10.1371/journal.pone.0044736
+197. DOI: 10.3390/ijms26209881
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0044736&type=printable
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-486. DOI: 10.1371/journal.pone.0048835
+198. DOI: 10.3390/ijms262110613
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0048835&type=printable
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-487. DOI: 10.1371/journal.pone.0059685
+199. DOI: 10.3390/ijms262311328
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0059685&type=printable
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-488. DOI: 10.1371/journal.pone.0066155
+200. DOI: 10.3390/ijms27041729
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0066155&type=printable
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-489. DOI: 10.1371/journal.pone.0094968
+201. DOI: 10.3390/molecules31061039
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0094968&type=printable
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-490. DOI: 10.1371/journal.pone.0124597
+202. DOI: 10.3390/molecules31132303
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0124597&type=printable
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-491. DOI: 10.1371/journal.pone.0132542
+203. DOI: 10.3892/or.2019.7418
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0132542&type=printable
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-492. DOI: 10.1371/journal.pone.0137339
+204. DOI: 10.3892/or.2020.7473
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0137339&type=printable
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-493. DOI: 10.1371/journal.pone.0151991
+205. DOI: 10.4103/ijmr.ijmr_4605_20
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC4807783?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-494. DOI: 10.1371/journal.pone.0153667
+206. DOI: 10.4143/crt.2021.978
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0153667&type=printable
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-495. DOI: 10.1371/journal.pone.0295855
+207. DOI: 10.5114/pjp.2024.142750
      Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0295855&type=printable
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-496. DOI: 10.1385/nmm:2:1:11
+208. DOI: 10.6004/jnccn.2022.7257
      Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1385/nmm%253A2%253A1%253A11.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-497. DOI: 10.1523/jneurosci.0253-22.2022
+209. DOI: 10.7150/ijbs.118427
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC9617620?pdf=render
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
-498. DOI: 10.1523/jneurosci.1003-21.2021
+210. DOI: 10.7150/ijms.43101
      Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC8805618?pdf=render
-
-499. DOI: 10.1523/jneurosci.1482-17.2017
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1523/JNEUROSCI.1482-17.2017.pdf
-
-500. DOI: 10.1523/jneurosci.1610-23.2024
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://escholarship.org/content/qt7hh832t2/qt7hh832t2.pdf
-
-501. DOI: 10.1523/jneurosci.4762-12.2013
-     Status: sucesso
-     Detalhe: Fonte: openalex
-     Fonte: openalex
-     PDF URL: https://digitalcommons.wustl.edu/cgi/viewcontent.cgi?article=9852&context=open_access_pubs
-
-502. DOI: 10.1534/genetics.119.302792
-     Status: sucesso
-     Detalhe: Fonte: semantic_scholar
-     Fonte: semantic_scholar
-     PDF URL: https://escholarship.org/content/qt5n69r01t/qt5n69r01t.pdf?t=rvuv1r
-
-503. DOI: 10.1542/peds.108.4.e58
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1542/peds.108.4.e58.pdf
-
-504. DOI: 10.1542/peds.2007-3604
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1542/peds.2007-3604.pdf
-
-505. DOI: 10.1542/peds.2019-1490
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1542/peds.2019-1490.pdf
-
-506. DOI: 10.15537/smj.2024.45.11.20240444
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://impactfactor.org/PDF/IJPCR/16/IJPCR,Vol16,Issue4,Article133.pdf
-
-507. DOI: 10.1586/14737159.7.4.371
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.1586/14737159.7.4.371.pdf
-
-508. DOI: 10.1590/1678-4685-gmb-2017-0235
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: http://www.scielo.br/pdf/gmb/v41n3/1415-4757-GMB-41-03-2017-0235.pdf
-
-509. DOI: 10.1590/s0041-87812004000300009
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.scielo.br/j/rhc/a/QDJYTFTmCP6mmThCjycCBVF/?lang=en&format=pdf
-
-510. DOI: 10.1590/s0120-41572012000400014
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/575989/files/BD_article_8966.pdf/content
-
-511. DOI: 10.17116/jnevro202612603181
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/59044/files/12974_2015_Article_466.pdf/content
-
-512. DOI: 10.17879/freeneuropathology-2022-3801
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/13885468/files/REVIEW%20ARTICLE-4%20(REVISED).pdf/content
-
-513. DOI: 10.18999/nagjms.86.1.1
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC10945231?pdf=render
-
-514. DOI: 10.21037/tp-22-435
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC10326766?pdf=render
-
-515. DOI: 10.2119/molmed.2011.00080
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://molmed.biomedcentral.com/counter/pdf/10.2119/molmed.2011.00080
-
-516. DOI: 10.21203/rs.3.rs-3270664/v1
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.researchsquare.com/article/rs-3270664/latest.pdf
-
-517. DOI: 10.21203/rs.3.rs-3734368/v1
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.researchsquare.com/article/rs-3734368/latest.pdf
-
-518. DOI: 10.21203/rs.3.rs-8321464/v1
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.researchsquare.com/article/rs-8321464/latest.pdf
-
-519. DOI: 10.2147/btt.s25095
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC3797614?pdf=render
-
-520. DOI: 10.2147/ndt.s186673
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC6267725?pdf=render
-
-521. DOI: 10.2147/ndt.s585060
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC13022905?pdf=render
-
-522. DOI: 10.2174/011570159x434753260323193021
-     Status: sucesso
-     Detalhe: Fonte: doi_resolver
-     Fonte: doi_resolver
-     PDF URL: https://www.eurekaselect.com/images/pdf/Media-Pack-2024.pdf
-
-523. DOI: 10.2174/1570159x20666221003085508
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC10716879?pdf=render
-
-524. DOI: 10.2217/epi.15.89
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.2217/epi.15.89.pdf
-
-525. DOI: 10.2340/actadv.v105.43133
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://medicaljournalssweden.se/actadv/article/download/43133/50128
-
-526. DOI: 10.2741/torres
-     Status: sucesso
-     Detalhe: Fonte: doi_resolver
-     Fonte: doi_resolver
-     PDF URL: https://storage.imrpress.com/imr/journal/FBL/article/491503/1752764054396.pdf
-
-527. DOI: 10.30773/pi.2017.05.31.2
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: http://psychiatryinvestigation.org/upload/pdf/pi-2017-05-31-2.pdf
-
-528. DOI: 10.3109/1547691x.2010.545086
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.3109/1547691X.2010.545086.pdf
-
-529. DOI: 10.31857/s0026898423020222
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://journals.rcsi.science/0026-8984/article/download/138639/116573
-
-530. DOI: 10.3233/jad-201158
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.3233/jad-201158.pdf
-
-531. DOI: 10.3389/fcimb.2025.1601888
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/journals/cellular-and-infection-microbiology/articles/10.3389/fcimb.2025.1601888/pdf
-
-532. DOI: 10.3389/fendo.2019.00247
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fendo.2019.00247/pdf
-
-533. DOI: 10.3389/fgene.2019.00580
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fgene.2019.00580/pdf
-
-534. DOI: 10.3389/fgene.2020.00308
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fgene.2020.00308/pdf
-
-535. DOI: 10.3389/fgene.2020.00849
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC7525012?pdf=render
-
-536. DOI: 10.3389/fimmu.2021.737747
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fimmu.2021.737747/pdf
-
-537. DOI: 10.3389/fimmu.2023.1190925
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC10398568?pdf=render
-
-538. DOI: 10.3389/fimmu.2023.1197265
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fimmu.2023.1197265/pdf
-
-539. DOI: 10.3389/fimmu.2023.1267834
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC10611497?pdf=render
-
-540. DOI: 10.3389/fimmu.2024.1370276
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://public-pages-files-2025.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1370276/pdf
-
-541. DOI: 10.3389/fimmu.2026.1773284
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://public-pages-files-2025.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1773284/pdf
-
-542. DOI: 10.3389/fimmu.2026.1814088
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1814088/pdf
-
-543. DOI: 10.3389/fmed.2023.1141035
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fmed.2023.1141035/pdf
-
-544. DOI: 10.3389/fmicb.2026.1798439
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC13190572?pdf=render
-
-545. DOI: 10.3389/fmolb.2022.834498
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fmolb.2022.834498/pdf
-
-546. DOI: 10.3389/fnagi.2026.1895712
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/journals/aging-neuroscience/articles/10.3389/fnagi.2026.1895712/pdf
-
-547. DOI: 10.3389/fncel.2014.00172
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fncel.2014.00172/pdf
-
-548. DOI: 10.3389/fncel.2019.00577
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fncel.2019.00577/pdf
-
-549. DOI: 10.3389/fncel.2020.00085
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fncel.2020.00085/pdf
-
-550. DOI: 10.3389/fncel.2020.00166
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fncel.2020.00166/pdf
-
-551. DOI: 10.3389/fncel.2020.00285
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fncel.2020.00285/pdf
-
-552. DOI: 10.3389/fncel.2023.1108339
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC10098020?pdf=render
-
-553. DOI: 10.3389/fneur.2020.01028
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fneur.2020.01028/pdf
-
-554. DOI: 10.3389/fneur.2022.894565
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fneur.2022.894565/pdf
-
-555. DOI: 10.3389/fneur.2024.1330874
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/journals/neurology/articles/10.3389/fneur.2024.1330874/pdf
-
-556. DOI: 10.3389/fneur.2025.1680672
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://public-pages-files-2025.frontiersin.org/journals/neurology/articles/10.3389/fneur.2025.1680672/pdf
-
-557. DOI: 10.3389/fnhum.2013.00738
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fnhum.2013.00738/pdf
-
-558. DOI: 10.3389/fnins.2016.00016
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fnins.2016.00016/pdf
-
-559. DOI: 10.3389/fnins.2016.00396
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fnins.2016.00396/pdf
-
-560. DOI: 10.3389/fnins.2016.00601
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fnins.2016.00601/pdf
-
-561. DOI: 10.3389/fnins.2020.00023
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fnins.2020.00023/pdf
-
-562. DOI: 10.3389/fnins.2022.862315
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/16883017/files/28-1508-2025.pdf/content
-
-563. DOI: 10.3389/fnins.2023.1101422
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fnins.2023.1101422/pdf
-
-564. DOI: 10.3389/fnins.2023.1160243
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fnins.2023.1160243/pdf
-
-565. DOI: 10.3389/fnmol.2018.00481
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fnmol.2018.00481/pdf
-
-566. DOI: 10.3389/fnmol.2019.00241
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fnmol.2019.00241/pdf
-
-567. DOI: 10.3389/fnmol.2022.1068019
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/17145924/files/nihms111988.pdf/content
-
-568. DOI: 10.3389/fnmol.2024.1503070
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://public-pages-files-2025.frontiersin.org/journals/molecular-neuroscience/articles/10.3389/fnmol.2024.1503070/pdf
-
-569. DOI: 10.3389/fnmol.2025.1553575
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/journals/molecular-neuroscience/articles/10.3389/fnmol.2025.1553575/pdf
-
-570. DOI: 10.3389/fnmol.2025.1602201
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://public-pages-files-2025.frontiersin.org/journals/molecular-neuroscience/articles/10.3389/fnmol.2025.1602201/pdf
-
-571. DOI: 10.3389/fnut.2026.1721018
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://public-pages-files-2025.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2026.1721018/pdf
-
-572. DOI: 10.3389/fped.2025.1680354
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://public-pages-files-2025.frontiersin.org/journals/pediatrics/articles/10.3389/fped.2025.1680354/pdf
-
-573. DOI: 10.3389/fphar.2024.1356763
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/journals/pharmacology/articles/10.3389/fphar.2024.1356763/pdf
-
-574. DOI: 10.3389/fpsyt.2021.788779
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fpsyt.2021.788779/pdf
-
-575. DOI: 10.3389/fpsyt.2022.1006612
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fpsyt.2022.1006612/pdf
-
-576. DOI: 10.3389/fpsyt.2022.823096
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fpsyt.2022.823096/pdf
-
-577. DOI: 10.3389/fpsyt.2022.842755
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fpsyt.2022.842755/pdf
-
-578. DOI: 10.3389/fpsyt.2022.904091
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/articles/10.3389/fpsyt.2022.904091/pdf
-
-579. DOI: 10.3389/fpsyt.2024.1304916
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/journals/psychiatry/articles/10.3389/fpsyt.2024.1304916/pdf
-
-580. DOI: 10.3389/fpsyt.2024.1431942
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.frontiersin.org/journals/psychiatry/articles/10.3389/fpsyt.2024.1431942/pdf
-
-581. DOI: 10.3389/fpubh.2024.1327315
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://public-pages-files-2025.frontiersin.org/journals/public-health/articles/10.3389/fpubh.2024.1327315/pdf
-
-582. DOI: 10.3390/biology14101433
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC12562180?pdf=render
-
-583. DOI: 10.3390/biom13091396
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/8326466/files/hmg_preprint.pdf/content
-
-584. DOI: 10.3390/biomedicines8120557
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC7760377?pdf=render
-
-585. DOI: 10.3390/biomedicines9070734
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.3390/biomedicines9070734.pdf
-
-586. DOI: 10.3390/brainsci10090631
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC7563403?pdf=render
-
-587. DOI: 10.3390/brainsci7090115
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC5615256?pdf=render
-
-588. DOI: 10.3390/cells11142211
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/8435901/files/WJARR-2023-1265.pdf/content
-
-589. DOI: 10.3390/cells15110985
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/17218803/files/mavi.pdf/content
-
-590. DOI: 10.3390/cells9010062
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC7016687?pdf=render
-
-591. DOI: 10.3390/cells9091926
-     Status: sucesso
-     Detalhe: Fonte: openalex
-     Fonte: openalex
-     PDF URL: https://orbi.uliege.be/bitstream/2268/260474/1/Javier-Torrent%202020%20Review%20Cells.pdf
-
-592. DOI: 10.3390/children11060627
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC11201845?pdf=render
-
-593. DOI: 10.3390/cimb45110582
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC10669955?pdf=render
-
-594. DOI: 10.3390/cimb46030121
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC10968780?pdf=render
-
-595. DOI: 10.3390/cimb47010034
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC11763708?pdf=render
-
-596. DOI: 10.3390/diseases12120334
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC11727198?pdf=render
-
-597. DOI: 10.3390/genes13061098
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/1160886/files/Autism%20treatment%20challenges%20need%20for%20accelerated%20Research%20in%20Pharmacological%20Interventions.pdf/content
-
-598. DOI: 10.3390/genes16040441
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/6970021/files/Abnormal%20uterine%20bleeding%20during%20puberty_to%20the%20pathogenesis%20and%20diagnosis.pdf/content
-
-599. DOI: 10.3390/genes16080868
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC12385676?pdf=render
-
-600. DOI: 10.3390/genes17040368
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/575989/files/BD_article_8966.pdf/content
-
-601. DOI: 10.3390/genes17040486
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC13115569?pdf=render
-
-602. DOI: 10.3390/ijms20153813
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC6696322?pdf=render
-
-603. DOI: 10.3390/ijms20236050
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC6928979?pdf=render
-
-604. DOI: 10.3390/ijms21114156
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC7312912?pdf=render
-
-605. DOI: 10.3390/ijms21165850
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC7461571?pdf=render
-
-606. DOI: 10.3390/ijms22189798
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/4064027/files/Documentation.pdf/content
-
-607. DOI: 10.3390/ijms23179843
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC9456089?pdf=render
-
-608. DOI: 10.3390/ijms231911077
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC9570008?pdf=render
-
-609. DOI: 10.3390/ijms232113328
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC9655506?pdf=render
-
-610. DOI: 10.3390/ijms252211959
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC11594089?pdf=render
-
-611. DOI: 10.3390/ijms26020573
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC11765205?pdf=render
-
-612. DOI: 10.3390/ijms26136483
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC12249793?pdf=render
-
-613. DOI: 10.3390/ijms27031185
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC12898408?pdf=render
-
-614. DOI: 10.3390/jpm11070596
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.3390/jpm11070596.pdf
-
-615. DOI: 10.3390/life11020088
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC7911779?pdf=render
-
-616. DOI: 10.3390/metabo13050663
-     Status: sucesso
-     Detalhe: Fonte: openalex
-     Fonte: openalex
-     PDF URL: https://escholarship.org/content/qt5j57k1pw/qt5j57k1pw.pdf
-
-617. DOI: 10.3390/microorganisms12081625
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/19849001/files/10(53-64).pdf/content
-
-618. DOI: 10.3390/microorganisms9081723
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC8399841?pdf=render
-
-619. DOI: 10.3390/nu10111582
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC6266812?pdf=render
-
-620. DOI: 10.3390/nu13041185
-     Status: sucesso
-     Detalhe: Fonte: openalex
-     Fonte: openalex
-     PDF URL: https://eprints.whiterose.ac.uk/id/eprint/242180/1/2021%2004%2002%20-%20Nutrients%20-%20Martinat%20Rossitto%20Di%20Miceli%20Laye%20-%20Perinatal%20Dietary%20Polyunsaturated%20Fatty%20Acids%20in%20Brain%20Development%2C%20Role%20in%20Neurodevelopmental%20Disorders.pdf
-
-621. DOI: 10.3390/nu17091439
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/7897238/files/978-617-7319-65-7%20Chapter%204.pdf/content
-
-622. DOI: 10.3402/mehd.v26.27458
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC4425813?pdf=render
-
-623. DOI: 10.3892/mmr.2018.9473
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: http://www.spandidos-publications.com/10.3892/mmr.2018.9473/download
-
-624. DOI: 10.3906/sag-2002-133
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC7672342?pdf=render
-
-625. DOI: 10.4103/nrr.nrr-d-25-00734
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/16809095/files/Maira%20Osmani%20-%202025%20C.R.A.F.T.%20Research%20Scholars_%20FINAL%20E-Poster%20(1).pdf/content
-
-626. DOI: 10.4161/cc.8.23.10113
-     Status: sucesso
-     Detalhe: Fonte: scihub
-     Fonte: scihub
-     PDF URL: https://sci.bban.top/pdf/10.4161/cc.8.23.10113.pdf
-
-627. DOI: 10.4161/cib.3.3.11414
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC2918768?pdf=render
-
-628. DOI: 10.4161/derm.24356
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC3897590?pdf=render
-
-629. DOI: 10.5493/wjem.v15.i2.100548
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC12019623?pdf=render
-
-630. DOI: 10.5498/wjp.v14.i1.88
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://rcastoragev2.blob.core.windows.net/b040f466ebcae935a4337889787ccdd0/PMC8654688.pdf
-
-631. DOI: 10.64898/2025.12.10.693473
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC12710640?pdf=render
-
-632. DOI: 10.64898/2026.01.20.700626
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.biorxiv.org/content/biorxiv/early/2026/01/23/2026.01.20.700626.full.pdf
-
-633. DOI: 10.64898/2026.02.28.708624
-     Status: sucesso
-     Detalhe: Fonte: doi_resolver
-     Fonte: doi_resolver
-     PDF URL: https://www.biorxiv.org/content/10.64898/2026.02.28.708624v2.full.pdf
-
-634. DOI: 10.64898/2026.04.05.716613
-     Status: sucesso
-     Detalhe: Fonte: doi_resolver
-     Fonte: doi_resolver
-     PDF URL: https://www.biorxiv.org/content/10.64898/2026.04.05.716613v2.full.pdf
-
-635. DOI: 10.64898/2026.07.20.739611
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.biorxiv.org/content/biorxiv/early/2026/07/23/2026.07.20.739611.full.pdf
-
-636. DOI: 10.7150/jca.14747
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.jcancer.org/v07p1621.pdf
-
-637. DOI: 10.7417/ct.2013.1587
-     Status: sucesso
-     Detalhe: Fonte: zenodo
-     Fonte: zenodo
-     PDF URL: https://zenodo.org/api/records/1121143/files/10.21307_ane-2017-030.pdf/content
-
-638. DOI: 10.7554/elife.61974
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC8102060?pdf=render
-
-639. DOI: 10.7759/cureus.79764
-     Status: sucesso
-     Detalhe: Fonte: europe_pmc
-     Fonte: europe_pmc
-     PDF URL: https://europepmc.org/articles/PMC11954437?pdf=render
-
-640. DOI: 10.7759/cureus.94607
-     Status: sucesso
-     Detalhe: Fonte: unpaywall
-     Fonte: unpaywall
-     PDF URL: https://www.cureus.com/articles/408643-genetic-and-environmental-risk-factors-for-autism-spectrum-disorder-in-saudi-arabia-a-systematic-review.pdf
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
 
 RECOMENDAÇÕES:
 ------------------------------------------------------------
-• 640 DOIs foram baixados com sucesso.
+• 3 DOIs não tiveram cópia de acesso aberto encontrada.
+  Considere verificar acesso institucional ou usar serviços como
+  solicitação de cópia diretamente aos autores.
+• 15 DOIs falharam devido a erros de transporte.
+  Pode ser problemas temporários de rede ou bloqueio temporário.
+  Considere tentar novamente em momentos diferentes.
+• 192 DOIs foram baixados com sucesso.
   Os PDFs estão disponíveis no diretório 'pdfs'.
 
 ============================================================

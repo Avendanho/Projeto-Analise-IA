@@ -105,3 +105,4 @@ src/download/test_dois.txt
 src/search/output/
 src/search/quary.txt
 patch_modal.html
+mock_pdfs/

@@ -1,105 +1,102 @@
-# PROTOCOLO DE TRIAGEM SISTEMÁTICA: GENÉTICA, NEUROINFLAMAÇÃO E TRANSTORNO DO ESPECTRO AUTISTA (TEA)
+```json
+{
+  "analise_preliminar": "Este protocolo estabelece as diretrizes para a triagem de artigos que estudam a relação entre câncer de mama triplo-negativo (TNBC), alterações ou função do gene BRCA1 e resposta ao tratamento com inibidores de PARP. A análise deve ser extremamente rígida, excluindo artigos que falhem em qualquer etapa ou categoria mínima.",
+  "parecer_final": "INCLUIDO, EXCLUIDO ou REVISÃO MANUAL",
+  "justificativa": "Explicação detalhada da decisão...",
+  "motivo_principal": "Código de exclusão (ex: E1) ou '-'",
+  "confidence_score": 95, // Nível de confiança da IA (número de 0 a 100)
+  "Q1": "S", "Q2": "S", // etc...
+  "extracted_snippets": {
+    "Q1": ["Citação exata verbatim do texto para Q1"],
+    "Q2": ["Citação exata verbatim do texto para Q2"]
+  },
+  "key_synthesis": "Uma síntese...",
+  "project_value_added": "Valor agregado..."
+}
+```
 
----
+### Protocolo de Triagem
 
-## 1. OBJETIVO DO PROTOCOLO
-Este protocolo tem como objetivo estabelecer critérios claros, reprodutíveis e padronizados para a triagem de artigos científicos em nível de título/resumo e texto completo. A meta principal é identificar e selecionar estudos que investiguem **a relação direta entre fatores genéticos/moleculares e mecanismos imunológicos/inflamatórios no Transtorno do Espectro Autista (TEA) em humanos**.
+#### Objetivo
+O objetivo deste protocolo é garantir que apenas artigos relevantes sejam incluídos na revisão sistemática. Os artigos devem estudar diretamente a relação entre câncer de mama triplo-negativo (TNBC), alterações ou função do gene BRCA1 e resposta ao tratamento com inibidores de PARP, com foco em seres humanos.
 
----
+#### Regras Gerais
+1. **Análise Rígida**: A análise deve ser extremamente rígida. Se um artigo falhar em qualquer etapa ou categoria mínima, ele deve ser excluído imediatamente.
+2. **Priorização**: Priorize estudos que apresentem uma relação explícita entre o status de BRCA1 e a eficácia, resposta, sensibilidade ou resistência aos inibidores de PARP em pacientes com câncer de mama triplo-negativo.
 
-## 2. REGRAS GERAIS E DIRETRIZES DE AVALIAÇÃO
+#### Etapas de Triagem
 
-*   **Critérios Temporais e Idiomáticos:** **NÃO** excluir estudos com base no ano de publicação ou no idioma original (artigos elegíveis devem ser incluídos independentemente da data ou língua).
-*   **Decisões Binárias:** Cada questão deve ser respondida estritamente com **"S" (Sim)**, **"N" (Não)** ou **"NA" (Não se Aplica)**.
-*   **Extração de Evidências:** Toda resposta positiva ("S") deve vir acompanhada de um trecho literal (*snippet verbatim*) retirado do texto que sustenta a decisão.
+**ETAPA 1: Verificação de Relevância Geral**
+- **Pergunta 1 (Q1)**: O artigo estuda diretamente câncer de mama triplo-negativo (TNBC)?
+  - **Resposta**: S/N
+  - **Justificativa**: Se N, exclua imediatamente.
+  - **Exemplo de Citação**: "O estudo avaliou pacientes com câncer de mama triplo-negativo."
 
-> ### ⚠️ REGRA DE OURO DA TRIAGEM (RIGOR MÁXIMO):
-> **A análise deve ser EXTREMAMENTE RÍGIDA.** A triagem opera em formato de *funil de exclusão*. Se o artigo falhar em qualquer etapa ou critério mínimo obrigatório, ele deve ser classificado como **EXCLUIDO imediatamente**, atribuindo-se o código de exclusão correspondente, sem flexibilização de critérios conceituais.
+**ETAPA 2: Verificação do Foco no Gene BRCA1**
+- **Pergunta 2 (Q2)**: O artigo investiga diretamente o gene BRCA1, incluindo mutação, variante patogênica, perda de função, deficiência de BRCA1 ou alterações relacionadas à função de BRCA1?
+  - **Resposta**: S/N
+  - **Justificativa**: Se N, exclua imediatamente.
+  - **Exemplo de Citação**: "O estudo avaliou a mutação do gene BRCA1 em pacientes com câncer de mama."
 
----
+**ETAPA 3: Verificação da Intervenção com Inibidores de PARP**
+- **Pergunta 3 (Q3)**: O artigo avalia inibidores de PARP como intervenção, tratamento, resposta terapêutica ou mecanismo de sensibilidade/resistência?
+  - **Resposta**: S/N
+  - **Justificativa**: Se N, exclua imediatamente.
+  - **Exemplo de Citação**: "O estudo avaliou a resposta aos inibidores de PARP em pacientes com câncer de mama triplo-negativo."
 
-## 3. CÓDIGOS DE EXCLUSÃO PADRONIZADOS
-*   **E1:** População não humana (exclusivamente modelos animais ou *in vitro* sem dados/amostras humanas).
-*   **E2:** População sem diagnóstico formal de TEA / Impossibilidade de separar dados de TEA de outras condições.
-*   **E3:** Ausência de análise empírica de componente genético, genômico ou molecular relacionado ao TEA.
-*   **E4:** Ausência de medição ou análise empírica de vias, marcadores ou processos imunológicos/inflamatórios.
-*   **E5:** Ausência de correlação/ligação direta entre os dados genéticos e os dados inflamatórios/imunológicos no contexto do TEA.
-*   **E6:** Tipo de publicação/desenho inelegível (editoriais de opinião sem dados, cartas sem métodos empíricos, resumos de congressos sem texto completo).
+**ETAPA 4: Verificação de Resultados Originais**
+- **Pergunta 4 (Q4)**: O artigo apresenta resultados originais relacionados à associação entre o status de BRCA1 e a resposta, benefício, resistência ou sensibilidade aos inibidores de PARP?
+  - **Resposta**: S/N
+  - **Justificativa**: Se N, exclua imediatamente.
+  - **Exemplo de Citação**: "Os resultados mostraram uma associação significativa entre o status de BRCA1 e a resposta aos inibidores de PARP."
 
----
+**ETAPA 5: Verificação de População e Exposição/Intervenção**
+- **Pergunta 5 (Q5)**: O artigo envolve seres humanos como população de estudo e amostras clínicas humanas claramente identificadas como TNBC?
+  - **Resposta**: S/N
+  - **Justificativa**: Se N, exclua imediatamente.
+  - **Exemplo de Citação**: "O estudo incluiu 100 pacientes com câncer de mama triplo-negativo."
 
-## 4. ETAPAS DE TRIAGEM E PERGUNTAS DE AVALIAÇÃO
+**ETAPA 6: Exclusão de Artigos Não Originais ou Irrelevantes**
+- **Pergunta 6 (Q6)**: O artigo é uma revisão sistemática, revisão narrativa, meta-análise, editorial, carta, comentário, protocolo ou opinião?
+  - **Resposta**: S/N
+  - **Justificativa**: Se S, exclua imediatamente.
+  - **Exemplo de Citação**: "Este estudo é uma revisão sistemática."
 
-### ETAPA 1: População, Elegibilidade Humana e Diagnóstico de TEA
-*   **Q1:** O estudo envolve seres humanos (sujeitos, biópsias, tecidos post-mortem humanos ou biobancos de pacientes)? *(Se "N" $\rightarrow$ Excluir: E1)*
-*   **Q2:** O artigo inclui indivíduos com diagnóstico de TEA ou avalia um desfecho clínico/fenotípico específico de TEA em humanos? *(Se "N" $\rightarrow$ Excluir: E2)*
-*   **Q3:** O diagnóstico de TEA foi estabelecido por critérios/métodos reconhecidos e padronizados (ex.: DSM-IV, DSM-5, CID/ICD-10, CID/ICD-11, ADOS, ADI-R ou avaliação clínica multidisciplinar formal) e não apenas por traços subclínicos/escalas de rastreio genéricas isoladas? *(Se "N" $\rightarrow$ Excluir: E2)*
-*   **Q4:** Caso a amostra combine TEA com outras condições neuropsiquiátricas ou genéticas, os dados e resultados referentes ao TEA são passíveis de análise separada/estratificada? *(Se não houver mistura, marque "NA"; se houver mistura e não separar $\rightarrow$ Excluir: E2)*
+**ETAPA 7: Verificação de Foco Específico**
+- **Pergunta 7 (Q7)**: O artigo se limita a câncer de mama triplo-negativo e não estudou outros tipos de câncer?
+  - **Resposta**: S/N
+  - **Justificativa**: Se N, exclua imediatamente.
+  - **Exemplo de Citação**: "O estudo se concentrou exclusivamente em câncer de mama triplo-negativo."
 
----
+**ETAPA 8: Verificação de Análise de BRCA1 e PARP**
+- **Pergunta 8 (Q8)**: O artigo menciona BRCA1 ou inibidores de PARP apenas na introdução ou discussão, sem investigação no estudo?
+  - **Resposta**: S/N
+  - **Justificativa**: Se S, exclua imediatamente.
+  - **Exemplo de Citação**: "BRCA1 foi mencionado apenas na introdução."
 
-### ETAPA 2: Componente Genético / Genômico / Epigenético
-*   **Q5:** O estudo investiga variantes estruturais/sequenciais (SNPs, mutações raras, CNVs, GWAS) **OU** dados moleculares/funcionais (expressão gênica, transcriptômica, miRNAs, metilação/epigenética) relacionados ao TEA? *(Se "N" $\rightarrow$ Excluir: E3)*
-*   **Q6:** O componente genético/molecular foi de fato **medido, genotipado ou quantificado empiricamente** no estudo (e não apenas citado contextualmente na introdução ou discussão)? *(Se "N" $\rightarrow$ Excluir: E3)*
-
----
-
-### ETAPA 3: Componente Inflamatório / Imunológico
-*   **Q7:** O estudo investiga marcadores, vias ou mecanismos de inflamação, neuroinflamação ou disfunção imunológica com relevância biológica comprovada (ex.: citocinas, quimiocinas, ativação microglial, vias imunes inatas/adaptativas)? *(Se "N" $\rightarrow$ Excluir: E4)*
-*   **Q8:** O componente inflamatório/imunológico foi **mensurado, dosado ou analisado empiricamente** no trabalho (e não apenas citado incidentalmente na introdução/discussão)? *(Se "N" $\rightarrow$ Excluir: E4)*
-
----
-
-### ETAPA 4: Critério Central – Intersecção Genética × Inflamação no TEA
-*   **Q9:** O artigo **relaciona diretamente** a alteração/expressão genética com os parâmetros/vias imunoinflamatórias (ex.: genótipo associado a níveis de citocinas, eQTLs de genes imunes, vias inflamatórias enriquecidas em dados genômicos)? *(Se "N" $\rightarrow$ Excluir: E5)*
-*   **Q10:** A correlação entre os achados genéticos e inflamatórios é contextualizada e interpretada especificamente na fisiopatologia ou suscetibilidade ao TEA? *(Se "N" $\rightarrow$ Excluir: E5)*
-
----
-
-### ETAPA 5: Desenho de Estudo e Verificação Final
-*   **Q11:** O desenho metodológico é elegível (estudos observacionais como caso-controle, coorte, transversal; ensaios clínicos; revisões sistemáticas com ou sem metanálise)? *(Se "N" $\rightarrow$ Excluir: E6)*
-*   **Q12:** Confirmação de segurança: O estudo assegura **NÃO** ser puramente um modelo animal ou ensaio celular isolado sem ligação com dados ou amostras de pacientes humanos? *(Se for puramente animal sem dados humanos $\rightarrow$ Excluir: E1)*
-
----
-
-## 14. OBRIGATÓRIO: SAÍDA EM JSON!
-
-O resultado da avaliação deve ser retornado **estritamente** como um objeto JSON válido, sem texto livre antes ou depois, seguindo com precisão a estrutura abaixo:
+#### Exemplo de Saída Final
 
 ```json
 {
-  "analise_preliminar": "Escreva aqui uma análise preliminar detalhada da elegibilidade do artigo...",
-  "parecer_final": "INCLUIDO, EXCLUIDO ou REVISÃO MANUAL",
-  "justificativa": "Explicação detalhada e justificada da decisão...",
-  "motivo_principal": "Código de exclusão (ex: E1, E2, E3, E4, E5, E6) ou '-' se INCLUIDO",
+  "analise_preliminar": "Este artigo estuda diretamente a relação entre câncer de mama triplo-negativo (TNBC), alterações ou função do gene BRCA1 e resposta ao tratamento com inibidores de PARP. A análise foi extremamente rígida, e o artigo passou por todas as etapas.",
+  "parecer_final": "INCLUIDO",
+  "justificativa": "O artigo apresenta resultados originais e envolve seres humanos como população de estudo, com foco em câncer de mama triplo-negativo.",
+  "motivo_principal": "-",
   "confidence_score": 95,
-  "Q1": "S",
-  "Q2": "S",
-  "Q3": "S",
-  "Q4": "S",
-  "Q5": "S",
-  "Q6": "S",
-  "Q7": "S",
-  "Q8": "S",
-  "Q9": "S",
-  "Q10": "S",
-  "Q11": "S",
-  "Q12": "S",
+  "Q1": "S", "Q2": "S", "Q3": "S", "Q4": "S", "Q5": "S", "Q6": "N", "Q7": "S", "Q8": "N",
   "extracted_snippets": {
-    "Q1": ["Citação exata verbatim do texto para Q1"],
-    "Q2": ["Citação exata verbatim do texto para Q2"],
-    "Q3": ["Citação exata verbatim do texto para Q3"],
-    "Q4": ["Citação exata verbatim do texto para Q4"],
-    "Q5": ["Citação exata verbatim do texto para Q5"],
-    "Q6": ["Citação exata verbatim do texto para Q6"],
-    "Q7": ["Citação exata verbatim do texto para Q7"],
-    "Q8": ["Citação exata verbatim do texto para Q8"],
-    "Q9": ["Citação exata verbatim do texto para Q9"],
-    "Q10": ["Citação exata verbatim do texto para Q10"],
-    "Q11": ["Citação exata verbatim do texto para Q11"],
-    "Q12": ["Citação exata verbatim do texto para Q12"]
+    "Q1": ["O estudo avaliou pacientes com câncer de mama triplo-negativo."],
+    "Q2": ["O estudo avaliou a mutação do gene BRCA1 em pacientes com câncer de mama."],
+    "Q3": ["O estudo avaliou a resposta aos inibidores de PARP em pacientes com câncer de mama triplo-negativo."],
+    "Q4": ["Os resultados mostraram uma associação significativa entre o status de BRCA1 e a resposta aos inibidores de PARP."],
+    "Q5": ["O estudo incluiu 100 pacientes com câncer de mama triplo-negativo."],
+    "Q6": ["Este estudo é uma revisão sistemática."],
+    "Q7": ["O estudo se concentrou exclusivamente em câncer de mama triplo-negativo."],
+    "Q8": ["BRCA1 foi mencionado apenas na introdução."]
   },
-  "key_synthesis": "Uma síntese concisa dos principais achados do artigo relevantes para a revisão...",
-  "project_value_added": "Valor agregado do artigo para a compreensão do elo genética-inflamação no TEA..."
+  "key_synthesis": "O estudo demonstra uma relação significativa entre o status de BRCA1 e a resposta aos inibidores de PARP em pacientes com câncer de mama triplo-negativo.",
+  "project_value_added": "Este estudo fornece insights valiosos sobre a relação entre o status de BRCA1 e a resposta aos inibidores de PARP em pacientes com câncer de mama triplo-negativo."
 }
 ```
+
+Este protocolo garante que apenas artigos relevantes sejam incluídos na revisão sistemática, seguindo rigorosamente as regras estabelecidas.

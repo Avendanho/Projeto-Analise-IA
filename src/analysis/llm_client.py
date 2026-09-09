@@ -114,6 +114,7 @@ def get_llm_client() -> Tuple[Callable[[str, str], str], str]:
                     max_tokens=2048,
                     temperature=0.0,
                     system=system_prompt,
+                    timeout=600.0,
                     messages=[
                         {"role": "user", "content": content_list},
                         {"role": "assistant", "content": "{"}
@@ -161,7 +162,8 @@ def get_llm_client() -> Tuple[Callable[[str, str], str], str]:
                         {"role": "user", "content": content_list}
                     ],
                     response_format={"type": "json_object"},
-            temperature=0.0
+            temperature=0.0,
+            timeout=600.0
                 )
                 return response.choices[0].message.content
                 
@@ -213,6 +215,7 @@ def get_llm_client() -> Tuple[Callable[[str, str], str], str]:
             ],
             response_format={"type": "json_object"},
             temperature=0.0,
+            timeout=600.0,
             extra_body={"options": {"num_ctx": 32768, "num_predict": 2048}}
         )
         return response.choices[0].message.content

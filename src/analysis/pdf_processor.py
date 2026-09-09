@@ -57,11 +57,12 @@ def _process_pdf_worker(filepath: str, article_id: str) -> Dict[str, Any]:
     out_dir.mkdir(parents=True, exist_ok=True)
     
     images_dir = out_dir / "images"
+    images_dir.mkdir(parents=True, exist_ok=True)
     
     text = ""
     try:
-        # Extração Rápida (Fast Path) - sem extrair imagens
-        text = pymupdf4llm.to_markdown(filepath, write_images=False)
+        # Extração em Markdown, SEMPRE COM IMAGENS conforme solicitado pelo usuário
+        text = pymupdf4llm.to_markdown(filepath, write_images=True, image_path=str(images_dir))
         
         # Otimização: Cortar referências para salvar ~30% dos tokens
         original_len = len(text)
@@ -72,12 +73,6 @@ def _process_pdf_worker(filepath: str, article_id: str) -> Dict[str, Any]:
         quality = "HIGH" if len(text) > 1000 else "LOW"
         if "Erro" in text:
             quality = "ERROR"
-            
-        # Fallback para PDF escaneado (baixa qualidade): gerar imagens para possível análise multimodal
-        if quality != "HIGH":
-            images_dir.mkdir(parents=True, exist_ok=True)
-            text_with_images = pymupdf4llm.to_markdown(filepath, write_images=True, image_path=str(images_dir))
-            text = _trim_references(text_with_images)
             
     except Exception as e:
         quality = "ERROR"

@@ -272,14 +272,18 @@ def report():
     console.print("[bold blue]Copiando PDFs para pastas organizadas...[/bold blue]")
     dir_incluidos = reports_dir / "pdfs_incluidos"
     dir_excluidos = reports_dir / "pdfs_excluidos"
+    dir_revisao = reports_dir / "pdfs_revisao_manual"
     dir_incluidos.mkdir(exist_ok=True)
     dir_excluidos.mkdir(exist_ok=True)
+    dir_revisao.mkdir(exist_ok=True)
     
     for _, row in df.iterrows():
         pdf_path = Path(settings.pdf_dir) / row['filename']
         if pdf_path.exists():
             if row['decision'] == 'INCLUIDO':
                 shutil.copy2(pdf_path, dir_incluidos / row['filename'])
+            elif row['decision'] == 'REVISÃO MANUAL':
+                shutil.copy2(pdf_path, dir_revisao / row['filename'])
             else:
                 shutil.copy2(pdf_path, dir_excluidos / row['filename'])
     console.print("[bold green]✅ PDFs organizados.[/bold green]")
@@ -307,38 +311,42 @@ def report():
                 json.dump(q_data, f, indent=2, ensure_ascii=False)
     
     # ---------------------------------------------------------
-    # Generate RELATORIO_FINAL.md com Data Charts
+    # Generate RELATORIOS INDIVIDUAIS
     # ---------------------------------------------------------
+    def gerar_relatorio_md(nome_arquivo, titulo, icone, dados_df):
+        path = reports_dir / nome_arquivo
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(f"# {icone} {titulo}\n\n")
+            f.write(f"**Total de Artigos:** {len(dados_df)}\n\n---\n\n")
+            
+            for _, row in dados_df.iterrows():
+                f.write(f"### {icone} ID: {row['article_id']}\n\n")
+                f.write(f"**Arquivo:** `{row['filename']}` | **Confiança da IA:** {row['confidence_score']}%\n\n")
+                
+                f.write(f"**Justificativa:**\n> {row['justificativa']}\n\n")
+                
+                if row['exclusion_code'] and row['exclusion_code'] != "-":
+                    f.write(f"- **Motivo Principal (Código):** {row['exclusion_code']}\n")
+                    
+                if row['key_synthesis'] and row['key_synthesis'] != "N/A":
+                    f.write(f"- **Síntese:** {row['key_synthesis']}\n")
+                    
+                if row['project_value_added'] and row['project_value_added'] != "N/A":
+                    f.write(f"- **Agregação ao Projeto:** {row['project_value_added']}\n")
+                    
+                f.write("\n---\n\n")
+
+    gerar_relatorio_md("RELATORIO_INCLUIDOS.md", "Relatório de Artigos INCLUÍDOS", "✅", df[df['decision'] == 'INCLUIDO'])
+    gerar_relatorio_md("RELATORIO_EXCLUIDOS.md", "Relatório de Artigos EXCLUÍDOS", "❌", df[df['decision'] == 'EXCLUIDO'])
+    gerar_relatorio_md("RELATORIO_REVISAO_MANUAL.md", "Relatório de Artigos para REVISÃO MANUAL", "⚠️", df[df['decision'] == 'REVISÃO MANUAL'])
+    
+    # Compatibilidade com a interface web (mantém um relatório final unificado simples)
     with open(reports_dir / "RELATORIO_FINAL.md", "w", encoding="utf-8") as f:
-        f.write("# 📊 Relatório Detalhado de Triagem por IA\n\n")
-        
         counts = df['decision'].value_counts()
-        f.write("## 📈 Resumo Estatístico\n\n")
-        f.write(f"- ✅ **INCLUÍDOS:** {counts.get('INCLUIDO', 0)}\n")
-        f.write(f"- ❌ **EXCLUÍDOS:** {counts.get('EXCLUIDO', 0)}\n")
-        f.write(f"- ⚠️ **REVISÃO MANUAL:** {counts.get('REVISÃO MANUAL', 0)}\n\n")
-        f.write("---\n\n")
-        
-        f.write("## 📄 Análise Detalhada dos Artigos\n\n")
-        
-        for _, row in df.iterrows():
-            decision = row['decision']
-            icon = "✅" if decision == "INCLUIDO" else "❌" if decision == "EXCLUIDO" else "⚠️"
-            f.write(f"### {icon} [{decision}] ID: {row['article_id']}\n\n")
-            f.write(f"**Arquivo:** `{row['filename']}` | **Confiança da IA:** {row['confidence_score']}%\n\n")
-            
-            f.write(f"**Justificativa:**\n> {row['justificativa']}\n\n")
-            
-            if row['exclusion_code'] and row['exclusion_code'] != "-":
-                f.write(f"- **Motivo Principal (Código):** {row['exclusion_code']}\n")
-                
-            if row['key_synthesis'] and row['key_synthesis'] != "N/A":
-                f.write(f"- **Síntese:** {row['key_synthesis']}\n")
-                
-            if row['project_value_added'] and row['project_value_added'] != "N/A":
-                f.write(f"- **Agregação ao Projeto:** {row['project_value_added']}\n")
-                
-            f.write("\n---\n\n")
+        f.write("# 📊 Resumo Estatístico Geral\n\n")
+        f.write(f"- ✅ **INCLUÍDOS:** {counts.get('INCLUIDO', 0)} artigos (Veja RELATORIO_INCLUIDOS.md)\n")
+        f.write(f"- ❌ **EXCLUÍDOS:** {counts.get('EXCLUIDO', 0)} artigos (Veja RELATORIO_EXCLUIDOS.md)\n")
+        f.write(f"- ⚠️ **REVISÃO MANUAL:** {counts.get('REVISÃO MANUAL', 0)} artigos (Veja RELATORIO_REVISAO_MANUAL.md)\n")
             
     console.print(f"[bold green]Concluído! Relatórios gerados em: {reports_dir}[/bold green]")
 

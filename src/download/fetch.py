@@ -707,25 +707,26 @@ def _download(url: str, dest: Path, *, timeout: int) -> str | None:
     try:
         with session.get(url, stream=True, timeout=(5, timeout), allow_redirects=True) as r:
             if r.status_code == 200:
-                # Fast check magic bytes without buffering everything
-                first_chunk = r.raw.read(10)
+                iterator = r.iter_content(chunk_size=8192)
+                try:
+                    first_chunk = next(iterator)
+                except StopIteration:
+                    first_chunk = b""
+                
                 if first_chunk.startswith(b"%PDF"):
                     dest.parent.mkdir(parents=True, exist_ok=True)
                     tmp_dest = dest.with_name(f".{dest.name}.tmp.{os.getpid()}_{uuid.uuid4().hex[:6]}")
                     with open(tmp_dest, "wb") as f:
                         f.write(first_chunk)
-                        # Stream the rest
-                        for chunk in r.iter_content(chunk_size=8192):
+                        for chunk in iterator:
                             if chunk:
                                 f.write(chunk)
                     
-                    # Optional: validate full PDF here if needed, but streaming implies we trust it for now
                     from analiseia.platform.filesystem import safe_replace
                     safe_replace(tmp_dest, dest)
                     _progress("download_stream_ok", url=url)
                     return None
                 else:
-                    # Not a PDF by magic bytes, fallback
                     pass
     except Exception as e:
         pass

@@ -313,6 +313,27 @@ async def run_download(workers: int = 15):
 
     return StreamingResponse(sse_wrapper(), media_type="text/event-stream", headers=_sse_headers())
 
+@app.get("/api/run/deep-search")
+async def run_deep_search():
+    env = os.environ.copy()
+    env["IN_DOCKER"] = "1"
+    env["PYTHONUNBUFFERED"] = "1"
+    
+    async def sse_wrapper():
+        try:
+            cmd = [
+                sys.executable, "deep_search.py"
+            ]
+            async for msg in run_command_sse(cmd, cwd=download_artigos_dir, env=env):
+                yield msg
+                
+        except Exception as e:
+            import traceback
+            err = traceback.format_exc().replace('\n', ' | ')
+            yield f"data: [ERROR] Erro interno: {err}\n\n"
+            
+    return StreamingResponse(sse_wrapper(), media_type="text/event-stream", headers=_sse_headers())
+
 
 @app.get("/api/run/analyze")
 async def run_analyze(workers: int = 4):

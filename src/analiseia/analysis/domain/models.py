@@ -63,13 +63,15 @@ class CriterionConfig(BaseModel):
     fail_value: str
     exclusion_code: str
 
-class GlobalAnalysis(BaseModel):
-    objetivo_estudo: str = Field(description="Objetivo principal e pergunta científica do estudo")
-    populacao_condicao: str = Field(description="População estudada e condição clínica (ex: TEA, modelos animais, controles saudáveis)")
-    componente_genetico: str = Field(description="O que foi investigado em termos de genética/biologia molecular")
-    componente_inflamatorio: str = Field(description="O que foi investigado em termos de imunologia/inflamação")
-    relacao_observada: str = Field(description="Existe relação direta demonstrada entre genética e inflamação no artigo?")
-    conclusao_autores: str = Field(description="Principais achados e conclusões dos autores")
+class SemanticExtraction(BaseModel):
+    study_purpose: str = Field(description="Objetivo principal e desenho do estudo")
+    population: str = Field(description="População ou amostra (ex: Humanos com TEA, modelo animal)")
+    condition: str = Field(description="Condição clínica ou comportamental")
+    genetic_component: str = Field(description="Variáveis ou métodos genéticos/moleculares investigados")
+    inflammatory_component: str = Field(description="Marcadores ou métodos imunológicos/inflamatórios investigados")
+    relationship_between_components: str = Field(description="Relação estabelecida entre genética e inflamação")
+    key_findings: str = Field(description="Principais resultados e conclusões relevantes ao protocolo")
+    relevant_evidence_snippets: list[str] = Field(description="Trechos extraídos do artigo que sustentam as extrações acima")
 
 class FastScreeningConfig(BaseModel):
     enabled: bool = True

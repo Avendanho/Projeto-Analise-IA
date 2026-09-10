@@ -5,7 +5,9 @@ from typing import Dict
 from ..domain.models import ArticleDocument, FinalResult, CriterionResult, ScreeningDecision, ProtocolConfig
 from ..agents.fast_screening import FastScreeningAgent, FastScreeningResult
 from ..agents.base import BaseCriterionAgent
-from ..agents.single_pass import SinglePassAgent
+from ..agents.semantic_extractor import SemanticExtractionAgent
+from ..agents.criteria_evaluator import CriteriaEvaluatorAgent
+from ..domain.models import SemanticExtraction
 from .decision_engine import RuleEngine
 from .deliberator import Deliberator
 from .validators import DocumentQualityAnalyzer, CriterionValidator, FinalResultValidator
@@ -30,7 +32,8 @@ class ScreeningOrchestrator:
         self.deliberator = Deliberator(self.router.route_for_verification())
         self.rule_engine = RuleEngine(self.config)
         
-        self.single_agent = SinglePassAgent(self.config.criteria)
+        self.semantic_agent = SemanticExtractionAgent()
+        self.criteria_agent = CriteriaEvaluatorAgent(self.config.criteria)
         
     def analyze_article(self, article: ArticleDocument) -> FinalResult:
         # 0. Document Quality
@@ -60,13 +63,41 @@ class ScreeningOrchestrator:
                 pass
             # POTENTIAL_INCLUDE também cai para a camada 2 naturalmente
             
-        # 2. Single Pass Screening (SPEEDUP)
+        import os, json, hashlib
+        # 2. Extração Semântica com Cache
+        cache_dir = Path(self.settings.db_dir) / "extracted" / article.article_id
+        cache_dir.mkdir(parents=True, exist_ok=True)
+        semantic_cache_path = cache_dir / "semantic_extraction.json"
+        
+        semantic_extraction = None
+        
+        # Check cache
+        if semantic_cache_path.exists():
+            try:
+                with open(semantic_cache_path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    semantic_extraction = SemanticExtraction(**data)
+            except:
+                semantic_extraction = None
+
+        if not semantic_extraction:
+            try:
+                semantic_extraction = self.semantic_agent.extract(article)
+                with open(semantic_cache_path, "w", encoding="utf-8") as f:
+                    f.write(semantic_extraction.model_dump_json(indent=2))
+            except Exception as exc:
+                return FinalResult(
+                    article_id=article.article_id,
+                    decision=ScreeningDecision.ERROR,
+                    confidence=0,
+                    justification=f"Falha na Extração Semântica: {str(exc)}"
+                )
+
+        # 3. Avaliação dos Critérios baseada na Extração
         results: Dict[str, CriterionResult] = {}
-        global_analysis = None
         try:
-            sp_result_obj = self.single_agent.analyze(article)
-            global_analysis = sp_result_obj.analise_global
-            for res in sp_result_obj.results:
+            sp_results = self.criteria_agent.evaluate(semantic_extraction)
+            for res in sp_results:
                 valid, msg = CriterionValidator.validate(res)
                 if not valid:
                     res.answer = "NC"
@@ -80,15 +111,14 @@ class ScreeningOrchestrator:
                         criterion_id=crit_config.id,
                         answer="NC",
                         confidence=0,
-                        summary="Erro: LLM não retornou este critério na resposta única."
+                        summary="Erro: LLM não retornou este critério."
                     )
         except Exception as exc:
-            print(f"SinglePassAgent generated an exception: {exc}")
             return FinalResult(
                 article_id=article.article_id,
                 decision=ScreeningDecision.ERROR,
                 confidence=0,
-                justification=f"Falha técnica no LLM ou timeout: {str(exc)}"
+                justification=f"Falha na Avaliação dos Critérios: {str(exc)}"
             )
 
         # 4. Decision Engine

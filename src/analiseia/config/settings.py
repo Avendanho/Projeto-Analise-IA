@@ -97,8 +97,24 @@ class AppSettings:
         self.crossref_mailto: str = os.environ.get("CROSSREF_MAILTO", "")
         self.proxy_url: str = os.environ.get("PROXY_URL", "")
 
-        # --- LLM Config ---
-        self.llm_model: str = os.environ.get("LLM_MODEL", "qwen2.5")
+        # --- Nova Infraestrutura de IA ---
+        self.ai_provider: str = os.environ.get("AI_PROVIDER", "ollama")
+        self.ai_primary_model: str = os.environ.get("AI_PRIMARY_MODEL", "qwen3-30b-instruct-q4")
+        self.ai_vision_model: str = os.environ.get("AI_VISION_MODEL", "gemma3:27b")
+        self.ai_verifier_model: str = os.environ.get("AI_VERIFIER_MODEL", "qwen3-30b-instruct-q4")
+        self.ai_temperature: float = float(os.environ.get("AI_TEMPERATURE", "0.0"))
+        self.ai_enable_thinking: bool = os.environ.get("AI_ENABLE_THINKING", "false").lower() == "true"
+        self.ai_timeout: float = float(os.environ.get("AI_TIMEOUT", "600.0"))
+        self.ai_max_retries: int = int(os.environ.get("AI_MAX_RETRIES", "3"))
+        self.ai_max_concurrent_requests: int = int(os.environ.get("AI_MAX_CONCURRENT_REQUESTS", "2"))
+        
+        self.ai_max_agent_calls: int = int(os.environ.get("AI_MAX_AGENT_CALLS", "15"))
+        self.ai_max_deliberation_rounds: int = int(os.environ.get("AI_MAX_DELIBERATION_ROUNDS", "2"))
+        
+        self.ai_confidence_high: int = int(os.environ.get("AI_CONFIDENCE_HIGH", "90"))
+        self.ai_confidence_low: int = int(os.environ.get("AI_CONFIDENCE_LOW", "70"))
+        
+        # Ollama
         self.ollama_base_url: str = os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434/v1")
 
 

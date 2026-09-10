@@ -3,6 +3,7 @@ RELATÓRIO DETALHADO DE PROCESSAMENTO DE DOIS
 ============================================================
 
 RESUMO GERAL:
+<<<<<<< Updated upstream
   Total de DOIs processados: 640
   Sucessos (downloads concluídos): 640
   Requisições negadas (erros de transporte): 0
@@ -23,10 +24,27 @@ UTILIZAÇÃO DAS FONTES:
   semantic_scholar: 7/7 (100.0%)
   unpaywall: 167/167 (100.0%)
   zenodo: 98/98 (100.0%)
+=======
+  Total de DOIs processados: 641
+  Sucessos (downloads concluídos): 632
+  Requisições negadas (erros de transporte): 9
+  Não encontrados (sem cópia OA disponível): 0
+
+Taxa de sucesso: 98.6%
+
+UTILIZAÇÃO DAS FONTES:
+  cache: 624/624 (100.0%)
+  crossref: 0/2 (0.0%)
+  libgen: 8/8 (100.0%)
+  publisher_direct: 0/1 (0.0%)
+  scihub: 0/5 (0.0%)
+  unpaywall: 0/1 (0.0%)
+>>>>>>> Stashed changes
 
 DETALHAMENTO POR DOI:
 ------------------------------------------------------------
   1. DOI: 10.1001/archgenpsychiatry.2011.98
+<<<<<<< Updated upstream
      Status: sucesso
      Detalhe: Fonte: libgen
      Fonte: libgen
@@ -39,11 +57,14 @@ DETALHAMENTO POR DOI:
      PDF URL: https://libgen.li/get.php?md5=4065e42995d5567714263542ce7d7a5a&key=BHHUA8YTBVDHD692
 
   3. DOI: 10.1001/jamapsychiatry.2022.0407
+=======
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: cache
      Fonte: cache
      PDF URL: None
 
+<<<<<<< Updated upstream
   4. DOI: 10.1002/ajmg.1320390213
      Status: sucesso
      Detalhe: Fonte: scihub
@@ -117,35 +138,67 @@ DETALHAMENTO POR DOI:
      PDF URL: https://impactfactor.org/PDF/IJPCR/14/IJPCR,Vol14,Issue11,Article123.pdf
 
  16. DOI: 10.1002/ajmg.b.33012
+=======
+  2. DOI: 10.1001/jamanetworkopen.2019.21644
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: cache
      Fonte: cache
      PDF URL: None
 
+<<<<<<< Updated upstream
  17. DOI: 10.1002/ajmg.b.33061
+=======
+  3. DOI: 10.1001/jamapsychiatry.2022.0407
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: zenodo
      Fonte: zenodo
      PDF URL: https://zenodo.org/api/records/15773961/files/65%20WJPSR%201341.pdf/content
 
+<<<<<<< Updated upstream
  18. DOI: 10.1002/ajmga.70053
+=======
+  4. DOI: 10.1002/ajmg.1320390213
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: zenodo
      Fonte: zenodo
      PDF URL: https://zenodo.org/api/records/14715808/files/ICMCRJ-4-1627.pdf/content
 
+<<<<<<< Updated upstream
  19. DOI: 10.1002/ana.21180
+=======
+  5. DOI: 10.1002/ajmg.a.35841
+     Status: requisição negada
+     Detalhe: Erro: download_network_error
+     Fonte: scihub
+     PDF URL: https://sci.bban.top/pdf/10.1002/ajmg.a.35841.pdf
+
+  6. DOI: 10.1002/ajmg.a.35860
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: libgen
      Fonte: libgen
      PDF URL: https://libgen.li/get.php?md5=c300380a2070c8de9f383ffa5e087de0&key=A35OXR88MM5K8BFM
 
+<<<<<<< Updated upstream
  20. DOI: 10.1002/aur.109
+=======
+  7. DOI: 10.1002/ajmg.a.38521
+     Status: requisição negada
+     Detalhe: Erro: download_network_error
+     Fonte: scihub
+     PDF URL: https://sci.bban.top/pdf/10.1002/ajmg.a.38521.pdf
+
+  8. DOI: 10.1002/ajmg.a.61430
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: libgen
      Fonte: libgen
      PDF URL: https://libgen.li/get.php?md5=d9d5b0569203b764740f78c50e35e690&key=IMN797Q2M3AJLMDH
 
+<<<<<<< Updated upstream
  21. DOI: 10.1002/aur.1227
      Status: sucesso
      Detalhe: Fonte: libgen
@@ -363,23 +416,65 @@ DETALHAMENTO POR DOI:
      PDF URL: https://sci.bban.top/pdf/10.1007/s00401-016-1553-1.pdf
 
  57. DOI: 10.1007/s00401-017-1736-4
+=======
+  9. DOI: 10.1002/ajmg.a.63953
+     Status: requisição negada
+     Detalhe: Erro: download_network_error
+     Fonte: unpaywall
+     PDF URL: https://onlinelibrary.wiley.com/doi/pdfdirect/10.1002/ajmg.a.63953
+
+ 10. DOI: 10.1002/ajmg.b.20147
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 11. DOI: 10.1002/ajmg.b.30940
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 12. DOI: 10.1002/ajmg.b.32391
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 13. DOI: 10.1002/ajmg.b.32473
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: scihub
      Fonte: scihub
      PDF URL: https://sci.bban.top/pdf/10.1007/s00401-017-1736-4.pdf
 
+<<<<<<< Updated upstream
  58. DOI: 10.1007/s00401-019-02002-2
+=======
+ 14. DOI: 10.1002/ajmg.b.32567
+     Status: sucesso
+     Detalhe: Fonte: libgen
+     Fonte: libgen
+     PDF URL: https://libgen.li/get.php?md5=5042b5fee6d7dca89f16746bbd41a0b5&key=L7RPLQU4FDR6HDA6
+
+ 15. DOI: 10.1002/ajmg.b.32952
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: scihub
      Fonte: scihub
      PDF URL: https://sci.bban.top/pdf/10.1007/s00401-019-02002-2.pdf
 
+<<<<<<< Updated upstream
  59. DOI: 10.1007/s00401-026-03022-5
+=======
+ 16. DOI: 10.1002/ajmg.b.33012
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: europe_pmc
      Fonte: europe_pmc
      PDF URL: https://europepmc.org/articles/PMC13190377?pdf=render
 
+<<<<<<< Updated upstream
  60. DOI: 10.1007/s00431-025-05982-4
      Status: sucesso
      Detalhe: Fonte: zenodo
@@ -2697,89 +2792,1093 @@ DETALHAMENTO POR DOI:
      PDF URL: http://link.springer.com/content/pdf/10.1186/s12862-018-1199-9.pdf
 
 446. DOI: 10.1186/s12864-016-2858-0
+=======
+ 17. DOI: 10.1002/ajmg.b.33061
+     Status: requisição negada
+     Detalhe: Erro: download_network_error
+     Fonte: crossref
+     PDF URL: https://onlinelibrary.wiley.com/doi/full-xml/10.1002/ajmg.b.33061
+
+ 18. DOI: 10.1002/ajmga.70053
+     Status: requisição negada
+     Detalhe: Erro: download_network_error
+     Fonte: crossref
+     PDF URL: https://onlinelibrary.wiley.com/doi/full-xml/10.1002/ajmga.70053
+
+ 19. DOI: 10.1002/ana.21180
+     Status: sucesso
+     Detalhe: Fonte: libgen
+     Fonte: libgen
+     PDF URL: https://libgen.li/get.php?md5=c300380a2070c8de9f383ffa5e087de0&key=83FEMH9S0BKEETLC
+
+ 20. DOI: 10.1002/aur.109
+     Status: sucesso
+     Detalhe: Fonte: libgen
+     Fonte: libgen
+     PDF URL: https://libgen.li/get.php?md5=d9d5b0569203b764740f78c50e35e690&key=PPQDKMTZN6TG9MBE
+
+ 21. DOI: 10.1002/aur.1227
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: unpaywall
      Fonte: unpaywall
      PDF URL: https://bmcgenomics.biomedcentral.com/track/pdf/10.1186/s12864-016-2858-0
 
+<<<<<<< Updated upstream
 447. DOI: 10.1186/s12881-017-0394-7
+=======
+ 22. DOI: 10.1002/aur.1428
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: unpaywall
      Fonte: unpaywall
      PDF URL: https://bmcmedgenet.biomedcentral.com/counter/pdf/10.1186/s12881-017-0394-7
 
+<<<<<<< Updated upstream
 448. DOI: 10.1186/s12888-020-02503-5
+=======
+ 23. DOI: 10.1002/aur.1565
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: unpaywall
      Fonte: unpaywall
      PDF URL: https://bmcpsychiatry.biomedcentral.com/track/pdf/10.1186/s12888-020-02503-5
 
+<<<<<<< Updated upstream
 449. DOI: 10.1186/s12888-023-05433-0
+=======
+ 24. DOI: 10.1002/aur.1670
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 25. DOI: 10.1002/aur.197
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 26. DOI: 10.1002/aur.2217
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 27. DOI: 10.1002/aur.2279
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 28. DOI: 10.1002/aur.2688
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 29. DOI: 10.1002/aur.27
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 30. DOI: 10.1002/cti2.1211
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 31. DOI: 10.1002/ctm2.215
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 32. DOI: 10.1002/dneu.22044
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 33. DOI: 10.1002/dneu.22046
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 34. DOI: 10.1002/dneu.22657
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 35. DOI: 10.1002/dneu.22995
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 36. DOI: 10.1002/glia.23176
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 37. DOI: 10.1002/glia.24325
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 38. DOI: 10.1002/jcv2.12117
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 39. DOI: 10.1002/mco2.380
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 40. DOI: 10.1002/mgg3.2191
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 41. DOI: 10.1002/mgg3.786
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 42. DOI: 10.1002/mrdd.20086
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 43. DOI: 10.1002/stem.1180
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 44. DOI: 10.1006/nbdi.2002.0479
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 45. DOI: 10.1007/978-1-4419-6448-9_8
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 46. DOI: 10.1007/978-1-4939-9554-7_29
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 47. DOI: 10.1007/978-3-030-30402-7_4
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 48. DOI: 10.1007/978-3-030-45493-7_1
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 49. DOI: 10.1007/978-3-031-64839-7_11
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 50. DOI: 10.1007/978-3-319-52498-6_9
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 51. DOI: 10.1007/978-981-13-9913-8_7
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 52. DOI: 10.1007/bf02409837
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 53. DOI: 10.1007/s00204-023-03604-2
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 54. DOI: 10.1007/s00381-020-04705-4
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 55. DOI: 10.1007/s00401-009-0560-x
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 56. DOI: 10.1007/s00401-016-1553-1
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 57. DOI: 10.1007/s00401-017-1736-4
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 58. DOI: 10.1007/s00401-019-02002-2
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 59. DOI: 10.1007/s00401-026-03022-5
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 60. DOI: 10.1007/s00431-025-05982-4
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 61. DOI: 10.1007/s00439-006-0301-3
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 62. DOI: 10.1007/s00439-017-1837-0
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 63. DOI: 10.1007/s00439-021-02404-x
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 64. DOI: 10.1007/s00787-014-0537-8
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 65. DOI: 10.1007/s10048-009-0171-7
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 66. DOI: 10.1007/s10048-013-0363-z
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 67. DOI: 10.1007/s100480050064
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 68. DOI: 10.1007/s10534-026-00833-7
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 69. DOI: 10.1007/s10539-021-09801-6
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 70. DOI: 10.1007/s10571-020-00882-7
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 71. DOI: 10.1007/s10571-025-01574-w
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 72. DOI: 10.1007/s10803-019-03921-5
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 73. DOI: 10.1007/s10803-019-04231-6
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 74. DOI: 10.1007/s10803-022-05636-6
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 75. DOI: 10.1007/s10803-026-07497-9
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 76. DOI: 10.1007/s11011-026-01904-x
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 77. DOI: 10.1007/s11033-018-4191-y
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 78. DOI: 10.1007/s11033-025-10604-1
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 79. DOI: 10.1007/s11064-021-03299-w
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 80. DOI: 10.1007/s11064-025-04471-2
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 81. DOI: 10.1007/s11427-015-4941-1
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 82. DOI: 10.1007/s11910-003-0067-0
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 83. DOI: 10.1007/s11920-001-0006-1
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 84. DOI: 10.1007/s12017-015-8378-2
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 85. DOI: 10.1007/s12031-025-02359-y
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 86. DOI: 10.1007/s12031-025-02390-z
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 87. DOI: 10.1007/s12031-025-02399-4
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 88. DOI: 10.1007/s12031-025-02420-w
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 89. DOI: 10.1007/s12031-025-02422-8
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 90. DOI: 10.1007/s12031-026-02496-y
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 91. DOI: 10.1007/s12035-017-0692-2
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 92. DOI: 10.1007/s12035-020-01881-x
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 93. DOI: 10.1007/s12035-022-02819-1
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 94. DOI: 10.1007/s12035-024-04506-9
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 95. DOI: 10.1007/s12035-024-04637-z
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 96. DOI: 10.1007/s40291-018-0352-x
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 97. DOI: 10.1007/s44192-026-00540-2
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 98. DOI: 10.1016/0165-1781(96)02882-x
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+ 99. DOI: 10.1016/b978-0-12-386467-3.00002-9
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+100. DOI: 10.1016/b978-0-444-62702-5.00006-8
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+101. DOI: 10.1016/bs.pmbts.2020.03.007
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+102. DOI: 10.1016/bs.pmbts.2020.04.013
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+103. DOI: 10.1016/j.ajhg.2011.02.009
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+104. DOI: 10.1016/j.ajhg.2016.07.019
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+105. DOI: 10.1016/j.ajhg.2024.07.002
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+106. DOI: 10.1016/j.ajps.2019.09.002
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+107. DOI: 10.1016/j.amsu.2020.11.084
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+108. DOI: 10.1016/j.anngen.2004.03.001
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+109. DOI: 10.1016/j.arcmed.2017.11.006
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+110. DOI: 10.1016/j.autrev.2011.05.006
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+111. DOI: 10.1016/j.autrev.2016.01.011
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+112. DOI: 10.1016/j.bbadis.2021.166185
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+113. DOI: 10.1016/j.bbamcr.2015.12.005
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+114. DOI: 10.1016/j.bbi.2014.10.002
+     Status: sucesso
+     Detalhe: Fonte: libgen
+     Fonte: libgen
+     PDF URL: https://libgen.li/get.php?md5=c5b7eeb000640858da293e5000558261&key=B0552DT1UMBF21N4
+
+115. DOI: 10.1016/j.bbi.2017.09.007
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+116. DOI: 10.1016/j.bbi.2020.09.033
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+117. DOI: 10.1016/j.bbi.2023.06.009
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+118. DOI: 10.1016/j.bbi.2023.09.010
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+119. DOI: 10.1016/j.bbi.2024.09.001
+     Status: requisição negada
+     Detalhe: Erro: download_network_error
+     Fonte: publisher_direct
+     PDF URL: https://www.sciencedirect.com/science/article/pii/S0889159124005956/pdfft
+
+120. DOI: 10.1016/j.bbi.2025.07.004
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+121. DOI: 10.1016/j.bbi.2026.106986
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+122. DOI: 10.1016/j.bbih.2022.100473
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+123. DOI: 10.1016/j.bbih.2022.100557
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+124. DOI: 10.1016/j.bbih.2023.100698
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+125. DOI: 10.1016/j.bbih.2024.100808
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+126. DOI: 10.1016/j.bbrc.2007.06.051
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+127. DOI: 10.1016/j.bcp.2024.116358
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+128. DOI: 10.1016/j.biochi.2018.11.016
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+129. DOI: 10.1016/j.biochi.2021.02.018
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+130. DOI: 10.1016/j.biopsych.2014.05.024
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+131. DOI: 10.1016/j.biopsych.2023.07.022
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+132. DOI: 10.1016/j.biopsych.2026.03.996
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+133. DOI: 10.1016/j.blre.2017.03.005
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+134. DOI: 10.1016/j.bpsgos.2022.03.015
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+135. DOI: 10.1016/j.braindev.2005.09.003
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+136. DOI: 10.1016/j.braindev.2007.01.010
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+137. DOI: 10.1016/j.braindev.2018.06.011
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+138. DOI: 10.1016/j.braindev.2026.104519
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+139. DOI: 10.1016/j.brainres.2006.03.078
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+140. DOI: 10.1016/j.brainresbull.2025.111411
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+141. DOI: 10.1016/j.cca.2025.120455
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+142. DOI: 10.1016/j.cell.2015.11.034
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+143. DOI: 10.1016/j.cell.2016.10.031
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+144. DOI: 10.1016/j.cell.2021.07.039
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+145. DOI: 10.1016/j.cell.2024.02.035
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+146. DOI: 10.1016/j.cellsig.2026.112566
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+147. DOI: 10.1016/j.celrep.2020.107685
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+148. DOI: 10.1016/j.celrep.2021.109315
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+149. DOI: 10.1016/j.celrep.2022.111085
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+150. DOI: 10.1016/j.clim.2008.11.002
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+151. DOI: 10.1016/j.clineuro.2022.107375
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+152. DOI: 10.1016/j.clinthera.2013.04.009
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+153. DOI: 10.1016/j.compbiomed.2022.106334
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+154. DOI: 10.1016/j.conb.2019.01.004
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+155. DOI: 10.1016/j.conb.2019.03.007
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+156. DOI: 10.1016/j.cyto.2015.10.002
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+157. DOI: 10.1016/j.dib.2019.104561
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+158. DOI: 10.1016/j.ejmg.2010.06.004
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+159. DOI: 10.1016/j.ejmg.2016.05.004
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+160. DOI: 10.1016/j.ejmg.2018.04.008
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+161. DOI: 10.1016/j.envpol.2019.07.066
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+162. DOI: 10.1016/j.envres.2018.05.020
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+163. DOI: 10.1016/j.eurpsy.2013.02.005
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+164. DOI: 10.1016/j.expneurol.2017.04.001
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+165. DOI: 10.1016/j.expneurol.2021.113723
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+166. DOI: 10.1016/j.gene.2012.01.020
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+167. DOI: 10.1016/j.gene.2013.10.020
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+168. DOI: 10.1016/j.gene.2017.10.035
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+169. DOI: 10.1016/j.gene.2021.146021
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+170. DOI: 10.1016/j.humimm.2008.12.009
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+171. DOI: 10.1016/j.ijdevneu.2013.02.008
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+172. DOI: 10.1016/j.ijheh.2024.114514
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+173. DOI: 10.1016/j.immuni.2018.04.016
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+174. DOI: 10.1016/j.isci.2023.107476
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+175. DOI: 10.1016/j.jaac.2012.04.010
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+176. DOI: 10.1016/j.jad.2025.01.050
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+177. DOI: 10.1016/j.jbi.2016.08.008
+     Status: requisição negada
+     Detalhe: Erro: download_network_error
+     Fonte: scihub
+     PDF URL: https://sci.bban.top/pdf/10.1016/j.jbi.2016.08.008.pdf
+
+178. DOI: 10.1016/j.jdermsci.2015.04.005
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: unpaywall
      Fonte: unpaywall
      PDF URL: https://bmcpsychiatry.biomedcentral.com/counter/pdf/10.1186/s12888-023-05433-0
 
+<<<<<<< Updated upstream
 450. DOI: 10.1186/s12888-024-05529-1
+=======
+179. DOI: 10.1016/j.jneuroim.2010.10.019
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: unpaywall
      Fonte: unpaywall
      PDF URL: https://bmcpsychiatry.biomedcentral.com/counter/pdf/10.1186/s12888-024-05529-1
 
+<<<<<<< Updated upstream
 451. DOI: 10.1186/s12888-024-05927-5
+=======
+180. DOI: 10.1016/j.jneuroim.2014.12.003
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: europe_pmc
      Fonte: europe_pmc
      PDF URL: https://europepmc.org/articles/PMC11212275?pdf=render
 
+<<<<<<< Updated upstream
 452. DOI: 10.1186/s12888-024-06148-6
+=======
+181. DOI: 10.1016/j.jneuroim.2023.578132
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: unpaywall
      Fonte: unpaywall
      PDF URL: https://bmcpsychiatry.biomedcentral.com/counter/pdf/10.1186/s12888-024-06148-6
 
+<<<<<<< Updated upstream
 453. DOI: 10.1186/s12888-024-06392-w
+=======
+182. DOI: 10.1016/j.jneuroim.2023.578194
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: unpaywall
      Fonte: unpaywall
      PDF URL: https://bmcpsychiatry.biomedcentral.com/counter/pdf/10.1186/s12888-024-06392-w
 
+<<<<<<< Updated upstream
 454. DOI: 10.1186/s12905-024-03234-5
+=======
+183. DOI: 10.1016/j.jphs.2018.12.007
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: europe_pmc
      Fonte: europe_pmc
      PDF URL: https://europepmc.org/articles/PMC11229200?pdf=render
 
+<<<<<<< Updated upstream
 455. DOI: 10.1186/s12967-022-03625-y
+=======
+184. DOI: 10.1016/j.jpsychires.2014.07.021
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: unpaywall
      Fonte: unpaywall
      PDF URL: https://translational-medicine.biomedcentral.com/counter/pdf/10.1186/s12967-022-03625-y
 
+<<<<<<< Updated upstream
 456. DOI: 10.1186/s13023-023-02863-7
+=======
+185. DOI: 10.1016/j.mcn.2015.11.006
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: unpaywall
      Fonte: unpaywall
      PDF URL: https://ojrd.biomedcentral.com/counter/pdf/10.1186/s13023-023-02863-7
 
+<<<<<<< Updated upstream
 457. DOI: 10.1186/s13041-015-0121-2
+=======
+186. DOI: 10.1016/j.medj.2026.101034
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: unpaywall
      Fonte: unpaywall
      PDF URL: https://molecularbrain.biomedcentral.com/counter/pdf/10.1186/s13041-015-0121-2
 
+<<<<<<< Updated upstream
 458. DOI: 10.1186/s13041-026-01280-8
+=======
+187. DOI: 10.1016/j.mehy.2004.09.020
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: europe_pmc
      Fonte: europe_pmc
      PDF URL: https://europepmc.org/articles/PMC13308187?pdf=render
 
+<<<<<<< Updated upstream
 459. DOI: 10.1186/s13052-025-01910-2
+=======
+188. DOI: 10.1016/j.mehy.2007.01.027
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: europe_pmc
      Fonte: europe_pmc
      PDF URL: https://europepmc.org/articles/PMC11905720?pdf=render
 
+<<<<<<< Updated upstream
 460. DOI: 10.1186/s13052-026-02245-2
      Status: sucesso
      Detalhe: Fonte: crossref
@@ -2787,83 +3886,2769 @@ DETALHAMENTO POR DOI:
      PDF URL: https://link.springer.com/content/pdf/10.1186/s13052-026-02245-2.pdf
 
 461. DOI: 10.1186/s13059-022-02605-1
+=======
+189. DOI: 10.1016/j.micron.2019.102732
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+190. DOI: 10.1016/j.mrrev.2018.03.001
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+191. DOI: 10.1016/j.nbd.2010.11.010
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+192. DOI: 10.1016/j.nbd.2010.12.001
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+193. DOI: 10.1016/j.nbd.2011.03.016
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+194. DOI: 10.1016/j.nbd.2022.105840
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+195. DOI: 10.1016/j.nbd.2023.106393
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+196. DOI: 10.1016/j.nbd.2025.107227
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+197. DOI: 10.1016/j.neubiorev.2018.07.001
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+198. DOI: 10.1016/j.neubiorev.2022.104892
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+199. DOI: 10.1016/j.neubiorev.2023.105338
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+200. DOI: 10.1016/j.neubiorev.2024.105731
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+201. DOI: 10.1016/j.neuint.2009.07.008
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+202. DOI: 10.1016/j.neuint.2021.105076
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+203. DOI: 10.1016/j.neulet.2016.03.043
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+204. DOI: 10.1016/j.neuro.2006.03.017
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+205. DOI: 10.1016/j.neuron.2011.03.020
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+206. DOI: 10.1016/j.neuron.2017.09.053
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+207. DOI: 10.1016/j.neuropharm.2015.07.035
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+208. DOI: 10.1016/j.neuroscience.2015.11.010
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+209. DOI: 10.1016/j.neuroscience.2017.06.012
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+210. DOI: 10.1016/j.neuroscience.2021.04.006
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+211. DOI: 10.1016/j.nlm.2018.05.004
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+212. DOI: 10.1016/j.omtm.2019.08.003
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+213. DOI: 10.1016/j.patbio.2009.12.005
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+214. DOI: 10.1016/j.pcl.2015.03.005
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+215. DOI: 10.1016/j.pediatrneurol.2016.07.003
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+216. DOI: 10.1016/j.pediatrneurol.2024.01.002
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+217. DOI: 10.1016/j.phrs.2018.03.020
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+218. DOI: 10.1016/j.phrs.2018.07.010
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+219. DOI: 10.1016/j.phrs.2019.104579
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+220. DOI: 10.1016/j.pnpbp.2007.02.016
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+221. DOI: 10.1016/j.pnpbp.2014.09.004
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+222. DOI: 10.1016/j.pnpbp.2016.07.001
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+223. DOI: 10.1016/j.pnpbp.2020.109999
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+224. DOI: 10.1016/j.pnpbp.2020.110134
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+225. DOI: 10.1016/j.pnpbp.2022.110534
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+226. DOI: 10.1016/j.psychres.2017.10.018
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+227. DOI: 10.1016/j.psychres.2022.114586
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+228. DOI: 10.1016/j.psychres.2026.117287
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+229. DOI: 10.1016/j.reprotox.2022.11.004
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+230. DOI: 10.1016/j.revmed.2021.03.003
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+231. DOI: 10.1016/j.siny.2020.101115
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+232. DOI: 10.1016/j.spen.2024.101155
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+233. DOI: 10.1016/j.therap.2020.12.005
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+234. DOI: 10.1016/j.tox.2018.07.014
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+235. DOI: 10.1016/j.xhgg.2024.100345
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+236. DOI: 10.1016/j.yfrne.2014.03.006
+     Status: requisição negada
+     Detalhe: Erro: download_network_error
+     Fonte: scihub
+     PDF URL: https://sci.bban.top/pdf/10.1016/j.yfrne.2014.03.006.pdf
+
+237. DOI: 10.1016/j.ymgme.2010.11.162
+     Status: sucesso
+     Detalhe: Fonte: libgen
+     Fonte: libgen
+     PDF URL: https://libgen.li/get.php?md5=3197f1ccd041806689def2b54e20ea25&key=S1W1HKQ5PS9K5IM2
+
+238. DOI: 10.1016/j.ymgme.2011.12.016
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+239. DOI: 10.1016/j.ymgmr.2018.06.001
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+240. DOI: 10.1016/s0014-2999(00)00814-1
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+241. DOI: 10.1016/s0361-9230(01)00642-6
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+242. DOI: 10.1016/s0924-9338(02)00640-5
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+243. DOI: 10.1016/s1734-1140(12)70926-x
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+244. DOI: 10.1017/neu.2019.18
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+245. DOI: 10.1017/s0012162206000880
+     Status: sucesso
+     Detalhe: Fonte: libgen
+     Fonte: libgen
+     PDF URL: https://libgen.li/get.php?md5=0c62678e66c997e1b010402140fe8ac7&key=4C95VFKWSC562B74
+
+246. DOI: 10.1017/s095442242500006x
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+247. DOI: 10.1021/acschemneuro.5c00240
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+248. DOI: 10.1021/acschemneuro.8b00689
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+249. DOI: 10.1038/ejhg.2010.180
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+250. DOI: 10.1038/mp.2008.21
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+251. DOI: 10.1038/mp.2008.63
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+252. DOI: 10.1038/mp.2010.115
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+253. DOI: 10.1038/mp.2015.64
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+254. DOI: 10.1038/mp.2017.15
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+255. DOI: 10.1038/mp.2017.196
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+256. DOI: 10.1038/nature20612
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+257. DOI: 10.1038/ncomms3510
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+258. DOI: 10.1038/nrdp.2016.35
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+259. DOI: 10.1038/s41380-019-0495-0
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+260. DOI: 10.1038/s41380-021-01324-6
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+261. DOI: 10.1038/s41380-021-01418-1
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+262. DOI: 10.1038/s41380-021-01427-0
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+263. DOI: 10.1038/s41380-022-01826-x
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+264. DOI: 10.1038/s41380-022-01854-7
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+265. DOI: 10.1038/s41380-024-02518-4
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+266. DOI: 10.1038/s41380-024-02879-w
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+267. DOI: 10.1038/s41380-025-02997-z
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+268. DOI: 10.1038/s41380-026-03606-3
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+269. DOI: 10.1038/s41380-026-03754-6
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+270. DOI: 10.1038/s41386-022-01306-4
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+271. DOI: 10.1038/s41386-024-01859-6
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+272. DOI: 10.1038/s41390-019-0405-9
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+273. DOI: 10.1038/s41390-020-1002-7
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+274. DOI: 10.1038/s41390-021-01806-x
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+275. DOI: 10.1038/s41392-022-01225-2
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+276. DOI: 10.1038/s41398-018-0167-x
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+277. DOI: 10.1038/s41398-020-00904-4
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+278. DOI: 10.1038/s41398-020-0848-0
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+279. DOI: 10.1038/s41398-021-01415-6
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+280. DOI: 10.1038/s41398-021-01472-x
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+281. DOI: 10.1038/s41398-023-02478-3
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+282. DOI: 10.1038/s41398-023-02550-y
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+283. DOI: 10.1038/s41398-024-03005-8
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+284. DOI: 10.1038/s41398-025-03429-w
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+285. DOI: 10.1038/s41467-021-23843-0
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+286. DOI: 10.1038/s41467-026-71769-2
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+287. DOI: 10.1038/s41467-026-71922-x
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+288. DOI: 10.1038/s41525-025-00495-3
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+289. DOI: 10.1038/s41586-018-0416-4
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+290. DOI: 10.1038/s41586-019-1135-1
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+291. DOI: 10.1038/s41586-022-05377-7
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+292. DOI: 10.1038/s41586-024-08351-7
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+293. DOI: 10.1038/s41586-026-10515-6
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+294. DOI: 10.1038/s41598-017-06145-8
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+295. DOI: 10.1038/s41598-018-25974-9
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+296. DOI: 10.1038/s41598-022-15279-3
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+297. DOI: 10.1038/s41598-025-15476-w
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+298. DOI: 10.1038/s41598-025-98020-0
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+299. DOI: 10.1038/s43856-025-00975-8
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+300. DOI: 10.1038/s44184-022-00012-9
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+301. DOI: 10.1038/s44220-026-00660-2
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+302. DOI: 10.1038/s44319-026-00846-w
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+303. DOI: 10.1038/sj.ejhg.5201644
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+304. DOI: 10.1038/sj.mp.4000850
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+305. DOI: 10.1038/sj.mp.4001069
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+306. DOI: 10.1038/sj.mp.4001099
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+307. DOI: 10.1038/sj.mp.4001409
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+308. DOI: 10.1038/sj.mp.4001714
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+309. DOI: 10.1038/sj.npp.1301406
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+310. DOI: 10.1038/sj/mp/4000923
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+311. DOI: 10.1038/srep34325
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+312. DOI: 10.1038/tp.2011.48
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+313. DOI: 10.1038/tp.2013.16
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+314. DOI: 10.1038/tp.2016.46
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+315. DOI: 10.1038/tp.2016.87
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+316. DOI: 10.1038/tp.2017.173
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+317. DOI: 10.1038/tp.2017.87
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+318. DOI: 10.1073/pnas.0809449106
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+319. DOI: 10.1073/pnas.1512957112
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+320. DOI: 10.1073/pnas.1603282113
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+321. DOI: 10.1073/pnas.1707663115
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+322. DOI: 10.1073/pnas.2402206121
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+323. DOI: 10.1074/jbc.m113.458612
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+324. DOI: 10.1074/jbc.m114.581892
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+325. DOI: 10.1080/08820139.2020.1870489
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+326. DOI: 10.1080/09273948.2021.1993268
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+327. DOI: 10.1080/1744666x.2019.1596800
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+328. DOI: 10.1080/19490976.2020.1854967
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+329. DOI: 10.1080/19490976.2024.2385117
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+330. DOI: 10.1080/19585969.2025.2460798
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+331. DOI: 10.1083/jcb.201910053
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+332. DOI: 10.1086/432648
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+333. DOI: 10.1093/bib/bbae323
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+334. DOI: 10.1093/brain/awaa028
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+335. DOI: 10.1093/brain/awab087
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+336. DOI: 10.1093/brain/awab207
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+337. DOI: 10.1093/braincomms/fcac144
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+338. DOI: 10.1093/cercor/bhz115
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+339. DOI: 10.1093/genetics/iyaf040
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+340. DOI: 10.1093/hmg/ddab175
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+341. DOI: 10.1093/hmg/ddad155
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+342. DOI: 10.1093/hmg/ddn300
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+343. DOI: 10.1093/hmg/ddr418
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+344. DOI: 10.1093/hmg/ddu031
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+345. DOI: 10.1093/hmg/ddu201
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+346. DOI: 10.1093/hmg/ddu523
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+347. DOI: 10.1093/hmg/ddw134
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+348. DOI: 10.1093/hmg/ddw252
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+349. DOI: 10.1093/hmg/ddy421
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+350. DOI: 10.1093/jn/nxaa454
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+351. DOI: 10.1093/nar/gkw120
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+352. DOI: 10.1093/ntr/ntz099
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+353. DOI: 10.1093/sleep/zsz255
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+354. DOI: 10.1097/00004703-200602000-00012
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+355. DOI: 10.1097/00041444-200106000-00008
+     Status: sucesso
+     Detalhe: Fonte: libgen
+     Fonte: libgen
+     PDF URL: https://libgen.li/get.php?md5=efe9d518e61079b9012bb512e902643c&key=T3QTV2NMJ9EM4SUS
+
+356. DOI: 10.1097/chi.0b013e3181a5e3d5
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+357. DOI: 10.1097/dbp.0000000000000126
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+358. DOI: 10.1097/dbp.0000000000001266
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+359. DOI: 10.1097/md.0000000000045225
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+360. DOI: 10.1097/mib.0000000000001250
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+361. DOI: 10.1097/mop.0000000000000546
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+362. DOI: 10.1097/mpg.0000000000002293
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+363. DOI: 10.1097/wco.0b013e328336a01f
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+364. DOI: 10.1097/yco.0000000000001063
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+365. DOI: 10.1097/ypg.0000000000000034
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+366. DOI: 10.1097/ypg.0b013e3282f97df7
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+367. DOI: 10.1098/rstb.2008.0143
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+368. DOI: 10.1098/rstb.2013.0514
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+369. DOI: 10.1101/2023.07.08.548192
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+370. DOI: 10.1101/2023.08.22.23294267
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+371. DOI: 10.1101/2023.12.15.571738
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+372. DOI: 10.1101/2024.01.15.575737
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+373. DOI: 10.1101/2024.01.29.24301949
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+374. DOI: 10.1101/2024.04.15.24305828
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+375. DOI: 10.1101/2024.05.22.595175
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+376. DOI: 10.1101/2024.06.26.600491
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+377. DOI: 10.1101/2024.10.07.617121
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+378. DOI: 10.1101/2025.06.04.657874
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+379. DOI: 10.1101/2025.07.10.664109
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+380. DOI: 10.1101/2025.08.01.668222
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+381. DOI: 10.1101/2025.08.19.25333388
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+382. DOI: 10.1101/2025.08.27.25333852
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+383. DOI: 10.1101/2025.09.19.25336146
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+384. DOI: 10.1101/2025.09.24.678397
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+385. DOI: 10.1101/2025.11.05.686845
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+386. DOI: 10.1101/mcs.a003756
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+387. DOI: 10.1101/mcs.a004721
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+388. DOI: 10.1111/aji.13911
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+389. DOI: 10.1111/cge.13096
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+390. DOI: 10.1111/cge.13383
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+391. DOI: 10.1111/cge.13450
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+392. DOI: 10.1111/dmcn.13432
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+393. DOI: 10.1111/dmcn.15289
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+394. DOI: 10.1111/dmcn.16276
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+395. DOI: 10.1111/epi.12627
+     Status: sucesso
+     Detalhe: Fonte: libgen
+     Fonte: libgen
+     PDF URL: https://libgen.li/get.php?md5=373f8b544313f39c045199db81ec5333&key=YRIWTV77EDCPAQUR
+
+396. DOI: 10.1111/epi.12680
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+397. DOI: 10.1111/epi.18209
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+398. DOI: 10.1111/j.1528-1167.2005.00305.x
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+399. DOI: 10.1111/j.1601-183x.2011.00710.x
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+400. DOI: 10.1111/j.1750-3639.2007.00102.x
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+401. DOI: 10.1111/jnc.15241
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+402. DOI: 10.1111/jnc.15331
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+403. DOI: 10.1111/jnc.15460
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+404. DOI: 10.1111/jnc.15976
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+405. DOI: 10.1111/jnc.70061
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+406. DOI: 10.1111/jog.15516
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+407. DOI: 10.1111/pai.13236
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+408. DOI: 10.1111/pcn.13847
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+409. DOI: 10.1124/mi.4.2.8
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+410. DOI: 10.1126/sciadv.abf2073
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+411. DOI: 10.1126/sciadv.adn7655
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+412. DOI: 10.1126/sciadv.ady2977
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+413. DOI: 10.1126/science.aat8127
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+414. DOI: 10.1126/science.adh2602
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+415. DOI: 10.1128/mbio.00261-11
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+416. DOI: 10.1128/msphere.00442-26
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+417. DOI: 10.1136/archdischild-2011-300585
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+418. DOI: 10.1136/bcr-2020-235972
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+419. DOI: 10.1136/jmg-2024-110224
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+420. DOI: 10.1155/2011/398636
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+421. DOI: 10.1155/2013/476276
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+422. DOI: 10.1155/2013/723269
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+423. DOI: 10.1155/2014/480980
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+424. DOI: 10.1155/2014/761279
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+425. DOI: 10.1155/humu/5522396
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+426. DOI: 10.1155/tswj/4373377
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+427. DOI: 10.1159/000452336
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+428. DOI: 10.1159/000453258
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+429. DOI: 10.1159/000541908
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+430. DOI: 10.1159/000550301
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+431. DOI: 10.1172/jci179238
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+432. DOI: 10.1172/jci84877
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+433. DOI: 10.1177/0333102411420584
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+434. DOI: 10.1177/08830738261452774
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+435. DOI: 10.1177/15353702231209419
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+436. DOI: 10.1186/1471-2350-12-29
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+437. DOI: 10.1186/1471-2431-12-89
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+438. DOI: 10.1186/1742-2094-10-46
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+439. DOI: 10.1186/2040-2392-4-51
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+440. DOI: 10.1186/2040-2392-5-10
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+441. DOI: 10.1186/s10020-021-00304-4
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+442. DOI: 10.1186/s11689-024-09543-y
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+443. DOI: 10.1186/s11689-024-09572-7
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+444. DOI: 10.1186/s11689-024-09583-4
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+445. DOI: 10.1186/s12862-018-1199-9
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+446. DOI: 10.1186/s12864-016-2858-0
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+447. DOI: 10.1186/s12881-017-0394-7
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+448. DOI: 10.1186/s12888-020-02503-5
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+449. DOI: 10.1186/s12888-023-05433-0
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+450. DOI: 10.1186/s12888-024-05529-1
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+451. DOI: 10.1186/s12888-024-05927-5
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+452. DOI: 10.1186/s12888-024-06148-6
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+453. DOI: 10.1186/s12888-024-06392-w
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+454. DOI: 10.1186/s12905-024-03234-5
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+455. DOI: 10.1186/s12967-022-03625-y
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+456. DOI: 10.1186/s13023-023-02863-7
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+457. DOI: 10.1186/s13041-015-0121-2
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+458. DOI: 10.1186/s13041-026-01280-8
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+459. DOI: 10.1186/s13052-025-01910-2
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+460. DOI: 10.1186/s13052-026-02245-2
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+461. DOI: 10.1186/s13059-022-02605-1
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+462. DOI: 10.1186/s13059-022-02799-4
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+463. DOI: 10.1186/s13073-018-0576-8
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+464. DOI: 10.1186/s13195-019-0475-2
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+465. DOI: 10.1186/s13229-017-0130-3
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+466. DOI: 10.1186/s13229-017-0134-z
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+467. DOI: 10.1186/s13229-017-0147-7
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+468. DOI: 10.1186/s13229-017-0148-6
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+469. DOI: 10.1186/s13229-020-0320-2
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+470. DOI: 10.1186/s13578-022-00916-1
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+471. DOI: 10.1186/s13643-017-0448-0
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+472. DOI: 10.1186/s40246-016-0063-5
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+473. DOI: 10.1186/s40246-025-00801-1
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+474. DOI: 10.1186/s40478-019-0841-0
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+475. DOI: 10.1186/s41232-025-00374-5
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+476. DOI: 10.1192/j.eurpsy.2019.6
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+477. DOI: 10.1212/wnl.0000000000207799
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+478. DOI: 10.1212/wnl.53.7.1384
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+479. DOI: 10.1242/dmm.017400
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+480. DOI: 10.1242/dmm.049861
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+481. DOI: 10.12688/f1000research.11110.1
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+482. DOI: 10.12771/emj.2024.e18
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+483. DOI: 10.1371/journal.pone.0010534
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+484. DOI: 10.1371/journal.pone.0024691
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+485. DOI: 10.1371/journal.pone.0044736
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+486. DOI: 10.1371/journal.pone.0048835
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+487. DOI: 10.1371/journal.pone.0059685
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+488. DOI: 10.1371/journal.pone.0066155
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+489. DOI: 10.1371/journal.pone.0094968
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+490. DOI: 10.1371/journal.pone.0124597
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+491. DOI: 10.1371/journal.pone.0132542
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+492. DOI: 10.1371/journal.pone.0137339
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+493. DOI: 10.1371/journal.pone.0151991
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+494. DOI: 10.1371/journal.pone.0153667
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+495. DOI: 10.1371/journal.pone.0295855
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+496. DOI: 10.1385/nmm:2:1:11
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+497. DOI: 10.1523/jneurosci.0253-22.2022
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+498. DOI: 10.1523/jneurosci.1003-21.2021
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+499. DOI: 10.1523/jneurosci.1482-17.2017
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+500. DOI: 10.1523/jneurosci.1610-23.2024
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+501. DOI: 10.1523/jneurosci.4762-12.2013
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+502. DOI: 10.1534/genetics.119.302792
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+503. DOI: 10.1542/peds.108.4.e58
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+504. DOI: 10.1542/peds.2007-3604
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+505. DOI: 10.1542/peds.2019-1490
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+506. DOI: 10.15537/smj.2024.45.11.20240444
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+507. DOI: 10.1586/14737159.7.4.371
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+508. DOI: 10.1590/1678-4685-gmb-2017-0235
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+509. DOI: 10.1590/s0041-87812004000300009
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+510. DOI: 10.1590/s0120-41572012000400014
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+511. DOI: 10.17116/jnevro202612603181
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+512. DOI: 10.17879/freeneuropathology-2022-3801
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+513. DOI: 10.18999/nagjms.86.1.1
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+514. DOI: 10.21037/tp-22-435
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+515. DOI: 10.2119/molmed.2011.00080
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+516. DOI: 10.21203/rs.3.rs-3270664/v1
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+517. DOI: 10.21203/rs.3.rs-3734368/v1
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+518. DOI: 10.21203/rs.3.rs-8321464/v1
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+519. DOI: 10.2147/btt.s25095
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+520. DOI: 10.2147/ndt.s186673
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+521. DOI: 10.2147/ndt.s585060
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+522. DOI: 10.2174/011570159x434753260323193021
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+523. DOI: 10.2174/1570159x20666221003085508
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+524. DOI: 10.2217/epi.15.89
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+525. DOI: 10.2340/actadv.v105.43133
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+526. DOI: 10.2741/torres
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+527. DOI: 10.30773/pi.2017.05.31.2
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+528. DOI: 10.3109/1547691x.2010.545086
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+529. DOI: 10.31857/s0026898423020222
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+530. DOI: 10.3233/jad-201158
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+531. DOI: 10.3389/fcimb.2025.1601888
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+532. DOI: 10.3389/fendo.2019.00247
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+533. DOI: 10.3389/fgene.2019.00580
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+534. DOI: 10.3389/fgene.2020.00308
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+535. DOI: 10.3389/fgene.2020.00849
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+536. DOI: 10.3389/fimmu.2021.737747
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+537. DOI: 10.3389/fimmu.2023.1190925
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+538. DOI: 10.3389/fimmu.2023.1197265
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+539. DOI: 10.3389/fimmu.2023.1267834
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+540. DOI: 10.3389/fimmu.2024.1370276
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+541. DOI: 10.3389/fimmu.2026.1773284
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+542. DOI: 10.3389/fimmu.2026.1814088
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+543. DOI: 10.3389/fmed.2023.1141035
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+544. DOI: 10.3389/fmicb.2026.1798439
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+545. DOI: 10.3389/fmolb.2022.834498
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+546. DOI: 10.3389/fnagi.2026.1895712
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+547. DOI: 10.3389/fncel.2014.00172
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+548. DOI: 10.3389/fncel.2019.00577
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+549. DOI: 10.3389/fncel.2020.00085
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+550. DOI: 10.3389/fncel.2020.00166
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+551. DOI: 10.3389/fncel.2020.00285
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+552. DOI: 10.3389/fncel.2023.1108339
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+553. DOI: 10.3389/fneur.2020.01028
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+554. DOI: 10.3389/fneur.2022.894565
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+555. DOI: 10.3389/fneur.2024.1330874
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+556. DOI: 10.3389/fneur.2025.1680672
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+557. DOI: 10.3389/fnhum.2013.00738
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+558. DOI: 10.3389/fnins.2016.00016
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+559. DOI: 10.3389/fnins.2016.00396
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+560. DOI: 10.3389/fnins.2016.00601
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+561. DOI: 10.3389/fnins.2020.00023
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+562. DOI: 10.3389/fnins.2022.862315
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+563. DOI: 10.3389/fnins.2023.1101422
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+564. DOI: 10.3389/fnins.2023.1160243
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+565. DOI: 10.3389/fnmol.2018.00481
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+566. DOI: 10.3389/fnmol.2019.00241
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+567. DOI: 10.3389/fnmol.2022.1068019
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+568. DOI: 10.3389/fnmol.2024.1503070
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+569. DOI: 10.3389/fnmol.2025.1553575
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+570. DOI: 10.3389/fnmol.2025.1602201
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+571. DOI: 10.3389/fnut.2026.1721018
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+572. DOI: 10.3389/fped.2025.1680354
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+573. DOI: 10.3389/fphar.2024.1356763
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+574. DOI: 10.3389/fpsyt.2021.788779
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+575. DOI: 10.3389/fpsyt.2022.1006612
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+576. DOI: 10.3389/fpsyt.2022.823096
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+577. DOI: 10.3389/fpsyt.2022.842755
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+578. DOI: 10.3389/fpsyt.2022.904091
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+579. DOI: 10.3389/fpsyt.2024.1304916
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+580. DOI: 10.3389/fpsyt.2024.1431942
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+581. DOI: 10.3389/fpubh.2024.1327315
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+582. DOI: 10.3390/biology14101433
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+583. DOI: 10.3390/biom13091396
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+584. DOI: 10.3390/biomedicines8120557
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+585. DOI: 10.3390/biomedicines9070734
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+586. DOI: 10.3390/brainsci10090631
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+587. DOI: 10.3390/brainsci7090115
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+588. DOI: 10.3390/cells11142211
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+589. DOI: 10.3390/cells15110985
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+590. DOI: 10.3390/cells9010062
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+591. DOI: 10.3390/cells9091926
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+592. DOI: 10.3390/children11060627
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+593. DOI: 10.3390/cimb45110582
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+594. DOI: 10.3390/cimb46030121
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+595. DOI: 10.3390/cimb47010034
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+596. DOI: 10.3390/diseases12120334
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+597. DOI: 10.3390/genes13061098
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+598. DOI: 10.3390/genes16040441
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+599. DOI: 10.3390/genes16080868
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+600. DOI: 10.3390/genes17040368
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+601. DOI: 10.3390/genes17040486
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+602. DOI: 10.3390/ijms20153813
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+603. DOI: 10.3390/ijms20236050
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+604. DOI: 10.3390/ijms21114156
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+605. DOI: 10.3390/ijms21165850
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+606. DOI: 10.3390/ijms22189798
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+607. DOI: 10.3390/ijms23179843
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+608. DOI: 10.3390/ijms231911077
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+609. DOI: 10.3390/ijms232113328
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+610. DOI: 10.3390/ijms252211959
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+611. DOI: 10.3390/ijms26020573
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+612. DOI: 10.3390/ijms26136483
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+613. DOI: 10.3390/ijms27031185
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+614. DOI: 10.3390/jpm11070596
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+615. DOI: 10.3390/life11020088
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+616. DOI: 10.3390/metabo13050663
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+617. DOI: 10.3390/microorganisms12081625
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+618. DOI: 10.3390/microorganisms9081723
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+619. DOI: 10.3390/nu10111582
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+620. DOI: 10.3390/nu13041185
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+621. DOI: 10.3390/nu17091439
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+622. DOI: 10.3402/mehd.v26.27458
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+623. DOI: 10.34133/research.1424
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+624. DOI: 10.3892/mmr.2018.9473
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+625. DOI: 10.3906/sag-2002-133
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+626. DOI: 10.4103/nrr.nrr-d-25-00734
+     Status: sucesso
+     Detalhe: Fonte: cache
+     Fonte: cache
+     PDF URL: None
+
+627. DOI: 10.4161/cc.8.23.10113
+     Status: requisição negada
+     Detalhe: Erro: download_network_error
+     Fonte: scihub
+     PDF URL: https://sci.bban.top/pdf/10.4161/cc.8.23.10113.pdf
+
+628. DOI: 10.4161/cib.3.3.11414
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: unpaywall
      Fonte: unpaywall
      PDF URL: https://genomebiology.biomedcentral.com/counter/pdf/10.1186/s13059-022-02605-1
 
+<<<<<<< Updated upstream
 462. DOI: 10.1186/s13059-022-02799-4
+=======
+629. DOI: 10.4161/derm.24356
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: unpaywall
      Fonte: unpaywall
      PDF URL: https://genomebiology.biomedcentral.com/counter/pdf/10.1186/s13059-022-02799-4
 
+<<<<<<< Updated upstream
 463. DOI: 10.1186/s13073-018-0576-8
+=======
+630. DOI: 10.5493/wjem.v15.i2.100548
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: unpaywall
      Fonte: unpaywall
      PDF URL: https://genomemedicine.biomedcentral.com/counter/pdf/10.1186/s13073-018-0576-8
 
+<<<<<<< Updated upstream
 464. DOI: 10.1186/s13195-019-0475-2
+=======
+631. DOI: 10.5498/wjp.v14.i1.88
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: unpaywall
      Fonte: unpaywall
      PDF URL: https://alzres.biomedcentral.com/counter/pdf/10.1186/s13195-019-0475-2
 
+<<<<<<< Updated upstream
 465. DOI: 10.1186/s13229-017-0130-3
+=======
+632. DOI: 10.64898/2025.12.10.693473
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: unpaywall
      Fonte: unpaywall
      PDF URL: https://molecularautism.biomedcentral.com/counter/pdf/10.1186/s13229-017-0130-3
 
+<<<<<<< Updated upstream
 466. DOI: 10.1186/s13229-017-0134-z
+=======
+633. DOI: 10.64898/2026.01.20.700626
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: unpaywall
      Fonte: unpaywall
      PDF URL: https://molecularautism.biomedcentral.com/track/pdf/10.1186/s13229-017-0134-z
 
+<<<<<<< Updated upstream
 467. DOI: 10.1186/s13229-017-0147-7
+=======
+634. DOI: 10.64898/2026.02.28.708624
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: unpaywall
      Fonte: unpaywall
      PDF URL: https://molecularautism.biomedcentral.com/track/pdf/10.1186/s13229-017-0147-7
 
+<<<<<<< Updated upstream
 468. DOI: 10.1186/s13229-017-0148-6
+=======
+635. DOI: 10.64898/2026.04.05.716613
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: unpaywall
      Fonte: unpaywall
      PDF URL: https://molecularautism.biomedcentral.com/counter/pdf/10.1186/s13229-017-0148-6
 
+<<<<<<< Updated upstream
 469. DOI: 10.1186/s13229-020-0320-2
+=======
+636. DOI: 10.64898/2026.07.20.739611
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: unpaywall
      Fonte: unpaywall
      PDF URL: https://molecularautism.biomedcentral.com/track/pdf/10.1186/s13229-020-0320-2
 
+<<<<<<< Updated upstream
 470. DOI: 10.1186/s13578-022-00916-1
+=======
+637. DOI: 10.7150/jca.14747
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: unpaywall
      Fonte: unpaywall
      PDF URL: https://cellandbioscience.biomedcentral.com/counter/pdf/10.1186/s13578-022-00916-1
 
+<<<<<<< Updated upstream
 471. DOI: 10.1186/s13643-017-0448-0
+=======
+638. DOI: 10.7417/ct.2013.1587
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: unpaywall
      Fonte: unpaywall
      PDF URL: https://systematicreviewsjournal.biomedcentral.com/track/pdf/10.1186/s13643-017-0448-0
 
+<<<<<<< Updated upstream
 472. DOI: 10.1186/s40246-016-0063-5
+=======
+639. DOI: 10.7554/elife.61974
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: unpaywall
      Fonte: unpaywall
      PDF URL: https://humgenomics.biomedcentral.com/counter/pdf/10.1186/s40246-016-0063-5
 
+<<<<<<< Updated upstream
 473. DOI: 10.1186/s40246-025-00801-1
+=======
+640. DOI: 10.7759/cureus.79764
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: unpaywall
      Fonte: unpaywall
      PDF URL: https://link.springer.com/content/pdf/10.1186/s40246-025-00801-1.pdf
 
+<<<<<<< Updated upstream
 474. DOI: 10.1186/s40478-019-0841-0
      Status: sucesso
      Detalhe: Fonte: unpaywall
@@ -3009,6 +6794,9 @@ DETALHAMENTO POR DOI:
      PDF URL: https://europepmc.org/articles/PMC9617620?pdf=render
 
 498. DOI: 10.1523/jneurosci.1003-21.2021
+=======
+641. DOI: 10.7759/cureus.94607
+>>>>>>> Stashed changes
      Status: sucesso
      Detalhe: Fonte: europe_pmc
      Fonte: europe_pmc
@@ -3868,7 +7656,14 @@ DETALHAMENTO POR DOI:
 
 RECOMENDAÇÕES:
 ------------------------------------------------------------
+<<<<<<< Updated upstream
 • 640 DOIs foram baixados com sucesso.
+=======
+• 9 DOIs falharam devido a erros de transporte.
+  Pode ser problemas temporários de rede ou bloqueio temporário.
+  Considere tentar novamente em momentos diferentes.
+• 632 DOIs foram baixados com sucesso.
+>>>>>>> Stashed changes
   Os PDFs estão disponíveis no diretório 'pdfs'.
 
 ============================================================

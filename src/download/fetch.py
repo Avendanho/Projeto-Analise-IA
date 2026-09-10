@@ -40,6 +40,12 @@ import sys
 import time
 import urllib.error
 import urllib.parse
+import sys
+from pathlib import Path
+_SRC_DIR = Path(__file__).resolve().parent.parent
+if str(_SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(_SRC_DIR))
+from analiseia.platform.filesystem import safe_replace
 import urllib.request
 import uuid
 import xml.etree.ElementTree as ET
@@ -659,12 +665,6 @@ def _download(url: str, dest: Path, *, timeout: int) -> str | None:
             tmp_dest = dest.with_name(f".{dest.name}.tmp.{os.getpid()}_{uuid.uuid4().hex[:6]}")
             tmp_dest.write_bytes(clean_data)
             
-            import sys
-            _ANALISEIA_DIR = Path(__file__).resolve().parent.parent / "analiseia"
-            if str(_ANALISEIA_DIR.parent) not in sys.path:
-                sys.path.insert(0, str(_ANALISEIA_DIR.parent))
-            from analiseia.platform.filesystem import safe_replace
-            
             safe_replace(tmp_dest, dest)
         except OSError as e:
             _progress("download_error", reason="io_error", error=str(e))
@@ -683,9 +683,42 @@ def _download(url: str, dest: Path, *, timeout: int) -> str | None:
         _progress("download_cloak_ok", url=url, bytes=len(data))
         return True
 
+<<<<<<< Updated upstream
     # 1. Primary Attempt: GoByPASS403 Engine (handles browser fingerprint, IP spoofing, path mutations, curl raw)
     dl_timeout = timeout
     ok, err = bypass_download_pdf(url, dest, timeout=dl_timeout)
+=======
+    # 1. FAST PATH: Streaming download via requests Session
+    session = _get_download_session()
+    try:
+        with session.get(url, stream=True, timeout=(5, timeout), allow_redirects=True) as r:
+            if r.status_code == 200:
+                iterator = r.iter_content(chunk_size=8192)
+                try:
+                    first_chunk = next(iterator)
+                except StopIteration:
+                    first_chunk = b""
+                
+                if first_chunk.startswith(b"%PDF"):
+                    dest.parent.mkdir(parents=True, exist_ok=True)
+                    tmp_dest = dest.with_name(f".{dest.name}.tmp.{os.getpid()}_{uuid.uuid4().hex[:6]}")
+                    with open(tmp_dest, "wb") as f:
+                        f.write(first_chunk)
+                        for chunk in iterator:
+                            if chunk:
+                                f.write(chunk)
+                    
+                    safe_replace(tmp_dest, dest)
+                    _progress("download_stream_ok", url=url)
+                    return None
+                else:
+                    pass
+    except Exception as e:
+        pass
+
+    # 2. Secondary Attempt: GoByPASS403 Engine
+    ok, err = bypass_download_pdf(url, dest, timeout=timeout)
+>>>>>>> Stashed changes
     if ok:
         _progress("download_bypass403_ok", url=url)
         return None

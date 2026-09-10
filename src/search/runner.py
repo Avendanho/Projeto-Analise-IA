@@ -81,6 +81,30 @@ def run_search(bases: list[str], use_ufmg: bool = False):
                 count, dois, no_doi = fetch_embase_dois(query)
             elif base == "LILACS":
                 count, dois, no_doi = fetch_lilacs_dois(query)
+            elif base == "OpenAlex":
+                from connectors.openalex import fetch_openalex_dois
+                count, dois, no_doi = fetch_openalex_dois(query)
+            elif base == "Europe PMC":
+                from connectors.europepmc import fetch_europepmc_dois
+                count, dois, no_doi = fetch_europepmc_dois(query)
+            elif base == "arXiv":
+                from connectors.arxiv import fetch_arxiv_dois
+                count, dois, no_doi = fetch_arxiv_dois(query)
+            elif base == "Crossref":
+                from connectors.crossref import fetch_crossref_dois
+                count, dois, no_doi = fetch_crossref_dois(query)
+            elif base == "Semantic Scholar":
+                from connectors.semanticscholar import fetch_semanticscholar_dois
+                count, dois, no_doi = fetch_semanticscholar_dois(query)
+            elif base == "DOAJ":
+                from connectors.doaj import fetch_doaj_dois
+                count, dois, no_doi = fetch_doaj_dois(query)
+            elif base == "PLOS":
+                from connectors.plos import fetch_plos_dois
+                count, dois, no_doi = fetch_plos_dois(query)
+            elif base == "CORE":
+                from connectors.core import fetch_core_dois
+                count, dois, no_doi = fetch_core_dois(query)
 
             resultados_contagem[base] = count
             todos_dois_brutos.extend(dois)

@@ -13,6 +13,10 @@ def select_databases() -> list[str]:
         questionary.Choice("PubMed", checked=True),
         questionary.Choice("Embase", checked=False),
         questionary.Choice("LILACS", checked=False),
+        questionary.Choice("Europe PMC", checked=False),
+        questionary.Choice("OpenAlex", checked=False),
+        questionary.Choice("arXiv", checked=False),
+        questionary.Choice("Crossref", checked=False),
         questionary.Choice("UFMG (DSpace/Periódicos)", checked=False)
     ]
     

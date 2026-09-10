@@ -223,7 +223,7 @@ async def run_command_sse(cmd, cwd, env=None, transform=True):
         yield f"data: [ERROR] O processo encontrou um problema (código {process.returncode})\n\n"
 
 @app.get("/api/run/search")
-async def run_search(pubmed: bool = True, embase: bool = True, lilacs: bool = True, ufmg: bool = True):
+async def run_search(pubmed: bool = True, embase: bool = True, lilacs: bool = True, ufmg: bool = True, openalex: bool = False, europepmc: bool = False, arxiv: bool = False, crossref: bool = False, semantic: bool = False, doaj: bool = False, plos: bool = False, core: bool = False):
     src_dir = encontrar_dois_dir
     env = os.environ.copy()
     env["PYTHONPATH"] = str(src_dir)
@@ -233,6 +233,14 @@ async def run_search(pubmed: bool = True, embase: bool = True, lilacs: bool = Tr
     if pubmed: selected_bases.append("PubMed")
     if embase: selected_bases.append("Embase")
     if lilacs: selected_bases.append("LILACS")
+    if openalex: selected_bases.append("OpenAlex")
+    if europepmc: selected_bases.append("Europe PMC")
+    if arxiv: selected_bases.append("arXiv")
+    if crossref: selected_bases.append("Crossref")
+    if semantic: selected_bases.append("Semantic Scholar")
+    if doaj: selected_bases.append("DOAJ")
+    if plos: selected_bases.append("PLOS")
+    if core: selected_bases.append("CORE")
     
     import json as _json
     bases_json = _json.dumps(selected_bases)
@@ -442,6 +450,45 @@ Instruções do usuário:
         return {"content": generated_protocol}
     except Exception as e:
         return {"error": f"Erro ao gerar protocolo: {str(e)}"}
+
+
+from pydantic import BaseModel
+class QueriesRequest(BaseModel):
+    queries: dict
+
+@app.get("/api/queries")
+async def get_queries():
+    query_path = root_dir / "src" / "search" / "quary.txt"
+    if not query_path.exists():
+        return {"queries": {}}
+        
+    with open(query_path, "r", encoding="utf-8") as f:
+        text = f.read().strip()
+        
+    queries = {}
+    secoes = re.split(r"\[(PUBMED|EMBASE|LILACS|OPENALEX|EUROPE PMC|ARXIV|CROSSREF|SEMANTIC SCHOLAR|DOAJ|PLOS|CORE)\]", text, flags=re.IGNORECASE)
+    
+    if len(secoes) > 1:
+        i = 1 if not secoes[0].strip() else 0
+        while i < len(secoes) - 1:
+            base_name = secoes[i].upper()
+            query = secoes[i+1].strip()
+            if query:
+                queries[base_name] = query
+            i += 2
+    else:
+        queries["DEFAULT"] = text
+        
+    return {"queries": queries}
+
+@app.post("/api/queries")
+async def save_queries(request: QueriesRequest):
+    query_path = root_dir / "src" / "search" / "quary.txt"
+    with open(query_path, "w", encoding="utf-8") as f:
+        for base, query in request.queries.items():
+            if query.strip():
+                f.write(f"[{base.upper()}]\n{query.strip()}\n\n")
+    return {"status": "success"}
 
 @app.get("/api/config")
 async def get_config():

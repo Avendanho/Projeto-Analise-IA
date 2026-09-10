@@ -19,6 +19,8 @@ from connectors.embase import fetch_embase_dois
 from connectors.lilacs import fetch_lilacs_dois
 from connectors.ufmg import fetch_ufmg_dois
 from fallback_search import search_web_for_missing_articles
+from gui_query import ask_queries_gui
+
 
 def ler_queries_do_arquivo(filepath=None) -> dict[str, str]:
     """
@@ -63,13 +65,23 @@ def main():
     load_dotenv(ENV_FILE)
     
     bases_selecionadas = select_databases()
-    queries = ler_queries_do_arquivo()
+    
+    # Lemos as queries do quary.txt para preencher as caixas inicialmente
+    initial_queries = ler_queries_do_arquivo()
+    
+    print("Abrindo janela de queries (modal)...")
+    queries = ask_queries_gui(bases_selecionadas, initial_queries=initial_queries)
+    
+    # Validar se o usuário cancelou/fechou a janela sem preencher
+    if not any(queries.values()):
+        print("Operação cancelada ou nenhuma query inserida.")
+        exit(1)
     
     # Extrair se UFMG foi selecionado e remover das primárias
     use_ufmg_fallback = False
-    if "UFMG" in bases_selecionadas:
+    if any("UFMG" in b for b in bases_selecionadas):
         use_ufmg_fallback = True
-        bases_selecionadas.remove("UFMG")
+        bases_selecionadas = [b for b in bases_selecionadas if "UFMG" not in b]
         
     resultados_contagem = {}
     todos_dois_brutos = []
@@ -79,7 +91,7 @@ def main():
         print(f"\n--- Processando {base} ---")
         
         # Obter a query específica para a base ou usar a DEFAULT
-        query = queries.get(base.upper(), queries.get("DEFAULT"))
+        query = queries.get(base, "")
         if not query:
             print(f"Aviso: Nenhuma query encontrada para {base}. Pulando.")
             resultados_contagem[base] = 0
@@ -92,9 +104,19 @@ def main():
         elif base == "Embase":
             count, dois, no_doi = fetch_embase_dois(query)
         elif base == "LILACS":
-            # Para LILACS, garantir que o filtro db:"LILACS" está implícito ou adicioná-lo
-            # No conector já enviamos db[]=LILACS na URL, então a query textual basta
             count, dois, no_doi = fetch_lilacs_dois(query)
+        elif base == "OpenAlex":
+            from connectors.openalex import fetch_openalex_dois
+            count, dois, no_doi = fetch_openalex_dois(query)
+        elif base == "Europe PMC":
+            from connectors.europepmc import fetch_europepmc_dois
+            count, dois, no_doi = fetch_europepmc_dois(query)
+        elif base == "arXiv":
+            from connectors.arxiv import fetch_arxiv_dois
+            count, dois, no_doi = fetch_arxiv_dois(query)
+        elif base == "Crossref":
+            from connectors.crossref import fetch_crossref_dois
+            count, dois, no_doi = fetch_crossref_dois(query)
             
         resultados_contagem[base] = count
         todos_dois_brutos.extend(dois)

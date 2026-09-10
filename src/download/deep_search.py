@@ -5,6 +5,31 @@ import urllib.request
 import urllib.parse
 import time
 from pathlib import Path
+import xml.etree.ElementTree as ET
+
+def try_pmcid_from_pmid(pmid: str, timeout: int = 15) -> str:
+    url = f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id={pmid}&retmode=xml"
+    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            xml_data = resp.read().decode("utf-8")
+            root = ET.fromstring(xml_data)
+            for article_id in root.iter('article-id'):
+                if article_id.get('pub-id-type') == 'pmc':
+                    return article_id.text
+    except:
+        pass
+    return None
+
+def download_pdf(url: str, output_path: Path):
+    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp, open(output_path, 'wb') as out_file:
+            out_file.write(resp.read())
+        return True
+    except Exception as e:
+        return False
+
 
 def search_pubmed(query: str):
     url = f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term={urllib.parse.quote(query)}&retmode=json"
@@ -74,15 +99,56 @@ def run_deep_search():
         print(f"🔎 Pesquisando: {item[:60]}...")
         pmids = search_pubmed(item)
         if pmids:
-            print(f"   🟢 Encontrado no PubMed! PMID: {pmids[0]}")
+            pmid = pmids[0]
+            print(f"   🟢 Encontrado no PubMed! PMID: {pmid}")
             found_count += 1
+            
+            # Tentar baixar o PDF usando PMCID -> Europe PMC
+            pmcid = try_pmcid_from_pmid(pmid)
+            if pmcid:
+                pmcid = pmcid if pmcid.startswith("PMC") else f"PMC{pmcid}"
+                print(f"      ↳ PMCID encontrado: {pmcid}. Tentando download...")
+                pdf_url = f"https://europepmc.org/articles/{pmcid}?pdf=render"
+                
+                # Sanitize filename
+                safe_name = "".join([c for c in item if c.isalpha() or c.isdigit() or c==' ']).rstrip()
+                safe_name = safe_name.replace(' ', '_')[:50]
+                
+                pdf_dir = reports_dir / "pdfs"
+                pdf_dir.mkdir(exist_ok=True)
+                pdf_path = pdf_dir / f"{safe_name}_{pmcid}.pdf"
+                
+                if download_pdf(pdf_url, pdf_path):
+                    print(f"      ✅ PDF baixado com sucesso em: {pdf_path.name}")
+                else:
+                    print(f"      ❌ Falha ao baixar PDF (Acesso restrito ou erro).")
+            else:
+                print(f"      ❌ PMCID não disponível (Artigo fechado/fechado).")
+            
             time.sleep(1)
             continue
             
         ntrs_ids = search_ntrs(item)
         if ntrs_ids:
-            print(f"   🟢 Encontrado no NASA NTRS! ID: {ntrs_ids[0]}")
+            ntrs_id = ntrs_ids[0]
+            print(f"   🟢 Encontrado no NASA NTRS! ID: {ntrs_id}")
             found_count += 1
+            
+            print(f"      ↳ Tentando download direto no repositório da NASA...")
+            pdf_url = f"https://ntrs.nasa.gov/api/citations/{ntrs_id}/downloads/{ntrs_id}.pdf"
+            
+            safe_name = "".join([c for c in item if c.isalpha() or c.isdigit() or c==' ']).rstrip()
+            safe_name = safe_name.replace(' ', '_')[:50]
+            
+            pdf_dir = reports_dir / "pdfs"
+            pdf_dir.mkdir(exist_ok=True)
+            pdf_path = pdf_dir / f"{safe_name}_{ntrs_id}.pdf"
+            
+            if download_pdf(pdf_url, pdf_path):
+                print(f"      ✅ PDF baixado com sucesso em: {pdf_path.name}")
+            else:
+                print(f"      ❌ Falha ao baixar PDF do NTRS (Documento não anexado).")
+                
             time.sleep(1)
             continue
             

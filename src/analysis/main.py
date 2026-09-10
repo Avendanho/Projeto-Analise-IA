@@ -21,9 +21,28 @@ def scan():
     console.print(f"Total de PDFs encontrados: {len(pdfs)}")
     
     init_db()
+    from pdf_processor import get_hash
+    import json
+    
     for pdf_path in track(pdfs, description="Verificando integridade e texto..."):
         article_id = Path(pdf_path).stem
-        process_pdf(pdf_path, article_id)
+        
+        # Cache check
+        out_dir = Path(settings.db_dir) / "extracted" / article_id
+        meta_path = out_dir / "metadata.json"
+        
+        skip = False
+        if meta_path.exists():
+            try:
+                with open(meta_path, "r", encoding="utf-8") as f:
+                    meta = json.load(f)
+                if meta.get("hash") == get_hash(pdf_path):
+                    skip = True
+            except:
+                pass
+                
+        if not skip:
+            process_pdf(pdf_path, article_id)
         
     console.print("[bold green]Scan concluído![/bold green]")
 
@@ -42,6 +61,7 @@ def analyze(workers: int = 10):
     
     import json
     import concurrent.futures
+<<<<<<< Updated upstream
     from database import save_analysis
     from llm_client import get_llm_client
     
@@ -57,6 +77,28 @@ def analyze(workers: int = 10):
             if workers > 1:
                 console.print("[yellow]⚠️ Reduzindo workers para 1 para otimizar VRAM do Ollama Local...[/yellow]")
                 workers = 1
+=======
+    import sys
+    sys.path.insert(0, str(Path(__file__).parent.parent)) # to allow importing analiseia
+    from analiseia.analysis.application.orchestrator import ScreeningOrchestrator
+    from analiseia.analysis.domain.models import ArticleDocument
+    from analiseia.analysis.infrastructure.repository import AnalysisRepository
+    from analiseia.config.settings import get_settings
+    
+    try:
+        app_settings = get_settings()
+        console.print(f"[bold green]🤖 Usando: {app_settings.ai_provider} ({app_settings.ai_primary_model})[/bold green]")
+        
+        # OTIMIZAÇÃO: Se for Ollama Local, travar workers com base no concurrency limit
+        if "ollama" in app_settings.ai_provider.lower():
+            if workers > app_settings.ai_max_concurrent_requests:
+                console.print(f"[yellow]⚠️ Reduzindo workers para {app_settings.ai_max_concurrent_requests} para otimizar VRAM do Ollama Local...[/yellow]")
+                workers = app_settings.ai_max_concurrent_requests
+                
+        orchestrator = ScreeningOrchestrator(max_workers=workers)
+        repo = AnalysisRepository(db_dir=settings.db_dir)
+        
+>>>>>>> Stashed changes
     except Exception as e:
         console.print(f"[bold red]Erro ao inicializar provedor de IA: {e}[/bold red]")
         raise typer.Exit(1)
@@ -75,7 +117,11 @@ def analyze(workers: int = 10):
                     text_content = f.read()
             
             import hashlib
+<<<<<<< Updated upstream
             task_hash = hashlib.md5(f"{meta.get('hash', '')}{protocolo_texto}".encode('utf-8')).hexdigest()
+=======
+            task_hash = hashlib.md5(f"{meta.get('hash', '')}_v2_{app_settings.ai_provider}".encode('utf-8')).hexdigest()
+>>>>>>> Stashed changes
             
             from database import get_article
             cached = get_article(article_id)
@@ -279,10 +325,43 @@ def report():
     # ---------------------------------------------------------
     # Generate RELATORIO_FINAL.md com Data Charts
     # ---------------------------------------------------------
+<<<<<<< Updated upstream
+=======
+    def gerar_relatorio_md(nome_arquivo, titulo, icone, dados_df):
+        path = reports_dir / nome_arquivo
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(f"# {icone} {titulo}\n\n")
+            f.write(f"**Total de Artigos:** {len(dados_df)}\n\n---\n\n")
+            
+            for _, row in dados_df.iterrows():
+                f.write(f"### {icone} ID: {row['article_id']}\n\n")
+                f.write(f"**Arquivo:** `{row['filename']}` | **Confiança da IA:** {row['confidence_score']}%\n\n")
+                
+                f.write(f"**Justificativa:**\n> {row['justificativa']}\n\n")
+                
+                if row['exclusion_code'] and row['exclusion_code'] != "-":
+                    f.write(f"- **Motivo Principal (Código):** {row['exclusion_code']}\n")
+                    
+                if row['key_synthesis'] and row['key_synthesis'] != "N/A":
+                    f.write(f"- **Síntese:** {row['key_synthesis']}\n")
+                    
+                if row['project_value_added'] and row['project_value_added'] != "N/A":
+                    f.write(f"- **Agregação ao Projeto:** {row['project_value_added']}\n")
+                    
+                f.write("\n---\n\n")
+
+    gerar_relatorio_md("RELATORIO_INCLUIDOS.md", "Relatório de Artigos INCLUÍDOS", "✅", df[df['decision'] == 'INCLUIDO'])
+    gerar_relatorio_md("RELATORIO_EXCLUIDOS.md", "Relatório de Artigos EXCLUÍDOS", "❌", df[df['decision'] == 'EXCLUIDO'])
+    gerar_relatorio_md("RELATORIO_REVISAO_MANUAL.md", "Relatório de Artigos para REVISÃO MANUAL", "⚠️", df[df['decision'] == 'REVISÃO MANUAL'])
+    
+    # Compatibilidade com a interface web (mantém um relatório final unificado)
+    # A interface web puxa apenas o RELATORIO_FINAL.md, então precisamos juntar tudo!
+>>>>>>> Stashed changes
     with open(reports_dir / "RELATORIO_FINAL.md", "w", encoding="utf-8") as f:
         f.write("# 📊 Relatório Detalhado de Triagem por IA\n\n")
         
         counts = df['decision'].value_counts()
+<<<<<<< Updated upstream
         f.write("## 📈 Resumo Estatístico\n\n")
         f.write(f"- ✅ **INCLUÍDOS:** {counts.get('INCLUIDO', 0)}\n")
         f.write(f"- ❌ **EXCLUÍDOS:** {counts.get('EXCLUIDO', 0)}\n")
@@ -309,6 +388,21 @@ def report():
                 f.write(f"- **Agregação ao Projeto:** {row['project_value_added']}\n")
                 
             f.write("\n---\n\n")
+=======
+        f.write("# 📊 Resumo Estatístico Geral\n\n")
+        f.write(f"- ✅ **INCLUÍDOS:** {counts.get('INCLUIDO', 0)} artigos\n")
+        f.write(f"- ❌ **EXCLUÍDOS:** {counts.get('EXCLUIDO', 0)} artigos\n")
+        f.write(f"- ⚠️ **REVISÃO MANUAL:** {counts.get('REVISÃO MANUAL', 0)} artigos\n\n")
+        f.write("---\n\n")
+        
+        # Anexa os arquivos ao relatorio final para o Web UI
+        for rel in ["RELATORIO_INCLUIDOS.md", "RELATORIO_REVISAO_MANUAL.md", "RELATORIO_EXCLUIDOS.md"]:
+            p = reports_dir / rel
+            if p.exists():
+                with open(p, "r", encoding="utf-8") as sub_f:
+                    f.write(sub_f.read())
+                    f.write("\n\n---\n\n")
+>>>>>>> Stashed changes
             
     console.print(f"[bold green]Concluído! Relatórios gerados em: {reports_dir}[/bold green]")
 

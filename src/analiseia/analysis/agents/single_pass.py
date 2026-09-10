@@ -1,10 +1,11 @@
 from typing import List
 from pydantic import BaseModel
-from ..domain.models import CriterionResult, ArticleDocument, CriterionConfig
+from ..domain.models import CriterionResult, ArticleDocument, CriterionConfig, GlobalAnalysis
 from ..evidence.retriever import EvidenceRetriever
 from ..infrastructure.model_router import get_model_router, DifficultyLevel
 
 class SinglePassResult(BaseModel):
+    analise_global: GlobalAnalysis
     results: List[CriterionResult]
 
 class SinglePassAgent:
@@ -15,25 +16,27 @@ class SinglePassAgent:
     def get_system_prompt(self) -> str:
         criteria_text = "\n".join([f"- {c.id}: {c.description}" for c in self.criteria])
         return (
-            "Você é um agente especialista em triagem sistemática rápida.\n"
+            "Você é um ANALISTA CIENTÍFICO ASSISTIDO POR PROTOCOLO realizando uma Revisão Sistemática rigorosa.\n"
+            "Sua tarefa NÃO é procurar palavras-chave, mas compreender conceitos científicos e interpretar o artigo semanticamente.\n"
             "Sua responsabilidade é avaliar TODOS os critérios abaixo de uma só vez.\n"
             f"Critérios:\n{criteria_text}\n\n"
-            "Diretrizes Rigorosas de INTERPRETAÇÃO SEMÂNTICA (REGRAS DE OURO):\n"
-            "1. INTERPRETAÇÃO SEMÂNTICA: Você atua como um classificador baseado em regras científicas. NÃO exija correspondência literal de palavras. Você DEVE interpretar sinônimos, abreviações (ex: ASD = TEA), conceitos equivalentes, jargão metodológico e conclusões do artigo.\n"
-            "2. DIFERENÇA ENTRE 'N' E 'NC':\n"
-            "   - 'N' (Não): Existe evidência explícita de que o artigo não atende ao critério (ex: critério pede humanos, artigo diz 'mouse model').\n"
-            "   - 'NC' (Não Claro): É impossível determinar S ou N porque falta informação real. NÃO use 'NC' por dúvidas pequenas de vocabulário ou formulação.\n"
-            "3. DECIDA (S ou N) SEMPRE QUE POSSÍVEL: Se a intenção ou contexto do artigo satisfaz o critério semanticamente, marque 'S'. Se falha flagrantemente, marque 'N'. Use 'NC' apenas como último recurso se a informação for realmente ausente ou ambígua ao extremo.\n"
-            "4. Você receberá o texto particionado em blocos numerados, ex: --- INÍCIO DA EVIDÊNCIA [EV-XXX] ---.\n"
-            "5. ORDEM OBRIGATÓRIA PARA CADA CRITÉRIO:\n"
-            "   A. 'evidence_ids': Liste os blocos que suportam sua análise.\n"
-            "   B. 'evidence_quality': ALTA (evidência clara/equivalente semântico), MEDIA (contextual suportado), BAIXA, ou INEXISTENTE.\n"
-            "   C. 'reasoning': Explique semanticamente como o trecho satisfaz ou não o critério.\n"
-            "   D. 'answer': S (Sim), N (Não) ou NC (Não Claro).\n"
-            "6. NÃO use conhecimento externo para inventar dados que não estão no texto. Use conhecimento para interpretar o que *está* no texto."
+            "Diretrizes de ANÁLISE PROGRESSIVA E INTERPRETAÇÃO SEMÂNTICA:\n"
+            "1. LEITURA GLOBAL: Antes de classificar qualquer critério, preencha a 'analise_global' conectando os conceitos principais (População, Genética, Imunologia/Inflamação e Relações).\n"
+            "2. INTERPRETAÇÃO SEMÂNTICA: NÃO exija correspondência literal. Compreenda sinônimos (ex: 'ASD' = TEA, 'IL-6' = Inflamação, 'SNPs' = Genética) e conecte evidências de diferentes seções (Métodos + Resultados).\n"
+            "3. DIFERENÇA ENTRE 'N' E 'NC':\n"
+            "   - 'N' (Não): O artigo evidencia que o critério NÃO é atendido (ex: é estudo com camundongos).\n"
+            "   - 'NC' (Não Claro): É realmente impossível determinar. NÃO confunda 'não achei a palavra exata' com 'NC'. Se o conceito estiver lá semanticamente, marque 'S'.\n"
+            "4. OBJETIVO VS MENÇÃO INCIDENTAL: Diferencie o que foi investigado do que foi apenas citado na introdução.\n"
+            "5. Você receberá blocos numerados [EV-XXX]. Combine múltiplas evidências quando necessário para provar um ponto.\n"
+            "6. ORDEM PARA CADA CRITÉRIO:\n"
+            "   A. 'evidence_ids': Liste TODOS os blocos que compõem a prova (primária e complementar).\n"
+            "   B. 'evidence_quality': ALTA (clara/equivalente semântico), MEDIA (inferência contextual suportada), BAIXA, INEXISTENTE.\n"
+            "   C. 'reasoning': Justifique por que a evidência demonstra ou não o critério. Mostre a validade semântica.\n"
+            "   D. 'answer': Decida S, N ou NC.\n"
+            "7. PROIBIDO: Usar conhecimento externo para assumir algo que o artigo não testou."
         )
 
-    def analyze(self, article: ArticleDocument) -> List[CriterionResult]:
+    def analyze(self, article: ArticleDocument) -> SinglePassResult:
         retriever = EvidenceRetriever(article)
         context = retriever.get_context_level(3)
         user_prompt = f"Avalie o artigo abaixo para TODOS os critérios descritos.\n\nTexto:\n{context}"
@@ -50,4 +53,4 @@ class SinglePassAgent:
             image_paths=article.images_paths if requires_vision else None
         )
         
-        return result_wrapper.results
+        return result_wrapper

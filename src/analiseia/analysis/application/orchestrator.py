@@ -62,9 +62,11 @@ class ScreeningOrchestrator:
             
         # 2. Single Pass Screening (SPEEDUP)
         results: Dict[str, CriterionResult] = {}
+        global_analysis = None
         try:
-            sp_results = self.single_agent.analyze(article)
-            for res in sp_results:
+            sp_result_obj = self.single_agent.analyze(article)
+            global_analysis = sp_result_obj.analise_global
+            for res in sp_result_obj.results:
                 valid, msg = CriterionValidator.validate(res)
                 if not valid:
                     res.answer = "NC"
@@ -100,13 +102,18 @@ class ScreeningOrchestrator:
             decision = ScreeningDecision.MANUAL_REVIEW
             justification += f" (Forçado para Revisão Manual: Confiança baixa {avg_confidence}%)"
             
+        key_syn = None
+        if global_analysis:
+            key_syn = f"Objetivo: {global_analysis.objetivo_estudo} | População: {global_analysis.populacao_condicao} | Genética: {global_analysis.componente_genetico} | Imuno: {global_analysis.componente_inflamatorio}"
+
         final_res = FinalResult(
             article_id=article.article_id,
             decision=decision,
             exclusion_code=code,
             confidence=avg_confidence,
             justification=justification,
-            criteria_results=results
+            criteria_results=results,
+            key_synthesis=key_syn
         )
         
         valid, msg = FinalResultValidator.validate(final_res)

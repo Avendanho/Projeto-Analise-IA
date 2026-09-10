@@ -29,6 +29,15 @@ class SemanticExtractionAgent:
         # Thinking is OFF for simple extraction (as requested by user)
         llm_client = self.router.route_for_classification(requires_vision, difficulty)
         
+        from rich.console import Console
+        from rich.panel import Panel
+        from rich.markdown import Markdown
+        console = Console()
+        def print_think(txt):
+            console.print(Panel(Markdown(txt), title="[bold cyan]🧠 Pensamento (Extração Semântica)[/bold cyan]", border_style="cyan"))
+        llm_client.set_thinking_callback(print_think)
+
+        
         return llm_client.generate_structured(
             system_prompt=self.get_system_prompt(),
             user_prompt=user_prompt,

@@ -103,7 +103,22 @@ class OllamaProvider(LLMClient):
                 extra_body={"options": {"num_ctx": self.profile.context_limit, "num_predict": self.profile.max_output_tokens}}
             )
             
-            json_str = response.choices[0].message.content
+            
+            msg_obj = response.choices[0].message
+            json_str = msg_obj.content
+            reasoning_content = getattr(msg_obj, 'reasoning_content', None)
+            
+            # DeepSeek-R1 / Qwen3-R1 models embed thinking in <think> tags natively when json mode is forced
+            if "<think>" in json_str:
+                import re
+                think_match = re.search(r'<think>(.*?)</think>', json_str, re.DOTALL)
+                if think_match:
+                    reasoning_content = think_match.group(1).strip()
+                json_str = re.sub(r'<think>.*?</think>', '', json_str, flags=re.DOTALL).strip()
+            
+            if reasoning_content and hasattr(self, 'on_thinking'):
+                self.on_thinking(reasoning_content)
+
             try:
                 return response_model.model_validate_json(json_str)
             except ValidationError as e:

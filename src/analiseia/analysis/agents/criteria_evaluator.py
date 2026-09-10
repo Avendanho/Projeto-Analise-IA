@@ -35,6 +35,15 @@ class CriteriaEvaluatorAgent:
         difficulty = DifficultyLevel.EASY
         llm_client = self.router.route_for_classification(requires_vision=False, difficulty=difficulty)
         
+        from rich.console import Console
+        from rich.panel import Panel
+        from rich.markdown import Markdown
+        console = Console()
+        def print_think(txt):
+            console.print(Panel(Markdown(txt), title="[bold magenta]⚖️ Pensamento (Julgamento dos Critérios)[/bold magenta]", border_style="magenta"))
+        llm_client.set_thinking_callback(print_think)
+
+        
         result_wrapper = llm_client.generate_structured(
             system_prompt=self.get_system_prompt(),
             user_prompt=user_prompt,

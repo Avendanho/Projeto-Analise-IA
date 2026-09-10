@@ -18,6 +18,13 @@ class FastScreeningAgent:
         abstract = article.text_content[:4000]
         user_prompt = f"Avalie o abstract a seguir:\n\n{abstract}"
         
+        from rich.console import Console
+        from rich.panel import Panel
+        from rich.markdown import Markdown
+        console = Console()
+        def print_think(txt):
+            console.print(Panel(Markdown(txt), title="[bold yellow]⚡ Pensamento (Fast Screening)[/bold yellow]", border_style="yellow"))
+        self.llm_client.set_thinking_callback(print_think)
         return self.llm_client.generate_structured(
             system_prompt=self.config.system_prompt,
             user_prompt=user_prompt,

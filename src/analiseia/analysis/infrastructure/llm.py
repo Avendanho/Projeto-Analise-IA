@@ -10,6 +10,10 @@ class LLMClient:
     
     def __init__(self, profile: ModelProfile):
         self.profile = profile
+        self.on_thinking = None
+        
+    def set_thinking_callback(self, callback):
+        self.on_thinking = callback
 
     def generate(self, system_prompt: str, user_prompt: str) -> str:
         raise NotImplementedError

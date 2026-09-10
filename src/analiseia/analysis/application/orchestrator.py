@@ -5,6 +5,7 @@ from typing import Dict
 from ..domain.models import ArticleDocument, FinalResult, CriterionResult, ScreeningDecision, ProtocolConfig
 from ..agents.fast_screening import FastScreeningAgent, FastScreeningResult
 from ..agents.base import BaseCriterionAgent
+from ..agents.single_pass import SinglePassAgent
 from .decision_engine import RuleEngine
 from .deliberator import Deliberator
 from .validators import DocumentQualityAnalyzer, CriterionValidator, FinalResultValidator
@@ -29,10 +30,7 @@ class ScreeningOrchestrator:
         self.deliberator = Deliberator(self.router.route_for_verification())
         self.rule_engine = RuleEngine(self.config)
         
-        self.agents = [
-            BaseCriterionAgent(crit_config)
-            for crit_config in self.config.criteria
-        ]
+        self.single_agent = SinglePassAgent(self.config.criteria)
         
     def analyze_article(self, article: ArticleDocument) -> FinalResult:
         # 0. Document Quality
@@ -57,36 +55,35 @@ class ScreeningOrchestrator:
                     justification=fast_res.reason
                 )
             
-        # 2. Parallel Full Screening
+        # 2. Single Pass Screening (SPEEDUP)
         results: Dict[str, CriterionResult] = {}
-        
-        def run_agent(agent):
-            res = agent.analyze(article)
-            valid, msg = CriterionValidator.validate(res)
-            if not valid:
-                res.answer = "NC"
-                res.confidence = 0
-                res.summary = f"Validação falhou: {msg}"
-            return agent.criterion_id, res
-            
-        with concurrent.futures.ThreadPoolExecutor(max_workers=self.max_workers) as executor:
-            future_to_agent = {executor.submit(run_agent, agent): agent for agent in self.agents}
-            for future in concurrent.futures.as_completed(future_to_agent):
-                agent = future_to_agent[future]
-                try:
-                    criterion_id, crit_result = future.result()
-                    results[criterion_id] = crit_result
-                except Exception as exc:
-                    print(f"Agent {agent.criterion_id} generated an exception: {exc}")
-                    results[agent.criterion_id] = CriterionResult(
-                        criterion_id=agent.criterion_id,
+        try:
+            sp_results = self.single_agent.analyze(article)
+            for res in sp_results:
+                valid, msg = CriterionValidator.validate(res)
+                if not valid:
+                    res.answer = "NC"
+                    res.confidence = 0
+                    res.summary = f"Validação falhou: {msg}"
+                results[res.criterion_id] = res
+                
+            for crit_config in self.config.criteria:
+                if crit_config.id not in results:
+                    results[crit_config.id] = CriterionResult(
+                        criterion_id=crit_config.id,
                         answer="NC",
                         confidence=0,
-                        summary=f"Erro de execução do agente: {str(exc)}"
+                        summary="Erro: LLM não retornou este critério na resposta única."
                     )
-        
-        # 3. Deliberation
-        results = self.deliberator.resolve_conflicts(article, results)
+        except Exception as exc:
+            print(f"SinglePassAgent generated an exception: {exc}")
+            for crit_config in self.config.criteria:
+                results[crit_config.id] = CriterionResult(
+                    criterion_id=crit_config.id,
+                    answer="NC",
+                    confidence=0,
+                    summary=f"Erro fatal no agente único: {str(exc)}"
+                )
 
         # 4. Decision Engine
         decision, code, justification = self.rule_engine.evaluate(results)

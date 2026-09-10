@@ -358,11 +358,109 @@ async def get_protocol():
             return {"content": f.read()}
     return {"content": ""}
 
+async def _sync_protocol_json(protocol_text: str):
+    """Converte o protocolo_triagem.txt em protocol.json estruturado para o motor de IA multi-agente."""
+    import json as _json
+    
+    protocol_json_path = root_dir / "src" / "analiseia" / "analysis" / "prompts" / "protocol.json"
+    protocol_json_path.parent.mkdir(parents=True, exist_ok=True)
+    
+    sync_system_prompt = """Você é um conversor de protocolo de triagem sistemática.
+Dado um protocolo de triagem em texto livre, extraia e converta para o formato JSON estruturado abaixo.
+REGRAS:
+1. Identifique TODAS as perguntas de avaliação (Q1, Q2, Q3, etc) no texto.
+2. Para cada pergunta, determine:
+   - "id": o identificador descritivo (ex: "Q1_HUMAN", "Q2_TEA_DIAGNOSIS")
+   - "description": a pergunta completa tal como está no protocolo
+   - "fail_value": "N" se a falha é responder Não, ou "S" se a falha é responder Sim
+   - "exclusion_code": o código de exclusão (ex: "E1_NOT_HUMAN", "E2_NOT_TEA")
+3. Gere um system_prompt para fast_screening que resuma os critérios centrais para triagem rápida pelo abstract.
+4. Retorne APENAS o JSON válido, sem texto adicional.
+
+FORMATO EXATO de saída:
+{
+  "protocol_id": "ID_DO_PROTOCOLO_v1",
+  "description": "Descrição breve do protocolo",
+  "fast_screening": {
+    "enabled": true,
+    "system_prompt": "Prompt completo e detalhado para triagem rápida pelo abstract...",
+    "exclusion_code": "FAST_SCREEN_EXCLUSION",
+    "exclusion_reason": "Motivo da exclusão rápida."
+  },
+  "criteria": [
+    {"id": "Q1_ID", "description": "Pergunta completa...", "fail_value": "N", "exclusion_code": "E1_CODE"},
+    ...
+  ]
+}"""
+
+    try:
+        gemini_key = os.environ.get("GEMINI_API_KEY")
+        
+        if gemini_key:
+            from google import genai
+            client = genai.Client(api_key=gemini_key)
+            interaction = client.interactions.create(
+                model='gemini-3.7-flash',
+                input=f"Converta este protocolo de triagem para JSON estruturado:\n\n{protocol_text}",
+                system_instruction=sync_system_prompt,
+                generation_config={"temperature": 0.1, "response_mime_type": "application/json"}
+            )
+            json_text = interaction.output_text
+        else:
+            openai_key = os.environ.get("OPENAI_API_KEY")
+            import openai
+            if openai_key:
+                client = openai.OpenAI(api_key=openai_key)
+            else:
+                client = openai.OpenAI(base_url=os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434/v1"), api_key="ollama")
+            
+            model_name = "gpt-4o-mini" if openai_key else os.environ.get("LLM_MODEL", "qwen2.5")
+            
+            resp = client.chat.completions.create(
+                model=model_name,
+                messages=[
+                    {"role": "system", "content": sync_system_prompt},
+                    {"role": "user", "content": f"Converta este protocolo de triagem para JSON estruturado:\n\n{protocol_text}"}
+                ],
+                temperature=0.1
+            )
+            json_text = resp.choices[0].message.content.strip()
+        
+        # Limpar possíveis ```json ... ``` markdown fences
+        if json_text.startswith("```"):
+            json_text = json_text.split("\n", 1)[1] if "\n" in json_text else json_text[3:]
+        if json_text.endswith("```"):
+            json_text = json_text[:-3]
+        json_text = json_text.strip()
+        
+        # Validar o JSON antes de salvar
+        parsed = _json.loads(json_text)
+        
+        # Garantir campos obrigatórios
+        if "criteria" not in parsed or not parsed["criteria"]:
+            print("⚠️ Sync protocol.json: JSON gerado não contém critérios, mantendo versão anterior.")
+            return False
+        
+        with open(protocol_json_path, "w", encoding="utf-8") as f:
+            _json.dump(parsed, f, ensure_ascii=False, indent=2)
+        
+        print(f"✅ protocol.json sincronizado com {len(parsed['criteria'])} critérios.")
+        return True
+        
+    except Exception as e:
+        print(f"⚠️ Falha ao sincronizar protocol.json: {e}")
+        return False
+
+
 @app.post("/api/protocol")
 async def save_protocol(request: ProtocolRequest):
     protocol_path = analise_ia_dir / "protocolo_triagem.txt"
     with open(protocol_path, "w", encoding="utf-8") as f:
         f.write(request.content)
+    
+    # Sincronizar automaticamente o protocol.json para o motor de IA
+    await _sync_protocol_json(request.content)
+    
     return {"status": "success"}
 
 @app.post("/api/generate_protocol")
@@ -442,10 +540,13 @@ Instruções do usuário:
             )
             generated_protocol = resp.choices[0].message.content.strip()
         
-        # Save it
+        # Save protocolo_triagem.txt
         protocol_path = analise_ia_dir / "protocolo_triagem.txt"
         with open(protocol_path, "w", encoding="utf-8") as f:
             f.write(generated_protocol)
+        
+        # Sincronizar automaticamente o protocol.json para o motor de IA
+        await _sync_protocol_json(generated_protocol)
             
         return {"content": generated_protocol}
     except Exception as e:

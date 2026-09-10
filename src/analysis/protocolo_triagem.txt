@@ -1,165 +1,84 @@
-# PROTOCOLO DE TRIAGEM SISTEMÁTICA: GENÉTICA, NEUROINFLAMAÇÃO E TRANSTORNO DO ESPECTRO AUTISTA (TEA)
-
----
-
-## 1. OBJETIVO DO PROTOCOLO
-Este protocolo tem como objetivo estabelecer critérios claros, reprodutíveis e padronizados para a triagem de artigos científicos em nível de título/resumo e texto completo. A meta principal é identificar e selecionar estudos que investiguem **a relação direta entre fatores genéticos/moleculares e mecanismos imunológicos/inflamatórios no Transtorno do Espectro Autista (TEA) em humanos**.
-
----
-
-## 2. REGRAS GERAIS E DIRETRIZES DE AVALIAÇÃO
-
-*   **Critérios Temporais e Idiomáticos:** **NÃO** excluir estudos com base no ano de publicação ou no idioma original (artigos elegíveis devem ser incluídos independentemente da data ou língua).
-*   **Decisões Binárias:** Cada questão deve ser respondida estritamente com **"S" (Sim)**, **"N" (Não)** ou **"NA" (Não se Aplica)**.
-*   **Extração de Evidências:** Toda resposta positiva ("S") deve vir acompanhada de um trecho literal (*snippet verbatim*) retirado do texto que sustenta a decisão.
-
-> ### ⚠️ REGRA DE OURO DA TRIAGEM (RIGOR MÁXIMO):
-> **A análise deve ser EXTREMAMENTE RÍGIDA.** A triagem opera em formato de *funil de exclusão*. Se o artigo falhar em qualquer etapa ou critério mínimo obrigatório, ele deve ser classificado como **EXCLUIDO imediatamente**, atribuindo-se o código de exclusão correspondente, sem flexibilização de critérios conceituais.
-
----
-
-## 3. CÓDIGOS DE EXCLUSÃO PADRONIZADOS
-*   **E1:** População não humana (exclusivamente modelos animais ou *in vitro* sem dados/amostras humanas).
-*   **E2:** População sem diagnóstico formal de TEA / Impossibilidade de separar dados de TEA de outras condições.
-*   **E3:** Ausência de análise empírica de componente genético, genômico ou molecular relacionado ao TEA.
-*   **E4:** Ausência de medição ou análise empírica de vias, marcadores ou processos imunológicos/inflamatórios.
-*   **E5:** Ausência de correlação/ligação direta entre os dados genéticos e os dados inflamatórios/imunológicos no contexto do TEA.
-*   **E6:** Tipo de publicação/desenho inelegível (editoriais de opinião sem dados, cartas sem métodos empíricos, resumos de congressos sem texto completo).
-
----
-
-## 4. ETAPAS DE TRIAGEM E PERGUNTAS DE AVALIAÇÃO
-
-### ETAPA 1: População, Elegibilidade Humana e Diagnóstico de TEA
-*   **Q1:** O estudo envolve seres humanos (sujeitos, biópsias, tecidos post-mortem humanos ou biobancos de pacientes)? *(Se "N" $\rightarrow$ Excluir: E1)*
-*   **Q2:** O artigo inclui indivíduos com diagnóstico de TEA ou avalia um desfecho clínico/fenotípico específico de TEA em humanos? *(Se "N" $\rightarrow$ Excluir: E2)*
-*   **Q3:** O diagnóstico de TEA foi estabelecido por critérios/métodos reconhecidos e padronizados (ex.: DSM-IV, DSM-5, CID/ICD-10, CID/ICD-11, ADOS, ADI-R ou avaliação clínica multidisciplinar formal) e não apenas por traços subclínicos/escalas de rastreio genéricas isoladas? *(Se "N" $\rightarrow$ Excluir: E2)*
-*   **Q4:** Caso a amostra combine TEA com outras condições neuropsiquiátricas ou genéticas, os dados e resultados referentes ao TEA são passíveis de análise separada/estratificada? *(Se não houver mistura, marque "NA"; se houver mistura e não separar $\rightarrow$ Excluir: E2)*
-
----
-
-### ETAPA 2: Componente Genético / Genômico / Epigenético
-*   **Q5:** O estudo investiga variantes estruturais/sequenciais (SNPs, mutações raras, CNVs, GWAS) **OU** dados moleculares/funcionais (expressão gênica, transcriptômica, miRNAs, metilação/epigenética) relacionados ao TEA? *(Se "N" $\rightarrow$ Excluir: E3)*
-*   **Q6:** O componente genético/molecular foi de fato **medido, genotipado ou quantificado empiricamente** no estudo (e não apenas citado contextualmente na introdução ou discussão)? *(Se "N" $\rightarrow$ Excluir: E3)*
-
----
-
-### ETAPA 3: Componente Inflamatório / Imunológico
-*   **Q7:** O estudo investiga marcadores, vias ou mecanismos de inflamação, neuroinflamação ou disfunção imunológica com relevância biológica comprovada (ex.: citocinas, quimiocinas, ativação microglial, vias imunes inatas/adaptativas)? *(Se "N" $\rightarrow$ Excluir: E4)*
-*   **Q8:** O componente inflamatório/imunológico foi **mensurado, dosado ou analisado empiricamente** no trabalho (e não apenas citado incidentalmente na introdução/discussão)? *(Se "N" $\rightarrow$ Excluir: E4)*
-
----
-
-### ETAPA 4: Critério Central – Intersecção Genética × Inflamação no TEA
-*   **Q9:** O artigo **relaciona diretamente** a alteração/expressão genética com os parâmetros/vias imunoinflamatórias (ex.: genótipo associado a níveis de citocinas, eQTLs de genes imunes, vias inflamatórias enriquecidas em dados genômicos)? *(Se "N" $\rightarrow$ Excluir: E5)*
-*   **Q10:** A correlação entre os achados genéticos e inflamatórios é contextualizada e interpretada especificamente na fisiopatologia ou suscetibilidade ao TEA? *(Se "N" $\rightarrow$ Excluir: E5)*
-
----
-
-### ETAPA 5: Desenho de Estudo e Verificação Final
-*   **Q11:** O desenho metodológico é elegível (estudos observacionais como caso-controle, coorte, transversal; ensaios clínicos; revisões sistemáticas com ou sem metanálise)? *(Se "N" $\rightarrow$ Excluir: E6)*
-*   **Q12:** Confirmação de segurança: O estudo assegura **NÃO** ser puramente um modelo animal ou ensaio celular isolado sem ligação com dados ou amostras de pacientes humanos? *(Se for puramente animal sem dados humanos $\rightarrow$ Excluir: E1)*
-
----
-
-## 14. OBRIGATÓRIO: SAÍDA EM JSON!
-
-O resultado da avaliação deve ser retornado **estritamente** como um objeto JSON válido, sem texto livre antes ou depois, seguindo com precisão a estrutura abaixo:
-
-```json
 {
-  "analise_preliminar": "Análise preliminar detalhada do artigo...",
-  "parecer_final": "INCLUIDO, EXCLUIDO ou REVISÃO MANUAL",
-  "justificativa": "Explicação detalhada e justificada da decisão...",
-  "motivo_principal": "Código de exclusão (ex: E1, E2, E3, E4, E5, E6) ou '-' se INCLUIDO",
-  "confidence_score": 95,
-  "Q1": "S",
-  "Q2": "S",
-  "Q3": "S",
-  "Q4": "S",
-  "Q5": "S",
-  "Q6": "S",
-  "Q7": "S",
-  "Q8": "S",
-  "Q9": "S",
-  "Q10": "S",
-  "Q11": "S",
-  "Q12": "S",
-  "extracted_snippets": {
-    "Q1": ["Citação exata verbatim do texto para Q1"],
-    "Q2": ["Citação exata verbatim do texto para Q2"],
-    "Q3": ["Citação exata verbatim do texto para Q3"],
-    "Q4": ["Citação exata verbatim do texto para Q4"],
-    "Q5": ["Citação exata verbatim do texto para Q5"],
-    "Q6": ["Citação exata verbatim do texto para Q6"],
-    "Q7": ["Citação exata verbatim do texto para Q7"],
-    "Q8": ["Citação exata verbatim do texto para Q8"],
-    "Q9": ["Citação exata verbatim do texto para Q9"],
-    "Q10": ["Citação exata verbatim do texto para Q10"],
-    "Q11": ["Citação exata verbatim do texto para Q11"],
-    "Q12": ["Citação exata verbatim do texto para Q12"]
+  "protocol_id": "TEA_GENETICA_NEUROINFLAMACAO_v2",
+  "description": "Protocolo rigoroso para triagem sistemática: relação entre fatores genéticos/moleculares e mecanismos imunológicos/inflamatórios no Transtorno do Espectro Autista (TEA) em humanos.",
+  "fast_screening": {
+    "enabled": true,
+    "system_prompt": "Você é a CAMADA 1 de triagem (Fast Screening). Sua função é identificar artigos OBVIAMENTE incompatíveis com o protocolo. O protocolo busca: Humanos com TEA + Componente Genético/Molecular + Componente Inflamatório/Imunológico. REGRAS DE DECISÃO: 1. Se o resumo declarar EXPLICITAMENTE que é um modelo animal (camundongo, rato) sem dados humanos, OU que não trata de TEA (estuda câncer, etc), retorne 'LIKELY_EXCLUDED'. 2. NÃO exclua o artigo simplesmente porque a palavra 'genética' ou 'inflamação' não aparece no resumo. O artigo completo será analisado na Camada 2. Se a informação estiver ausente no abstract, retorne 'POTENTIAL_INCLUDE' ou 'UNCERTAIN'. 3. Use 'POTENTIAL_INCLUDE' se o artigo parecer abordar os três componentes. 4. Use 'UNCERTAIN' se o artigo for sobre TEA e imunologia, mas a genética não for mencionada no abstract (ou qualquer combinação incompleta mas não excludente). NUNCA use LIKELY_EXCLUDED para ausência de informação. Use apenas para EVIDÊNCIA NEGATIVA EXPLÍCITA.",
+    "exclusion_code": "FAST_SCREEN_EXCLUSION",
+    "exclusion_reason": "Excluído no abstract: ausência de convergência entre TEA + Genética + Neuroinflamação."
   },
-  "key_synthesis": "Uma síntese concisa dos principais achados do artigo relevantes para a revisão...",
-  "project_value_added": "Valor agregado do artigo para a compreensão do elo genética-inflamação no TEA..."
+  "criteria": [
+    {
+      "id": "Q1_HUMAN",
+      "description": "O estudo envolve seres humanos (sujeitos, biópsias, tecidos post-mortem humanos ou biobancos de pacientes)? Estudos exclusivamente com modelos animais ou ensaios celulares isolados sem dados humanos devem ser excluídos. (Se NÃO envolve humanos, responda N)",
+      "fail_value": "N",
+      "exclusion_code": "E1_NOT_HUMAN"
+    },
+    {
+      "id": "Q2_TEA_DIAGNOSIS",
+      "description": "O artigo inclui indivíduos com diagnóstico de TEA (Transtorno do Espectro Autista / Autism Spectrum Disorder / ASD) ou avalia um desfecho clínico/fenotípico específico de TEA em humanos? (Se NÃO estuda TEA, responda N)",
+      "fail_value": "N",
+      "exclusion_code": "E2_NOT_TEA"
+    },
+    {
+      "id": "Q3_FORMAL_DIAGNOSIS",
+      "description": "O diagnóstico de TEA foi estabelecido por critérios/métodos reconhecidos (DSM-IV, DSM-5, CID/ICD-10, CID/ICD-11, ADOS, ADI-R, avaliação clínica multidisciplinar formal) e não apenas por traços subclínicos ou escalas de rastreio genéricas? Se a informação não estiver clara, responda NC. (Se NÃO usou critério formal, responda N)",
+      "fail_value": "N",
+      "exclusion_code": "E2_NO_FORMAL_DIAGNOSIS"
+    },
+    {
+      "id": "Q4_SUBGROUP_DATA",
+      "description": "Caso a amostra combine TEA com outras condições neuropsiquiátricas ou genéticas, os dados referentes ao TEA são passíveis de análise separada/estratificada? Se não houver mistura com outras condições, responda S. (Se houver mistura E NÃO for possível separar os dados de TEA, responda N)",
+      "fail_value": "N",
+      "exclusion_code": "E2_MIXED_NO_STRATIFICATION"
+    },
+    {
+      "id": "Q5_GENETIC_COMPONENT",
+      "description": "O estudo investiga variantes genéticas/genômicas (SNPs, mutações, CNVs, GWAS, WGS, WES, painel gênico) OU dados moleculares/funcionais (expressão gênica, transcriptômica, miRNAs, metilação/epigenética) relacionados ao TEA? (Se NÃO investiga componente genético/molecular, responda N)",
+      "fail_value": "N",
+      "exclusion_code": "E3_NO_GENETIC"
+    },
+    {
+      "id": "Q6_GENETIC_MEASURED",
+      "description": "O componente genético/molecular foi de fato medido, genotipado ou quantificado empiricamente no estudo (e não apenas citado contextualmente na introdução ou discussão)? (Se NÃO foi medido empiricamente, responda N)",
+      "fail_value": "N",
+      "exclusion_code": "E3_GENETIC_NOT_MEASURED"
+    },
+    {
+      "id": "Q7_INFLAMMATORY",
+      "description": "O estudo investiga marcadores, vias ou mecanismos de inflamação, neuroinflamação ou disfunção imunológica (citocinas, quimiocinas, interleucinas, TNF-α, IFN-γ, CRP, CCL2/MCP-1, ativação microglial, astrócitos, ativação glial, resposta imune, desregulação imune, complemento, sinalização neuroimune)? (Se NÃO investiga componente inflamatório/imunológico, responda N)",
+      "fail_value": "N",
+      "exclusion_code": "E4_NO_INFLAMMATORY"
+    },
+    {
+      "id": "Q8_INFLAMMATORY_MEASURED",
+      "description": "O componente inflamatório/imunológico foi mensurado, dosado ou analisado empiricamente no trabalho (e não apenas citado incidentalmente na introdução/discussão)? (Se NÃO foi medido empiricamente, responda N)",
+      "fail_value": "N",
+      "exclusion_code": "E4_INFLAMMATORY_NOT_MEASURED"
+    },
+    {
+      "id": "Q9_GENE_INFLAMMATION_LINK",
+      "description": "O artigo relaciona DIRETAMENTE a alteração/expressão genética com os parâmetros/vias imunoinflamatórias (ex: genótipo associado a níveis de citocinas, eQTLs de genes imunes, vias inflamatórias enriquecidas em dados genômicos, variantes em genes do sistema imune)? (Se NÃO faz essa correlação direta, responda N)",
+      "fail_value": "N",
+      "exclusion_code": "E5_NO_GENE_INFLAMMATION_LINK"
+    },
+    {
+      "id": "Q10_TEA_CONTEXT",
+      "description": "A correlação entre os achados genéticos e inflamatórios é contextualizada e interpretada especificamente na fisiopatologia ou suscetibilidade ao TEA? (Se NÃO é contextualizada no TEA, responda N)",
+      "fail_value": "N",
+      "exclusion_code": "E5_NOT_TEA_CONTEXTUALIZED"
+    },
+    {
+      "id": "Q11_STUDY_DESIGN",
+      "description": "O desenho metodológico é elegível (estudos observacionais caso-controle, coorte, transversal; ensaios clínicos; revisões sistemáticas com ou sem metanálise)? Excluir editoriais de opinião sem dados, cartas sem métodos empíricos, resumos de congresso sem texto completo. (Se NÃO é desenho elegível, responda N)",
+      "fail_value": "N",
+      "exclusion_code": "E6_INELIGIBLE_DESIGN"
+    },
+    {
+      "id": "Q12_CONFIRM_NOT_ANIMAL",
+      "description": "Confirmação final: O estudo NÃO é puramente um modelo animal ou ensaio celular isolado sem ligação com dados ou amostras de pacientes humanos? (Se FOR puramente animal sem dados humanos, responda N)",
+      "fail_value": "N",
+      "exclusion_code": "E1_PURELY_ANIMAL"
+    }
+  ]
 }
-```
-
-### Protocolo de Triagem
-
-#### Objetivo
-O objetivo deste protocolo é identificar estudos que apresentem evidências pertinentes à relação entre Transtorno do Espectro Autista (TEA), um componente genético/genômico/molecular elegível e um componente inflamatório/neuroinflamatório/imunológico, com relação documentada entre os componentes genético/molecular e inflamatório/neuroimune.
-
-#### Regras Gerais
-1. **Análise Rígida:** A análise deve ser extremamente rígida. Se o artigo falhar em qualquer etapa ou categoria mínima, ele deve ser excluído imediatamente.
-2. **Elegibilidade:** Considerar estudos com seres humanos, indivíduos com diagnóstico de TEA, estudos familiares envolvendo indivíduos com TEA e familiares, estudos maternos/familiares cujo desfecho nos descendentes seja TEA ou estudos que avaliem explicitamente um desfecho de TEA em humanos.
-3. **Componente Genético/Genômico/Molecular:** O estudo deve analisar alterações genéticas/genômicas como SNP, SNV, CNV, polimorfismo, mutação, variante rara, variante patogênica, variante de novo, variante estrutural, duplicação, deleção, genótipo, haplótipo, GWAS, WGS, WES, painel gênico, associação genética e risco poligênico.
-4. **Componente Inflamatório/Neuroimune:** O estudo deve medir, analisar ou discutir de forma substantiva o componente inflamatório/neuroimune, incluindo inflamação, neuroinflamação, biomarcadores ou marcadores inflamatórios, mediadores inflamatórios, citocinas, quimiocinas, interleucinas, TNF-α, IFN-γ, CRP, CCL2/MCP-1, microglia, ativação microglial, astrócitos, ativação glial, resposta imune, ativação imune, desregulação imune, complemento e sinalização neuroimune.
-5. **Relação entre Componentes:** O estudo deve estabelecer, testar, demonstrar, analisar ou sintetizar uma relação entre o componente genético/genômico/molecular e o componente inflamatório/neuroimune, incluindo associação estatística, associação genótipo–biomarcador, comparação de biomarcadores segundo variantes ou genótipos, variantes em genes imunológicos/inflamatórios, efeito de variante sobre via inflamatória, CNV associada a alteração neuroimune, análise funcional, pathway analysis, co-expression network, interação gene–imunidade ou mecanismo molecular demonstrado.
-6. **Clareza e Disponibilidade de Informações:** Não excluir automaticamente quando a informação não estiver clara ou não estiver disponível no texto. Nesses casos, encaminhar para revisão manual quando não houver outro critério definitivo de exclusão.
-7. **Exclusão de Estudos Animais:** Excluir estudos exclusivamente animais. Estudos com humanos e animais não devem ser excluídos automaticamente, devendo ser verificado se a parte humana atende independentemente aos critérios.
-8. **Idioma, Ano de Publicação e Região Geográfica:** Não excluir artigos por idioma, ano de publicação, país ou região geográfica.
-9. **Palavras-chave e Conhecimento Externo:** Não considerar uma palavra-chave isolada como prova de elegibilidade e não utilizar conhecimento externo para completar informações ausentes no artigo.
-
-#### Etapas de Triagem
-
-**ETAPA 1: Análise Preliminar**
-1. **Verificação da Relevância do Título e Resumo:** Verificar se o título e o resumo mencionam TEA, genética, genômica, molecular, inflamação, neuroinflamação ou imunologia.
-2. **Verificação da Elegibilidade dos Participantes:** Verificar se o estudo envolve seres humanos, indivíduos com diagnóstico de TEA, estudos familiares envolvendo indivíduos com TEA e familiares, ou estudos maternos/familiares cujo desfecho nos descendentes seja TEA.
-3. **Verificação do Componente Genético/Genômico/Molecular:** Verificar se o estudo analisa alterações genéticas/genômicas conforme definido.
-4. **Verificação do Componente Inflamatório/Neuroimune:** Verificar se o estudo mede, analisa ou discute de forma substantiva o componente inflamatório/neuroimune conforme definido.
-5. **Verificação da Relação entre Componentes:** Verificar se o estudo estabelece, testa, demonstra, analisa ou sintetiza uma relação entre o componente genético/genômico/molecular e o componente inflamatório/neuroimune conforme definido.
-6. **Verificação da Clareza e Disponibilidade de Informações:** Verificar se a informação está clara e disponível no texto. Caso contrário, encaminhar para revisão manual.
-
-**ETAPA 2: Análise Detalhada**
-1. **Análise do Componente Genético/Genômico/Molecular:** Verificar se o estudo analisa as alterações genéticas/genômicas conforme definido.
-2. **Análise do Componente Inflamatório/Neuroimune:** Verificar se o estudo mede, analisa ou discute de forma substantiva o componente inflamatório/neuroimune conforme definido.
-3. **Análise da Relação entre Componentes:** Verificar se o estudo estabelece, testa, demonstra, analisa ou sintetiza uma relação entre o componente genético/genômico/molecular e o componente inflamatório/neuroimune conforme definido.
-4. **Verificação da Clareza e Disponibilidade de Informações:** Verificar se a informação está clara e disponível no texto. Caso contrário, encaminhar para revisão manual.
-
-### Exemplo de Saída em JSON
-
-```json
-{
-  "analise_preliminar": "Análise preliminar detalhada do artigo...",
-  "parecer_final": "INCLUIDO",
-  "justificativa": "O estudo apresenta evidências relevantes para a relação entre TEA, genética e inflamação, com análise clara e disponível de ambos os componentes e sua relação.",
-  "motivo_principal": "-",
-  "confidence_score": 95,
-  "Q1": "S", "Q2": "S",
-  "extracted_snippets": {
-    "Q1": ["Citação exata verbatim do texto para Q1"],
-    "Q2": ["Citação exata verbatim do texto para Q2"]
-  },
-  "key_synthesis": "O estudo demonstra uma relação significativa entre variantes genéticas e marcadores inflamatórios em indivíduos com TEA, suportando a hipótese de interação entre genética e inflamação no desenvolvimento do TEA.",
-  "project_value_added": "O estudo contribui para a compreensão da complexidade do TEA, destacando a importância da interação entre genética e inflamação."
-}
-```
-
-### Observações
-- **Q1 e Q2:** Substitua "Q1" e "Q2" pelos respectivos códigos ou questões específicas conforme a estrutura do protocolo.
-- **Justificativa:** Forneça uma explicação detalhada da decisão.
-- **Motivo Principal:** Use o código de exclusão (ex: E1) ou "-" se o artigo for incluído.
-- **Confidence Score:** Use um valor entre 0 e 100 para indicar o nível de confiança na decisão.
-- **Extracted Snippets:** Inclua citações exatas do texto para suporte à decisão.
-- **Key Synthesis:** Forneça uma síntese concisa dos principais pontos do estudo.
-- **Project Value Added:** Descreva o valor agregado do estudo para o projeto.

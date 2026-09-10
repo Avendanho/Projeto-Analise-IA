@@ -16,67 +16,70 @@ class RuleEngine:
     def evaluate(self, results: Dict[str, CriterionResult]) -> Tuple[ScreeningDecision, Optional[str], str]:
         missing_criteria = []
         review_reasons = []
+        all_s = True
         
-        # 1. Verifica falhas explícitas com evidência (Exclusão Direta)
+        # 1. Verifica falhas explícitas em critérios obrigatórios (Exclusão Direta)
         for criterion_id, rule in self.exclusion_rules.items():
             if criterion_id in results:
                 res = results[criterion_id]
                 if res.answer == rule["fail_val"]:
-                    # Regra de Ouro: Só excluir se houver evidência suficiente
-                    if res.evidence_quality in ["ALTA", "MEDIA", "MÉDIA"]:
-                        return (
-                            ScreeningDecision.EXCLUDE, 
-                            rule["code"], 
-                            f"Excluído com segurança: falhou no critério {criterion_id} ({rule['code']}). Motivo: {res.reasoning}"
-                        )
-                    else:
-                        review_reasons.append(f"{criterion_id} falhou, mas evidência é fraca/inexistente ou confiança baixa ({res.confidence}%)")
+                    all_s = False
+                    return (
+                        ScreeningDecision.EXCLUDE, 
+                        rule["code"], 
+                        f"EXCLUÍDO: Evidência explícita de falha no critério obrigatório {criterion_id} ({rule['code']}). Motivo semântico: {res.reasoning}"
+                    )
 
-        # 2. Avalia incertezas, falhas de confiança ou critérios sem evidência clara
+        # 2. Avalia incertezas ou critérios sem evidência clara
         needs_review = False
-        low_thresh = self.settings.ai_confidence_low
 
         for criterion_id in self.exclusion_rules.keys():
             if criterion_id not in results:
                 missing_criteria.append(criterion_id)
+                all_s = False
                 continue
                 
             res = results[criterion_id]
             
-            # Se for NC ou IND -> Revisão Manual
+            if res.answer != "S" and res.answer != rule["fail_val"]:
+                all_s = False
+            
+            # Se for NC ou IND -> Revisão Manual porque falta informação real
             if res.answer in ["NC", "IND"]:
                 needs_review = True
-                review_reasons.append(f"{criterion_id} inconclusivo ({res.answer})")
+                review_reasons.append(f"{criterion_id} ({res.answer}: impossibilidade objetiva de determinar a partir do conteúdo)")
             
-            # Se a confiança for baixa -> Revisão Manual (NUNCA excluir direto)
-            conf = res.confidence
-            if conf < low_thresh:
-                needs_review = True
-                review_reasons.append(f"{criterion_id} confiança baixa ({conf}%)")
-                
-            # Se diz S ou N mas não tem qualidade de evidência -> Revisão Manual
+            # Não forçaremos revisão manual por confiança baixa a menos que a evidência seja inexistente
             if res.answer not in ["NC", "IND"] and res.evidence_quality == "INEXISTENTE":
                 needs_review = True
-                review_reasons.append(f"{criterion_id} respondeu {res.answer} sem evidência")
+                review_reasons.append(f"{criterion_id} respondeu {res.answer} mas a própria IA assumiu evidência INEXISTENTE")
 
         if missing_criteria:
             return (
                 ScreeningDecision.MANUAL_REVIEW,
                 None,
-                f"Faltam resultados de avaliação para: {', '.join(missing_criteria)}."
+                f"REVISÃO MANUAL: Falha do modelo em fornecer resultados para: {', '.join(missing_criteria)}."
             )
 
-        if needs_review or len(review_reasons) > 0:
+        if needs_review:
             reason = " | ".join(review_reasons)
             return (
                 ScreeningDecision.MANUAL_REVIEW,
                 None,
-                f"Enviado para revisão manual por incerteza/falta de evidência forte: {reason}"
+                f"REVISÃO MANUAL: Informação realmente insuficiente ou ambígua extrema: {reason}"
             )
 
-        # 3. Inclusão (Todos S e com alta confiança e evidência)
+        if all_s:
+            # 3. Inclusão (Todos S e com evidência)
+            return (
+                ScreeningDecision.INCLUDE, 
+                None, 
+                "INCLUÍDO: Todos os critérios obrigatórios foram atendidos (avaliados semanticamente com evidência)."
+            )
+            
+        # Caso bizarro
         return (
-            ScreeningDecision.INCLUDE, 
-            None, 
-            "Atende a todos os critérios obrigatórios com evidências consistentes e verificadas."
+            ScreeningDecision.MANUAL_REVIEW,
+            None,
+            "REVISÃO MANUAL: Respostas não bateram em exclusão nem inclusão total."
         )

@@ -47,16 +47,18 @@ class ScreeningOrchestrator:
         if self.config.fast_screening.enabled:
             fast_res: FastScreeningResult = self.fast_screener.analyze(article)
             if fast_res.screening_decision == "LIKELY_EXCLUDED":
-                # User RULE: O fast screening nunca deve produzir sozinho uma exclusão definitiva.
-                # Ele apenas levanta a flag. Passamos para MANUAL_REVIEW (ou mandamos seguir para análise)
-                # Se for para priorizar, passamos adiante com flag. O código envia para revisão manual rápida:
+                # User RULE: Fast screening elimina apenas casos CLARAMENTE INCOMPATÍVEIS.
                 return FinalResult(
                     article_id=article.article_id,
-                    decision=ScreeningDecision.MANUAL_REVIEW,
+                    decision=ScreeningDecision.EXCLUDE,
                     exclusion_code=self.config.fast_screening.exclusion_code,
                     confidence=fast_res.confidence,
-                    justification=f"Triagem Rápida Sugere Exclusão: {fast_res.reason}. Enviado para revisão manual por cautela."
+                    justification=f"EXCLUÍDO (Fast Screening): O abstract é obviamente incompatível. Motivo: {fast_res.reason}"
                 )
+            elif fast_res.screening_decision == "UNCERTAIN":
+                # Cai para a camada 2 (SinglePassAgent) para análise completa sem excluir
+                pass
+            # POTENTIAL_INCLUDE também cai para a camada 2 naturalmente
             
         # 2. Single Pass Screening (SPEEDUP)
         results: Dict[str, CriterionResult] = {}

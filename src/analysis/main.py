@@ -122,7 +122,7 @@ def analyze(workers: int = 10):
             )
             
             final_res = orchestrator.analyze_article(doc)
-            repo.save_final_result(final_res, task_hash)
+            repo.save_final_result(meta.get("filename", ""), task_hash, final_res)
             
             print(f"Artigo {article_id[:20]}... triado como: {final_res.decision}", flush=True)
             

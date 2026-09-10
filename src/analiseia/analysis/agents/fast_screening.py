@@ -6,6 +6,7 @@ from ..infrastructure.llm import LLMClient
 class FastScreeningResult(BaseModel):
     screening_decision: str = Field(description="'LIKELY_EXCLUDED', 'POTENTIAL_INCLUDE' ou 'UNCERTAIN'")
     reason: str = Field(description="Justificativa da decisão baseada no abstract.")
+    confidence: int = Field(default=0, description="Nível de confiança na decisão (0-100)")
 
 class FastScreeningAgent:
     def __init__(self, config: FastScreeningConfig, llm_client: LLMClient):

@@ -62,7 +62,7 @@ def analyze(workers: int = 10):
     import json
     import concurrent.futures
     import sys
-    sys.path.insert(0, str(Path(__file__).parent.parent)) # to allow importing analiseia
+    sys.path.insert(0, str(Path(__file__).parent.parent))
     from analiseia.analysis.application.orchestrator import ScreeningOrchestrator
     from analiseia.analysis.domain.models import ArticleDocument
     from analiseia.analysis.infrastructure.repository import AnalysisRepository
@@ -72,7 +72,6 @@ def analyze(workers: int = 10):
         app_settings = get_settings()
         console.print(f"[bold green]🤖 Usando: {app_settings.ai_provider} ({app_settings.ai_primary_model})[/bold green]")
         
-        # OTIMIZAÇÃO: Se for Ollama Local, travar workers com base no concurrency limit
         if "ollama" in app_settings.ai_provider.lower():
             if workers > app_settings.ai_max_concurrent_requests:
                 console.print(f"[yellow]⚠️ Reduzindo workers para {app_settings.ai_max_concurrent_requests} para otimizar VRAM do Ollama Local...[/yellow]")
@@ -101,70 +100,35 @@ def analyze(workers: int = 10):
             import hashlib
             task_hash = hashlib.md5(f"{meta.get('hash', '')}_v2_{app_settings.ai_provider}".encode('utf-8')).hexdigest()
             
-            from database import get_article
-            cached = get_article(article_id)
+            cached = repo.get_article(article_id)
             if cached and cached.get('hash') == task_hash and cached.get('status') == 'COMPLETED':
-                try:
-                    c_json = json.loads(cached.get('analysis_json', '{}'))
-                    raw = c_json.get("raw_json", {})
-                    if "confidence_score" in raw:
-                        return  # Ignora artigo já processado com o mesmo texto e protocolo
-                except Exception:
-                    pass
-            
-            decision = "REVISÃO MANUAL"
-            ex_code = None
-            conf = "BAIXO"
-            justification = "Falta de dados"
-            raw_json = {}
-            
-            if text_content.strip():
-                images_dir = content_path.parent / "images"
-                image_paths = []
-                if images_dir.exists():
-                    import glob
-                    image_paths = glob.glob(str(images_dir / "*.*"))
+                return  # Ignora artigo já processado
                 
-                user_prompt = f"Texto do Artigo:\n\n{text_content}\n\nREGRAS RÍGIDAS DE TRIAGEM:\n1. A análise DEVE ser extremamente rígida.\n2. Se o artigo falhar em QUALQUER critério, ele deve ser classificado IMEDIATAMENTE como 'EXCLUIDO'.\n\nIMPORTANTE: Responda OBRIGATORIAMENTE usando o formato JSON EXATO e COMPLETO definido na Seção 14 do protocolo. Você DEVE incluir a 'analise_preliminar' e TODAS as respostas de 'Q1' a 'Q12' antes de dar o 'parecer_final' para garantir que sua lógica esteja correta."
-                try:
-                    result_text = analyze_article(protocolo_texto, user_prompt, image_paths)
-                    result_json = json.loads(result_text)
-                    raw_json = result_json
-                    # Adapt to database format
-                    pf = str(result_json.get("parecer_final", "")).upper()
-                    if "INCLU" in pf:
-                        decision = "INCLUIDO"
-                    elif "EXCLU" in pf:
-                        decision = "EXCLUIDO"
-                    else:
-                        decision = "REVISÃO MANUAL"
-                        
-                    justification = result_json.get("justificativa", str(result_json))
-                    ex_code = result_json.get("motivo_principal", "-")
-                    if ex_code == "-": ex_code = None
-                    try:
-                        conf = int(result_json.get("confidence_score", result_json.get("seguranca", 0)))
-                    except:
-                        conf = 0
-                except Exception as e:
-                    justification = f"Erro na API do LLM: {str(e)}"
-                    raw_json = {"error": str(e)}
-                    
-            final_analysis = {
-                "decision": decision,
-                "exclusion_code": ex_code,
-                "confidence": conf,
-                "justificativa": justification,
-                "raw_json": raw_json
-            }
+            if not text_content.strip():
+                return
+                
+            images_dir = content_path.parent / "images"
+            image_paths = []
+            if images_dir.exists():
+                import glob
+                image_paths = glob.glob(str(images_dir / "*.*"))
+                
+            doc = ArticleDocument(
+                article_id=article_id,
+                filename=meta.get("filename", ""),
+                text_content=text_content,
+                metadata=meta,
+                images_paths=image_paths
+            )
             
-            save_analysis(article_id, meta["filename"], task_hash, final_analysis)
-            print(f"Artigo {article_id[:20]}... triado como: {decision}", flush=True)
+            final_res = orchestrator.analyze_article(doc)
+            repo.save_final_result(final_res, task_hash)
+            
+            print(f"Artigo {article_id[:20]}... triado como: {final_res.decision}", flush=True)
             
         except Exception as e:
             console.print(f"[red]Error in process_article: {e}[/red]")
 
-            
     with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as executor:
         list(track(executor.map(process_article, articles), total=len(articles), description="Analisando com IA..."))
         

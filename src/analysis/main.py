@@ -61,23 +61,6 @@ def analyze(workers: int = 10):
     
     import json
     import concurrent.futures
-<<<<<<< Updated upstream
-    from database import save_analysis
-    from llm_client import get_llm_client
-    
-    protocol_path = Path(__file__).parent / "protocolo_triagem.txt"
-    protocolo_texto = protocol_path.read_text(encoding="utf-8") if protocol_path.exists() else "Você é um assistente de triagem."
-    
-    try:
-        analyze_article, provider_name = get_llm_client()
-        console.print(f"[bold green]🤖 Usando: {provider_name}[/bold green]")
-        
-        # OTIMIZAÇÃO: Se for Ollama Local, travar em 1 worker para não estourar a VRAM do KV Cache
-        if "Ollama" in provider_name:
-            if workers > 1:
-                console.print("[yellow]⚠️ Reduzindo workers para 1 para otimizar VRAM do Ollama Local...[/yellow]")
-                workers = 1
-=======
     import sys
     sys.path.insert(0, str(Path(__file__).parent.parent)) # to allow importing analiseia
     from analiseia.analysis.application.orchestrator import ScreeningOrchestrator
@@ -98,7 +81,6 @@ def analyze(workers: int = 10):
         orchestrator = ScreeningOrchestrator(max_workers=workers)
         repo = AnalysisRepository(db_dir=settings.db_dir)
         
->>>>>>> Stashed changes
     except Exception as e:
         console.print(f"[bold red]Erro ao inicializar provedor de IA: {e}[/bold red]")
         raise typer.Exit(1)
@@ -117,11 +99,7 @@ def analyze(workers: int = 10):
                     text_content = f.read()
             
             import hashlib
-<<<<<<< Updated upstream
-            task_hash = hashlib.md5(f"{meta.get('hash', '')}{protocolo_texto}".encode('utf-8')).hexdigest()
-=======
             task_hash = hashlib.md5(f"{meta.get('hash', '')}_v2_{app_settings.ai_provider}".encode('utf-8')).hexdigest()
->>>>>>> Stashed changes
             
             from database import get_article
             cached = get_article(article_id)
@@ -325,8 +303,6 @@ def report():
     # ---------------------------------------------------------
     # Generate RELATORIO_FINAL.md com Data Charts
     # ---------------------------------------------------------
-<<<<<<< Updated upstream
-=======
     def gerar_relatorio_md(nome_arquivo, titulo, icone, dados_df):
         path = reports_dir / nome_arquivo
         with open(path, "w", encoding="utf-8") as f:
@@ -356,39 +332,10 @@ def report():
     
     # Compatibilidade com a interface web (mantém um relatório final unificado)
     # A interface web puxa apenas o RELATORIO_FINAL.md, então precisamos juntar tudo!
->>>>>>> Stashed changes
     with open(reports_dir / "RELATORIO_FINAL.md", "w", encoding="utf-8") as f:
         f.write("# 📊 Relatório Detalhado de Triagem por IA\n\n")
         
         counts = df['decision'].value_counts()
-<<<<<<< Updated upstream
-        f.write("## 📈 Resumo Estatístico\n\n")
-        f.write(f"- ✅ **INCLUÍDOS:** {counts.get('INCLUIDO', 0)}\n")
-        f.write(f"- ❌ **EXCLUÍDOS:** {counts.get('EXCLUIDO', 0)}\n")
-        f.write(f"- ⚠️ **REVISÃO MANUAL:** {counts.get('REVISÃO MANUAL', 0)}\n\n")
-        f.write("---\n\n")
-        
-        f.write("## 📄 Análise Detalhada dos Artigos\n\n")
-        
-        for _, row in df.iterrows():
-            decision = row['decision']
-            icon = "✅" if decision == "INCLUIDO" else "❌" if decision == "EXCLUIDO" else "⚠️"
-            f.write(f"### {icon} [{decision}] ID: {row['article_id']}\n\n")
-            f.write(f"**Arquivo:** `{row['filename']}` | **Confiança da IA:** {row['confidence_score']}%\n\n")
-            
-            f.write(f"**Justificativa:**\n> {row['justificativa']}\n\n")
-            
-            if row['exclusion_code'] and row['exclusion_code'] != "-":
-                f.write(f"- **Motivo Principal (Código):** {row['exclusion_code']}\n")
-                
-            if row['key_synthesis'] and row['key_synthesis'] != "N/A":
-                f.write(f"- **Síntese:** {row['key_synthesis']}\n")
-                
-            if row['project_value_added'] and row['project_value_added'] != "N/A":
-                f.write(f"- **Agregação ao Projeto:** {row['project_value_added']}\n")
-                
-            f.write("\n---\n\n")
-=======
         f.write("# 📊 Resumo Estatístico Geral\n\n")
         f.write(f"- ✅ **INCLUÍDOS:** {counts.get('INCLUIDO', 0)} artigos\n")
         f.write(f"- ❌ **EXCLUÍDOS:** {counts.get('EXCLUIDO', 0)} artigos\n")
@@ -402,7 +349,6 @@ def report():
                 with open(p, "r", encoding="utf-8") as sub_f:
                     f.write(sub_f.read())
                     f.write("\n\n---\n\n")
->>>>>>> Stashed changes
             
     console.print(f"[bold green]Concluído! Relatórios gerados em: {reports_dir}[/bold green]")
 

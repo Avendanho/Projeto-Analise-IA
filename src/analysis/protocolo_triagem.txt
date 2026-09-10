@@ -68,11 +68,7 @@ O resultado da avaliação deve ser retornado **estritamente** como um objeto JS
 
 ```json
 {
-<<<<<<< Updated upstream
-  "analise_preliminar": "Escreva aqui uma análise preliminar detalhada da elegibilidade do artigo...",
-=======
   "analise_preliminar": "Análise preliminar detalhada do artigo...",
->>>>>>> Stashed changes
   "parecer_final": "INCLUIDO, EXCLUIDO ou REVISÃO MANUAL",
   "justificativa": "Explicação detalhada e justificada da decisão...",
   "motivo_principal": "Código de exclusão (ex: E1, E2, E3, E4, E5, E6) ou '-' se INCLUIDO",
@@ -106,9 +102,6 @@ O resultado da avaliação deve ser retornado **estritamente** como um objeto JS
   "key_synthesis": "Uma síntese concisa dos principais achados do artigo relevantes para a revisão...",
   "project_value_added": "Valor agregado do artigo para a compreensão do elo genética-inflamação no TEA..."
 }
-<<<<<<< Updated upstream
-```
-=======
 ```
 
 ### Protocolo de Triagem
@@ -170,4 +163,3 @@ O objetivo deste protocolo é identificar estudos que apresentem evidências per
 - **Extracted Snippets:** Inclua citações exatas do texto para suporte à decisão.
 - **Key Synthesis:** Forneça uma síntese concisa dos principais pontos do estudo.
 - **Project Value Added:** Descreva o valor agregado do estudo para o projeto.
->>>>>>> Stashed changes

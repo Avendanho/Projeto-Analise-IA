@@ -683,11 +683,6 @@ def _download(url: str, dest: Path, *, timeout: int) -> str | None:
         _progress("download_cloak_ok", url=url, bytes=len(data))
         return True
 
-<<<<<<< Updated upstream
-    # 1. Primary Attempt: GoByPASS403 Engine (handles browser fingerprint, IP spoofing, path mutations, curl raw)
-    dl_timeout = timeout
-    ok, err = bypass_download_pdf(url, dest, timeout=dl_timeout)
-=======
     # 1. FAST PATH: Streaming download via requests Session
     session = _get_download_session()
     try:
@@ -718,7 +713,6 @@ def _download(url: str, dest: Path, *, timeout: int) -> str | None:
 
     # 2. Secondary Attempt: GoByPASS403 Engine
     ok, err = bypass_download_pdf(url, dest, timeout=timeout)
->>>>>>> Stashed changes
     if ok:
         _progress("download_bypass403_ok", url=url)
         return None

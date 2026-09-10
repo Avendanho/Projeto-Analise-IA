@@ -100,16 +100,12 @@ def _process_pdf_worker(filepath: str, article_id: str) -> Dict[str, Any]:
         text = _clean_redundant_info(text)
         text = _trim_references(text)
         if len(text) < original_len:
-<<<<<<< Updated upstream
-            print(f"[{article_id}] Referências cortadas. Tamanho reduzido em {100 - (len(text)/original_len)*100:.1f}%.")
-=======
             print(f"[{article_id}] Markdown otimizado. Tamanho reduzido em {100 - (len(text)/original_len)*100:.1f}%.")
             
         quality = "HIGH" if len(text) > 1000 else "LOW"
         if "Erro" in text:
             quality = "ERROR"
             
->>>>>>> Stashed changes
     except Exception as e:
         text = f"Erro na extração PyMuPDF4LLM: {str(e)}"
             

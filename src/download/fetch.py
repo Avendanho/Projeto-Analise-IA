@@ -684,7 +684,9 @@ def _download(url: str, dest: Path, *, timeout: int) -> str | None:
         return True
 
     # 1. FAST PATH: Streaming download via requests Session
-    session = _get_download_session()
+    import requests
+    session = requests.Session()
+    session.headers.update({"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"})
     try:
         with session.get(url, stream=True, timeout=(5, timeout), allow_redirects=True) as r:
             if r.status_code == 200:

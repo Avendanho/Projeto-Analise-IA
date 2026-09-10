@@ -1,60 +1,60 @@
 {
-  "protocol_id": "TNBC_BRCA1_PARP_v1",
-  "description": "Protocolo para triagem de artigos sobre Câncer de Mama Triplo-Negativo, BRCA1 e Inibidores de PARP.",
+  "protocol_id": "TNBC_BRCA1_PARP_v2",
+  "description": "Protocolo rigoroso para triagem sistemática: eficácia de Inibidores de PARP em Câncer de Mama Triplo-Negativo estratificado por status de BRCA1.",
   "fast_screening": {
     "enabled": true,
-    "system_prompt": "Você é um classificador preliminar de triagem. Avalie o trecho inicial do artigo (Abstract/Introdução) contra os critérios principais: TNBC, BRCA1, PARP. Se o artigo claramente NÃO for sobre esses temas, marque LIKELY_EXCLUDED.",
+    "system_prompt": "Você é um classificador preliminar de triagem em uma Revisão Sistemática rigorosa. Avalie o trecho inicial do artigo (Abstract/Introdução). O artigo DEVE ter foco clínico no Câncer de Mama Triplo-Negativo (TNBC), envolver avaliação do gene BRCA1, e testar o uso de Inibidores de PARP. Se qualquer um desses 3 temas centrais não for o foco do estudo primário (por exemplo, se for mencionado apenas de passagem, ou se estudar outro medicamento), retorne 'LIKELY_EXCLUDED'. Caso contrário, retorne 'POTENTIAL_INCLUDE'.",
     "exclusion_code": "FAST_SCREEN_EXCLUSION",
-    "exclusion_reason": "Excluído na triagem rápida pelo abstract."
+    "exclusion_reason": "Excluído no abstract: falta de convergência explícita entre TNBC, BRCA1 e PARPi."
   },
   "criteria": [
     {
-      "id": "Q1",
-      "description": "O artigo estuda diretamente câncer de mama triplo-negativo (TNBC)? (Se não, responda N)",
+      "id": "Q1_DISEASE",
+      "description": "O estudo avalia pacientes ou amostras clínicas de Câncer de Mama Triplo-Negativo (TNBC)? (Se não avalia TNBC de forma explícita, responda N)",
       "fail_value": "N",
-      "exclusion_code": "E01"
+      "exclusion_code": "E01_NOT_TNBC"
     },
     {
-      "id": "Q2",
-      "description": "O artigo investiga diretamente o gene BRCA1, incluindo mutação, variante patogênica, perda de função, deficiência de BRCA1 ou alterações relacionadas à função de BRCA1? (Se não, responda N)",
+      "id": "Q2_GENE",
+      "description": "O estudo investiga ativamente o status, mutação, deficiência ou expressão do gene BRCA1 como parte essencial da metodologia e dos resultados? (Se não investiga BRCA1, responda N)",
       "fail_value": "N",
-      "exclusion_code": "E02"
+      "exclusion_code": "E02_NOT_BRCA1"
     },
     {
-      "id": "Q3",
-      "description": "O artigo avalia inibidores de PARP como intervenção, tratamento, resposta terapêutica ou mecanismo de sensibilidade/resistência? (Se não, responda N)",
+      "id": "Q3_DRUG",
+      "description": "O estudo testa, administra ou avalia inibidores de PARP (ex: Olaparibe, Talazoparibe, Niraparibe, Veliparibe, Rucaparibe) como tratamento principal? (Se não avalia inibidores de PARP, responda N)",
       "fail_value": "N",
-      "exclusion_code": "E03"
+      "exclusion_code": "E03_NOT_PARPi"
     },
     {
-      "id": "Q4",
-      "description": "O artigo apresenta resultados originais relacionados à associação entre o status de BRCA1 e a resposta, benefício, resistência ou sensibilidade aos inibidores de PARP? (Se não, responda N)",
+      "id": "Q4_ASSOCIATION",
+      "description": "O estudo reporta resultados que correlacionam DIRETAMENTE o status do gene BRCA1 com a resposta, sobrevida, resistência ou benefício clínico aos inibidores de PARP nos pacientes com TNBC? (Se não faz essa correlação de resultados, responda N)",
       "fail_value": "N",
-      "exclusion_code": "E04"
+      "exclusion_code": "E04_NO_CLINICAL_ASSOCIATION"
     },
     {
-      "id": "Q5",
-      "description": "O artigo envolve seres humanos como população de estudo e amostras clínicas humanas claramente identificadas como TNBC? (Se não, responda N)",
-      "fail_value": "N",
-      "exclusion_code": "E05"
-    },
-    {
-      "id": "Q6",
-      "description": "O artigo é uma revisão sistemática, revisão narrativa, meta-análise, editorial, carta, comentário, protocolo ou opinião? (Se sim, responda S)",
+      "id": "Q5_IN_VIVO",
+      "description": "O estudo é EXCLUSIVAMENTE in vitro (apenas linhagens celulares no laboratório) ou em modelos animais (camundongos, ratos) sem envolver dados clínicos de pacientes humanos reais? (Se o estudo NÃO envolve humanos reais, responda S)",
       "fail_value": "S",
-      "exclusion_code": "E06"
+      "exclusion_code": "E05_NOT_HUMAN_CLINICAL"
     },
     {
-      "id": "Q7",
-      "description": "O artigo se limita a câncer de mama triplo-negativo e não estudou outros tipos de câncer? (Se não, responda N)",
+      "id": "Q6_ARTICLE_TYPE",
+      "description": "O artigo é um estudo de pesquisa primária original (excluir se for revisão de literatura, revisão sistemática, meta-análise, editorial, carta, opinião, ou relato de caso simples)? (Se NÃO for pesquisa primária, responda N)",
       "fail_value": "N",
-      "exclusion_code": "E07"
+      "exclusion_code": "E06_SECONDARY_LITERATURE"
     },
     {
-      "id": "Q8",
-      "description": "O artigo menciona BRCA1 ou inibidores de PARP apenas na introdução ou discussão, sem investigação no estudo? (Se sim, responda S)",
+      "id": "Q7_MENTION_ONLY",
+      "description": "Os termos BRCA1 ou inibidores de PARP são mencionados APENAS na introdução (background) ou na discussão, sem fazerem parte dos experimentos e dos resultados reais do artigo? (Se são apenas citados e não estudados nos resultados, responda S)",
       "fail_value": "S",
-      "exclusion_code": "E08"
+      "exclusion_code": "E07_MENTION_ONLY"
+    },
+    {
+      "id": "Q8_DATA_EXTRACTION",
+      "description": "Caso o artigo inclua múltiplos tipos de câncer (ex: Câncer de Ovário junto com TNBC), ele fornece os dados de resposta clínica e BRCA segregados especificamente para o subgrupo de Câncer de Mama Triplo-Negativo? (Se mistura os cânceres e impede a extração exclusiva de dados de TNBC, responda N. Se estuda apenas TNBC, responda S).",
+      "fail_value": "N",
+      "exclusion_code": "E08_NO_SUBGROUP_DATA"
     }
   ]
 }

@@ -124,7 +124,9 @@ def analyze(workers: int = 10):
             final_res = orchestrator.analyze_article(doc)
             repo.save_final_result(meta.get("filename", ""), task_hash, final_res)
             
-            print(f"Artigo {article_id[:20]}... triado como: {final_res.decision}", flush=True)
+            d_val = final_res.decision.value
+            color = "green" if d_val == "INCLUIDO" else ("red" if d_val == "EXCLUIDO" else "yellow")
+            console.print(f"📄 [bold]{article_id[:25]}...[/bold] -> [{color}]{d_val}[/{color}]")
             
         except Exception as e:
             console.print(f"[red]Error in process_article: {e}[/red]")

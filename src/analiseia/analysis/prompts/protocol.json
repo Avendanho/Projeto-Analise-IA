@@ -1,60 +1,84 @@
 {
-  "protocol_id": "TNBC_BRCA1_PARP_v2",
-  "description": "Protocolo rigoroso para triagem sistemática: eficácia de Inibidores de PARP em Câncer de Mama Triplo-Negativo estratificado por status de BRCA1.",
+  "protocol_id": "TEA_GENETICA_NEUROINFLAMACAO_v2",
+  "description": "Protocolo rigoroso para triagem sistemática: relação entre fatores genéticos/moleculares e mecanismos imunológicos/inflamatórios no Transtorno do Espectro Autista (TEA) em humanos.",
   "fast_screening": {
     "enabled": true,
-    "system_prompt": "Você é um classificador preliminar de triagem em uma Revisão Sistemática rigorosa. Avalie o trecho inicial do artigo (Abstract/Introdução). O artigo DEVE ter foco clínico no Câncer de Mama Triplo-Negativo (TNBC), envolver avaliação do gene BRCA1, e testar o uso de Inibidores de PARP. Se qualquer um desses 3 temas centrais não for o foco do estudo primário (por exemplo, se for mencionado apenas de passagem, ou se estudar outro medicamento), retorne 'LIKELY_EXCLUDED'. Caso contrário, retorne 'POTENTIAL_INCLUDE'.",
+    "system_prompt": "Você é um classificador preliminar de triagem em uma Revisão Sistemática rigorosa sobre a relação entre GENÉTICA e NEUROINFLAMAÇÃO no Transtorno do Espectro Autista (TEA). Avalie o trecho inicial do artigo (Abstract/Introdução). Para ser considerado POTENTIAL_INCLUDE, o artigo deve atender a TODOS os 3 critérios: (1) envolver seres HUMANOS com diagnóstico de TEA (Transtorno do Espectro Autista / Autism Spectrum Disorder / ASD), (2) ter um componente genético/genômico/molecular (ex: SNP, CNV, GWAS, expressão gênica, metilação, variantes), E (3) ter um componente inflamatório/imunológico/neuroinflamatório (ex: citocinas, microglia, ativação imune, interleucinas, TNF, IFN, CRP). Se o artigo claramente NÃO abordar TEA em humanos, OU se não tiver nenhum componente genético, OU se não tiver nenhum componente inflamatório/imunológico, retorne 'LIKELY_EXCLUDED'. Na DÚVIDA, retorne 'POTENTIAL_INCLUDE' para não perder artigos relevantes.",
     "exclusion_code": "FAST_SCREEN_EXCLUSION",
-    "exclusion_reason": "Excluído no abstract: falta de convergência explícita entre TNBC, BRCA1 e PARPi."
+    "exclusion_reason": "Excluído no abstract: ausência de convergência entre TEA + Genética + Neuroinflamação."
   },
   "criteria": [
     {
-      "id": "Q1_DISEASE",
-      "description": "O estudo avalia pacientes ou amostras clínicas de Câncer de Mama Triplo-Negativo (TNBC)? (Se não avalia TNBC de forma explícita, responda N)",
+      "id": "Q1_HUMAN",
+      "description": "O estudo envolve seres humanos (sujeitos, biópsias, tecidos post-mortem humanos ou biobancos de pacientes)? Estudos exclusivamente com modelos animais ou ensaios celulares isolados sem dados humanos devem ser excluídos. (Se NÃO envolve humanos, responda N)",
       "fail_value": "N",
-      "exclusion_code": "E01_NOT_TNBC"
+      "exclusion_code": "E1_NOT_HUMAN"
     },
     {
-      "id": "Q2_GENE",
-      "description": "O estudo investiga ativamente o status, mutação, deficiência ou expressão do gene BRCA1 como parte essencial da metodologia e dos resultados? (Se não investiga BRCA1, responda N)",
+      "id": "Q2_TEA_DIAGNOSIS",
+      "description": "O artigo inclui indivíduos com diagnóstico de TEA (Transtorno do Espectro Autista / Autism Spectrum Disorder / ASD) ou avalia um desfecho clínico/fenotípico específico de TEA em humanos? (Se NÃO estuda TEA, responda N)",
       "fail_value": "N",
-      "exclusion_code": "E02_NOT_BRCA1"
+      "exclusion_code": "E2_NOT_TEA"
     },
     {
-      "id": "Q3_DRUG",
-      "description": "O estudo testa, administra ou avalia inibidores de PARP (ex: Olaparibe, Talazoparibe, Niraparibe, Veliparibe, Rucaparibe) como tratamento principal? (Se não avalia inibidores de PARP, responda N)",
+      "id": "Q3_FORMAL_DIAGNOSIS",
+      "description": "O diagnóstico de TEA foi estabelecido por critérios/métodos reconhecidos (DSM-IV, DSM-5, CID/ICD-10, CID/ICD-11, ADOS, ADI-R, avaliação clínica multidisciplinar formal) e não apenas por traços subclínicos ou escalas de rastreio genéricas? Se a informação não estiver clara, responda NC. (Se NÃO usou critério formal, responda N)",
       "fail_value": "N",
-      "exclusion_code": "E03_NOT_PARPi"
+      "exclusion_code": "E2_NO_FORMAL_DIAGNOSIS"
     },
     {
-      "id": "Q4_ASSOCIATION",
-      "description": "O estudo reporta resultados que correlacionam DIRETAMENTE o status do gene BRCA1 com a resposta, sobrevida, resistência ou benefício clínico aos inibidores de PARP nos pacientes com TNBC? (Se não faz essa correlação de resultados, responda N)",
+      "id": "Q4_SUBGROUP_DATA",
+      "description": "Caso a amostra combine TEA com outras condições neuropsiquiátricas ou genéticas, os dados referentes ao TEA são passíveis de análise separada/estratificada? Se não houver mistura com outras condições, responda S. (Se houver mistura E NÃO for possível separar os dados de TEA, responda N)",
       "fail_value": "N",
-      "exclusion_code": "E04_NO_CLINICAL_ASSOCIATION"
+      "exclusion_code": "E2_MIXED_NO_STRATIFICATION"
     },
     {
-      "id": "Q5_IN_VIVO",
-      "description": "O estudo é EXCLUSIVAMENTE in vitro (apenas linhagens celulares no laboratório) ou em modelos animais (camundongos, ratos) sem envolver dados clínicos de pacientes humanos reais? (Se o estudo NÃO envolve humanos reais, responda S)",
-      "fail_value": "S",
-      "exclusion_code": "E05_NOT_HUMAN_CLINICAL"
-    },
-    {
-      "id": "Q6_ARTICLE_TYPE",
-      "description": "O artigo é um estudo de pesquisa primária original (excluir se for revisão de literatura, revisão sistemática, meta-análise, editorial, carta, opinião, ou relato de caso simples)? (Se NÃO for pesquisa primária, responda N)",
+      "id": "Q5_GENETIC_COMPONENT",
+      "description": "O estudo investiga variantes genéticas/genômicas (SNPs, mutações, CNVs, GWAS, WGS, WES, painel gênico) OU dados moleculares/funcionais (expressão gênica, transcriptômica, miRNAs, metilação/epigenética) relacionados ao TEA? (Se NÃO investiga componente genético/molecular, responda N)",
       "fail_value": "N",
-      "exclusion_code": "E06_SECONDARY_LITERATURE"
+      "exclusion_code": "E3_NO_GENETIC"
     },
     {
-      "id": "Q7_MENTION_ONLY",
-      "description": "Os termos BRCA1 ou inibidores de PARP são mencionados APENAS na introdução (background) ou na discussão, sem fazerem parte dos experimentos e dos resultados reais do artigo? (Se são apenas citados e não estudados nos resultados, responda S)",
-      "fail_value": "S",
-      "exclusion_code": "E07_MENTION_ONLY"
-    },
-    {
-      "id": "Q8_DATA_EXTRACTION",
-      "description": "Caso o artigo inclua múltiplos tipos de câncer (ex: Câncer de Ovário junto com TNBC), ele fornece os dados de resposta clínica e BRCA segregados especificamente para o subgrupo de Câncer de Mama Triplo-Negativo? (Se mistura os cânceres e impede a extração exclusiva de dados de TNBC, responda N. Se estuda apenas TNBC, responda S).",
+      "id": "Q6_GENETIC_MEASURED",
+      "description": "O componente genético/molecular foi de fato medido, genotipado ou quantificado empiricamente no estudo (e não apenas citado contextualmente na introdução ou discussão)? (Se NÃO foi medido empiricamente, responda N)",
       "fail_value": "N",
-      "exclusion_code": "E08_NO_SUBGROUP_DATA"
+      "exclusion_code": "E3_GENETIC_NOT_MEASURED"
+    },
+    {
+      "id": "Q7_INFLAMMATORY",
+      "description": "O estudo investiga marcadores, vias ou mecanismos de inflamação, neuroinflamação ou disfunção imunológica (citocinas, quimiocinas, interleucinas, TNF-α, IFN-γ, CRP, CCL2/MCP-1, ativação microglial, astrócitos, ativação glial, resposta imune, desregulação imune, complemento, sinalização neuroimune)? (Se NÃO investiga componente inflamatório/imunológico, responda N)",
+      "fail_value": "N",
+      "exclusion_code": "E4_NO_INFLAMMATORY"
+    },
+    {
+      "id": "Q8_INFLAMMATORY_MEASURED",
+      "description": "O componente inflamatório/imunológico foi mensurado, dosado ou analisado empiricamente no trabalho (e não apenas citado incidentalmente na introdução/discussão)? (Se NÃO foi medido empiricamente, responda N)",
+      "fail_value": "N",
+      "exclusion_code": "E4_INFLAMMATORY_NOT_MEASURED"
+    },
+    {
+      "id": "Q9_GENE_INFLAMMATION_LINK",
+      "description": "O artigo relaciona DIRETAMENTE a alteração/expressão genética com os parâmetros/vias imunoinflamatórias (ex: genótipo associado a níveis de citocinas, eQTLs de genes imunes, vias inflamatórias enriquecidas em dados genômicos, variantes em genes do sistema imune)? (Se NÃO faz essa correlação direta, responda N)",
+      "fail_value": "N",
+      "exclusion_code": "E5_NO_GENE_INFLAMMATION_LINK"
+    },
+    {
+      "id": "Q10_TEA_CONTEXT",
+      "description": "A correlação entre os achados genéticos e inflamatórios é contextualizada e interpretada especificamente na fisiopatologia ou suscetibilidade ao TEA? (Se NÃO é contextualizada no TEA, responda N)",
+      "fail_value": "N",
+      "exclusion_code": "E5_NOT_TEA_CONTEXTUALIZED"
+    },
+    {
+      "id": "Q11_STUDY_DESIGN",
+      "description": "O desenho metodológico é elegível (estudos observacionais caso-controle, coorte, transversal; ensaios clínicos; revisões sistemáticas com ou sem metanálise)? Excluir editoriais de opinião sem dados, cartas sem métodos empíricos, resumos de congresso sem texto completo. (Se NÃO é desenho elegível, responda N)",
+      "fail_value": "N",
+      "exclusion_code": "E6_INELIGIBLE_DESIGN"
+    },
+    {
+      "id": "Q12_CONFIRM_NOT_ANIMAL",
+      "description": "Confirmação final: O estudo NÃO é puramente um modelo animal ou ensaio celular isolado sem ligação com dados ou amostras de pacientes humanos? (Se FOR puramente animal sem dados humanos, responda N)",
+      "fail_value": "N",
+      "exclusion_code": "E1_PURELY_ANIMAL"
     }
   ]
 }

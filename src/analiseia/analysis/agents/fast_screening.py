@@ -4,7 +4,7 @@ from ..domain.models import ArticleDocument, FastScreeningConfig
 from ..infrastructure.llm import LLMClient
 
 class FastScreeningResult(BaseModel):
-    screening_decision: str = Field(description="'LIKELY_EXCLUDED' ou 'POTENTIAL_INCLUDE'")
+    screening_decision: str = Field(description="'LIKELY_EXCLUDED', 'POTENTIAL_INCLUDE' ou 'UNCERTAIN'")
     reason: str = Field(description="Justificativa da decisão baseada no abstract.")
 
 class FastScreeningAgent:

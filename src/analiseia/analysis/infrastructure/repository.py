@@ -92,9 +92,10 @@ class AnalysisRepository:
             
         analysis_str = json.dumps(analysis_json, ensure_ascii=False)
         
+        db_status = "ERROR" if result.decision.value == "PROCESSAMENTO COM FALHA" else "COMPLETED"
         self._cache[result.article_id] = {
             'hash': file_hash,
-            'status': "COMPLETED",
+            'status': db_status,
             'analysis_json': analysis_str
         }
         
@@ -110,7 +111,7 @@ class AnalysisRepository:
                     analysis_json=excluded.analysis_json,
                     updated_at=CURRENT_TIMESTAMP
             ''', (
-                result.article_id, filename, file_hash, "COMPLETED", 
+                result.article_id, filename, file_hash, db_status, 
                 result.decision.value, result.exclusion_code, 
                 result.confidence, analysis_str
             ))

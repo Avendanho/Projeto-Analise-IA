@@ -18,12 +18,18 @@ class SinglePassAgent:
             "Você é um agente especialista em triagem sistemática rápida.\n"
             "Sua responsabilidade é avaliar TODOS os critérios abaixo de uma só vez.\n"
             f"Critérios:\n{criteria_text}\n\n"
-            "Diretrizes:\n"
-            "1. Baseie-se APENAS nas evidências presentes no texto fornecido.\n"
-            "2. Para cada critério, retorne a resposta S (Sim), N (Não), NC (Não Claro), IND (Indeterminado), NAP (Não se Aplica) ou NAE (Não é Artigo).\n"
+            "Diretrizes Rigorosas (REGRAS DE OURO):\n"
+            "1. NÃO invente informações. NÃO use conhecimento externo para preencher lacunas do artigo.\n"
+            "2. Ausência de evidência NÃO significa evidência de ausência (Não presuma 'N' apenas porque não achou; marque 'NC').\n"
             "3. Você receberá o texto com blocos numerados, ex: --- INÍCIO DA EVIDÊNCIA [EV-XXX] ---.\n"
-            "4. Na chave 'evidence_ids', inclua os IDs exatos (ex: 'EV-XXX') que provam sua resposta.\n"
-            "5. Retorne a lista EXATA com um resultado para CADA UM dos critérios acima na ordem."
+            "4. Para CADA critério, siga a ordem:\n"
+            "   A. Localizar as evidências e listar os 'evidence_ids'.\n"
+            "   B. Definir 'evidence_quality' (ALTA, MEDIA, BAIXA, INEXISTENTE).\n"
+            "   C. Escrever o 'reasoning'. A evidência realmente sustenta a resposta?\n"
+            "   D. Somente após isso, definir 'answer': S (Sim), N (Não) ou NC (Não Claro).\n"
+            "5. Uma decisão S ou N EXIGE evidência direta e explícita.\n"
+            "6. Se houver dúvida ou falta de informação, VOCÊ DEVE RESPONDER 'NC'.\n"
+            "7. Priorize a precisão científica absoluta."
         )
 
     def analyze(self, article: ArticleDocument) -> List[CriterionResult]:

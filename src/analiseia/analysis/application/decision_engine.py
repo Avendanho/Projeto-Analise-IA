@@ -14,24 +14,27 @@ class RuleEngine:
             }
             
     def evaluate(self, results: Dict[str, CriterionResult]) -> Tuple[ScreeningDecision, Optional[str], str]:
-        # 1. Avalia falhas determinísticas (reprovação direta pela regra do protocolo)
+        missing_criteria = []
+        review_reasons = []
+        
+        # 1. Verifica falhas explícitas com evidência (Exclusão Direta)
         for criterion_id, rule in self.exclusion_rules.items():
             if criterion_id in results:
                 res = results[criterion_id]
                 if res.answer == rule["fail_val"]:
-                    return (
-                        ScreeningDecision.EXCLUDE, 
-                        rule["code"], 
-                        f"Excluído pois falhou no critério {criterion_id} (Código: {rule['code']})."
-                    )
+                    # Regra de Ouro: Só excluir se houver evidência suficiente
+                    if res.evidence_quality in ["ALTA", "MEDIA", "MÉDIA"]:
+                        return (
+                            ScreeningDecision.EXCLUDE, 
+                            rule["code"], 
+                            f"Excluído com segurança: falhou no critério {criterion_id} ({rule['code']}). Motivo: {res.reasoning}"
+                        )
+                    else:
+                        review_reasons.append(f"{criterion_id} falhou, mas evidência é fraca/inexistente ou confiança baixa ({res.confidence}%)")
 
-        # 2. Avalia a Confiança (Confidence) individual
+        # 2. Avalia incertezas, falhas de confiança ou critérios sem evidência clara
         needs_review = False
-        missing_criteria = []
-        review_reasons = []
-
         low_thresh = self.settings.ai_confidence_low
-        fail_thresh = 40 # Abaixo de 40% ainda é exclusão direta de confiança
 
         for criterion_id in self.exclusion_rules.keys():
             if criterion_id not in results:
@@ -40,20 +43,21 @@ class RuleEngine:
                 
             res = results[criterion_id]
             
+            # Se for NC ou IND -> Revisão Manual
             if res.answer in ["NC", "IND"]:
                 needs_review = True
                 review_reasons.append(f"{criterion_id} inconclusivo ({res.answer})")
             
+            # Se a confiança for baixa -> Revisão Manual (NUNCA excluir direto)
             conf = res.confidence
-            if conf < fail_thresh:
-                return (
-                    ScreeningDecision.EXCLUDE,
-                    "LOW_CONFIDENCE",
-                    f"Excluído devido à baixíssima confiança ({conf}%) na análise do critério {criterion_id}."
-                )
-            elif fail_thresh <= conf < low_thresh:
+            if conf < low_thresh:
                 needs_review = True
-                review_reasons.append(f"{criterion_id} teve confiança duvidosa ({conf}%)")
+                review_reasons.append(f"{criterion_id} confiança baixa ({conf}%)")
+                
+            # Se diz S ou N mas não tem qualidade de evidência -> Revisão Manual
+            if res.answer not in ["NC", "IND"] and res.evidence_quality == "INEXISTENTE":
+                needs_review = True
+                review_reasons.append(f"{criterion_id} respondeu {res.answer} sem evidência")
 
         if missing_criteria:
             return (
@@ -62,16 +66,17 @@ class RuleEngine:
                 f"Faltam resultados de avaliação para: {', '.join(missing_criteria)}."
             )
 
-        if needs_review:
+        if needs_review or len(review_reasons) > 0:
             reason = " | ".join(review_reasons)
             return (
                 ScreeningDecision.MANUAL_REVIEW,
                 None,
-                f"Enviado para revisão manual por: {reason}."
+                f"Enviado para revisão manual por incerteza/falta de evidência forte: {reason}"
             )
 
+        # 3. Inclusão (Todos S e com alta confiança e evidência)
         return (
             ScreeningDecision.INCLUDE, 
             None, 
-            f"Atende a todos os critérios com alta confiança (>= {low_thresh}%)."
+            "Atende a todos os critérios obrigatórios com evidências consistentes e verificadas."
         )

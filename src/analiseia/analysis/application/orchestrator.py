@@ -47,12 +47,15 @@ class ScreeningOrchestrator:
         if self.config.fast_screening.enabled:
             fast_res: FastScreeningResult = self.fast_screener.analyze(article)
             if fast_res.screening_decision == "LIKELY_EXCLUDED":
+                # User RULE: O fast screening nunca deve produzir sozinho uma exclusão definitiva.
+                # Ele apenas levanta a flag. Passamos para MANUAL_REVIEW (ou mandamos seguir para análise)
+                # Se for para priorizar, passamos adiante com flag. O código envia para revisão manual rápida:
                 return FinalResult(
                     article_id=article.article_id,
-                    decision=ScreeningDecision.EXCLUDE,
+                    decision=ScreeningDecision.MANUAL_REVIEW,
                     exclusion_code=self.config.fast_screening.exclusion_code,
-                    confidence=95,
-                    justification=fast_res.reason
+                    confidence=fast_res.confidence,
+                    justification=f"Triagem Rápida Sugere Exclusão: {fast_res.reason}. Enviado para revisão manual por cautela."
                 )
             
         # 2. Single Pass Screening (SPEEDUP)
@@ -77,13 +80,12 @@ class ScreeningOrchestrator:
                     )
         except Exception as exc:
             print(f"SinglePassAgent generated an exception: {exc}")
-            for crit_config in self.config.criteria:
-                results[crit_config.id] = CriterionResult(
-                    criterion_id=crit_config.id,
-                    answer="NC",
-                    confidence=0,
-                    summary=f"Erro fatal no agente único: {str(exc)}"
-                )
+            return FinalResult(
+                article_id=article.article_id,
+                decision=ScreeningDecision.ERROR,
+                confidence=0,
+                justification=f"Falha técnica no LLM ou timeout: {str(exc)}"
+            )
 
         # 4. Decision Engine
         decision, code, justification = self.rule_engine.evaluate(results)

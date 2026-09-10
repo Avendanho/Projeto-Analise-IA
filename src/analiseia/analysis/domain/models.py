@@ -20,6 +20,7 @@ class ScreeningDecision(str, Enum):
     INCLUDE = "INCLUIDO"
     EXCLUDE = "EXCLUIDO"
     MANUAL_REVIEW = "REVISÃO MANUAL"
+    ERROR = "PROCESSAMENTO COM FALHA"
 
 class Evidence(BaseModel):
     page: Optional[int] = None
@@ -31,9 +32,11 @@ class CriterionResult(BaseModel):
     model_config = ConfigDict(extra='forbid')
     
     criterion_id: str
-    answer: str # S, N, NC, IND, NAP, NAE
-    confidence: int = Field(0, description="Nível de confiança de 0 a 100")
-    evidence_ids: List[str] = Field(default_factory=list)
+    evidence_ids: List[str] = Field(default_factory=list, description="IDs das evidências encontradas no texto (ex: 'EV-001')")
+    evidence_quality: str = Field("INEXISTENTE", description="Qualidade da evidência: 'ALTA', 'MEDIA', 'BAIXA', 'INEXISTENTE'")
+    reasoning: str = Field("", description="Raciocínio step-by-step: a evidência realmente sustenta S ou N? Existe lacuna ou viés?")
+    answer: str = Field(..., description="S, N, ou NC. Use NC obrigatoriamente se não houver evidência suficiente e direta.")
+    confidence: int = Field(0, description="Nível de confiança na resposta (0-100)")
     summary: str = ""
     uncertainties: List[str] = Field(default_factory=list)
 

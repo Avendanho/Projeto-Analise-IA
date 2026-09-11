@@ -112,7 +112,13 @@ class ScreeningOrchestrator:
             if not retrieved:
                 for sid, sdata in sections_db.items():
                     h = sdata["heading"].lower()
-                    if "intro" in h or "result" in h or "abstract" in h:
+                    if any(k in h for k in ["intro", "result", "abstract", "background", "method", "find", "conclu", "discuss"]):
+                        retrieved[sid] = sdata
+                
+                # Se AINDA estiver vazio, pegamos as 3 maiores seções do artigo para garantir que a IA leia algo!
+                if not retrieved:
+                    sorted_sections = sorted(sections_db.items(), key=lambda x: len(x[1].get("text", "")), reverse=True)
+                    for sid, sdata in sorted_sections[:3]:
                         retrieved[sid] = sdata
             
             # 6. Contextual Interpretation

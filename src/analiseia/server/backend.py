@@ -225,23 +225,24 @@ async def run_command_sse(cmd, cwd, env=None, transform=True):
         yield f"data: [ERROR] O processo encontrou um problema (código {process.returncode})\n\n"
 
 @app.get("/api/run/search")
-async def run_search(auto_detect: bool = True):
+async def run_search(pubmed: bool = False, embase: bool = False, lilacs: bool = False, openalex: bool = False, europepmc: bool = False, arxiv: bool = False, crossref: bool = False, semanticscholar: bool = False, doaj: bool = False, plos: bool = False, core: bool = False):
     src_dir = encontrar_dois_dir
     env = os.environ.copy()
     env["PYTHONPATH"] = str(src_dir)
     env["PYTHONUNBUFFERED"] = "1"
     
-    # Auto-detect databases based on availability and API keys
-    selected_bases = [
-        "PubMed", "LILACS", "OpenAlex", "Europe PMC", "arXiv", 
-        "Crossref", "Semantic Scholar", "DOAJ", "PLOS"
-    ]
-    
-    # Bases that strictly require API keys
-    if os.environ.get("ELSEVIER_API_KEY") or os.environ.get("SCOPUS_API_KEY"):
-        selected_bases.append("Embase")
-    if os.environ.get("CORE_API_KEY"):
-        selected_bases.append("CORE")
+    selected_bases = []
+    if pubmed: selected_bases.append("PubMed")
+    if embase: selected_bases.append("Embase")
+    if lilacs: selected_bases.append("LILACS")
+    if openalex: selected_bases.append("OpenAlex")
+    if europepmc: selected_bases.append("Europe PMC")
+    if arxiv: selected_bases.append("arXiv")
+    if crossref: selected_bases.append("Crossref")
+    if semanticscholar: selected_bases.append("Semantic Scholar")
+    if doaj: selected_bases.append("DOAJ")
+    if plos: selected_bases.append("PLOS")
+    if core: selected_bases.append("CORE")
     
     import json as _json
     bases_json = _json.dumps(selected_bases)

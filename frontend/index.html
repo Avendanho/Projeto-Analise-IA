@@ -307,13 +307,20 @@
                             <p class="text-gray-600 mb-6">Configure as bases de dados e execute a busca pelos artigos.</p>
 
                             <div class="space-y-4">
-                                <div class="grid grid-cols-1 gap-4">
-                                    <div class="bg-blue-50 text-blue-800 p-4 rounded-lg">
-                                        <h4 class="font-medium mb-1 flex items-center">
-                                            <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                            Busca Global Automática
-                                        </h4>
-                                        <p class="text-sm">O sistema buscará os artigos em todas as bases de dados disponíveis simultaneamente (PubMed, Embase, LILACS, EuropePMC, OpenAlex, Crossref, etc.). Bases que exigem chaves de API (como Elsevier/Scopus) só serão consultadas se as chaves estiverem inseridas nas Configurações.</p>
+                                <div class="mb-4">
+                                    <label class="block text-sm font-medium text-gray-700 mb-3">Selecione as Bases de Dados para a Busca:</label>
+                                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                                        <label class="flex items-center space-x-2"><input type="checkbox" id="chkPubMed" checked class="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded"><span class="text-sm font-medium text-gray-700">PubMed</span></label>
+                                        <label class="flex items-center space-x-2"><input type="checkbox" id="chkEmbase" class="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded"><span class="text-sm font-medium text-gray-700">Embase</span></label>
+                                        <label class="flex items-center space-x-2"><input type="checkbox" id="chkLILACS" checked class="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded"><span class="text-sm font-medium text-gray-700">LILACS</span></label>
+                                        <label class="flex items-center space-x-2"><input type="checkbox" id="chkOpenAlex" class="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded"><span class="text-sm font-medium text-gray-700">OpenAlex</span></label>
+                                        <label class="flex items-center space-x-2"><input type="checkbox" id="chkEuropePMC" class="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded"><span class="text-sm font-medium text-gray-700">Europe PMC</span></label>
+                                        <label class="flex items-center space-x-2"><input type="checkbox" id="chkArxiv" class="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded"><span class="text-sm font-medium text-gray-700">arXiv</span></label>
+                                        <label class="flex items-center space-x-2"><input type="checkbox" id="chkCrossref" class="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded"><span class="text-sm font-medium text-gray-700">Crossref</span></label>
+                                        <label class="flex items-center space-x-2"><input type="checkbox" id="chkSemanticScholar" class="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded"><span class="text-sm font-medium text-gray-700">Semantic Scholar</span></label>
+                                        <label class="flex items-center space-x-2"><input type="checkbox" id="chkDOAJ" class="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded"><span class="text-sm font-medium text-gray-700">DOAJ</span></label>
+                                        <label class="flex items-center space-x-2"><input type="checkbox" id="chkPLOS" class="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded"><span class="text-sm font-medium text-gray-700">PLOS</span></label>
+                                        <label class="flex items-center space-x-2"><input type="checkbox" id="chkCORE" class="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded"><span class="text-sm font-medium text-gray-700">CORE</span></label>
                                     </div>
                                 </div>
 
@@ -1067,18 +1074,32 @@
                         const data = response.ok ? await response.json() : { queries: {} };
                         const existingQueries = data.queries || {};
                         
-                        const activeDbs = ['PubMed', 'Embase', 'LILACS', 'OpenAlex', 'EuropePMC', 'arXiv', 'Crossref', 'SemanticScholar', 'DOAJ', 'PLOS', 'CORE'];
+                        const dbs = ['PubMed', 'Embase', 'LILACS', 'OpenAlex', 'EuropePMC', 'Arxiv', 'Crossref', 'SemanticScholar', 'DOAJ', 'PLOS', 'CORE'];
+                        let activeDbs = [];
+                        dbs.forEach(db => {
+                            const el = document.getElementById(`chk${db}`);
+                            if (el && el.checked) {
+                                // Keep casing nice for display
+                                const displayMap = { 'Arxiv': 'arXiv', 'SemanticScholar': 'Semantic Scholar', 'EuropePMC': 'Europe PMC' };
+                                activeDbs.push(displayMap[db] || db);
+                            }
+                        });
+                        
+                        if (activeDbs.length === 0) {
+                            container.innerHTML = '<div class="p-4 bg-yellow-50 text-yellow-700 rounded-lg">Selecione pelo menos uma base de dados antes de editar as queries.</div>';
+                            return;
+                        }
                         
                         let html = '';
                         activeDbs.forEach(db => {
                             const dbKey = db.toUpperCase();
-                            // UFMG is not normally a standard DB in the txt, but we'll include it if it's there
+                            const dbId = dbKey.replace(/\s/g, '');
                             const currentQuery = existingQueries[dbKey] || '';
                             
                             html += `
                                 <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
                                     <label class="block text-sm font-bold text-gray-700 mb-2">${db}</label>
-                                    <textarea id="query_${dbKey}" rows="3"
+                                    <textarea id="query_${dbId}" rows="3"
                                               class="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-brand-500 focus:border-brand-500 font-mono"
                                               placeholder="Insira a query para ${db} aqui...">${currentQuery}</textarea>
                                 </div>
@@ -1092,12 +1113,13 @@
                 },
 
                 async saveQueries() {
-                    const dbs = ['PUBMED', 'EMBASE', 'LILACS', 'OPENALEX', 'EUROPEPMC', 'ARXIV', 'CROSSREF', 'SEMANTICSCHOLAR', 'DOAJ', 'PLOS', 'CORE'];
+                    const dbs = ['PUBMED', 'EMBASE', 'LILACS', 'OPENALEX', 'EUROPE PMC', 'ARXIV', 'CROSSREF', 'SEMANTIC SCHOLAR', 'DOAJ', 'PLOS', 'CORE'];
                     let queries = {};
                     let hasData = false;
                     
                     dbs.forEach(db => {
-                        const el = document.getElementById(`query_${db}`);
+                        const dbId = db.replace(/\s/g, '');
+                        const el = document.getElementById(`query_${dbId}`);
                         if (el) {
                             queries[db] = el.value;
                             hasData = true;
@@ -1128,7 +1150,16 @@
 
                 runSearch() {
                     this.searching = true;
-                    this.streamConsole(`/api/run/search?auto_detect=true`, () => {
+                    const dbs = ['PubMed', 'Embase', 'LILACS', 'OpenAlex', 'EuropePMC', 'Arxiv', 'Crossref', 'SemanticScholar', 'DOAJ', 'PLOS', 'CORE'];
+                    let queryParams = [];
+                    dbs.forEach(db => {
+                        const el = document.getElementById(`chk${db}`);
+                        if (el && el.checked) {
+                            queryParams.push(`${db.toLowerCase()}=true`);
+                        }
+                    });
+                    
+                    this.streamConsole(`/api/run/search?${queryParams.join('&')}`, () => {
                         this.searching = false;
                         this.status.steps[1].completed = true;
                         this.status.steps[1].active = false;

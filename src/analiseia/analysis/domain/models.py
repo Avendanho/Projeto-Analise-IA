@@ -29,7 +29,7 @@ class Evidence(BaseModel):
     reason: str
 
 class CriterionResult(BaseModel):
-    model_config = ConfigDict(extra='forbid')
+    model_config = ConfigDict(extra='ignore')
     
     criterion_id: str
     evidence_ids: List[str] = Field(default_factory=list, description="IDs das evidências encontradas no texto (ex: 'EV-001')")

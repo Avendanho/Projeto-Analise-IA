@@ -225,24 +225,23 @@ async def run_command_sse(cmd, cwd, env=None, transform=True):
         yield f"data: [ERROR] O processo encontrou um problema (código {process.returncode})\n\n"
 
 @app.get("/api/run/search")
-async def run_search(pubmed: bool = True, embase: bool = True, lilacs: bool = True, ufmg: bool = True, openalex: bool = False, europepmc: bool = False, arxiv: bool = False, crossref: bool = False, semantic: bool = False, doaj: bool = False, plos: bool = False, core: bool = False):
+async def run_search(auto_detect: bool = True):
     src_dir = encontrar_dois_dir
     env = os.environ.copy()
     env["PYTHONPATH"] = str(src_dir)
     env["PYTHONUNBUFFERED"] = "1"
     
-    selected_bases = []
-    if pubmed: selected_bases.append("PubMed")
-    if embase: selected_bases.append("Embase")
-    if lilacs: selected_bases.append("LILACS")
-    if openalex: selected_bases.append("OpenAlex")
-    if europepmc: selected_bases.append("Europe PMC")
-    if arxiv: selected_bases.append("arXiv")
-    if crossref: selected_bases.append("Crossref")
-    if semantic: selected_bases.append("Semantic Scholar")
-    if doaj: selected_bases.append("DOAJ")
-    if plos: selected_bases.append("PLOS")
-    if core: selected_bases.append("CORE")
+    # Auto-detect databases based on availability and API keys
+    selected_bases = [
+        "PubMed", "LILACS", "OpenAlex", "Europe PMC", "arXiv", 
+        "Crossref", "Semantic Scholar", "DOAJ", "PLOS"
+    ]
+    
+    # Bases that strictly require API keys
+    if os.environ.get("ELSEVIER_API_KEY") or os.environ.get("SCOPUS_API_KEY"):
+        selected_bases.append("Embase")
+    if os.environ.get("CORE_API_KEY"):
+        selected_bases.append("CORE")
     
     import json as _json
     bases_json = _json.dumps(selected_bases)
@@ -314,13 +313,17 @@ async def run_download(workers: int = None):
 
 
 @app.get("/api/run/analyze")
-async def run_analyze(workers: int = None):
+async def run_analyze(workers: int = None, model: str = None):
     if workers is None:
         settings = get_settings()
         workers = settings.workers
     env = os.environ.copy()
     env["PYTHONPATH"] = str(analise_ia_dir)
     env["PYTHONUNBUFFERED"] = "1"
+    if model:
+        env["LLM_MODEL"] = model
+        env["AI_PRIMARY_MODEL"] = model
+        env["AI_VERIFIER_MODEL"] = model
     
     async def sse_wrapper():
         yield "data: ⏳ Iniciando extração de texto dos PDFs...\n\n"
@@ -626,13 +629,13 @@ async def update_config(request: Request):
         key_found = False
         for i, line in enumerate(lines):
             if line.startswith(f"{key}="):
-                lines[i] = f"{key}={value}\\n"
+                lines[i] = f"{key}={value}\n"
                 key_found = True
                 break
         if not key_found:
-            if lines and not lines[-1].endswith("\\n"):
-                lines.append("\\n")
-            lines.append(f"{key}={value}\\n")
+            if lines and not lines[-1].endswith("\n"):
+                lines.append("\n")
+            lines.append(f"{key}={value}\n")
 
     keys = [
         "OPENAI_API_KEY", "GEMINI_API_KEY", "ANTHROPIC_API_KEY", "LLM_MODEL", "OLLAMA_BASE_URL", 

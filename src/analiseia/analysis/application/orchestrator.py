@@ -6,13 +6,11 @@ from typing import Dict
 from rich.console import Console
 
 from ..domain.models import ArticleDocument, FinalResult, CriterionResult, ScreeningDecision, ProtocolConfig, SemanticArticleMap
-from ..agents.fast_screening import FastScreeningAgent, FastScreeningResult
 from ..agents.semantic_mapper import SemanticMapperAgent
 from ..agents.section_router import SectionRouterAgent
 from ..agents.contextual_interpreter import ContextualInterpreterAgent
 from .decision_engine import RuleEngine
-from .deliberator import Deliberator
-from .validators import DocumentQualityAnalyzer, CriterionValidator, FinalResultValidator
+from .validators import DocumentQualityAnalyzer, CriterionValidator
 from ..infrastructure.model_router import get_model_router
 from ..evidence.store import global_evidence_store
 from analiseia.config.settings import get_settings
@@ -31,8 +29,6 @@ class ScreeningOrchestrator:
             
         self.config = ProtocolConfig(**config_data)
         
-        self.fast_screener = FastScreeningAgent(self.config.fast_screening, self.router.route_for_classification())
-        self.deliberator = Deliberator(self.router.route_for_verification())
         self.rule_engine = RuleEngine(self.config)
 
     def analyze_article(self, article: ArticleDocument) -> FinalResult:

@@ -12,30 +12,32 @@ class ContextualInterpreterAgent:
 
     def get_system_prompt(self, group_name: str, criteria_texts: str) -> str:
         return (
-            "Você é o INTERPRETADOR CONTEXTUAL de uma revisão sistemática.\\n"
-            "Sua tarefa é avaliar critérios utilizando APENAS os TRECHOS ORIGINAIS recuperados do artigo.\\n"
-            f"CRITÉRIOS A AVALIAR (Grupo: {group_name}):\\n{criteria_texts}\\n\\n"
-            "DIRETRIZES RIGOROSAS:\\n"
-            "1. S (Sim): O texto original demonstra o conceito do critério. NÃO exija presença literal das palavras. Reconheça sinônimos, manifestações específicas e equivalências semânticas.\\n"
-            "2. N (Não): O texto demonstra ativamente que o critério não é atendido (ex: artigo diz que usou animais sem humanos, ou afirma explicitamente que não investigou o fator).\\n"
-            "3. NC (Não Claro): A informação necessária está genuinamente ausente dos trechos. (Somente use após analisar todo o contexto metodológico).\\n"
-            "Evite N apenas porque 'a palavra não apareceu'. Analise o significado.\\n"
-            "Para cada critério retorne:\\n"
-            "- answer: S/N/NC\\n"
-            "- evidence_ids: Quais seções (S00X) justificam a resposta.\\n"
-            "- reasoning: Justifique mostrando a ligação semântica entre o que foi escrito no artigo e o critério.\\n"
-            "- evidence_quality: ALTA/MEDIA/BAIXA/INEXISTENTE.\\n"
+            "Você é o INTERPRETADOR CONTEXTUAL de uma revisão sistemática.\n"
+            "Sua tarefa é avaliar critérios utilizando APENAS os TRECHOS ORIGINAIS recuperados do artigo.\n"
+            f"CRITÉRIOS A AVALIAR (Grupo: {group_name}):\n{criteria_texts}\n\n"
+            "DIRETRIZES RIGOROSAS:\n"
+            "1. S (Sim): O texto original demonstra o conceito do critério. NÃO exija presença literal das palavras. Reconheça sinônimos, manifestações específicas e equivalências semânticas.\n"
+            "2. N (Não): O texto demonstra ativamente que o critério não é atendido (ex: artigo diz que usou animais sem humanos, ou afirma explicitamente que não investigou o fator).\n"
+            "3. NC (Não Claro): A informação necessária está genuinamente ausente dos trechos. (Somente use após analisar todo o contexto metodológico).\n"
+            "Evite N apenas porque 'a palavra não apareceu'. Analise o significado.\n"
+            "Para cada critério retorne:\n"
+            "- criterion_id: O ID do critério (ex: Q1_HUMAN).\n"
+            "- answer: S/N/NC\n"
+            "- evidence_ids: Quais seções (S00X) justificam a resposta.\n"
+            "- reasoning: Justifique mostrando a ligação semântica entre o que foi escrito no artigo e o critério.\n"
+            "- evidence_quality: ALTA/MEDIA/BAIXA/INEXISTENTE.\n"
+            "RESPONDA ABSOLUTAMENTE TUDO EM PORTUGUÊS DO BRASIL, MESMO QUE O TEXTO ESTEJA EM INGLÊS.\n"
         )
 
     def evaluate_group(self, group_name: str, criteria: List[CriterionConfig], retrieved_sections: Dict[str, dict]) -> List[CriterionResult]:
-        criteria_texts = "\\n".join([f"- {c.id}: {c.description}" for c in criteria])
+        criteria_texts = "\n".join([f"- {c.id}: {c.description}" for c in criteria])
         
         # Build the retrieved sections string
         sections_text = ""
         for sec_id, sec_data in retrieved_sections.items():
-            sections_text += f"\\n\\n--- SEÇÃO {sec_id} ({sec_data['heading']}) ---\\n{sec_data['text']}"
+            sections_text += f"\n\n--- SEÇÃO {sec_id} ({sec_data['heading']}) ---\n{sec_data['text']}"
             
-        user_prompt = f"Avalie os critérios com base SOMENTE nestas seções recuperadas do artigo original:\\n{sections_text}"
+        user_prompt = f"Avalie os critérios com base SOMENTE nestas seções recuperadas do artigo original:\n{sections_text}"
         
         difficulty = DifficultyLevel.MEDIUM # Interpretation needs deep thinking
         llm_client = self.router.route_for_classification(requires_vision=False, difficulty=difficulty)

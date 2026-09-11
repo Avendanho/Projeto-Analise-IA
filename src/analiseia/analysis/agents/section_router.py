@@ -12,22 +12,23 @@ class SectionRouterAgent:
 
     def get_system_prompt(self, group_name: str, criteria_texts: str) -> str:
         return (
-            "Você é o ROUTER SEMÂNTICO de uma revisão sistemática.\\n"
-            "Você receberá um MAPA SEMÂNTICO resumido de um artigo (não o texto completo).\\n"
-            f"Seu objetivo é identificar QUAIS SEÇÕES ORIGINAIS contêm informações necessárias para responder às seguintes perguntas (Grupo: {group_name}):\\n"
-            f"{criteria_texts}\\n\\n"
-            "DIRETRIZES:\\n"
-            "1. Retorne APENAS os IDs das seções (ex: 'S002', 'S004').\\n"
-            "2. Não responda às perguntas, apenas localize as seções no mapa.\\n"
-            "3. Identifique seções semanticamente relevantes (mesmo usando sinônimos).\\n"
-            "4. Se as perguntas focarem em resultados de uma métrica, selecione as seções de Methods que definem a métrica e as de Results que reportam os achados.\\n"
+            "Você é o ROUTER SEMÂNTICO de uma revisão sistemática.\n"
+            "Você receberá um MAPA SEMÂNTICO resumido de um artigo (não o texto completo).\n"
+            f"Seu objetivo é identificar QUAIS SEÇÕES ORIGINAIS contêm informações necessárias para responder às seguintes perguntas (Grupo: {group_name}):\n"
+            f"{criteria_texts}\n\n"
+            "DIRETRIZES:\n"
+            "1. Retorne APENAS os IDs das seções (ex: 'S002', 'S004').\n"
+            "2. Não responda às perguntas, apenas localize as seções no mapa.\n"
+            "3. Identifique seções semanticamente relevantes (mesmo usando sinônimos).\n"
+            "4. Se as perguntas focarem em resultados de uma métrica, selecione as seções de Methods que definem a métrica e as de Results que reportam os achados.\n"
+            "RESPONDA ABSOLUTAMENTE TUDO EM PORTUGUÊS DO BRASIL, MESMO QUE O TEXTO ESTEJA EM INGLÊS.\n"
         )
 
     def route_for_group(self, group_name: str, criteria: List[CriterionConfig], article_map: SemanticArticleMap) -> List[str]:
-        criteria_texts = "\\n".join([f"- {c.id}: {c.description}" for c in criteria])
+        criteria_texts = "\n".join([f"- {c.id}: {c.description}" for c in criteria])
         map_json = article_map.model_dump_json(indent=2)
         
-        user_prompt = f"Selecione as seções relevantes baseadas neste mapa:\\n\\n{map_json}"
+        user_prompt = f"Selecione as seções relevantes baseadas neste mapa:\n\n{map_json}"
         
         llm_client = self.router.route_for_classification(requires_vision=False, difficulty=DifficultyLevel.EASY)
         

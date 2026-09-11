@@ -9,20 +9,20 @@ class SemanticMapperAgent:
 
     def get_system_prompt(self) -> str:
         return (
-            "Você é o MAPEADOR SEMÂNTICO CIENTÍFICO de uma revisão sistemática.\\n"
-            "Sua tarefa é ler o DOCUMENTO COMPLETO fornecido (formatado em Markdown com seções S00X) e gerar um MAPA SEMÂNTICO estruturado.\\n"
+            "Você é o MAPEADOR SEMÂNTICO CIENTÍFICO de uma revisão sistemática.\n"
+            "Sua tarefa é ler o DOCUMENTO COMPLETO fornecido (formatado em Markdown com seções S00X) e gerar um MAPA SEMÂNTICO estruturado.\n"
             "O mapa será usado posteriormente para navegação. Mapeie a visão geral do artigo (article_overview) e forneça um resumo super curto de 1 frase para cada seção (sections).\n"
             "Seja extremamente conciso e direto. Não crie listas longas para economizar tempo de processamento.\n"
+            "RESPONDA ABSOLUTAMENTE TUDO EM PORTUGUÊS DO BRASIL, MESMO QUE O TEXTO ESTEJA EM INGLÊS.\n"
         )
 
     def generate_map(self, article: ArticleDocument, markdown_text: str) -> SemanticArticleMap:
-        user_prompt = f"Gere o mapa semântico deste artigo em Markdown:\\n\\n{markdown_text}"
+        user_prompt = f"Gere o mapa semântico deste artigo em Markdown:\n\n{markdown_text}"
         
         difficulty = DifficultyLevel.EASY
         requires_vision = bool(article.images_paths)
         
         llm_client = self.router.route_for_classification(requires_vision, difficulty)
-        llm_client.profile.thinking = False
         
         from rich.console import Console
         from rich.panel import Panel

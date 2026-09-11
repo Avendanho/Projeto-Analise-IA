@@ -104,6 +104,8 @@ class AnalysisRepository:
                 INSERT INTO articles (article_id, filename, hash, status, decision, exclusion_code, confidence, analysis_json)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                 ON CONFLICT(article_id) DO UPDATE SET
+                    filename=excluded.filename,
+                    hash=excluded.hash,
                     status=excluded.status,
                     decision=excluded.decision,
                     exclusion_code=excluded.exclusion_code,

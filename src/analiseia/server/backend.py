@@ -16,6 +16,8 @@ if str(_src_dir) not in sys.path:
     sys.path.insert(0, str(_src_dir))
 
 from analiseia.config.paths import PROJECT_ROOT, ENV_FILE, PDF_DIR, SEARCH_MODULE_DIR, DOWNLOAD_MODULE_DIR, ANALYSIS_MODULE_DIR, SEARCH_OUTPUT_DIR, DOWNLOAD_DATA_DIR
+from analiseia.config.settings import get_settings
+from analiseia.analysis.infrastructure.model_router import get_model_router
 
 root_dir = PROJECT_ROOT
 load_dotenv(ENV_FILE)
@@ -274,7 +276,10 @@ async def run_search(pubmed: bool = True, embase: bool = True, lilacs: bool = Tr
 
 
 @app.get("/api/run/download")
-async def run_download(workers: int = 15):
+async def run_download(workers: int = None):
+    if workers is None:
+        settings = get_settings()
+        workers = settings.workers
     env = os.environ.copy()
     env["IN_DOCKER"] = "1"
     env["PYTHONUNBUFFERED"] = "1"
@@ -309,7 +314,10 @@ async def run_download(workers: int = 15):
 
 
 @app.get("/api/run/analyze")
-async def run_analyze(workers: int = 4):
+async def run_analyze(workers: int = None):
+    if workers is None:
+        settings = get_settings()
+        workers = settings.workers
     env = os.environ.copy()
     env["PYTHONPATH"] = str(analise_ia_dir)
     env["PYTHONUNBUFFERED"] = "1"
@@ -361,10 +369,10 @@ async def get_protocol():
 async def _sync_protocol_json(protocol_text: str):
     """Converte o protocolo_triagem.txt em protocol.json estruturado para o motor de IA multi-agente."""
     import json as _json
-    
+
     protocol_json_path = root_dir / "src" / "analiseia" / "analysis" / "prompts" / "protocol.json"
     protocol_json_path.parent.mkdir(parents=True, exist_ok=True)
-    
+
     sync_system_prompt = """Você é um conversor de protocolo de triagem sistemática.
 Dado um protocolo de triagem em texto livre, extraia e converta para o formato JSON estruturado abaixo.
 REGRAS:
@@ -394,59 +402,36 @@ FORMATO EXATO de saída:
 }"""
 
     try:
-        gemini_key = os.environ.get("GEMINI_API_KEY")
-        
-        if gemini_key:
-            from google import genai
-            client = genai.Client(api_key=gemini_key)
-            interaction = client.interactions.create(
-                model='gemini-3.7-flash',
-                input=f"Converta este protocolo de triagem para JSON estruturado:\n\n{protocol_text}",
-                system_instruction=sync_system_prompt,
-                generation_config={"temperature": 0.1, "response_mime_type": "application/json"}
-            )
-            json_text = interaction.output_text
-        else:
-            openai_key = os.environ.get("OPENAI_API_KEY")
-            import openai
-            if openai_key:
-                client = openai.OpenAI(api_key=openai_key)
-            else:
-                client = openai.OpenAI(base_url=os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434/v1"), api_key="ollama")
-            
-            model_name = "gpt-4o-mini" if openai_key else os.environ.get("LLM_MODEL", "qwen2.5")
-            
-            resp = client.chat.completions.create(
-                model=model_name,
-                messages=[
-                    {"role": "system", "content": sync_system_prompt},
-                    {"role": "user", "content": f"Converta este protocolo de triagem para JSON estruturado:\n\n{protocol_text}"}
-                ],
-                temperature=0.1
-            )
-            json_text = resp.choices[0].message.content.strip()
-        
+        # Use ModelRouter to get appropriate LLM client
+        settings = get_settings()
+        router = get_model_router()
+        llm_client = router.route_for_verification()  # Use verifier model for complex protocol conversion
+
+        # Generate protocol JSON using the LLM client
+        user_prompt = f"Converta este protocolo de triagem para JSON estruturado:\n\n{protocol_text}"
+        json_text = llm_client.generate(system_prompt=sync_system_prompt, user_prompt=user_prompt)
+
         # Limpar possíveis ```json ... ``` markdown fences
         if json_text.startswith("```"):
             json_text = json_text.split("\n", 1)[1] if "\n" in json_text else json_text[3:]
         if json_text.endswith("```"):
             json_text = json_text[:-3]
         json_text = json_text.strip()
-        
+
         # Validar o JSON antes de salvar
         parsed = _json.loads(json_text)
-        
+
         # Garantir campos obrigatórios
         if "criteria" not in parsed or not parsed["criteria"]:
             print("⚠️ Sync protocol.json: JSON gerado não contém critérios, mantendo versão anterior.")
             return False
-        
+
         with open(protocol_json_path, "w", encoding="utf-8") as f:
             _json.dump(parsed, f, ensure_ascii=False, indent=2)
-        
+
         print(f"✅ protocol.json sincronizado com {len(parsed['criteria'])} critérios.")
         return True
-        
+
     except Exception as e:
         print(f"⚠️ Falha ao sincronizar protocol.json: {e}")
         return False

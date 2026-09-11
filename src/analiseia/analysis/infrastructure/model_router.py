@@ -46,11 +46,18 @@ class ModelRouter:
         )
 
     def _get_client_for_profile(self, profile: ModelProfile) -> LLMClient:
-        if profile.provider.lower() == "ollama":
+        provider = profile.provider.lower()
+        if provider == "ollama":
             from .ollama_provider import OllamaProvider
             return OllamaProvider(profile)
-        # Add others like gemini/openai here if needed, but priority is FREE/LOCAL
-        raise ValueError(f"Provedor não suportado: {profile.provider}")
+        elif provider == "gemini":
+            from .gemini_provider import GeminiProvider
+            return GeminiProvider(profile)
+        elif provider == "openai":
+            from .openai_provider import OpenAIProvider
+            return OpenAIProvider(profile)
+        else:
+            raise ValueError(f"Provedor não suportado: {profile.provider}")
 
     def route_for_classification(self, requires_vision: bool = False, difficulty: DifficultyLevel = DifficultyLevel.EASY) -> LLMClient:
         """Retorna o cliente LLM apropriado para a classificação primária de um critério."""

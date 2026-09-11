@@ -14,26 +14,26 @@ class EvidenceVerifier:
         # Validação mecânica primeiro
         if result.answer == "NC":
             return True, ""
-            
+
         if not result.evidence_ids:
             return False, "Agente respondeu S ou N mas não forneceu nenhuma evidência (evidence_ids vazio)."
-            
+
         ev_texts = []
         for eid in result.evidence_ids:
             ev = global_evidence_store.get_evidence(eid)
             if not ev:
                 return False, f"Evidência inválida inventada pelo agente: {eid}"
             ev_texts.append(ev.text)
-            
+
         if result.evidence_quality == "INEXISTENTE" and result.answer in ["S", "N"]:
             return False, "Agente respondeu S/N mas classificou a qualidade da evidência como INEXISTENTE."
-            
+
         # Verificação Semântica via LLM (somente para evidências cruciais S/N)
         # Otimização: Só chama se a qualidade for MEDIA (inferência), se for ALTA confia no SinglePass
         if result.evidence_quality == "MEDIA":
             router = get_model_router()
             client = router.route_for_verification()
-            
+
             ev_text_combined = "\n".join(ev_texts)
             system_prompt = (
                 "Você é o EVIDENCE VERIFIER de uma Revisão Sistemática.\n"
@@ -48,7 +48,7 @@ class EvidenceVerifier:
                 f"EVIDÊNCIA EXTRAÍDA DO ARTIGO:\n{ev_text_combined}\n\n"
                 "A justificativa e a resposta são semanticamente suportadas por esta evidência?"
             )
-            
+
             try:
                 verification = client.generate_structured(
                     system_prompt=system_prompt,

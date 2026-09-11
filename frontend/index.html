@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Automação Acadêmica IA</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
@@ -22,1053 +23,691 @@
                 }
             }
         }
-</script>
+    </script>
     <style>
-        /* Progress bar */
-        .progress-bar {
-            height: 4px;
-            background: #e5e7eb;
-            border-radius: 2px;
-            overflow: hidden;
+        /* Custom styles */
+        .transition-all {
+            transition-property: all;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
         }
-        .progress-bar-fill {
-            height: 100%;
-            border-radius: 2px;
+        .hover\:scale-105:hover {
+            --tw-scale-x: 1.05;
+            --tw-scale-y: 1.05;
+            transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scale(var(--tw-scale-x) var(--tw-scale-y));
         }
-        .progress-indeterminate {
-            width: 30%;
-            animation: indeterminate 1.5s ease-in-out infinite;
-        }
-        @keyframes indeterminate {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(430%); }
-        }
-
-        
-        .typing-indicator {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 8px 12px;
-            background: #f3f4f6;
-            border-radius: 8px;
-            font-size: 12px;
-            color: #4b5563;
-            font-weight: 500;
-            margin-top: 8px;
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        .typing-indicator span {
-            width: 6px;
-            height: 6px;
-            background: #6b7280;
-            border-radius: 50%;
-            animation: bounce 1.4s infinite ease-in-out both;
-        }
-        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
-        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
-        @keyframes bounce {
-            0%, 80%, 100% { transform: scale(0); }
-            40% { transform: scale(1); }
-        }
-
-        /* Status feed */
-        .status-feed {
-            max-height: 340px;
-            overflow-y: auto;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-            padding-right: 8px; /* space for scrollbar */
-        }
-        .status-feed::-webkit-scrollbar { width: 4px; }
-        .status-feed::-webkit-scrollbar-track { background: transparent; }
-        .status-feed::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 2px; }
-
-        .status-item {
-            word-break: break-word; /* ensure long filenames wrap */
-            animation: fadeSlideIn 0.3s ease-out;
-        }
-        @keyframes fadeSlideIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Stepper */
-        .step-connector {
-            height: 2px;
-            flex: 1;
-            transition: background-color 0.5s ease;
-        }
-
-        /* Pulse */
-        @keyframes pulse-ring {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(1.5); opacity: 0; }
-        }
-        .pulse-active::after {
-            content: '';
-            position: absolute;
-            inset: -3px;
-            border-radius: 50%;
-            border: 2px solid #3b82f6;
-            animation: pulse-ring 1.5s ease-out infinite;
-        }
-
-        /* Spinner */
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .spinner {
-            width: 16px; height: 16px;
-            border: 2px solid #e5e7eb;
-            border-top-color: #3b82f6;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        /* Card hover */
-        .action-card {
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .action-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 24px -8px rgba(0,0,0,0.1);
-        }
-
-        /* Badge */
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.15rem 0.6rem;
-            border-radius: 9999px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        /* Tooltip */
-        [data-tooltip] { position: relative; }
-        [data-tooltip]::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1e293b;
-            color: #f1f5f9;
-            padding: 0.35rem 0.75rem;
-            border-radius: 0.375rem;
-            font-size: 0.7rem;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.2s;
-            margin-bottom: 6px;
-            z-index: 10;
-        }
-        [data-tooltip]:hover::after { opacity: 1; }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-gray-50 min-h-screen text-gray-800 font-sans flex flex-col">
-    <!-- Header -->
-    <header class="bg-white border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-brand-600 rounded-xl flex items-center justify-center">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-                    </svg>
-                </div>
-                <div>
-                    <h1 class="text-xl font-bold text-gray-900">Automação Acadêmica</h1>
-                    <p class="text-xs text-gray-500">Busca, Download e Análise de Artigos com IA</p>
-                </div>
-            </div>
-            <div class="flex items-center gap-4">
-                <button onclick="openSettings()" class="text-gray-500 hover:text-brand-600 transition" title="Configurações de IA">
-                    <i class="fas fa-cog text-xl"></i>
-                </button>
-                <span id="globalStatus" class="badge bg-gray-100 text-gray-500">Pronto</span>
-            </div>
-        </div>
-    </header>
+<body class="font-sans bg-gray-50" x-data="app()" :class="{ 'overflow-hidden': sidebarOpen }">
+    <!-- Mobile Sidebar Button -->
+    <button @click.toggle="sidebarOpen"
+            class="fixed left-4 top-4 z-50 p-2 bg-white rounded-full shadow-lg hover:bg-brand-50 transition-all
+                   md:hidden"
+            :aria-expanded="sidebarOpen"
+            aria-label="Abrir menu">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800" :class="{ 'text-white': sidebarOpen }"
+             fill="none" viewBox="0 0 24 24" stroke="currentStroke">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  :d="sidebarOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'"></path>
+        </svg>
+    </button>
 
-    <!-- Stepper -->
-    <div class="max-w-7xl mx-auto px-6 py-6 w-full">
-        <div class="flex items-center justify-center gap-0">
-            <div class="flex flex-col items-center relative">
-                <div id="stepIcon0" class="w-9 h-9 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center text-sm font-bold transition-all duration-300 relative">0</div>
-                <span class="text-xs font-medium text-gray-500 mt-1.5" id="stepLabel0">Upload</span>
+    <!-- Sidebar -->
+    <nav class="fixed left-0 top-0 bottom-0 w-64 bg-white border-r border-gray-200
+                 transition-all duration-300 ease-in-out
+                 :class="{ '-translate-x-full': !sidebarOpen && !isMD }"
+                 :class="{ 'translate-x-0': sidebarOpen || isMD }"
+                 x-data="{ isMD: window.innerWidth >= 768 }"
+                 @resize.window="isMD = window.innerWidth >= 768"
+                 :class="{ 'z-40': sidebarOpen || isMD }">
+        <div class="flex h-full flex-col">
+            <!-- Header -->
+            <div class="flex-shrink-0 flex items-center px-4 py-6 border-b border-gray-200">
+                <span class="text-xl font-bold text-brand-600">Automação IA</span>
             </div>
-            <div id="conn01" class="step-connector bg-gray-200 mx-2"></div>
-            <div class="flex flex-col items-center relative">
-                <div id="stepIcon1" class="w-9 h-9 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center text-sm font-bold transition-all duration-300 relative">1</div>
-                <span class="text-xs font-medium text-gray-500 mt-1.5" id="stepLabel1">Busca</span>
+
+            <!-- Navigation -->
+            <div class="flex-1 overflow-y-auto">
+                <ul class="space-y-1 pt-2">
+                    <li>
+                        <button @click="activeStep = 0"
+                                class="w-full flex items-center px-3 py-2 text-sm font-medium
+                                       :class="{ 'bg-brand-50 text-brand-600': activeStep === 0,
+                                                'text-gray-600 hover:bg-gray-50': activeStep !== 0 }"
+                                :aria-current="activeStep === 0 ? 'step' : undefined">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0"
+                                 fill="none" viewBox="0 0 24 24" stroke="currentStroke"
+                                 :class="{ 'text-brand-600': activeStep === 0, 'text-gray-400': activeStep !== 0 }">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M12 8c-1.1 0-2 .9-2 2s1 2 2 2 2-.9 2-2-1-2-2-2zm0 12c-1.1 0-2 .9-2 2s1 2 2 2 2-.9 2-2-1-2-2-2zm0-6c-1.1 0-2 .9-2 2s1 2 2 2 2-.9 2-2-1-2-2-2z"></path>
+                            </svg>
+                            <span class="ml-3">Upload</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button @click="activeStep = 1"
+                                class="w-full flex items-center px-3 py-2 text-sm font-medium
+                                       :class="{ 'bg-brand-50 text-brand-600': activeStep === 1,
+                                                'text-gray-600 hover:bg-gray-50': activeStep !== 1 }"
+                                :aria-current="activeStep === 1 ? 'step' : undefined">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0"
+                                 fill="none" viewBox="0 0 24 24" stroke="currentStroke"
+                                 :class="{ 'text-brand-600': activeStep === 1, 'text-gray-400': activeStep !== 1 }">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span class="ml-3">Busca</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button @click="activeStep = 2"
+                                class="w-full flex items-center px-3 py-2 text-sm font-medium
+                                       :class="{ 'bg-brand-50 text-brand-600': activeStep === 2,
+                                                'text-gray-600 hover:bg-gray-50': activeStep !== 2 }"
+                                :aria-current="activeStep === 2 ? 'step' : undefined">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0"
+                                 fill="none" viewBox="0 0 24 24" stroke="currentStroke"
+                                 :class="{ 'text-brand-600': activeStep === 2, 'text-gray-400': activeStep !== 2 }">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M8 7h3m8 0v3m-3-3h3m8 0H9a2 2 0 00-2 2v9a2 2 0 002 2h10a2 2 0 002-2V9a2 2 0 00-2-2z"></path>
+                            </svg>
+                            <span class="ml-3">Download</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button @click="activeStep = 3"
+                                class="w-full flex items-center px-3 py-2 text-sm font-medium
+                                       :class="{ 'bg-brand-50 text-brand-600': activeStep === 3,
+                                                'text-gray-600 hover:bg-gray-50': activeStep !== 3 }"
+                                :aria-current="activeStep === 3 ? 'step' : undefined">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0"
+                                 fill="none" viewBox="0 0 24 24" stroke="currentStroke"
+                                 :class="{ 'text-brand-600': activeStep === 3, 'text-gray-400': activeStep !== 3 }">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 4.411 2.915 8.14 7 9.418v6.6A1.996 1.996 0 005 21h14a2 2 0 002-2v-.801c4.085-1.278 7-5.007 7-9.418 0-1.132-.168-2.235-.5-3.24"></path>
+                            </svg>
+                            <span class="ml-3">Análise IA</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button @click="activeStep = 4"
+                                class="w-full flex items-center px-3 py-2 text-sm font-medium
+                                       :class="{ 'bg-brand-50 text-brand-600': activeStep === 4,
+                                                'text-gray-600 hover:bg-gray-50': activeStep !== 4 }"
+                                :aria-current="activeStep === 4 ? 'step' : undefined">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0"
+                                 fill="none" viewBox="0 0 24 24" stroke="currentStroke"
+                                 :class="{ 'text-brand-600': activeStep === 4, 'text-gray-400': activeStep !== 4 }">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            <span class="ml-3">Relatório</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button @click="activeStep = 5"
+                                class="w-full flex items-center px-3 py-2 text-sm font-medium
+                                       :class="{ 'bg-brand-50 text-brand-600': activeStep === 5,
+                                                'text-gray-600 hover:bg-gray-50': activeStep !== 5 }"
+                                :aria-current="activeStep === 5 ? 'step' : undefined">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0"
+                                 fill="none" viewBox="0 0 24 24" stroke="currentStroke"
+                                 :class="{ 'text-brand-600': activeStep === 5, 'text-gray-400': activeStep !== 5 }">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M19.428 15.428a2 2 0 00-2.828 0L12 13.172l-4.6 4.6a2 2 0 00-2.828 2.828l5.657 5.657a2 2 0 002.828 0l5.657-5.657a2 2 0 000-2.828z"></path>
+                            </svg>
+                            <span class="ml-3">Configurações</span>
+                        </button>
+                    </li>
+                </ul>
             </div>
-            <div id="conn12" class="step-connector bg-gray-200 mx-2"></div>
-            <div class="flex flex-col items-center relative">
-                <div id="stepIcon2" class="w-9 h-9 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center text-sm font-bold transition-all duration-300 relative">2</div>
-                <span class="text-xs font-medium text-gray-500 mt-1.5" id="stepLabel2">Download</span>
-            </div>
-            <div id="conn23" class="step-connector bg-gray-200 mx-2"></div>
-            <div class="flex flex-col items-center relative">
-                <div id="stepIcon3" class="w-9 h-9 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center text-sm font-bold transition-all duration-300 relative">3</div>
-                <span class="text-xs font-medium text-gray-500 mt-1.5" id="stepLabel3">Análise IA</span>
+
+            <!-- Footer -->
+            <div class="flex-shrink-0 border-t border-gray-200 px-4 py-4">
+                <button @click="showSettings = true"
+                        class="w-flex flex items-center px-3 py-2 text-sm font-medium
+                               text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0"
+                         fill="none" viewBox="0 0 24 24" stroke="currentStroke"
+                         class="text-gray-500">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 8v4l3 3"></path>
+                    </svg>
+                    <span class="ml-2">Configurações</span>
+                </button>
             </div>
         </div>
-    </div>
+    </nav>
 
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-6 pb-12 w-full flex-1">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-
-            <!-- Upload Panel -->
-            <div class="lg:col-span-3">
-                <div class="action-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                    <div class="p-5 border-b border-gray-100">
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="text-lg">📁</span>
-                            <h2 class="text-base font-bold text-gray-900">Upload de Arquivos</h2>
-                        </div>
-                        <p class="text-xs text-gray-500 leading-relaxed">
-                            Carregue o arquivo de <strong>queries</strong> ou de <strong>DOIs</strong> (o sistema identifica automaticamente pelo conteúdo).
-                        </p>
+    <div class="flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="bg-white border-b border-gray-200 shadow-sm
+                     :class="{ 'ml-64': !sidebarOpen && !isMD }"
+                     :class="{ 'ml-0': sidebarOpen || isMD }"
+                     x-data="{ isMD: window.innerWidth >= 768 }"
+                     @resize.window="isMD = window.innerWidth >= 768">
+            <div class="flex items-center justify-between px-4 py-5">
+                <div class="flex items-center space-x-3">
+                    <div class="h-8 w-8 bg-brand-600 rounded-xl flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white"
+                             fill="none" viewBox="0 0 24 24" stroke="currentStroke">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M3 10h18M3 14h18M3 18h18"></path>
+                        </svg>
                     </div>
-                    <div class="p-5">
-                        <label class="flex flex-col items-center justify-center w-full h-28 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-brand-400 hover:bg-brand-50/30 transition-colors"
-                               id="dropZone">
-                            <svg class="w-8 h-8 text-gray-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                      d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                    <div>
+                        <h1 class="text-xl font-bold text-gray-900">Automação Acadêmica IA</h1>
+                        <p class="text-sm text-gray-500">Sistema inteligente para revisão sistemática de literatura</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <!-- Status Indicators -->
+                    <div class="flex items-center space-x-2" x-status="status">
+                        <template x-for="step in steps" :key="step.id">
+                            <div class="flex items-center space-x-1">
+                                <div class="h-2 w-2 rounded-full"
+                                     :class="{ 'bg-brand-500': step.completed,
+                                              'bg-brand-200': step.active,
+                                              'bg-gray-300': !step.completed && !step.active }"></div>
+                                <span class="text-xs font-medium text-gray-600" x-text="step.label"></span>
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- User Info -->
+                    <div class="relative">
+                        <button @click.toggle="userMenuOpen"
+                                class="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-100 transition-colors">
+                            <img src="https://via.placeholder.com/32" alt="User"
+                                 class="h-8 w-8 rounded-full object-cover">
+                            <span class="hidden md:block text-sm font-medium text-gray-900">Usuario</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500"
+                                 fill="none" viewBox="0 0 24 24" stroke="currentStroke">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M19 9l-7 7-7-7"></path>
                             </svg>
-                            <span class="text-xs text-gray-500" id="fileLabel">Clique ou arraste o arquivo</span>
-                            <input type="file" id="fileInput" class="hidden" />
-                        </label>
-                        <button onclick="uploadFile()" class="w-full mt-3 bg-brand-600 hover:bg-brand-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors text-sm flex items-center justify-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
-                            </svg>
-                            Enviar Arquivo
                         </button>
-                        <div id="uploadStatus" class="mt-3 text-xs font-medium min-h-[20px]"></div>
+
+                        <!-- User Menu Dropdown -->
+                        <div x-show="userMenuOpen"
+                             x-placement="bottom-end"
+                             x-reference="<!-- -->"
+                             class="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg z-50
+                                    transform origin-top-right
+                                    :class="{ 'opacity-0 scale-95': !userMenuOpen,
+                                              'opacity-100 scale-100': userMenuOpen }"
+                             x-transition:enter="transition ease-out duration-100"
+                             x-transition:enter-start="transform opacity-0 scale-95"
+                             x-transition:enter-end="transform opacity-100 scale-100"
+                             x-transition:leave="transition ease-in duration-75"
+                             x-transition:leave-start="transform opacity-100 scale-100"
+                             x-transition:leave-end="transform opacity-0 scale-95">
+                            <div class="py-1" role="menu">
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                   role="menuitem">Perfil</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                   role="menuitem">Sair</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </header>
 
-            <!-- Action Panels -->
-            <div class="lg:col-span-9 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Main -->
+        <main class="flex-1 overflow-hidden
+                   :class="{ 'ml-64': !sidebarOpen && !isMD }"
+                   :class="{ 'ml-0': sidebarOpen || isMD }"
+                   x-data="{ isMD: window.innerWidth >= 768 }"
+                   @resize.window="isMD = window.innerWidth >= 768">
+            <div class="flex h-full w-full">
+                <!-- Stepper (for large screens) -->
+                <template x-if="isMD">
+                    <div class="w-64 border-r border-gray-200">
+                        <div class="flex flex-col items-center pt-8 pb-4 space-y-6">
+                            <template x-for="step in steps" :key="step.id">
+                                <div class="flex items-center space-x-3 w-full px-4">
+                                    <div class="h-9 w-9 rounded-full flex items-center justify-center"
+                                           :class="{ 'bg-brand-500 text-white': step.completed,
+                                                    'bg-brand-600': step.active,
+                                                    'bg-gray-200 text-gray-500': !step.completed && !step.active }"
+                                           x-text="step.number"></div>
+                                    <div class="flex-1 text-sm font-medium text-left"
+                                           :class="{ 'text-brand-600 font-semibold': step.active || step.completed,
+                                                    'text-gray-600': !step.active && !step.completed }"
+                                           x-text="step.label"></div>
+                                </div>
+                                <template x-if="!$last">
+                                    <div class="h-0.5 w-full mx-4 bg-gray-200"></div>
+                                </template>
+                            </template>
+                        </div>
+                    </div>
+                </template>
 
-                <!-- 1. Search -->
-                <div class="action-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
-                    <div class="p-5 border-b border-gray-100">
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="w-6 h-6 bg-indigo-100 text-indigo-600 rounded-md flex items-center justify-center text-xs font-bold">1</span>
-                            <h2 class="text-base font-bold text-gray-900">Encontrar DOIs</h2>
-                        </div>
-                        <p class="text-xs text-gray-500">Busca artigos nas bases de dados acadêmicas.</p>
-                    </div>
-                    <div class="p-5 flex-1 flex flex-col">
-                        </button>
-                        <label class="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2">Bases de Dados</label>
-                        <div class="grid grid-cols-2 gap-2 mb-4">
-                            <label class="flex items-center gap-2 text-sm cursor-pointer group" data-tooltip="Base biomédica do NCBI">
-                                <input type="checkbox" id="chkPubMed" checked class="rounded text-indigo-600 focus:ring-indigo-500 w-4 h-4">
-                                <span class="group-hover:text-indigo-600 transition-colors">PubMed</span>
-                            </label>
-                            <label class="flex items-center gap-2 text-sm cursor-pointer group" data-tooltip="Elsevier (requer API key)">
-                                <input type="checkbox" id="chkEmbase" class="rounded text-indigo-600 focus:ring-indigo-500 w-4 h-4">
-                                <span class="group-hover:text-indigo-600 transition-colors">Embase</span>
-                            </label>
-                            <label class="flex items-center gap-2 text-sm cursor-pointer group" data-tooltip="Literatura latino-americana">
-                                <input type="checkbox" id="chkLILACS" class="rounded text-indigo-600 focus:ring-indigo-500 w-4 h-4">
-                                <span class="group-hover:text-indigo-600 transition-colors">LILACS</span>
-                            </label>
-                            <label class="flex items-center gap-2 text-sm cursor-pointer group" data-tooltip="Repositório UFMG (fallback)">
-                                <input type="checkbox" id="chkUFMG" checked class="rounded text-indigo-600 focus:ring-indigo-500 w-4 h-4">
-                                <span class="group-hover:text-indigo-600 transition-colors">UFMG</span>
-                            </label>
-                        </div>
-                        <button onclick="startSearch()" id="btnSearch"
-                                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors text-sm flex items-center justify-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                            </svg>
-                            Iniciar Busca
-                        </button>
-                        <div id="progressSearch" class="progress-bar mt-3 hidden"><div class="progress-bar-fill bg-indigo-500 progress-indeterminate"></div></div>
-                        <div id="feedSearch" class="status-feed mt-3 hidden"></div>
-                    </div>
-                </div>
+                <!-- Content Area -->
+                <div class="flex-1 overflow-y-auto p-6">
+                    <!-- Step Content -->
+                    <div x-show="activeStep === 0" class="space-y-6">
+                        <!-- Upload Step -->
+                        <div class="bg-white rounded-xl shadow-sm p-6">
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">Upload de Dados</h2>
+                            <p class="text-gray-600 mb-6">Faça upload do arquivo contendo as consultas (queries) ou DOIs para iniciar o processo.</p>
 
-                <!-- 2. Download -->
-                <div class="action-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
-                    <div class="p-5 border-b border-gray-100">
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="w-6 h-6 bg-emerald-100 text-emerald-600 rounded-md flex items-center justify-center text-xs font-bold">2</span>
-                            <h2 class="text-base font-bold text-gray-900">Baixar Artigos</h2>
-                        </div>
-                        <p class="text-xs text-gray-500">Faz download dos PDFs encontrados.</p>
-                    </div>
-                    <div class="p-5 flex-1 flex flex-col">
-                        <label class="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2" data-tooltip="Mais workers = downloads simultâneos">
-                            Workers (Velocidade)
-                        </label>
-                        <div class="flex items-center gap-3 mb-4">
-                            <input type="range" id="dlWorkers" min="1" max="30" value="15"
-                                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
-                                   oninput="document.getElementById('dlVal').innerText=this.value">
-                            <span id="dlVal" class="text-sm font-bold text-emerald-600 bg-emerald-50 rounded-md px-2 py-0.5 min-w-[2rem] text-center">15</span>
-                        </div>
-                        <button onclick="runStep('/api/run/download?workers=' + document.getElementById('dlWorkers').value, 'feedDownload', 'btnDownload', 'progressDownload', 2)"
-                                id="btnDownload"
-                                class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors text-sm flex items-center justify-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                            </svg>
-                            Iniciar Download
-                        </button>
-                        <div id="progressDownload" class="progress-bar mt-3 hidden"><div class="progress-bar-fill bg-emerald-500 progress-indeterminate"></div></div>
-                        <div id="feedDownload" class="status-feed mt-3 hidden"></div>
-                    </div>
-                </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Tipo de Arquivo</label>
+                                    <select id="fileType"
+                                            class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500">
+                                        <option value="queries">Arquivo de Consultas (Queries)</option>
+                                        <option value="dois">Arquivo de DOIs</option>
+                                    </select>
+                                </div>
 
-                <!-- 3. AI Analysis -->
-                <div class="action-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
-                    <div class="p-5 border-b border-gray-100">
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="w-6 h-6 bg-purple-100 text-purple-600 rounded-md flex items-center justify-center text-xs font-bold">3</span>
-                            <h2 class="text-base font-bold text-gray-900">Análise IA</h2>
-                        </div>
-                        <p class="text-xs text-gray-500">Triagem inteligente dos PDFs via LLM.</p>
-                    </div>
-                    <div class="p-5 flex-1 flex flex-col">
-                        <label class="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2" data-tooltip="Lotes enviados para a IA em paralelo">
-                            Workers (Lotes IA)
-                        </label>
-                        <div class="flex items-center gap-3 mb-4">
-                            <input type="range" id="iaWorkers" min="1" max="10" value="4"
-                                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
-                                   oninput="document.getElementById('iaVal').innerText=this.value">
-                            <span id="iaVal" class="text-sm font-bold text-purple-600 bg-purple-50 rounded-md px-2 py-0.5 min-w-[2rem] text-center">4</span>
-                        </div>
-                        
-                        <button onclick="openProtocolModal()"
-                                class="w-full bg-white border border-purple-200 hover:bg-purple-50 text-purple-700 font-semibold py-2 px-4 rounded-lg transition-colors text-sm flex items-center justify-center gap-2 mb-3">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            Configurar Protocolo
-                        </button>
+                                <div class="flex flex-col items-center">
+                                    <label for="fileUpload"
+                                           class="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-gray-300 rounded-lg hover:border-brand-300 hover:bg-brand-50 transition-colors cursor-pointer">
+                                        <div class="flex flex-col items-center justify-center pt-4">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400"
+                                                 fill="none" viewBox="0 0 24 24" stroke="currentStroke">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                      d="M7 16l4-4m0 0l4-4m-4 4h18m-4 4v4"></path>
+                                            </svg>
+                                            <p class="mt-2 text-sm text-gray-600">Arraste e solte o arquivo aqui ou</p>
+                                            <label for="fileUpload"
+                                                   class="font-medium text-brand-600 hover:text-brand-500">
+                                                selecione um arquivo
+                                            </label>
+                                        </div>
+                                    </label>
+                                    <input type="file" id="fileUpload"
+                                           class="hidden"
+                                           accept=".txt,.csv">
+                                </div>
 
-                        <button onclick="runStep('/api/run/analyze?workers=' + document.getElementById('iaWorkers').value, 'feedIA', 'btnIA', 'progressIA', 3)"
-                                id="btnIA"
-                                class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors text-sm flex items-center justify-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                            </svg>
-                            Iniciar Análise
-                        </button>
-                        <div id="progressIA" class="progress-bar mt-3 hidden"><div class="progress-bar-fill bg-purple-500 progress-indeterminate"></div></div>
-                        <div id="feedIA" class="status-feed mt-3 hidden"></div>
-                        <button type="button" id="btnReport"
-                           class="hidden mt-4 text-center w-full bg-gray-900 hover:bg-gray-800 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors text-sm items-center justify-center gap-2 inline-flex">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                            </svg>
-                            Visualizar Relatório Final
-                        </button>
+                                <div x-show="selectedFile" class="text-sm text-gray-600">
+                                    Arquivo selecionado: <span class="font-medium" x-text="selectedFile.name"></span>
+                                </div>
+                            </div>
+
+                            <button @click="uploadFile"
+                                    :disabled="!selectedFile || uploading"
+                                    class="w-full flex items-center justify-center px-4 py-3 bg-brand-600 text-white rounded-lg
+                                           hover:bg-brand-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                                <template x-if="uploading">
+                                    <svg class="h-5 w-5 animate-spin text-white mr-2"
+                                         fill="none" viewBox="0 0 24 24" stroke="currentStroke">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M12 6v6m0 0v6m0-6h6m-6 0h6"></path>
+                                    </svg>
+                                    Processando...
+                                </template>
+                                <template x-if="!uploading">
+                                    <i class="fas fa-upload mr-2"></i> Iniciar Processamento
+                                </template>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Search Step -->
+                    <div x-show="activeStep === 1" class="space-y-6">
+                        <!-- Search Step Content -->
+                        <div class="bg-white rounded-xl shadow-sm p-6">
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">Busca de Artigos</h2>
+                            <p class="text-gray-600 mb-6">Configure as bases de dados e execute a busca pelos artigos.</p>
+
+                            <div class="space-y-4">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Bases de Dados</label>
+                                        <div class="space-y-2">
+                                            <label class="flex items-center space-x-2">
+                                                <input type="checkbox" id="chkPubMed"
+                                                       class="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded">
+                                                <span class="text-sm font-medium text-gray-700">PubMed</span>
+                                            </label>
+                                            <label class="flex items-center space-x-2">
+                                                <input type="checkbox" id="chkEmbase"
+                                                       class="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded">
+                                                <span class="text-sm font-medium text-gray-700">Embase</span>
+                                            </label>
+                                            <label class="flex items-center space-x-2">
+                                                <input type="checkbox" id="chkLILACS"
+                                                       class="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded">
+                                                <span class="text-sm font-medium text-gray-700">LILACS</span>
+                                            </label>
+                                            <label class="flex items-center space-x-2">
+                                                <input type="checkbox" id="chkUFMG"
+                                                       class="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded">
+                                                <span class="text-sm font-medium text-gray-700">UFMG</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Opções Avançadas</label>
+                                        <div class="space-y-2">
+                                            <label class="flex items-center space-x-2">
+                                                <input type="checkbox" id="chkOpenAccess"
+                                                       class="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded">
+                                                <span class="text-sm font-medium text-gray-700">Apenas Open Access</span>
+                                            </label>
+                                            <label class="flex items-center space-x-2">
+                                                <input type="checkbox" id="chkLast5Years"
+                                                       class="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded">
+                                                <span class="text-sm font-medium text-gray-700">Últimos 5 anos</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="pt-4 border-t border-gray-200">
+                                    <div class="flex items-center justify-between">
+                                        <button @click="openQueryEditor"
+                                                class="px-3 py-1 text-sm font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50">
+                                            <i class="fas fa-edit mr-1"></i> Editar Queries
+                                        </button>
+                                        <button @click="runSearch"
+                                                :disabled="searching"
+                                                class="px-4 py-3 bg-brand-600 text-white rounded-lg
+                                                       hover:bg-brand-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                                            <template x-if="searching">
+                                                <svg class="h-5 w-5 animate-spin text-white mr-2"
+                                                     fill="none" viewBox="0 0 24 24" stroke="currentStroke">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                          d="M12 6v6m0 0v6m0-6h6m-6 0h6"></path>
+                                                </svg>
+                                                Executando...
+                                            </template>
+                                            <template x-if="!searching">
+                                                <i class="fas fa-search mr-2"></i> Iniciar Busca
+                                            </template>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Download Step -->
+                    <div x-show="activeStep === 2" class="space-y-6">
+                        <!-- Download Step Content -->
+                        <div class="bg-white rounded-xl shadow-sm p-6">
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">Download de PDFs</h2>
+                            <p class="text-gray-600 mb-6">Baixe os PDFs dos artigos encontrados nas bases de dados selecionadas.</p>
+
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Número de Workers</label>
+                                    <input type="number" id="dlWorkers"
+                                           min="1" max="32" value="4"
+                                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500">
+                                    <p class="text-xs text-gray-500 mt-1">Quantas conexões simultâneas para download</p>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Pasta de Destino</label>
+                                    <div class="flex items-center space-x-2">
+                                        <input type="text" id="dlPath"
+                                               value="/pdfs"
+                                               class="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500">
+                                        <button @click="browsePath"
+                                                class="ml-2 px-3 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">
+                                            <i class="fas fa-folder-open mr-1"></i> Procurar
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="pt-4 border-t border-gray-200">
+                                    <button @click="startDownload"
+                                            :disabled="downloading"
+                                            class="w-full flex items-center justify-center px-4 py-3 bg-brand-600 text-white rounded-lg
+                                                   hover:bg-brand-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                                        <template x-if="downloading">
+                                            <svg class="h-5 w-5 animate-spin text-white mr-2"
+                                                 fill="none" viewBox="0 0 24 24" stroke="currentStroke">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                      d="M12 6v6m0 0v6m0-6h6m-6 0h6"></path>
+                                            </svg>
+                                            Baixando...
+                                        </template>
+                                        <template x-if="!downloading">
+                                            <i class="fas fa-cloud-download-alt mr-2"></i> Iniciar Download
+                                        </template>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Analysis Step -->
+                    <div x-show="activeStep === 3" class="space-y-6">
+                        <!-- Analysis Step Content -->
+                        <div class="bg-white rounded-xl shadow-sm p-6">
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">Análise com IA</h2>
+                            <p class="text-gray-600 mb-6>Configure os parâmetros de análise e execute a triagem inteligente dos artigos.</p>
+
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Número de Workers</label>
+                                    <input type="number" id="iaWorkers"
+                                           min="1" max="16" value="2"
+                                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500">
+                                    <p class="text-xs text-gray-500 mt-1">Quantas análises simultâneas</p>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Modelo de IA</label>
+                                        <select id="iaModel"
+                                                class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500">
+                                            <option value="qwen3-30b-instruct-q4">Qwen 3 30B (Ollama)</option>
+                                            <option value="gpt-4o-mini">GPT-4o Mini (OpenAI)</option>
+                                            <option value="gemini-3.7-flash">Gemini 3.7 Flash (Google)</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Limite de Confiança</label>
+                                        <select id="iaConfidence"
+                                                class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500">
+                                            <option value="high">Alto (90%)</option>
+                                            <option value="medium" selected>Médio (70%)</option>
+                                            <option value="low">Baixo (50%)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="pt-4 border-t border-gray-200">
+                                    <button @click="startAnalysis"
+                                            :disabled="analyzing"
+                                            class="w-full flex items-center justify-center px-4 py-3 bg-brand-600 text-white rounded-lg
+                                                   hover:bg-brand-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                                        <template x-if="analyzing">
+                                            <svg class="h-5 w-5 animate-spin text-white mr-2"
+                                                 fill="none" viewBox="0 0 24 24" stroke="currentStroke">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                      d="M12 6v6m0 0v6m0-6h6m-6 0h6"></path>
+                                            </svg>
+                                            Analisando...
+                                        </template>
+                                        <template x-if="!analyzing">
+                                            <i class="fas fa-brain mr-2"></i> Iniciar Análise
+                                        </template>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Report Step -->
+                    <div x-show="activeStep === 4" class="space-y-6">
+                        <!-- Report Step Content -->
+                        <div class="bg-white rounded-xl shadow-sm p-6">
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">Relatório Final</h2>
+                            <p class="text-gray-600 mb-6>Visualize, exporte e compartilhe os resultados da revisão sistemática.</p>
+
+                            <div class="space-y-4">
+                                <div class="text-center py-8">
+                                    <div class="flex justify-center items-center space-x-4 mb-4">
+                                        <div class="h-12 w-12 rounded-full bg-brand-50 flex items-center justify-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-brand-600"
+                                                 fill="none" viewBox="0 0 24 24" stroke="currentStroke">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="text-center">
+                                            <h3 class="text-xl font-bold text-gray-900">Revisão Concluída!</h3>
+                                            <p class="text-sm text-gray-600 mt-2">Seus resultados estão prontos para visualização e exportação.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="space-y-4">
+                                        <button @click="viewReport"
+                                                class="w-full px-4 py-3 bg-brand-600 text-white rounded-lg
+                                                       hover:bg-brand-700 transition-colors">
+                                            <i class="fas fa-file-alt mr-2"></i> Visualizar Relatório
+                                        </button>
+                                        <button @click="exportReport"
+                                                class="w-full mt-2 px-4 py-3 bg-gray-200 text-gray-700 rounded-lg
+                                                       hover:bg-gray-300 transition-colors">
+                                            <i class="fas fa-download mr-2"></i> Exportar PDF
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Settings Step -->
+                    <div x-show="activeStep === 5" class="space-y-6">
+                        <!-- Settings Step Content -->
+                        <div class="bg-white rounded-xl shadow-sm p-6">
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">Configurações</h2>
+                            <p class="text-gray-600 mb-6>Personalize as configurações do sistema conforme suas necessidades.</p>
+
+                            <div class="space-y-4">
+                                <!-- API Keys Section -->
+                                <div class="border rounded-lg p-4 mb-6">
+                                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Chaves de API</h3>
+                                    <div class="space-y-3">
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div>
+                                                <label class="block text-sm font-medium text-gray-700 mb-2">OpenAI API Key</label>
+                                                <input type="password" id="settingsOpenAIKey"
+                                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500"
+                                                       placeholder="sk-...">
+                                            </div>
+                                            <div>
+                                                <label class="block text-sm font-medium text-gray-700 mb-2">Google Gemini API Key</label>
+                                                <input type="password" id="settingsGeminiKey"
+                                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500"
+                                                       placeholder="AIza...">
+                                            </div>
+                                            <div>
+                                                <label class="block text-sm font-medium text-gray-700 mb-2">Anthropic Claude API Key</label>
+                                                <input type="password" id="settingsAnthropicKey"
+                                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500"
+                                                       placeholder="sk-ant-...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Database Section -->
+                                <div class="border rounded-lg p-4 mb-6">
+                                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Banco de Dados</h3>
+                                    <div class="space-y-3">
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div>
+                                                <label class="block text-sm font-medium text-gray-700 mb-2">Caminho do Banco</label>
+                                                <input type="text" id="settingsDbPath"
+                                                       value="./data/analysis.db"
+                                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500">
+                                            </div>
+                                            <div>
+                                                <label class="block text-sm font-medium text-gray-700 mb-2">Limite de Cache (MB)</label>
+                                                <input type="number" id="settingsCacheLimit"
+                                                       min="100" max="10000" value="1024"
+                                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Save Button -->
+                                <div class="pt-4 border-t border-gray-200">
+                                    <button @click="saveSettings"
+                                            class="w-flex flex items-center justify-center px-4 py-3 bg-brand-600 text-white rounded-lg
+                                                   hover:bg-brand-700 transition-colors">
+                                        <i class="fas fa-save mr-2"></i> Salvar Configurações
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
 
-    <!-- Protocol Modal -->
-    <div id="protocolModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden z-50 flex items-center justify-center">
-        <div class="bg-white rounded-xl shadow-xl w-full max-w-4xl max-h-[90vh] flex flex-col m-4">
-            <div class="p-5 border-b border-gray-100 flex justify-between items-center">
-                <h2 class="text-lg font-bold text-gray-900 flex items-center gap-2">
-                    <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
-                    Protocolo de Triagem (Análise IA)
-                </h2>
-                <button onclick="closeProtocolModal()" class="text-gray-400 hover:text-gray-600">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+    <!-- Modals -->
+    <!-- Query Editor Modal -->
+    <div x-show="showQueryEditor"
+         class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50 transition-opacity">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden">
+            <div class="flex items-center justify-between p-5 border-b border-gray-100 bg-gray-50">
+                <h3 class="text-xl font-semibold text-gray-800"><i class="fas fa-search text-brand-600 mr-2"></i> Editar Queries</h3>
+                <button @click="showQueryEditor = false"
+                        class="text-gray-400 hover:text-gray-600 transition-colors p-2 rounded-full hover:bg-gray-200">
+                    <i class="fas fa-times"></i>
                 </button>
             </div>
-            
-            <div class="p-5 overflow-y-auto flex-1 bg-gray-50">
-                <!-- AI Generator Section -->
-                <div class="mb-6 bg-white p-4 rounded-lg border border-purple-100 shadow-sm">
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">✨ Gerar Protocolo com IA</label>
-                    <p class="text-xs text-gray-500 mb-3">Descreva o que você deseja buscar nos artigos (ex: "Quero saber se o artigo foca em autismo e analisa camundongos"). A IA irá formatar isso nas regras exigidas pelo sistema.</p>
-                    <textarea id="aiInstructions" rows="2" class="w-full text-sm p-3 border border-gray-300 rounded-md focus:ring-purple-500 focus:border-purple-500" placeholder="Suas instruções aqui..."></textarea>
-                    <div class="mt-3 flex justify-end">
-                        <button onclick="generateProtocol()" id="btnGenProtocol" class="bg-purple-100 hover:bg-purple-200 text-purple-700 font-semibold py-2 px-4 rounded-md text-sm flex items-center gap-2 transition-colors">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                            Gerar com IA
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Editor Section -->
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">Documento do Protocolo (Edição Manual)</label>
-                    <textarea id="protocolEditor" rows="15" class="w-full text-xs font-mono p-3 border border-gray-300 rounded-md focus:ring-purple-500 focus:border-purple-500 bg-white" spellcheck="false"></textarea>
+            <div class="p-6 overflow-y-auto bg-white flex-1" id="queryModalBody">
+                <p class="text-sm text-gray-600 mb-4">Insira a query otimizada para cada base selecionada. Exemplo: Para Embase, use queries curtas (sem MeSH gigante) para evitar erro 413.</p>
+                <div class="space-y-4" id="queryBoxesContainer">
+                    <!-- Query boxes will be populated by JavaScript -->
                 </div>
             </div>
-            
-            <div class="p-5 border-t border-gray-100 flex justify-between items-center bg-white rounded-b-xl">
-                <span id="protocolStatus" class="text-sm text-gray-500 font-medium"></span>
-                <div class="flex gap-3">
-                    <button onclick="closeProtocolModal()" class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg text-sm font-medium transition-colors">Cancelar</button>
-                    <button onclick="saveProtocol()" id="btnSaveProtocol" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">Salvar Protocolo</button>
-                </div>
+            <div class="p-5 border-t border-gray-100 bg-gray-50 flex justify-end gap-3 sticky bottom-0">
+                <button @click="showQueryEditor = false"
+                        class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">Cancelar</button>
+                <button @click="saveQueries"
+                        class="px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 font-medium">Salvar & Fechar</button>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <p class="text-xs text-gray-400">Projeto de Automação Acadêmica — Análise com IA</p>
-            <p class="text-xs text-gray-400">FastAPI + SSE + LLM</p>
-        </div>
-    </footer>
-
-    <script>
-        // ========== Protocol Modal ==========
-        async function openProtocolModal() {
-            document.getElementById('protocolModal').classList.remove('hidden');
-            document.getElementById('protocolStatus').textContent = 'Carregando...';
-            try {
-                const res = await fetch('/api/protocol');
-                const data = await res.json();
-                document.getElementById('protocolEditor').value = data.content || '';
-                document.getElementById('protocolStatus').textContent = 'Protocolo carregado.';
-            } catch (err) {
-                document.getElementById('protocolStatus').textContent = 'Erro ao carregar.';
-            }
-        }
-
-        function closeProtocolModal() {
-            document.getElementById('protocolModal').classList.add('hidden');
-        }
-
-        async function saveProtocol() {
-            const content = document.getElementById('protocolEditor').value;
-            const btn = document.getElementById('btnSaveProtocol');
-            btn.disabled = true;
-            btn.textContent = 'Salvando...';
-            try {
-                await fetch('/api/protocol', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ content })
-                });
-                document.getElementById('protocolStatus').innerHTML = '<span class="text-emerald-600">✅ Salvo com sucesso!</span>';
-                setTimeout(closeProtocolModal, 1000);
-            } catch (err) {
-                document.getElementById('protocolStatus').innerHTML = '<span class="text-red-600">❌ Erro ao salvar.</span>';
-            } finally {
-                btn.disabled = false;
-                btn.textContent = 'Salvar Protocolo';
-            }
-        }
-
-        async function generateProtocol() {
-            const instructions = document.getElementById('aiInstructions').value;
-            if (!instructions.trim()) return;
-            
-            const btn = document.getElementById('btnGenProtocol');
-            const originalText = btn.innerHTML;
-            btn.disabled = true;
-            btn.innerHTML = '<span class="spinner w-4 h-4 border-purple-500"></span> Gerando...';
-            document.getElementById('protocolStatus').textContent = 'A IA está construindo o protocolo, aguarde...';
-            
-            try {
-                const res = await fetch('/api/generate_protocol', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ instructions })
-                });
-                const data = await res.json();
-                if (data.error) {
-                    document.getElementById('protocolStatus').innerHTML = `<span class="text-red-600">❌ ${data.error}</span>`;
-                } else {
-                    document.getElementById('protocolEditor').value = data.content;
-                    document.getElementById('protocolStatus').innerHTML = '<span class="text-emerald-600">✨ Protocolo gerado! Revise e salve.</span>';
-                }
-            } catch (err) {
-                document.getElementById('protocolStatus').innerHTML = '<span class="text-red-600">❌ Erro na comunicação com a API.</span>';
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = originalText;
-            }
-        }
-
-        // ========== Upload ==========
-        const fileInput = document.getElementById('fileInput');
-        const fileLabel = document.getElementById('fileLabel');
-        const dropZone = document.getElementById('dropZone');
-
-        fileInput.addEventListener('change', () => {
-            if (fileInput.files.length > 0) {
-                fileLabel.textContent = fileInput.files[0].name;
-                fileLabel.classList.add('text-brand-600', 'font-semibold');
-            }
-        });
-        dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropZone.classList.add('border-brand-400', 'bg-brand-50/50');
-        });
-        dropZone.addEventListener('dragleave', () => {
-            dropZone.classList.remove('border-brand-400', 'bg-brand-50/50');
-        });
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropZone.classList.remove('border-brand-400', 'bg-brand-50/50');
-            if (e.dataTransfer.files.length > 0) {
-                fileInput.files = e.dataTransfer.files;
-                fileLabel.textContent = e.dataTransfer.files[0].name;
-                fileLabel.classList.add('text-brand-600', 'font-semibold');
-            }
-        });
-
-        async function uploadFile() {
-            const statusDiv = document.getElementById('uploadStatus');
-            if (fileInput.files.length === 0) {
-                statusDiv.innerHTML = '<span class="text-amber-600">⚠️ Selecione um arquivo primeiro.</span>';
-                return;
-            }
-            const formData = new FormData();
-            formData.append("file", fileInput.files[0]);
-            statusDiv.innerHTML = '<span class="text-brand-600 flex items-center gap-1.5"><span class="spinner"></span> Enviando...</span>';
-            setStepState(0, 'active');
-            try {
-                const response = await fetch('/api/upload', { method: 'POST', body: formData });
-                const result = await response.json();
-                statusDiv.innerHTML = `<span class="text-emerald-600">✅ ${result.message}</span>`;
-                setStepState(0, 'done');
-            } catch (err) {
-                statusDiv.innerHTML = '<span class="text-red-600">❌ Erro ao enviar o arquivo.</span>';
-                setStepState(0, 'error');
-            }
-        }
-
-        // ========== Stepper ==========
-        function setStepState(step, state) {
-            const icon = document.getElementById(`stepIcon${step}`);
-            const label = document.getElementById(`stepLabel${step}`);
-            icon.className = 'w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 relative';
-            if (state === 'active') {
-                icon.classList.add('bg-brand-600', 'text-white', 'shadow-lg', 'shadow-brand-200', 'pulse-active');
-                label.className = 'text-xs font-semibold text-brand-600 mt-1.5';
-                setGlobalStatus('Executando...', 'bg-blue-100', 'text-blue-700');
-            } else if (state === 'done') {
-                icon.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>';
-                icon.classList.add('bg-emerald-500', 'text-white');
-                label.className = 'text-xs font-semibold text-emerald-600 mt-1.5';
-                const conn = document.getElementById(`conn${step}${step+1}`);
-                if (conn) conn.classList.replace('bg-gray-200', 'bg-emerald-400');
-                setGlobalStatus('Pronto', 'bg-emerald-100', 'text-emerald-700');
-            } else if (state === 'error') {
-                icon.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>';
-                icon.classList.add('bg-red-500', 'text-white');
-                label.className = 'text-xs font-semibold text-red-600 mt-1.5';
-                setGlobalStatus('Erro', 'bg-red-100', 'text-red-700');
-            } else {
-                icon.innerHTML = step;
-                icon.classList.add('bg-gray-200', 'text-gray-500');
-                label.className = 'text-xs font-medium text-gray-500 mt-1.5';
-            }
-        }
-
-        function setGlobalStatus(text, bgClass, textClass) {
-            const badge = document.getElementById('globalStatus');
-            badge.className = `badge ${bgClass} ${textClass}`;
-            badge.textContent = text;
-        }
-
-        // ========== Status Feed (replaces terminal) ==========
-        function addStatusItem(feed, text, type) {
-            // type: 'info', 'success', 'warning', 'error', 'progress'
-            const colors = {
-                info:     { bg: 'bg-blue-50',    border: 'border-blue-200',   text: 'text-blue-800' },
-                success:  { bg: 'bg-emerald-50', border: 'border-emerald-200',text: 'text-emerald-800' },
-                warning:  { bg: 'bg-amber-50',   border: 'border-amber-200',  text: 'text-amber-800' },
-                error:    { bg: 'bg-red-50',      border: 'border-red-200',    text: 'text-red-800' },
-                progress: { bg: 'bg-gray-50',     border: 'border-gray-200',   text: 'text-gray-700' },
-            };
-            const c = colors[type] || colors.progress;
-
-            const item = document.createElement('div');
-            item.className = `status-item ${c.bg} ${c.border} ${c.text} border rounded-lg px-3 py-2 text-xs leading-relaxed mb-1.5 break-all`;
-            item.textContent = text;
-            
-            // Insert before the typing indicator
-            const typingInd = feed.querySelector('.typing-indicator-container');
-            if (typingInd) {
-                feed.insertBefore(item, typingInd);
-            } else {
-                feed.appendChild(item);
-            }
-            feed.scrollTop = feed.scrollHeight;
-        }
-
-        
-        function setLoadingIndicator(feed, show) {
-            // Remove existing indicator if any
-            const existing = feed.querySelector('.typing-indicator-container');
-            if (existing) existing.remove();
-            
-            if (show) {
-                const container = document.createElement('div');
-                container.className = 'typing-indicator-container flex items-center justify-start mt-2';
-                container.innerHTML = `
-                    <div class="typing-indicator border border-gray-200">
-                        Processando <span></span><span></span><span></span>
-                    </div>
-                `;
-                feed.appendChild(container);
-                feed.scrollTop = feed.scrollHeight;
-            }
-        }
-
-        function classifyMessage(text) {
-            if (text.startsWith('✅') || text.startsWith('💾'))  return 'success';
-            if (text.startsWith('❌'))                           return 'error';
-            if (text.startsWith('⚠️'))                          return 'warning';
-            if (text.startsWith('📊') || text.startsWith('📋') || text.startsWith('🔄') || text.startsWith('📝') || text.startsWith('ℹ️')) return 'info';
-            if (text.startsWith('🔍') || text.startsWith('⏳') || text.startsWith('🌐') || text.startsWith('📦') || text.startsWith('🤖') || text.startsWith('📄')) return 'progress';
-            return 'progress';
-        }
-
-        // ========== SSE / Run Step ==========
-        async function startSearch() {
-            const pb = document.getElementById('chkPubMed').checked;
-            const em = document.getElementById('chkEmbase').checked;
-            const li = document.getElementById('chkLILACS').checked;
-            const uf = document.getElementById('chkUFMG').checked;
-            const oa = document.getElementById('chkOpenAlex') ? document.getElementById('chkOpenAlex').checked : false;
-            const ep = document.getElementById('chkEuropePMC') ? document.getElementById('chkEuropePMC').checked : false;
-            const ar = document.getElementById('chkArxiv') ? document.getElementById('chkArxiv').checked : false;
-            const cr = document.getElementById('chkCrossref') ? document.getElementById('chkCrossref').checked : false;
-            const se = document.getElementById('chkSemantic') ? document.getElementById('chkSemantic').checked : false;
-            const dj = document.getElementById('chkDOAJ') ? document.getElementById('chkDOAJ').checked : false;
-            const pl = document.getElementById('chkPLOS') ? document.getElementById('chkPLOS').checked : false;
-            const co = document.getElementById('chkCORE') ? document.getElementById('chkCORE').checked : false;
-            
-            const bases = [];
-            if(pb) bases.push("PUBMED");
-            if(em) bases.push("EMBASE");
-            if(li) bases.push("LILACS");
-            if(oa) bases.push("OPENALEX");
-            if(ep) bases.push("EUROPE PMC");
-            if(ar) bases.push("ARXIV");
-            if(cr) bases.push("CROSSREF");
-            if(se) bases.push("SEMANTIC SCHOLAR");
-            if(dj) bases.push("DOAJ");
-            if(pl) bases.push("PLOS");
-            if(co) bases.push("CORE");
-            
-            if(bases.length === 0 && !uf) {
-                alert("Selecione pelo menos uma base de dados.");
-                return;
-            }
-            
-            // Se só tiver UFMG, roda direto
-            if(bases.length === 0) {
-                runStep(`/api/run/search?pubmed=${pb}&embase=${em}&lilacs=${li}&ufmg=${uf}&openalex=${oa}&europepmc=${ep}&arxiv=${ar}&crossref=${cr}&semantic=${se}&doaj=${dj}&plos=${pl}&core=${co}`, 'feedSearch', 'btnSearch', 'progressSearch', 1);
-                return;
-            }
-            
-            // Abre o modal de queries
-            try {
-                const res = await fetch('/api/queries');
-                const data = await res.json();
-                const queries = data.queries || {};
-                
-                const container = document.getElementById('queryBoxesContainer');
-                container.innerHTML = '';
-                
-                bases.forEach(base => {
-                    const val = queries[base] || queries['DEFAULT'] || '';
-                    container.innerHTML += `
-                        <div class="border border-gray-200 rounded-lg p-3 bg-gray-50">
-                            <label class="block font-bold text-gray-700 mb-2">Query para: ${base}</label>
-                            <textarea id="query_${base.replace(' ', '_')}" class="w-full h-32 p-3 border border-gray-300 rounded focus:ring-indigo-500 outline-none text-sm font-mono">${val}</textarea>
-                        </div>
-                    `;
-                });
-                
-                document.getElementById('queryModal').classList.remove('hidden');
-            } catch(e) {
-                console.error(e);
-                alert("Erro ao carregar queries.");
-            }
-        }
-        
-        window.confirmAndRunSearch = async function() {
-            // Salva as queries e roda a busca
-            const textareas = document.querySelectorAll('#queryBoxesContainer textarea');
-            const queries = {};
-            textareas.forEach(ta => {
-                const base = ta.id.replace('query_', '').replace('_', ' ');
-                queries[base] = ta.value;
-            });
-            
-            await fetch('/api/queries', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ queries })
-            });
-            
-            document.getElementById('queryModal').classList.add('hidden');
-            
-            const pb = document.getElementById('chkPubMed').checked;
-            const em = document.getElementById('chkEmbase').checked;
-            const li = document.getElementById('chkLILACS').checked;
-            const uf = document.getElementById('chkUFMG').checked;
-            const oa = document.getElementById('chkOpenAlex') ? document.getElementById('chkOpenAlex').checked : false;
-            const ep = document.getElementById('chkEuropePMC') ? document.getElementById('chkEuropePMC').checked : false;
-            const ar = document.getElementById('chkArxiv') ? document.getElementById('chkArxiv').checked : false;
-            const cr = document.getElementById('chkCrossref') ? document.getElementById('chkCrossref').checked : false;
-            const se = document.getElementById('chkSemantic') ? document.getElementById('chkSemantic').checked : false;
-            const dj = document.getElementById('chkDOAJ') ? document.getElementById('chkDOAJ').checked : false;
-            const pl = document.getElementById('chkPLOS') ? document.getElementById('chkPLOS').checked : false;
-            const co = document.getElementById('chkCORE') ? document.getElementById('chkCORE').checked : false;
-            
-            runStep(`/api/run/search?pubmed=${pb}&embase=${em}&lilacs=${li}&ufmg=${uf}&openalex=${oa}&europepmc=${ep}&arxiv=${ar}&crossref=${cr}&semantic=${se}&doaj=${dj}&plos=${pl}&core=${co}`, 'feedSearch', 'btnSearch', 'progressSearch', 1);
-        };
-        
-        window.closeQueryModal = function() {
-            document.getElementById('queryModal').classList.add('hidden');
-        };
-
-
-        function runStep(url, feedId, btnId, progressId, stepIndex) {
-            const feed = document.getElementById(feedId);
-            const btn = document.getElementById(btnId);
-            const progress = document.getElementById(progressId);
-
-            // Reset & show
-            feed.innerHTML = '';
-            feed.classList.remove('hidden');
-            progress.classList.remove('hidden');
-            btn.disabled = true;
-            btn.classList.add('opacity-50', 'cursor-not-allowed');
-            setStepState(stepIndex, 'active');
-            setLoadingIndicator(feed, true);
-
-            let receivedDone = false;
-            const source = new EventSource(url);
-
-            source.onmessage = function(event) {
-                const data = event.data;
-
-                if (data === '[CONNECTED]') {
-                    addStatusItem(feed, '🔗 Conectado — processo iniciado', 'info');
-                    return;
-                }
-                if (data === '[DONE]') {
-                    receivedDone = true;
-                    source.close();
-                    setLoadingIndicator(feed, false);
-                    addStatusItem(feed, '✅ Tudo pronto! Tarefa finalizada com sucesso.', 'success');
-                    finish(btn, progress, stepIndex, 'done');
-                    if (btnId === 'btnIA') document.getElementById('btnReport').classList.remove('hidden');
-                    return;
-                }
-                if (data.startsWith('[ERROR]')) {
-                    receivedDone = true;
-                    source.close();
-                    setLoadingIndicator(feed, false);
-                    const msg = data.replace('[ERROR]', '').trim();
-                    addStatusItem(feed, `❌ ${msg || 'Ocorreu um erro durante o processo.'}`, 'error');
-                    finish(btn, progress, stepIndex, 'error');
-                    return;
-                }
-                if (data.startsWith('[INFO]')) {
-                    addStatusItem(feed, `ℹ️ ${data.replace('[INFO]', '').trim()}`, 'info');
-                    return;
-                }
-
-                // Regular message — already friendly from backend
-                const type = classifyMessage(data);
-                addStatusItem(feed, data, type);
-            };
-
-            source.onerror = function() {
-                source.close();
-                if (!receivedDone) {
-                    setLoadingIndicator(feed, false);
-                    addStatusItem(feed, '⚠️ A conexão foi interrompida. Verifique se o servidor está rodando.', 'warning');
-                    finish(btn, progress, stepIndex, 'error');
-                }
-            };
-        }
-
-        function finish(btn, progress, stepIndex, state) {
-            btn.disabled = false;
-            btn.classList.remove('opacity-50', 'cursor-not-allowed');
-            progress.classList.add('hidden');
-            setStepState(stepIndex, state);
-        }
-        // ---- AI Settings Logic ----
-        async function openSettings() {
-            try {
-                const res = await fetch('/api/config');
-                const data = await res.json();
-                
-                const fields = [
-                    'GEMINI_API_KEY', 'ANTHROPIC_API_KEY', 'OPENAI_API_KEY', 'LLM_MODEL', 'OLLAMA_BASE_URL', 
-                    'NCBI_API_KEY', 'ELSEVIER_API_KEY', 'EMBASE_API_KEY', 'EMBASE_INST_TOKEN', 
-                    'SCOPUS_API_KEY', 'WOS_API_KEY', 'SPRINGER_API_KEY', 'SPRINGER_OA_API_KEY', 
-                    'IEEE_API_KEY', 'CORE_API_KEY', 'NCBI_EMAIL', 'UNPAYWALL_EMAIL', 'OPENALEX_MAILTO', 
-                    'CROSSREF_MAILTO', 'NCBI_TOOL_NAME', 'PROXY_URL'
-                ];
-                
-                fields.forEach(f => {
-                    const el = document.getElementById('cfg_' + f.toLowerCase());
-                    if (el) {
-                        el.value = ""; // Always clear to show placeholder
-                        if (data[f]) {
-                            el.placeholder = data[f];
-                        } else {
-                            el.placeholder = ""; // Remove default placeholder if no mask exists
-                        }
-                    }
-                });
-            } catch(e) {
-                console.error("Falha ao carregar config", e);
-            }
-            
-            const modal = document.getElementById('settingsModal');
-            const content = document.getElementById('settingsContent');
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                content.classList.remove('scale-95', 'opacity-0');
-                content.classList.add('scale-100', 'opacity-100');
-            }, 10);
-        }
-        
-        function closeSettings() {
-            const modal = document.getElementById('settingsModal');
-            const content = document.getElementById('settingsContent');
-            content.classList.remove('scale-100', 'opacity-100');
-            content.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 200);
-        }
-        
-        async function saveSettings() {
-            const btn = document.getElementById('btn-save-settings');
-            const originalHtml = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Salvando...';
-            btn.disabled = true;
-            
-            const payload = {};
-            const fields = [
-                'GEMINI_API_KEY', 'ANTHROPIC_API_KEY', 'OPENAI_API_KEY', 'LLM_MODEL', 'OLLAMA_BASE_URL', 
-                'NCBI_API_KEY', 'ELSEVIER_API_KEY', 'EMBASE_API_KEY', 'EMBASE_INST_TOKEN', 
-                'SCOPUS_API_KEY', 'WOS_API_KEY', 'SPRINGER_API_KEY', 'SPRINGER_OA_API_KEY', 
-                'IEEE_API_KEY', 'CORE_API_KEY', 'NCBI_EMAIL', 'UNPAYWALL_EMAIL', 'OPENALEX_MAILTO', 
-                'CROSSREF_MAILTO', 'NCBI_TOOL_NAME', 'PROXY_URL'
-            ];
-            
-            fields.forEach(f => {
-                const el = document.getElementById('cfg_' + f.toLowerCase());
-                if (el && el.value.trim() !== "") {
-                    payload[f] = el.value.trim();
-                }
-            });
-            
-            try {
-                const res = await fetch('/api/config', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(payload)
-                });
-                
-                if (res.ok) {
-                    alert("Configurações salvas com sucesso!");
-                    closeSettings();
-                } else {
-                    alert("Erro ao salvar!");
-                }
-            } catch(e) {
-                alert("Erro de conexão!");
-            } finally {
-                btn.innerHTML = originalHtml;
-                btn.disabled = false;
-            }
-        }
-</script>
-
-    
-    
-    <!-- Modal de Configuração -->
-    <div id="settingsModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50 transition-opacity overflow-y-auto pt-10 pb-10">
-        <div class="bg-white rounded-xl shadow-xl w-full max-w-4xl overflow-hidden transform transition-all scale-95 opacity-0 my-auto" id="settingsContent">
-            <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50 sticky top-0 z-10">
-                <h3 class="text-lg font-bold text-gray-800"><i class="fas fa-sliders-h text-brand-600 mr-2"></i> Configurações Gerais</h3>
-                <button onclick="closeSettings()" class="text-gray-400 hover:text-gray-600 focus:outline-none">
-                    <i class="fas fa-times text-xl"></i>
+    <!-- Settings Modal -->
+    <div x-show="showSettings"
+         class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50 transition-opacity">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden">
+            <div class="flex items-center justify-between p-5 border-b border-gray-100 bg-gray-50">
+                <h3 class="text-xl font-semibold text-gray-800"><i class="fas fa-sliders-h text-brand-600 mr-2"></i> Configurações Gerais</h3>
+                <button @click="showSettings = false"
+                        class="text-gray-400 hover:text-gray-600 transition-colors p-2 rounded-full hover:bg-gray-200">
+                    <i class="fas fa-times"></i>
                 </button>
             </div>
-            
-            <div class="p-6 space-y-8 max-h-[70vh] overflow-y-auto">
-                
-                <!-- Inteligência Artificial -->
-                <div>
-                    <h4 class="text-md font-semibold text-brand-700 mb-3 border-b pb-2"><i class="fas fa-robot mr-2"></i> Inteligência Artificial (LLMs)</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Modelo de IA Preferido</label>
-                            <input type="text" id="cfg_llm_model" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">URL Ollama Local</label>
-                            <input type="text" id="cfg_ollama_base_url" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">OpenAI API Key</label>
-                            <input type="password" id="cfg_openai_api_key" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Google Gemini API Key</label>
-                            <input type="password" id="cfg_gemini_api_key" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none">
-                        </div>
-                        <div class="md:col-span-2">
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Anthropic Claude API Key</label>
-                            <input type="password" id="cfg_anthropic_api_key" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Contas e E-mails (Polidez) -->
-                <div>
-                    <h4 class="text-md font-semibold text-brand-700 mb-3 border-b pb-2"><i class="fas fa-envelope mr-2"></i> Emails para Serviços Open Access</h4>
-                    <p class="text-xs text-gray-500 mb-4">Muitas bases exigem um e-mail para comunicação em caso de uso excessivo. O preenchimento melhora os limites de acesso.</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Email NCBI</label>
-                            <input type="email" id="cfg_ncbi_email" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Email Unpaywall</label>
-                            <input type="email" id="cfg_unpaywall_email" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Email OpenAlex (Mailto)</label>
-                            <input type="email" id="cfg_openalex_mailto" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Email CrossRef (Mailto)</label>
-                            <input type="email" id="cfg_crossref_mailto" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Chaves de API das Bases Acadêmicas -->
-                <div>
-                    <h4 class="text-md font-semibold text-brand-700 mb-3 border-b pb-2"><i class="fas fa-search mr-2"></i> Chaves de API de Busca Acadêmica</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">NCBI API Key</label>
-                            <input type="password" id="cfg_ncbi_api_key" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Elsevier API Key</label>
-                            <input type="password" id="cfg_elsevier_api_key" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Embase API Key</label>
-                            <input type="password" id="cfg_embase_api_key" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Embase Inst Token</label>
-                            <input type="password" id="cfg_embase_inst_token" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Scopus API Key</label>
-                            <input type="password" id="cfg_scopus_api_key" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Web of Science (WOS) API Key</label>
-                            <input type="password" id="cfg_wos_api_key" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Springer API Key</label>
-                            <input type="password" id="cfg_springer_api_key" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Springer OA API Key</label>
-                            <input type="password" id="cfg_springer_oa_api_key" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">IEEE API Key</label>
-                            <input type="password" id="cfg_ieee_api_key" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">CORE API Key</label>
-                            <input type="password" id="cfg_core_api_key" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Opções Avançadas -->
-                <div>
-                    <h4 class="text-md font-semibold text-brand-700 mb-3 border-b pb-2"><i class="fas fa-network-wired mr-2"></i> Configurações Avançadas</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Proxy URL</label>
-                            <input type="text" id="cfg_proxy_url" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none" placeholder="http://user:pass@host:port">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">NCBI Tool Name</label>
-                            <input type="text" id="cfg_ncbi_tool_name" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500 outline-none" placeholder="Opcional. Ex: buscador_artigos">
-                        </div>
-                    </div>
-                </div>
-
+            <div class="p-6 overflow-y-auto bg-white flex-1" id="settingsContent">
+                <!-- Settings content will be populated by JavaScript -->
             </div>
-            
             <div class="p-5 border-t border-gray-100 bg-gray-50 flex justify-end gap-3 sticky bottom-0 z-10">
-                <button onclick="closeSettings()" class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 transition">
+                <button @click="showSettings = false"
+                        class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 transition">
                     Cancelar
                 </button>
-                <button onclick="saveSettings()" class="px-4 py-2 bg-brand-600 text-white rounded-lg text-sm font-medium hover:bg-brand-700 transition flex items-center gap-2" id="btn-save-settings">
+                <button @click="saveSettings"
+                        class="px-4 py-2 bg-brand-600 text-white rounded-lg text-sm font-medium hover:bg-brand-700 transition flex items-center gap-2" id="btn-save-settings">
                     <i class="fas fa-save"></i> Salvar Tudo
                 </button>
             </div>
         </div>
     </div>
 
-    
-    <!-- Modal de Queries -->
-    <div id="queryModal" class="fixed inset-0 bg-black/60 hidden z-[60] flex items-center justify-center p-4 backdrop-blur-sm transition-opacity">
-        <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden">
-            <div class="flex items-center justify-between p-5 border-b border-gray-100 bg-gray-50">
-                <h3 class="text-xl font-semibold text-gray-800"><i class="fas fa-search text-brand-600 mr-2"></i> Ajuste as Strings de Busca (Queries)</h3>
-                <button onclick="closeQueryModal()" class="text-gray-400 hover:text-gray-600 transition-colors p-2 rounded-full hover:bg-gray-200">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="p-6 overflow-y-auto bg-white flex-1" id="queryModalBody">
-                <p class="text-sm text-gray-600 mb-4">Insira a query otimizada para cada base selecionada. Exemplo: Para Embase, use queries curtas (sem MeSH gigante) para evitar erro 413.</p>
-                <div id="queryBoxesContainer" class="space-y-4"></div>
-            </div>
-            <div class="p-5 border-t border-gray-100 bg-gray-50 flex justify-end gap-3 sticky bottom-0">
-                <button onclick="closeQueryModal()" class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">Cancelar</button>
-                <button onclick="confirmAndRunSearch()" class="px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 font-medium">Confirmar & Iniciar Busca</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal do Relatório -->
-    <div id="reportModal" class="fixed inset-0 bg-black/60 hidden z-50 flex items-center justify-center p-4 backdrop-blur-sm transition-opacity">
+    <!-- Report Modal -->
+    <div x-show="showReport"
+         class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50 transition-opacity">
         <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden transform transition-all">
             <!-- Modal Header -->
             <div class="flex items-center justify-between p-5 border-b border-gray-100 bg-gray-50">
@@ -1076,7 +715,8 @@
                     <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                     Relatório de Análise
                 </h3>
-                <button id="closeReportModal" class="text-gray-400 hover:text-gray-600 transition-colors p-2 rounded-full hover:bg-gray-200">
+                <button @click="showReport = false"
+                        class="text-gray-400 hover:text-gray-600 transition-colors p-2 rounded-full hover:bg-gray-200">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
@@ -1088,52 +728,191 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
     <script>
-        const btnReport = document.getElementById('btnReport');
-        const reportModal = document.getElementById('reportModal');
-        const closeReportModal = document.getElementById('closeReportModal');
-        const reportContent = document.getElementById('reportContent');
+        function app() {
+            return {
+                // State
+                sidebarOpen: false,
+                activeStep: 0,
+                uploading: false,
+                searching: false,
+                downloading: false,
+                analyzing: false,
+                showQueryEditor: false,
+                showSettings: false,
+                showReport: false,
+                selectedFile: null,
+                status: {
+                    steps: [
+                        { id: 0, label: 'Upload', completed: false, active: false },
+                        { id: 1, label: 'Busca', completed: false, active: false },
+                        { id: 2, label: 'Download', completed: false, active: false },
+                        { id: 3, label: 'Análise IA', completed: false, active: false },
+                        { id: 4, label: 'Relatório', completed: false, active: false },
+                        { id: 5, label: 'Configurações', completed: false, active: false }
+                    ]
+                },
+                steps: [
+                    { id: 0, label: 'Upload', number: '01' },
+                    { id: 1, label: 'Busca', number: '02' },
+                    { id: 2, label: 'Download', number: '03' },
+                    { id: 3, label: 'Análise IA', number: '04' },
+                    { id: 4, label: 'Relatório', number: '05' },
+                    { id: 5, label: 'Configurações', number: '06' }
+                ],
 
-        if(btnReport) {
-            btnReport.addEventListener('click', async () => {
-                reportModal.classList.remove('hidden');
-                reportContent.innerHTML = '<div class="flex justify-center items-center py-10"><div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div></div>';
-                
-                try {
-                    const response = await fetch('/api/report');
-                    if(response.ok) {
-                        const contentType = response.headers.get("content-type");
-                        if(contentType && contentType.includes("application/json")) {
-                            const data = await response.json();
-                            if(data.error) {
-                                reportContent.innerHTML = `<div class="text-red-500 p-4 bg-red-50 rounded border border-red-100">${data.error}</div>`;
-                            }
-                        } else {
-                            const text = await response.text();
-                            reportContent.innerHTML = marked.parse(text);
-                        }
-                    } else {
-                        reportContent.innerHTML = '<div class="text-red-500 p-4">Erro ao carregar o relatório.</div>';
-                    }
-                } catch(e) {
-                    reportContent.innerHTML = '<div class="text-red-500 p-4">Erro de conexão ao carregar o relatório.</div>';
+                // Methods
+                init() {
+                    // Load saved state if any
+                    this.loadStatus();
+                },
+
+                loadStatus() {
+                    // In a real app, we would load from localStorage or API
+                    // For now, we'll simulate
+                    setTimeout(() => {
+                        // Simulate some completed steps
+                        // this.status.steps[0].completed = true;
+                        // this.status.steps[1].completed = true;
+                        // this.activeStep = 2;
+                    }, 1000);
+                },
+
+                // Upload methods
+                uploadFile() {
+                    const fileInput = document.getElementById('fileUpload');
+                    const file = fileInput.files[0];
+                    if (!file) return;
+
+                    this.selectedFile = file;
+                    this.uploading = true;
+
+                    // Simulate upload process
+                    setTimeout(() => {
+                        this.uploading = false;
+                        // Mark upload as complete
+                        this.status.steps[0].completed = true;
+                        this.status.steps[0].active = true;
+                        this.status.steps[1].active = true;
+                        this.activeStep = 1;
+                        // Save status
+                        this.saveStatus();
+                    }, 2000);
+                },
+
+                // Search methods
+                openQueryEditor() {
+                    this.showQueryEditor = true;
+                    // Populate query boxes based on selected databases
+                    this.populateQueryBoxes();
+                },
+
+                populateQueryBoxes() {
+                    // This would be implemented to show query editors for selected databases
+                    // For now, we'll just show a placeholder
+                    const container = document.getElementById('queryBoxesContainer');
+                    container.innerHTML = `
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <p class="text-sm text-gray-500">As queries serão carregadas aqui com base nas bases selecionadas.</p>
+                        </div>
+                    `;
+                },
+
+                saveQueries() {
+                    // Save queries logic
+                    this.showQueryEditor = false;
+                    // Simulate saving
+                    alert('Queries salvas com sucesso!');
+                },
+
+                runSearch() {
+                    this.searching = true;
+                    // Simulate search process
+                    setTimeout(() => {
+                        this.searching = false;
+                        // Mark search as complete
+                        this.status.steps[1].completed = true;
+                        this.status.steps[1].active = false;
+                        this.status.steps[2].active = true;
+                        this.activeStep = 2;
+                        this.saveStatus();
+                    }, 3000);
+                },
+
+                // Download methods
+                startDownload() {
+                    this.downloading = true;
+                    // Simulate download process
+                    setTimeout(() => {
+                        this.downloading = false;
+                        // Mark download as complete
+                        this.status.steps[2].completed = true;
+                        this.status.steps[2].active = false;
+                        this.status.steps[3].active = true;
+                        this.activeStep = 3;
+                        this.saveStatus();
+                    }, 4000);
+                },
+
+                // Analysis methods
+                startAnalysis() {
+                    this.analyzing = true;
+                    // Simulate analysis process
+                    setTimeout(() => {
+                        this.analyzing = false;
+                        // Mark analysis as complete
+                        this.status.steps[3].completed = true;
+                        this.status.steps[3].active = false;
+                        this.status.steps[4].active = true;
+                        this.activeStep = 4;
+                        this.saveStatus();
+                    }, 5000);
+                },
+
+                // Report methods
+                viewReport() {
+                    this.showReport = true;
+                    // In a real app, we would fetch the report from the API
+                    // For now, we'll show a placeholder
+                    setTimeout(() => {
+                        const reportContent = document.getElementById('reportContent');
+                        reportContent.innerHTML = `
+                            <h3 class="text-xl font-bold text-gray-900 mb-4">Relatório de Revisão Sistemática</h3>
+                            <p class="text-gray-700 mb-6">Este é um relatório de exemplo mostrando os resultados da revisão sistemática realizada pelo sistema.</p>
+                            <div class="space-y-4">
+                                <div class="border-t pt-4">
+                                    <h4 class="text-lg font-semibold text-gray-900 mb-2">Resumo Executivo</h4>
+                                    <p class="text-gray-600">Foram encontrados 15 artigos relevantes após a aplicação dos critérios de inclusão e exclusão. Destes, 8 foram incluídos na revisão final, 4 foram excluídos e 3 requerem revisão manual.</p>
+                                </div>
+                                <div class="border-t pt-4">
+                                    <h4 class="text-lg font-semibold text-gray-900 mb-2">Fluxo PRISMA</h4>
+                                    <p class="text-gray-600">O fluxo PRISMA mostra o processo de seleção dos artigos através das diferentes etapas da revisão sistemática.</p>
+                                </div>
+                            </div>
+                        `;
+                    }, 1000);
+                },
+
+                exportReport() {
+                    // Export report logic
+                    alert('Exportando relatório...');
+                },
+
+                // Settings methods
+                saveSettings() {
+                    // Save settings logic
+                    this.showSettings = false;
+                    alert('Configurações salvas com sucesso!');
+                },
+
+                // Helper methods
+                saveStatus() {
+                    // In a real app, we would save to localStorage or send to server
+                    console.log('Status saved:', this.status);
                 }
-            });
-        }
-
-        if(closeReportModal) {
-            closeReportModal.addEventListener('click', () => {
-                reportModal.classList.add('hidden');
-            });
-        }
-        
-        window.addEventListener('click', (e) => {
-            if (e.target === reportModal) {
-                reportModal.classList.add('hidden');
             }
-        });
+        }
     </script>
-
-
-</body></html>
+</body>
+</html>

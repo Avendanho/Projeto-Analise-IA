@@ -51,7 +51,7 @@ import uuid
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-from bypass403 import bypass_download_pdf, bypass_get, default_engine as bypass_engine, validate_pdf_data
+from .bypass403 import bypass_download_pdf, bypass_get, default_engine as bypass_engine, validate_pdf_data
 
 # ---------------------------------------------------------------------------
 # Versioning

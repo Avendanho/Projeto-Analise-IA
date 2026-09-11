@@ -16,21 +16,25 @@ class EvidenceStore:
     def __init__(self):
         self._store: Dict[str, EvidenceSnippet] = {}
         
-    def add_evidence(self, article_id: str, text: str, section: Optional[str] = None, page: Optional[int] = None, image_path: Optional[str] = None) -> str:
-        # Gera hash único e reprodutível do texto
-        hash_obj = hashlib.md5(f"{article_id}_{text}".encode()).hexdigest()[:8]
-        evidence_id = f"EV-{hash_obj.upper()}"
-        
-        if evidence_id not in self._store:
-            self._store[evidence_id] = EvidenceSnippet(
-                evidence_id=evidence_id,
+    def add_evidence(self, article_id: str, text: str, section: Optional[str] = None, page: Optional[int] = None, image_path: Optional[str] = None, evidence_id: Optional[str] = None) -> str:
+        # If evidence_id is provided, use it; otherwise, generate hash-based ID
+        if evidence_id is not None:
+            final_evidence_id = evidence_id
+        else:
+            # Gera hash único e reprodutível do texto
+            hash_obj = hashlib.md5(f"{article_id}_{text}".encode()).hexdigest()[:8]
+            final_evidence_id = f"EV-{hash_obj.upper()}"
+
+        if final_evidence_id not in self._store:
+            self._store[final_evidence_id] = EvidenceSnippet(
+                evidence_id=final_evidence_id,
                 article_id=article_id,
                 page=page,
                 section=section,
                 text=text,
                 image_path=image_path
             )
-        return evidence_id
+        return final_evidence_id
 
     def get_evidence(self, evidence_id: str) -> Optional[EvidenceSnippet]:
         return self._store.get(evidence_id)

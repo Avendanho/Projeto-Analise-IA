@@ -38,9 +38,10 @@ class RuleEngine:
                 missing_criteria.append(criterion_id)
                 all_s = False
                 continue
-                
+
             res = results[criterion_id]
-            
+            rule = self.exclusion_rules[criterion_id]
+
             if res.answer != "S" and res.answer != rule["fail_val"]:
                 all_s = False
             

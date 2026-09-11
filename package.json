@@ -1,0 +1,26 @@
+{
+  "name": "projeto-analise-ia",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Avendanho/Projeto-Analise-IA.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Avendanho/Projeto-Analise-IA/issues"
+  },
+  "homepage": "https://github.com/Avendanho/Projeto-Analise-IA#readme",
+  "devDependencies": {
+    "typescript": "^7.0.2"
+  }
+}

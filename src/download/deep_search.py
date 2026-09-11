@@ -6,20 +6,7 @@ import urllib.parse
 import time
 from pathlib import Path
 import xml.etree.ElementTree as ET
-
-def try_pmcid_from_pmid(pmid: str, timeout: int = 15) -> str:
-    url = f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id={pmid}&retmode=xml"
-    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
-            xml_data = resp.read().decode("utf-8")
-            root = ET.fromstring(xml_data)
-            for article_id in root.iter('article-id'):
-                if article_id.get('pub-id-type') == 'pmc':
-                    return article_id.text
-    except:
-        pass
-    return None
+from src.download.fetch import try_pmcid_from_pmid
 
 def download_pdf(url: str, output_path: Path):
     req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})

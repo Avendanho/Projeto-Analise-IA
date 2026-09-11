@@ -38,7 +38,7 @@ if hasattr(sys.stdout, "reconfigure"):
         pass
 
 import fetch as fetch_module
-from bypass403 import validate_pdf_data
+from .bypass403 import validate_pdf_data
 from fetch import (
     _filename,
     _load_dois_and_titles_from_file,

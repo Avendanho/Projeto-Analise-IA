@@ -14,6 +14,7 @@ from .decision_engine import RuleEngine
 from .deliberator import Deliberator
 from .validators import DocumentQualityAnalyzer, CriterionValidator, FinalResultValidator
 from ..infrastructure.model_router import get_model_router
+from ..evidence.store import global_evidence_store
 from analiseia.config.settings import get_settings
 
 class ScreeningOrchestrator:
@@ -119,6 +120,16 @@ class ScreeningOrchestrator:
                         retrieved[sid] = sdata
             
             # 6. Contextual Interpretation
+            # Register retrieved sections in global evidence store so evidence_ids (S00X) can be validated
+            global_evidence_store.clear_article(article.article_id)
+            for sid, sdata in retrieved.items():
+                global_evidence_store.add_evidence(
+                    article_id=article.article_id,
+                    text=sdata["text"],
+                    section=sid,
+                    evidence_id=sid
+                )
+
             console.print(f"[magenta]Interpretando seções {list(retrieved.keys())} para: {g_name}[/magenta]")
             group_results = interpreter_agent.evaluate_group(g_name, g_crit, retrieved)
             

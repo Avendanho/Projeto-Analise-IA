@@ -77,6 +77,9 @@ images/*
 
 output/*
 !output/.gitkeep
+# Ignore reports directory inside output
+output/reports/
+!output/reports/.gitkeep
 
 downloads/*
 !downloads/.gitkeep
@@ -105,3 +108,8 @@ src/download/test_dois.txt
 src/search/output/
 src/search/quary.txt
 patch_modal.html
+
+# Node.js dependencies
+node_modules/
+package-lock.json
+

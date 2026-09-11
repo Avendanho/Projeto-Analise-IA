@@ -245,7 +245,7 @@ async def run_search(auto_detect: bool = True):
     
     import json as _json
     bases_json = _json.dumps(selected_bases)
-    use_ufmg_str = "true" if ufmg else "false"
+    use_ufmg_str = "false"
     
     # Usa o runner.py diretamente em vez de gerar código Python dinamicamente
     runner_script = src_dir / "runner.py"

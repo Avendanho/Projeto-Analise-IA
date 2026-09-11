@@ -63,18 +63,24 @@ class CriterionConfig(BaseModel):
     fail_value: str
     exclusion_code: str
 
-class SemanticExtraction(BaseModel):
-    picos_population: str = Field(description="População estudada (ex: Humanos com TEA, controles, modelo animal)")
-    picos_intervention_exposure: str = Field(description="Intervenção ou exposição (incluindo avaliação de componentes genéticos ou imunológicos)")
-    picos_comparator: str = Field(description="Comparador (se aplicável)")
-    picos_outcomes: str = Field(description="Desfechos / Resultados / Key Findings")
-    picos_study_design: str = Field(description="Desenho do estudo (ex: caso-controle, coorte, ensaio)")
-    
-    # Domínio Específico do Protocolo (Para não perder a precisão do protocolo atual)
-    genetic_component: str = Field(description="Variáveis genéticas ou moleculares investigadas")
-    inflammatory_component: str = Field(description="Marcadores imunológicos ou inflamatórios investigados")
-    
-    relevant_evidence_snippets: list[str] = Field(description="Trechos literais extraídos do artigo que sustentam as extrações (com ID [EV-XXX])")
+class ArticleOverview(BaseModel):
+    central_question: str
+    main_objective: str
+    population: str
+    condition: str
+    study_design: str
+    main_concepts: list[str]
+
+class SectionMap(BaseModel):
+    id: str
+    heading: str
+    summary: str = Field(description="Resumo semântico extremamente curto da seção")
+    concepts: list[str] = Field(description="No máximo 3 palavras-chave fundamentais desta seção")
+
+class SemanticArticleMap(BaseModel):
+    article_overview: ArticleOverview
+    sections: list[SectionMap]
+
 
 class FastScreeningConfig(BaseModel):
     enabled: bool = True

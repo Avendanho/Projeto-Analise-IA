@@ -29,3 +29,5 @@ fastapi
 uvicorn[standard]
 pymupdf4llm>=0.0.17
 python-multipart
+langdetect
+deep_translator

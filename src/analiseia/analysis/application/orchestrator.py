@@ -1,13 +1,15 @@
-import concurrent.futures
+import os
 import json
+import hashlib
 from pathlib import Path
 from typing import Dict
-from ..domain.models import ArticleDocument, FinalResult, CriterionResult, ScreeningDecision, ProtocolConfig
+from rich.console import Console
+
+from ..domain.models import ArticleDocument, FinalResult, CriterionResult, ScreeningDecision, ProtocolConfig, SemanticArticleMap
 from ..agents.fast_screening import FastScreeningAgent, FastScreeningResult
-from ..agents.base import BaseCriterionAgent
-from ..agents.semantic_extractor import SemanticExtractionAgent
-from ..agents.criteria_evaluator import CriteriaEvaluatorAgent
-from ..domain.models import SemanticExtraction
+from ..agents.semantic_mapper import SemanticMapperAgent
+from ..agents.section_router import SectionRouterAgent
+from ..agents.contextual_interpreter import ContextualInterpreterAgent
 from .decision_engine import RuleEngine
 from .deliberator import Deliberator
 from .validators import DocumentQualityAnalyzer, CriterionValidator, FinalResultValidator
@@ -31,11 +33,13 @@ class ScreeningOrchestrator:
         self.fast_screener = FastScreeningAgent(self.config.fast_screening, self.router.route_for_classification())
         self.deliberator = Deliberator(self.router.route_for_verification())
         self.rule_engine = RuleEngine(self.config)
-        
-        self.semantic_agent = SemanticExtractionAgent()
-        self.criteria_agent = CriteriaEvaluatorAgent(self.config.criteria)
-        
+
     def analyze_article(self, article: ArticleDocument) -> FinalResult:
+        console = Console()
+        mapper_agent = SemanticMapperAgent()
+        router_agent = SectionRouterAgent()
+        interpreter_agent = ContextualInterpreterAgent()
+
         # 0. Document Quality
         ok, reason = DocumentQualityAnalyzer.analyze(article)
         if not ok:
@@ -46,95 +50,93 @@ class ScreeningOrchestrator:
                 justification=f"Qualidade do documento insuficiente: {reason}"
             )
 
-        # 1. Fast Screening
-        if self.config.fast_screening.enabled:
-            fast_res: FastScreeningResult = self.fast_screener.analyze(article)
-            if fast_res.screening_decision == "LIKELY_EXCLUDED":
-                # User RULE: Fast screening elimina apenas casos CLARAMENTE INCOMPATÍVEIS.
-                return FinalResult(
-                    article_id=article.article_id,
-                    decision=ScreeningDecision.EXCLUDE,
-                    exclusion_code=self.config.fast_screening.exclusion_code,
-                    confidence=fast_res.confidence,
-                    justification=f"EXCLUÍDO (Fast Screening): O abstract é obviamente incompatível. Motivo: {fast_res.reason}"
-                )
-            elif fast_res.screening_decision == "UNCERTAIN":
-                # Cai para a camada 2 (SinglePassAgent) para análise completa sem excluir
-                pass
-            # POTENTIAL_INCLUDE também cai para a camada 2 naturalmente
+        # 1. Fast Screening (Desativado conforme pedido do usuário - analise full text primeiro)
+        # if self.config.fast_screening.enabled:
+        #     fast_res = self.fast_screener.analyze(article)
+        #     if fast_res.screening_decision == "LIKELY_EXCLUDED":
+        #         return FinalResult(...)
+                
+        # Load sections and markdown
+        extracted_dir = Path(self.settings.db_dir) / "extracted" / article.article_id
+        sections_path = extracted_dir / "sections.json"
+        content_path = extracted_dir / "content.md"
+        
+        if not sections_path.exists() or not content_path.exists():
+            return FinalResult(article_id=article.article_id, decision=ScreeningDecision.ERROR, confidence=0, justification="Erro: Markdown ou Sections ausentes.")
             
-        import os, json, hashlib
-        # 2. Extração Semântica com Cache
-        cache_dir = Path(self.settings.db_dir) / "extracted" / article.article_id
-        cache_dir.mkdir(parents=True, exist_ok=True)
-        semantic_cache_path = cache_dir / "semantic_extraction.json"
+        with open(sections_path, "r", encoding="utf-8") as f:
+            sections_db = json.load(f)
+        with open(content_path, "r", encoding="utf-8") as f:
+            markdown_text = f.read()
+
+        # 2. Semantic Article Map (Cache)
+        map_cache_path = extracted_dir / "semantic_map.json"
+        article_map = None
         
-        semantic_extraction = None
-        
-        # Check cache
-        if semantic_cache_path.exists():
+        if map_cache_path.exists():
             try:
-                with open(semantic_cache_path, "r", encoding="utf-8") as f:
-                    data = json.load(f)
-                    semantic_extraction = SemanticExtraction(**data)
+                with open(map_cache_path, "r", encoding="utf-8") as f:
+                    article_map = SemanticArticleMap(**json.load(f))
             except:
-                semantic_extraction = None
+                article_map = None
+                
+        if not article_map:
+            console.print("[cyan]Gerando Mapa Semântico...[/cyan]")
+            article_map = mapper_agent.generate_map(article, markdown_text)
+            with open(map_cache_path, "w", encoding="utf-8") as f:
+                f.write(article_map.model_dump_json(indent=2))
 
-        if not semantic_extraction:
-            try:
-                semantic_extraction = self.semantic_agent.extract(article)
-                with open(semantic_cache_path, "w", encoding="utf-8") as f:
-                    f.write(semantic_extraction.model_dump_json(indent=2))
-            except Exception as exc:
-                return FinalResult(
-                    article_id=article.article_id,
-                    decision=ScreeningDecision.ERROR,
-                    confidence=0,
-                    justification=f"Falha na Extração Semântica: {str(exc)}"
-                )
-
-        # 3. Avaliação dos Critérios baseada na Extração
+        # 3. Group Criteria
+        g1_ids = ["Q1_HUMAN", "Q2_TEA_DIAGNOSIS", "Q3_FORMAL_DIAGNOSIS", "Q4_SUBGROUP_DATA", "Q11_STUDY_DESIGN", "Q12_CONFIRM_NOT_ANIMAL"]
+        g2_ids = ["Q5_GENETIC_COMPONENT", "Q6_GENETIC_MEASURED", "Q7_INFLAMMATORY", "Q8_INFLAMMATORY_MEASURED", "Q9_GENE_INFLAMMATION_LINK", "Q10_TEA_CONTEXT"]
+        
+        g1_crit = [c for c in self.config.criteria if c.id in g1_ids]
+        g2_crit = [c for c in self.config.criteria if c.id in g2_ids]
+        
+        groups = [("Populacao_Desenho", g1_crit), ("Genetica_Imunologia", g2_crit)]
+        if not g1_crit and not g2_crit:
+            groups = [("Todos_Criterios", self.config.criteria)]
+            
         results: Dict[str, CriterionResult] = {}
-        try:
-            sp_results = self.criteria_agent.evaluate(semantic_extraction)
-            for res in sp_results:
-                valid, msg = CriterionValidator.validate(res)
+        
+        for g_name, g_crit in groups:
+            if not g_crit: continue
+            
+            # 4. Semantic Router
+            console.print(f"[blue]Roteando seções para: {g_name}[/blue]")
+            rel_sec_ids = router_agent.route_for_group(g_name, g_crit, article_map)
+            
+            # 5. Original Section Retrieval
+            retrieved = {}
+            for sid in rel_sec_ids:
+                if sid in sections_db:
+                    retrieved[sid] = sections_db[sid]
+            
+            if not retrieved:
+                for sid, sdata in sections_db.items():
+                    h = sdata["heading"].lower()
+                    if "intro" in h or "result" in h or "abstract" in h:
+                        retrieved[sid] = sdata
+            
+            # 6. Contextual Interpretation
+            console.print(f"[magenta]Interpretando seções {list(retrieved.keys())} para: {g_name}[/magenta]")
+            group_results = interpreter_agent.evaluate_group(g_name, g_crit, retrieved)
+            
+            for res in group_results:
+                crit_desc = next((c.description for c in g_crit if c.id == res.criterion_id), "")
+                valid, msg = CriterionValidator.validate(res, crit_desc)
                 if not valid:
                     res.answer = "NC"
                     res.confidence = 0
                     res.summary = f"Validação falhou: {msg}"
                 results[res.criterion_id] = res
-                
-            for crit_config in self.config.criteria:
-                if crit_config.id not in results:
-                    results[crit_config.id] = CriterionResult(
-                        criterion_id=crit_config.id,
-                        answer="NC",
-                        confidence=0,
-                        summary="Erro: LLM não retornou este critério."
-                    )
-        except Exception as exc:
-            return FinalResult(
-                article_id=article.article_id,
-                decision=ScreeningDecision.ERROR,
-                confidence=0,
-                justification=f"Falha na Avaliação dos Critérios: {str(exc)}"
-            )
 
-        # 4. Decision Engine
+        # 7. Engine & Verification
         decision, code, justification = self.rule_engine.evaluate(results)
-        
         confidences = [r.confidence for r in results.values() if isinstance(r.confidence, int)]
         avg_confidence = sum(confidences) // len(confidences) if confidences else 0
         
-        # Re-route to MANUAL_REVIEW if average confidence is too low
-        if avg_confidence < self.settings.ai_confidence_low and decision == ScreeningDecision.INCLUDE:
-            decision = ScreeningDecision.MANUAL_REVIEW
-            justification += f" (Forçado para Revisão Manual: Confiança baixa {avg_confidence}%)"
-            
-        key_syn = None
-        if global_analysis:
-            key_syn = f"Objetivo: {global_analysis.objetivo_estudo} | População: {global_analysis.populacao_condicao} | Genética: {global_analysis.componente_genetico} | Imuno: {global_analysis.componente_inflamatorio}"
+        key_syn = f"Questão Central: {article_map.article_overview.central_question}"
 
         final_res = FinalResult(
             article_id=article.article_id,
@@ -145,10 +147,4 @@ class ScreeningOrchestrator:
             criteria_results=results,
             key_synthesis=key_syn
         )
-        
-        valid, msg = FinalResultValidator.validate(final_res)
-        if not valid:
-            final_res.decision = ScreeningDecision.MANUAL_REVIEW
-            final_res.justification += f" (Validador Final detectou erro: {msg})"
-            
         return final_res

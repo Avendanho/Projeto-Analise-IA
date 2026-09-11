@@ -6,6 +6,9 @@ from pathlib import Path
 from typing import Dict, Any
 import concurrent.futures
 import pymupdf4llm
+from langdetect import detect
+from deep_translator import GoogleTranslator
+from concurrent.futures import ThreadPoolExecutor
 from config import settings
 
 def get_hash(filepath: str) -> str:
@@ -15,6 +18,38 @@ def get_hash(filepath: str) -> str:
             h.update(chunk)
     return h.hexdigest()
 
+
+def _translate_markdown(text: str) -> str:
+    try:
+        lang = detect(text[:2000])
+        if lang in ['en', 'pt']:
+            return text
+            
+        print(f"Idioma detectado: {lang}. Traduzindo para o Inglês...")
+        translator = GoogleTranslator(source='auto', target='en')
+        
+        # Split by empty lines to preserve markdown paragraphs
+        chunks = text.split('\n\n')
+        translated_chunks = []
+        
+        for chunk in chunks:
+            if not chunk.strip():
+                translated_chunks.append("")
+                continue
+                
+            # Google Translate has a 5000 chars limit per request
+            if len(chunk) < 4500:
+                translated_chunks.append(translator.translate(chunk))
+            else:
+                # If a single paragraph is too large (rare), just append as is or slice
+                sub_chunks = [chunk[i:i+4500] for i in range(0, len(chunk), 4500)]
+                t_sub = [translator.translate(s) for s in sub_chunks]
+                translated_chunks.append("".join(t_sub))
+                
+        return "\n\n".join(translated_chunks)
+    except Exception as e:
+        print(f"Erro na tradução: {e}")
+        return text
 
 def _clean_redundant_info(text: str) -> str:
     """Limpa informações redundantes do Markdown para reduzir tokens."""
@@ -83,6 +118,44 @@ def _trim_references(text: str) -> str:
         
     return text
 
+
+def _chunk_markdown(text: str) -> dict:
+    sections = {}
+    lines = text.split('\n')
+    current_heading = "Title / Introduction"
+    current_level = 1
+    current_text = []
+    section_index = 1
+    
+    for line in lines:
+        match = re.match(r'^(#{1,6})\s+(.*)$', line)
+        if match:
+            if current_text and "".join(current_text).strip():
+                sec_id = f"S{section_index:03d}"
+                sections[sec_id] = {
+                    "heading": current_heading,
+                    "level": current_level,
+                    "text": "\n".join(current_text).strip(),
+                    "order": section_index
+                }
+                section_index += 1
+            
+            current_level = len(match.group(1))
+            current_heading = match.group(2).strip()
+            current_text = []
+        else:
+            current_text.append(line)
+            
+    if current_text and "".join(current_text).strip():
+        sec_id = f"S{section_index:03d}"
+        sections[sec_id] = {
+            "heading": current_heading,
+            "level": current_level,
+            "text": "\n".join(current_text).strip(),
+            "order": section_index
+        }
+    return sections
+
 def _process_pdf_worker(filepath: str, article_id: str) -> Dict[str, Any]:
     out_dir = Path(settings.db_dir) / "extracted" / article_id
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -99,6 +172,9 @@ def _process_pdf_worker(filepath: str, article_id: str) -> Dict[str, Any]:
         original_len = len(text)
         text = _clean_redundant_info(text)
         text = _trim_references(text)
+        
+        # Translate to English if in Russian or other languages
+        text = _translate_markdown(text)
         if len(text) < original_len:
             print(f"[{article_id}] Markdown otimizado. Tamanho reduzido em {100 - (len(text)/original_len)*100:.1f}%.")
             
@@ -114,6 +190,10 @@ def _process_pdf_worker(filepath: str, article_id: str) -> Dict[str, Any]:
         
     with open(out_dir / "content.md", "w", encoding="utf-8") as f:
         f.write(text)
+        
+    sections = _chunk_markdown(text)
+    with open(out_dir / "sections.json", "w", encoding="utf-8") as f:
+        json.dump(sections, f, indent=2, ensure_ascii=False)
         
     quality = "HIGH" if len(text) > 1000 else "LOW"
     if "Erro" in text:

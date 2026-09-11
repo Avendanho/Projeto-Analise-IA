@@ -24,29 +24,18 @@
             }
         }
     </script>
-    <style>
-        /* Custom styles */
-        .transition-all {
-            transition-property: all;
-            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-            transition-duration: 150ms;
-        }
-        .hover\:scale-105:hover {
-            --tw-scale-x: 1.05;
-            --tw-scale-y: 1.05;
-            transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scale(var(--tw-scale-x) var(--tw-scale-y));
-        }
-    </style>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="font-sans bg-gray-50" x-data="app()" :class="{ 'overflow-hidden': sidebarOpen }">
     <!-- Mobile Sidebar Button -->
-    <button @click.toggle="sidebarOpen"
+    <button @click="sidebarOpen = !sidebarOpen"
             class="fixed left-4 top-4 z-50 p-2 bg-white rounded-full shadow-lg hover:bg-brand-50 transition-all
                    md:hidden"
             :aria-expanded="sidebarOpen"
             aria-label="Abrir menu">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800" :class="{ 'text-white': sidebarOpen }"
-             fill="none" viewBox="0 0 24 24" stroke="currentStroke">
+             fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   :d="sidebarOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'"></path>
         </svg>
@@ -76,7 +65,7 @@
                                                 'text-gray-600 hover:bg-gray-50': activeStep !== 0 }"
                                 :aria-current="activeStep === 0 ? 'step' : undefined">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0"
-                                 fill="none" viewBox="0 0 24 24" stroke="currentStroke"
+                                 fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                  :class="{ 'text-brand-600': activeStep === 0, 'text-gray-400': activeStep !== 0 }">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                       d="M12 8c-1.1 0-2 .9-2 2s1 2 2 2 2-.9 2-2-1-2-2-2zm0 12c-1.1 0-2 .9-2 2s1 2 2 2 2-.9 2-2-1-2-2-2zm0-6c-1.1 0-2 .9-2 2s1 2 2 2 2-.9 2-2-1-2-2-2z"></path>
@@ -91,7 +80,7 @@
                                                 'text-gray-600 hover:bg-gray-50': activeStep !== 1 }"
                                 :aria-current="activeStep === 1 ? 'step' : undefined">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0"
-                                 fill="none" viewBox="0 0 24 24" stroke="currentStroke"
+                                 fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                  :class="{ 'text-brand-600': activeStep === 1, 'text-gray-400': activeStep !== 1 }">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                       d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -106,7 +95,7 @@
                                                 'text-gray-600 hover:bg-gray-50': activeStep !== 2 }"
                                 :aria-current="activeStep === 2 ? 'step' : undefined">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0"
-                                 fill="none" viewBox="0 0 24 24" stroke="currentStroke"
+                                 fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                  :class="{ 'text-brand-600': activeStep === 2, 'text-gray-400': activeStep !== 2 }">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                       d="M8 7h3m8 0v3m-3-3h3m8 0H9a2 2 0 00-2 2v9a2 2 0 002 2h10a2 2 0 002-2V9a2 2 0 00-2-2z"></path>
@@ -121,7 +110,7 @@
                                                 'text-gray-600 hover:bg-gray-50': activeStep !== 3 }"
                                 :aria-current="activeStep === 3 ? 'step' : undefined">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0"
-                                 fill="none" viewBox="0 0 24 24" stroke="currentStroke"
+                                 fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                  :class="{ 'text-brand-600': activeStep === 3, 'text-gray-400': activeStep !== 3 }">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                       d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 4.411 2.915 8.14 7 9.418v6.6A1.996 1.996 0 005 21h14a2 2 0 002-2v-.801c4.085-1.278 7-5.007 7-9.418 0-1.132-.168-2.235-.5-3.24"></path>
@@ -136,7 +125,7 @@
                                                 'text-gray-600 hover:bg-gray-50': activeStep !== 4 }"
                                 :aria-current="activeStep === 4 ? 'step' : undefined">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0"
-                                 fill="none" viewBox="0 0 24 24" stroke="currentStroke"
+                                 fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                  :class="{ 'text-brand-600': activeStep === 4, 'text-gray-400': activeStep !== 4 }">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                       d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
@@ -151,7 +140,7 @@
                                                 'text-gray-600 hover:bg-gray-50': activeStep !== 5 }"
                                 :aria-current="activeStep === 5 ? 'step' : undefined">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0"
-                                 fill="none" viewBox="0 0 24 24" stroke="currentStroke"
+                                 fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                  :class="{ 'text-brand-600': activeStep === 5, 'text-gray-400': activeStep !== 5 }">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                       d="M19.428 15.428a2 2 0 00-2.828 0L12 13.172l-4.6 4.6a2 2 0 00-2.828 2.828l5.657 5.657a2 2 0 002.828 0l5.657-5.657a2 2 0 000-2.828z"></path>
@@ -165,11 +154,10 @@
             <!-- Footer -->
             <div class="flex-shrink-0 border-t border-gray-200 px-4 py-4">
                 <button @click="showSettings = true"
-                        class="w-flex flex items-center px-3 py-2 text-sm font-medium
+                        class="w-full flex items-center px-3 py-2 text-sm font-medium
                                text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-all">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0"
-                         fill="none" viewBox="0 0 24 24" stroke="currentStroke"
-                         class="text-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0 text-gray-500"
+                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                               d="M12 8v4l3 3"></path>
                     </svg>
@@ -183,15 +171,14 @@
     <div class="flex flex-col min-h-screen">
         <!-- Header -->
         <header class="bg-white border-b border-gray-200 shadow-sm
-                     :class="{ 'ml-64': !sidebarOpen && !isMD }"
-                     :class="{ 'ml-0': sidebarOpen || isMD }"
+                     :class="{ 'ml-64': !sidebarOpen && !isMD, 'ml-0': sidebarOpen || isMD }"
                      x-data="{ isMD: window.innerWidth >= 768 }"
                      @resize.window="isMD = window.innerWidth >= 768">
             <div class="flex items-center justify-between px-4 py-5">
                 <div class="flex items-center space-x-3">
                     <div class="h-8 w-8 bg-brand-600 rounded-xl flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white"
-                             fill="none" viewBox="0 0 24 24" stroke="currentStroke">
+                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                   d="M3 10h18M3 14h18M3 18h18"></path>
                         </svg>
@@ -217,13 +204,13 @@
 
                     <!-- User Info -->
                     <div class="relative">
-                        <button @click.toggle="userMenuOpen"
+                        <button @click="userMenuOpen = !userMenuOpen"
                                 class="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-100 transition-colors">
                             <img src="https://via.placeholder.com/32" alt="User"
                                  class="h-8 w-8 rounded-full object-cover">
                             <span class="hidden md:block text-sm font-medium text-gray-900">Usuario</span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500"
-                                 fill="none" viewBox="0 0 24 24" stroke="currentStroke">
+                                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                       d="M19 9l-7 7-7-7"></path>
                             </svg>
@@ -310,7 +297,7 @@
                                            class="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-gray-300 rounded-lg hover:border-brand-300 hover:bg-brand-50 transition-colors cursor-pointer">
                                         <div class="flex flex-col items-center justify-center pt-4">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400"
-                                                 fill="none" viewBox="0 0 24 24" stroke="currentStroke">
+                                                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                       d="M7 16l4-4m0 0l4-4m-4 4h18m-4 4v4"></path>
                                             </svg>
@@ -337,7 +324,7 @@
                                            hover:bg-brand-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
                                 <template x-if="uploading">
                                     <svg class="h-5 w-5 animate-spin text-white mr-2"
-                                         fill="none" viewBox="0 0 24 24" stroke="currentStroke">
+                                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                               d="M12 6v6m0 0v6m0-6h6m-6 0h6"></path>
                                     </svg>
@@ -413,7 +400,7 @@
                                                        hover:bg-brand-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
                                             <template x-if="searching">
                                                 <svg class="h-5 w-5 animate-spin text-white mr-2"
-                                                     fill="none" viewBox="0 0 24 24" stroke="currentStroke">
+                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                           d="M12 6v6m0 0v6m0-6h6m-6 0h6"></path>
                                                 </svg>
@@ -465,7 +452,7 @@
                                                    hover:bg-brand-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
                                         <template x-if="downloading">
                                             <svg class="h-5 w-5 animate-spin text-white mr-2"
-                                                 fill="none" viewBox="0 0 24 24" stroke="currentStroke">
+                                                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                       d="M12 6v6m0 0v6m0-6h6m-6 0h6"></path>
                                             </svg>
@@ -485,7 +472,7 @@
                         <!-- Analysis Step Content -->
                         <div class="bg-white rounded-xl shadow-sm p-6">
                             <h2 class="text-2xl font-bold text-gray-900 mb-4">Análise com IA</h2>
-                            <p class="text-gray-600 mb-6>Configure os parâmetros de análise e execute a triagem inteligente dos artigos.</p>
+                            <p class="text-gray-600 mb-6">Configure os parâmetros de análise e execute a triagem inteligente dos artigos.</p>
 
                             <div class="space-y-4">
                                 <div>
@@ -524,7 +511,7 @@
                                                    hover:bg-brand-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
                                         <template x-if="analyzing">
                                             <svg class="h-5 w-5 animate-spin text-white mr-2"
-                                                 fill="none" viewBox="0 0 24 24" stroke="currentStroke">
+                                                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                       d="M12 6v6m0 0v6m0-6h6m-6 0h6"></path>
                                             </svg>
@@ -544,14 +531,14 @@
                         <!-- Report Step Content -->
                         <div class="bg-white rounded-xl shadow-sm p-6">
                             <h2 class="text-2xl font-bold text-gray-900 mb-4">Relatório Final</h2>
-                            <p class="text-gray-600 mb-6>Visualize, exporte e compartilhe os resultados da revisão sistemática.</p>
+                            <p class="text-gray-600 mb-6">Visualize, exporte e compartilhe os resultados da revisão sistemática.</p>
 
                             <div class="space-y-4">
                                 <div class="text-center py-8">
                                     <div class="flex justify-center items-center space-x-4 mb-4">
                                         <div class="h-12 w-12 rounded-full bg-brand-50 flex items-center justify-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-brand-600"
-                                                 fill="none" viewBox="0 0 24 24" stroke="currentStroke">
+                                                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                       d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                             </svg>
@@ -584,7 +571,7 @@
                         <!-- Settings Step Content -->
                         <div class="bg-white rounded-xl shadow-sm p-6">
                             <h2 class="text-2xl font-bold text-gray-900 mb-4">Configurações</h2>
-                            <p class="text-gray-600 mb-6>Personalize as configurações do sistema conforme suas necessidades.</p>
+                            <p class="text-gray-600 mb-6">Personalize as configurações do sistema conforme suas necessidades.</p>
 
                             <div class="space-y-4">
                                 <!-- API Keys Section -->
@@ -638,7 +625,7 @@
                                 <!-- Save Button -->
                                 <div class="pt-4 border-t border-gray-200">
                                     <button @click="saveSettings"
-                                            class="w-flex flex items-center justify-center px-4 py-3 bg-brand-600 text-white rounded-lg
+                                            class="w-full flex items-center justify-center px-4 py-3 bg-brand-600 text-white rounded-lg
                                                    hover:bg-brand-700 transition-colors">
                                         <i class="fas fa-save mr-2"></i> Salvar Configurações
                                     </button>

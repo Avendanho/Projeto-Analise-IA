@@ -11,7 +11,7 @@ class ModelProfile(BaseModel):
     thinking: bool = False
     temperature: float = 0.0
     timeout: float = 600.0
-    max_output_tokens: int = 2048
+    max_output_tokens: int = 8192
     concurrency: int = 2
     retry_limit: int = 3
 

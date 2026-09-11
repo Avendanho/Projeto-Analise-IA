@@ -22,7 +22,8 @@ class ModelRouter:
             thinking=self.settings.ai_enable_thinking,
             timeout=self.settings.ai_timeout,
             retry_limit=self.settings.ai_max_retries,
-            concurrency=self.settings.ai_max_concurrent_requests
+            concurrency=self.settings.ai_max_concurrent_requests,
+            max_output_tokens=8192
         )
         self._vision_profile = ModelProfile(
             provider=self.settings.ai_provider,
@@ -32,7 +33,8 @@ class ModelRouter:
             thinking=False,
             timeout=self.settings.ai_timeout,
             retry_limit=self.settings.ai_max_retries,
-            concurrency=self.settings.ai_max_concurrent_requests
+            concurrency=self.settings.ai_max_concurrent_requests,
+            max_output_tokens=8192
         )
         self._verifier_profile = ModelProfile(
             provider=self.settings.ai_provider,
@@ -42,7 +44,8 @@ class ModelRouter:
             thinking=True, # Verificador geralmente precisa pensar mais
             timeout=self.settings.ai_timeout,
             retry_limit=self.settings.ai_max_retries,
-            concurrency=self.settings.ai_max_concurrent_requests
+            concurrency=self.settings.ai_max_concurrent_requests,
+            max_output_tokens=8192
         )
 
     def _get_client_for_profile(self, profile: ModelProfile) -> LLMClient:

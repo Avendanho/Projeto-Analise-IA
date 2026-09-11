@@ -180,6 +180,20 @@ def report():
         if isinstance(val, str) and val.isdigit(): return int(val)
         return val # returns the string like 'ALTO' instead of 0%
     df['confidence_score'] = df['parsed'].apply(lambda x: parse_conf(x.get("confidence", 0)))
+
+    # --- Aplicar Limite de Confiança ---
+    import os
+    conf_str = os.environ.get("AI_CONFIDENCE_THRESHOLD", "medium").lower()
+    conf_map = {"high": 90, "medium": 70, "low": 50, "alto": 90, "medio": 70, "baixo": 50}
+    min_conf = conf_map.get(conf_str, 70)
+    
+    def enforce_confidence(row):
+        # Se a IA incluiu/excluiu mas a confiança é muito baixa, manda pra revisão
+        if row['decision'] in ["INCLUIDO", "EXCLUIDO"] and row['confidence_score'] < min_conf:
+            return "REVISÃO MANUAL"
+        return row['decision']
+        
+    df['decision'] = df.apply(enforce_confidence, axis=1)
     df['key_synthesis'] = df['parsed'].apply(lambda x: x.get("raw_json", {}).get("key_synthesis", "N/A"))
     df['project_value_added'] = df['parsed'].apply(lambda x: x.get("raw_json", {}).get("project_value_added", "N/A"))
     

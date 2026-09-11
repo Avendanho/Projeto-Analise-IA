@@ -73,9 +73,7 @@ def analyze(workers: int = 10):
         console.print(f"[bold green]🤖 Usando: {app_settings.ai_provider} ({app_settings.ai_primary_model})[/bold green]")
         
         if "ollama" in app_settings.ai_provider.lower():
-            if workers > app_settings.ai_max_concurrent_requests:
-                console.print(f"[yellow]⚠️ Reduzindo workers para {app_settings.ai_max_concurrent_requests} para otimizar VRAM do Ollama Local...[/yellow]")
-                workers = app_settings.ai_max_concurrent_requests
+            console.print(f"[yellow]⚠️ Atenção: Usando {workers} workers simultâneos no Ollama (Monitore sua VRAM!)[/yellow]")
                 
         orchestrator = ScreeningOrchestrator(max_workers=workers)
         repo = AnalysisRepository(db_dir=settings.db_dir)

@@ -314,7 +314,7 @@ async def run_download(workers: int = None):
 
 
 @app.get("/api/run/analyze")
-async def run_analyze(workers: int = None, model: str = None):
+async def run_analyze(workers: int = None, model: str = None, confidence: str = None):
     if workers is None:
         settings = get_settings()
         workers = settings.workers
@@ -325,6 +325,8 @@ async def run_analyze(workers: int = None, model: str = None):
         env["LLM_MODEL"] = model
         env["AI_PRIMARY_MODEL"] = model
         env["AI_VERIFIER_MODEL"] = model
+    if confidence:
+        env["AI_CONFIDENCE_THRESHOLD"] = confidence
     
     async def sse_wrapper():
         yield "data: ⏳ Iniciando extração de texto dos PDFs...\n\n"

@@ -74,7 +74,7 @@ class AppSettings:
         self.workers: int = int(yaml_cfg.get("workers", 4))
         self.ocr_enabled: bool = yaml_cfg.get("ocr_enabled", True)
         self.cache_enabled: bool = yaml_cfg.get("cache_enabled", True)
-        self.confidence_threshold: str = yaml_cfg.get("confidence_threshold", "MODERATE")
+        self.confidence_threshold: str = os.environ.get("AI_CONFIDENCE_THRESHOLD", yaml_cfg.get("confidence_threshold", "MODERATE"))
 
         # --- API Keys (do .env) ---
         self.gemini_api_key: str = os.environ.get("GEMINI_API_KEY", "")

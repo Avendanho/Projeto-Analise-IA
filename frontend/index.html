@@ -453,8 +453,10 @@
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Modelo de IA</label>
                                         <select id="iaModel"
                                                 class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-brand-500 focus:border-brand-500">
-                                            <option value="qwen3-30b-instruct-q4">Qwen 3 30B (Ollama)</option>
-                                            <option value="qwen2.5:14b">Qwen 2.5 14B (Ollama)</option>
+                                            <option value="qwen3:30b">Qwen 3 30B (Ollama Local)</option>
+                                            <option value="qwen3:14b">Qwen 3 14B (Ollama Local)</option>
+                                            <option value="qwen2.5:latest">Qwen 2.5 7B (Ollama Local)</option>
+                                            <option value="llama3:latest">Llama 3 8B (Ollama Local)</option>
                                             <option value="gpt-4o-mini">GPT-4o Mini (OpenAI)</option>
                                             <option value="gemini-3.7-flash">Gemini 3.7 Flash (Google)</option>
                                         </select>
@@ -1185,7 +1187,8 @@
                     this.analyzing = true;
                     const workers = document.getElementById('iaWorkers').value || 2;
                     const model = document.getElementById('iaModel').value || "qwen3-30b-instruct-q4";
-                    this.streamConsole(`/api/run/analyze?workers=${workers}&model=${encodeURIComponent(model)}`, () => {
+                    const confidence = document.getElementById('iaConfidence').value || "medium";
+                    this.streamConsole(`/api/run/analyze?workers=${workers}&model=${encodeURIComponent(model)}&confidence=${encodeURIComponent(confidence)}`, () => {
                         this.analyzing = false;
                         this.status.steps[3].completed = true;
                         this.status.steps[3].active = false;

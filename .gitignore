@@ -113,3 +113,4 @@ patch_modal.html
 node_modules/
 package-lock.json
 
+src/download/Relat*.txt

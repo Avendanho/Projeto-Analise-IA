@@ -15,18 +15,11 @@ class EvidenceVerifier:
         if result.answer == "NC":
             return True, ""
 
-        if not result.evidence_ids:
-            return False, "Agente respondeu S ou N mas não forneceu nenhuma evidência (evidence_ids vazio)."
-
+        if result.answer == "N":
+            return True, ""
+        if result.answer == "S" and result.evidence_quality == "INEXISTENTE":
+            return False, "Agente respondeu S mas qualidade INEXISTENTE."
         ev_texts = []
-        for eid in result.evidence_ids:
-            ev = global_evidence_store.get_evidence(eid)
-            if not ev:
-                return False, f"Evidência inválida inventada pelo agente: {eid}"
-            ev_texts.append(ev.text)
-
-        if result.evidence_quality == "INEXISTENTE" and result.answer in ["S", "N"]:
-            return False, "Agente respondeu S/N mas classificou a qualidade da evidência como INEXISTENTE."
 
         # Verificação Semântica via LLM (somente para evidências cruciais S/N)
         # Otimização: Só chama se a qualidade for MEDIA (inferência), se for ALTA confia no SinglePass

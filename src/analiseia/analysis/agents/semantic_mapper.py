@@ -20,7 +20,7 @@ class SemanticMapperAgent:
         user_prompt = f"Gere o mapa semântico deste artigo em Markdown:\n\n{markdown_text}"
         
         difficulty = DifficultyLevel.EASY
-        requires_vision = bool(article.images_paths)
+        requires_vision = False # Forçando para não crachar modelos locais com erro Multimodal
         
         llm_client = self.router.route_for_classification(requires_vision, difficulty)
         

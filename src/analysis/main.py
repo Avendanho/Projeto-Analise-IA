@@ -95,29 +95,53 @@ def analyze(workers: int = 10):
                     import glob
                     image_paths = glob.glob(str(images_dir / "*.*"))
                 
-                user_prompt = f"Texto do Artigo:\n\n{text_content}\n\nREGRAS RÍGIDAS DE TRIAGEM:\n1. A análise DEVE ser extremamente rígida.\n2. Se o artigo falhar em QUALQUER critério, etapa ou categoria estabelecida no protocolo, ele deve ser classificado IMEDIATAMENTE como 'EXCLUIDO'.\n\nIMPORTANTE: Responda obrigatoriamente no formato JSON, garantindo as chaves: 'parecer_final' ('INCLUIDO', 'EXCLUIDO' ou 'REVISÃO MANUAL'), 'justificativa', 'motivo_principal', e 'confidence_score' (número de 0 a 100)."
+                # Formato esperado para o JSON
+                expected_format = """
+{
+  "q1_human": {"answer": "S", "evidence": "citação exata do pdf", "justification": "motivo"},
+  "q2_tea": {"answer": "S", "evidence": "citação exata do pdf", "justification": "motivo"},
+  "q3_tea_confirmed": {"answer": "S", "evidence": "...", "justification": "..."},
+  "q4_tea_separable": {"answer": "S", "evidence": "...", "justification": "..."},
+  "q5_genetic": {"answer": "S", "evidence": "...", "justification": "..."},
+  "q6_molecular": {"answer": "S", "evidence": "...", "justification": "..."},
+  "q7_genetic_substantive": {"answer": "S", "evidence": "...", "justification": "..."},
+  "q8_inflammation": {"answer": "S", "evidence": "...", "justification": "..."},
+  "q9_inflammatory_biomarker": {"answer": "S", "evidence": "...", "justification": "..."},
+  "q10_inflammation_substantive": {"answer": "S", "evidence": "...", "justification": "..."},
+  "q11_genetic_inflammation_relation": {"answer": "S", "evidence": "...", "justification": "..."},
+  "q12_relation_relevant_to_tea": {"answer": "S", "evidence": "...", "justification": "..."},
+  "q13_publication_type": {"answer": "S", "evidence": "...", "justification": "..."},
+  "q15_animal_final_check": {"answer": "N", "evidence": "...", "justification": "..."},
+  "key_synthesis": "Resumo em 1 parágrafo do principal achado",
+  "project_value_added": "O que este artigo agrega ao projeto"
+}
+"""
+                
+                user_prompt = f"Texto do Artigo:\n\n{text_content}\n\nVocê NÃO decide se o artigo é incluído ou excluído. Sua tarefa é responder as perguntas do protocolo (q1 a q15).\nPara cada pergunta, retorne 'answer' ('S', 'N', 'NC'), 'evidence' (a CITAÇÃO EXATA E VERBATIM extraída do texto que prova a resposta), e 'justification' (raciocínio breve).\nSe a resposta não puder ser confirmada pelo texto, marque como 'NC'.\nAlém disso, preencha 'key_synthesis' e 'project_value_added'.\n\nResponda ESTRITAMENTE em formato JSON seguindo este esquema:\n{expected_format}"
                 try:
                     result_text = analyze_article(protocolo_texto, user_prompt, image_paths)
                     result_json = json.loads(result_text)
                     raw_json = result_json
-                    # Adapt to database format
-                    pf = str(result_json.get("parecer_final", "")).upper()
-                    if "INCLU" in pf:
-                        decision = "INCLUIDO"
-                    elif "EXCLU" in pf:
-                        decision = "EXCLUIDO"
-                    else:
-                        decision = "REVISÃO MANUAL"
-                        
-                    justification = result_json.get("justificativa", str(result_json))
-                    ex_code = result_json.get("motivo_principal", "-")
-                    if ex_code == "-": ex_code = None
-                    try:
-                        conf = int(result_json.get("confidence_score", result_json.get("seguranca", 0)))
-                    except:
-                        conf = 0
+                    
+                    from src.analysis.decision_engine import DecisionEngine
+                    from src.analysis.models import ArticleAnalysis
+                    
+                    analysis_obj = ArticleAnalysis(
+                        article_id=article_id,
+                        filename=meta["filename"],
+                        title=meta.get("title")
+                    )
+                    
+                    engine = DecisionEngine(text_content)
+                    analysis_obj = engine.process_llm_output(analysis_obj, raw_json)
+                    
+                    decision = analysis_obj.decision
+                    ex_code = analysis_obj.exclusion_code
+                    justification = analysis_obj.final_justification
+                    conf = analysis_obj.confidence_score
+                    
                 except Exception as e:
-                    justification = f"Erro na API do LLM: {str(e)}"
+                    justification = f"Erro na API do LLM ou processamento: {str(e)}"
                     raw_json = {"error": str(e)}
                     
             final_analysis = {
@@ -125,7 +149,7 @@ def analyze(workers: int = 10):
                 "exclusion_code": ex_code,
                 "confidence": conf,
                 "justificativa": justification,
-                "raw_json": raw_json
+                "raw_json": analysis_obj.model_dump() if 'analysis_obj' in locals() else raw_json
             }
             
             save_analysis(article_id, meta["filename"], task_hash, final_analysis)

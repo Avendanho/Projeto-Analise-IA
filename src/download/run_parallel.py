@@ -356,19 +356,28 @@ def _check_already_downloaded(doi: str, out_dir: Path) -> Path | None:
     if not out_dir.exists():
         return None
 
+    from src.download.article_identity import ArticleIdentityValidator, IdentityStatus
+    validator = ArticleIdentityValidator()
+
+    def _is_validated(p: Path) -> bool:
+        if not _is_valid_disk_pdf(p):
+            return False
+        status, _ = validator.validate(p, doi=doi, title=None)
+        return status != IdentityStatus.REJECTED_WRONG_ARTICLE
+
     # 1. Check index cache first (0ms)
     idx = _load_download_index(out_dir)
     fname = idx.get(doi.strip().lower())
     if fname:
         p = out_dir / Path(fname).name
-        if p.is_file() and _is_valid_disk_pdf(p):
+        if p.is_file() and _is_validated(p):
             return p
 
     # 2. Check filename matches in out_dir
     doi_slug = _slug(doi, n=20).lower()
     for existing in out_dir.glob("*.pdf"):
         if doi_slug in existing.name.lower():
-            if _is_valid_disk_pdf(existing):
+            if _is_validated(existing):
                 _record_download_index(out_dir, doi, existing.name)
                 return existing
     return None

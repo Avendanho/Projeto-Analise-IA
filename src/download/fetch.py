@@ -2402,8 +2402,19 @@ def fetch(
 
         dl_err = _download(cand_url, dest, timeout=timeout)
         if dl_err is None:
-            _progress("download_ok", doi=doi, file=str(dest), source=cand_src)
-            return _success(cand_src, cand_url), False
+            # Check article identity
+            from src.download.article_identity import ArticleIdentityValidator, IdentityStatus
+            validator = ArticleIdentityValidator()
+            status, info = validator.validate(dest, doi, meta.get("title"))
+            
+            if status == IdentityStatus.REJECTED_WRONG_ARTICLE:
+                _progress("download_identity_rejected", doi=doi, file=str(dest), source=cand_src, info=info)
+                dest.unlink(missing_ok=True)
+                download_errors.append({"source": cand_src, "url": cand_url, "reason": "wrong_article", "identity_info": info})
+                return None, False  # Try next source!
+            
+            _progress("download_ok", doi=doi, file=str(dest), source=cand_src, identity_status=status.name)
+            return _success(cand_src, cand_url, {"identity_status": status.name, "identity_info": info}), False
 
         download_errors.append({"source": cand_src, "url": cand_url, "reason": dl_err})
         if dl_err in FATAL_DL_ERRORS:

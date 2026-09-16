@@ -22,6 +22,21 @@ pdfs_root_dir = root_dir / "pdfs"
 
 app = FastAPI(title="Automação Acadêmica")
 
+from fastapi import Depends, HTTPException, status
+from fastapi.security import APIKeyHeader
+
+API_KEY_NAME = "X-API-Key"
+api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=False)
+
+def verify_api_key(api_key: str = Depends(api_key_header)):
+    expected = os.environ.get("BACKEND_API_KEY")
+    if expected and api_key != expected:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid API Key"
+        )
+    return api_key
+
 # Serve the static HTML frontend
 app.mount("/static", StaticFiles(directory=str(root_dir / "frontend")), name="static")
 
@@ -31,9 +46,18 @@ async def read_index():
         return f.read()
 
 @app.post("/api/upload")
-async def upload_file(file: UploadFile = File(...)):
+async def upload_file(file: UploadFile = File(...), api_key: str = Depends(verify_api_key)):
+    if file.content_type not in ["text/plain", "text/csv"]:
+        from fastapi import HTTPException
+        raise HTTPException(status_code=400, detail="Apenas arquivos de texto (.txt ou .csv) são permitidos.")
+        
     content = await file.read()
     file_name = file.filename.lower()
+    
+    # Prevenção de Path Traversal
+    import os
+    if ".." in file_name or "/" in file_name or "\\" in file_name:
+        raise HTTPException(status_code=400, detail="Nome de arquivo inválido.")
     
     if "quary" in file_name:
         dest_path = encontrar_dois_dir / "quary.txt"
@@ -143,6 +167,10 @@ def _transform_message(raw_text: str) -> str | None:
         doi_match = re.search(r"\]\s*(10\.\S+)", text)
         doi = doi_match.group(1) if doi_match else ""
         return f"❌ Falha (Não Encontrado): {doi}"
+    if "REJEITADO (Identidade Incorreta)" in text:
+        return "⚠️ PDF baixado rejeitado: O conteúdo não corresponde ao artigo solicitado."
+    if "Identidade validada com sucesso" in text:
+        return "✅ PDF validado: O conteúdo corresponde ao artigo solicitado."
     
     for pattern, replacement in _FRIENDLY_PATTERNS:
         match = pattern.search(text)

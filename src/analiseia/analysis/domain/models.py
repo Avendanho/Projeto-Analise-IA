@@ -32,10 +32,12 @@ class CriterionResult(BaseModel):
     model_config = ConfigDict(extra='ignore')
     
     criterion_id: str
-    evidence_ids: List[str] = Field(default_factory=list, description="IDs das evidências encontradas no texto (ex: 'EV-001')")
+    evidence_ids: List[str] = Field(default_factory=list, description="IDs das seções/evidências (ex: 'S001')")
+    verbatim_quotes: List[str] = Field(default_factory=list, description="Citações exatas e curtas do texto que provam a decisão")
+    evidence_status: str = Field(..., description="'POSITIVE', 'NEGATIVE_EXPLICIT', ou 'INSUFFICIENT'")
     evidence_quality: str = Field("INEXISTENTE", description="Qualidade da evidência: 'ALTA', 'MEDIA', 'BAIXA', 'INEXISTENTE'")
-    reasoning: str = Field("", description="Raciocínio step-by-step: a evidência realmente sustenta S ou N? Existe lacuna ou viés?")
-    answer: str = Field(..., description="S, N, ou NC. Use NC obrigatoriamente se não houver evidência suficiente e direta.")
+    reasoning: str = Field("", description="Justificativa científica curta e auditável.")
+    answer: str = Field(..., description="S, N, ou NC.")
     confidence: int = Field(0, description="Nível de confiança na resposta (0-100)")
     summary: str = ""
     uncertainties: List[str] = Field(default_factory=list)
@@ -62,6 +64,11 @@ class CriterionConfig(BaseModel):
     description: str
     fail_value: str
     exclusion_code: str
+    group: Optional[str] = None
+    priority: Optional[int] = None
+    depends_on: Optional[List[str]] = Field(default_factory=list)
+    required: bool = True
+    evidence_preference: Optional[List[str]] = Field(default_factory=list)
 
 class ArticleOverview(BaseModel):
     central_question: str
@@ -69,15 +76,21 @@ class ArticleOverview(BaseModel):
     population: str
     condition: str
     study_design: str
+    genetic_component: str = "Não aplicável/ausente"
+    inflammatory_component: str = "Não aplicável/ausente"
+    relationship: str = "Não aplicável/ausente"
+    limitations: str = "Não informado"
     main_concepts: list[str]
 
 class SectionMap(BaseModel):
     id: str
     heading: str
     summary: str = Field(description="Resumo semântico extremamente curto da seção")
-    concepts: list[str] = Field(description="No máximo 3 palavras-chave fundamentais desta seção")
+    concepts: list[str] = Field(description="Palavras-chave fundamentais desta seção")
+    role: str = Field(default="unknown", description="Ex: abstract, introduction, methods_population, results_correlation, etc.")
 
 class SemanticArticleMap(BaseModel):
+    version: str = "2.0"
     article_overview: ArticleOverview
     sections: list[SectionMap]
 

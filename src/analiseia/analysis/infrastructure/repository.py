@@ -48,12 +48,11 @@ class AnalysisRepository:
 
     def _load_cache(self):
         with self._get_conn() as conn:
-            rows = conn.execute("SELECT article_id, hash, status, analysis_json FROM articles").fetchall()
+            rows = conn.execute("SELECT article_id, hash, status FROM articles").fetchall()
             for r in rows:
                 self._cache[r['article_id']] = {
                     'hash': r['hash'],
-                    'status': r['status'],
-                    'analysis_json': r['analysis_json']
+                    'status': r['status']
                 }
 
     def get_article(self, article_id: str) -> Optional[Dict]:
@@ -75,19 +74,13 @@ class AnalysisRepository:
             "project_value_added": result.project_value_added or "N/A"
         }
         
-        from analiseia.analysis.evidence.store import global_evidence_store
-        
         for cid, cres in result.criteria_results.items():
             analysis_json[cid] = cres.answer
             if "extracted_snippets" not in analysis_json:
                 analysis_json["extracted_snippets"] = {}
             
-            snippets = []
-            for eid in cres.evidence_ids:
-                ev = global_evidence_store.get_evidence(eid)
-                if ev:
-                    snippets.append(ev.text)
-            
+            # Use as citações verbatim do novo pipeline
+            snippets = cres.verbatim_quotes if hasattr(cres, 'verbatim_quotes') and cres.verbatim_quotes else []
             analysis_json["extracted_snippets"][cid] = snippets
             
         analysis_str = json.dumps(analysis_json, ensure_ascii=False)
@@ -95,8 +88,7 @@ class AnalysisRepository:
         db_status = "ERROR" if result.decision.value == "PROCESSAMENTO COM FALHA" else "COMPLETED"
         self._cache[result.article_id] = {
             'hash': file_hash,
-            'status': db_status,
-            'analysis_json': analysis_str
+            'status': db_status
         }
         
         with self._get_conn() as conn:

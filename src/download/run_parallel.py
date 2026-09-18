@@ -1,3 +1,4 @@
+import subprocess
 #!/usr/bin/env python3
 """Multi-session parallel orchestrator for paper-fetch with clean, elegant terminal UI.
 

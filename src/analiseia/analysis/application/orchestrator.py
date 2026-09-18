@@ -1,18 +1,16 @@
 import os
 import json
-import hashlib
 from pathlib import Path
-from typing import Dict
+from typing import Dict, List
 from rich.console import Console
 
 from ..domain.models import ArticleDocument, FinalResult, CriterionResult, ScreeningDecision, ProtocolConfig, SemanticArticleMap
 from ..agents.semantic_mapper import SemanticMapperAgent
-from ..agents.section_router import SectionRouterAgent
 from ..agents.contextual_interpreter import ContextualInterpreterAgent
 from .decision_engine import RuleEngine
 from .validators import DocumentQualityAnalyzer, CriterionValidator
 from ..infrastructure.model_router import get_model_router
-from ..evidence.store import global_evidence_store
+from ..infrastructure.local_retriever import LocalRetriever
 from analiseia.config.settings import get_settings
 
 class ScreeningOrchestrator:
@@ -28,123 +26,127 @@ class ScreeningOrchestrator:
             config_data = json.load(f)
             
         self.config = ProtocolConfig(**config_data)
-        
         self.rule_engine = RuleEngine(self.config)
+
+    def _get_sections_text(self, sections_db: Dict[str, dict], section_ids: List[str]) -> str:
+        text = ""
+        for sid in section_ids:
+            if sid in sections_db:
+                text += f"\n\n--- SEÇÃO {sid} ({sections_db[sid]['heading']}) ---\n{sections_db[sid]['text']}"
+        return text
 
     def analyze_article(self, article: ArticleDocument) -> FinalResult:
         console = Console()
         mapper_agent = SemanticMapperAgent()
-        router_agent = SectionRouterAgent()
         interpreter_agent = ContextualInterpreterAgent()
 
         # 0. Document Quality
-        ok, reason = DocumentQualityAnalyzer.analyze(article)
-        if not ok:
+        valid, reason = DocumentQualityAnalyzer.is_valid_for_analysis(article)
+        if not valid:
             return FinalResult(
-                article_id=article.article_id,
-                decision=ScreeningDecision.MANUAL_REVIEW,
-                confidence=0,
-                justification=f"Qualidade do documento insuficiente: {reason}"
+                article_id=article.article_id, decision=ScreeningDecision.ERROR, justification=f"PROCESSING_ERROR: {reason}"
             )
-
-        # 1. Fast Screening (Desativado conforme pedido do usuário - analise full text primeiro)
-        # if self.config.fast_screening.enabled:
-        #     fast_res = self.fast_screener.analyze(article)
-        #     if fast_res.screening_decision == "LIKELY_EXCLUDED":
-        #         return FinalResult(...)
-                
-        # Load sections and markdown
-        extracted_dir = Path(self.settings.db_dir) / "extracted" / article.article_id
-        sections_path = extracted_dir / "sections.json"
-        content_path = extracted_dir / "content.md"
-        
-        if not sections_path.exists() or not content_path.exists():
-            return FinalResult(article_id=article.article_id, decision=ScreeningDecision.ERROR, confidence=0, justification="Erro: Markdown ou Sections ausentes.")
             
-        with open(sections_path, "r", encoding="utf-8") as f:
+        out_dir = Path(self.settings.db_dir) / "extracted" / article.article_id
+        sec_path = out_dir / "sections.json"
+        if not sec_path.exists():
+            return FinalResult(
+                article_id=article.article_id, decision=ScreeningDecision.ERROR, justification="PROCESSING_ERROR: sections.json não encontrado."
+            )
+            
+        with open(sec_path, "r", encoding="utf-8") as f:
             sections_db = json.load(f)
-        with open(content_path, "r", encoding="utf-8") as f:
-            markdown_text = f.read()
 
-        # 2. Semantic Article Map (Cache)
-        map_cache_path = extracted_dir / "semantic_map.json"
+        # 1. Recuperador Local (BM25 sem embedding)
+        retriever = LocalRetriever(sections_db)
+
+        # 2. Obter ou gerar mapa semântico (Cache multinível)
+        map_path = out_dir / "semantic_map.json"
         article_map = None
-        
-        if map_cache_path.exists():
+        if map_path.exists():
             try:
-                with open(map_cache_path, "r", encoding="utf-8") as f:
-                    article_map = SemanticArticleMap(**json.load(f))
+                with open(map_path, "r", encoding="utf-8") as f:
+                    map_data = json.load(f)
+                    if map_data.get("version") == "2.0":
+                        article_map = SemanticArticleMap(**map_data)
             except:
-                article_map = None
+                pass
                 
         if not article_map:
-            console.print("[cyan]Gerando Mapa Semântico...[/cyan]")
-            article_map = mapper_agent.generate_map(article, markdown_text)
-            with open(map_cache_path, "w", encoding="utf-8") as f:
+            console.print("[cyan]Gerando Mapa Semântico V2.0...[/cyan]")
+            article_map = mapper_agent.generate_map(article, sections_db)
+            with open(map_path, "w", encoding="utf-8") as f:
                 f.write(article_map.model_dump_json(indent=2))
 
-        # 3. Group Criteria
-        g1_ids = ["Q1_HUMAN", "Q2_TEA_DIAGNOSIS", "Q3_FORMAL_DIAGNOSIS", "Q4_SUBGROUP_DATA", "Q11_STUDY_DESIGN", "Q12_CONFIRM_NOT_ANIMAL"]
-        g2_ids = ["Q5_GENETIC_COMPONENT", "Q6_GENETIC_MEASURED", "Q7_INFLAMMATORY", "Q8_INFLAMMATORY_MEASURED", "Q9_GENE_INFLAMMATION_LINK", "Q10_TEA_CONTEXT"]
-        
-        g1_crit = [c for c in self.config.criteria if c.id in g1_ids]
-        g2_crit = [c for c in self.config.criteria if c.id in g2_ids]
-        
-        groups = [("Populacao_Desenho", g1_crit), ("Genetica_Imunologia", g2_crit)]
-        if not g1_crit and not g2_crit:
-            groups = [("Todos_Criterios", self.config.criteria)]
-            
+        # 3. Ordenação inteligente dos critérios
+        # Priorizar critérios críticos, baratos e fáceis de extrair primeiro para Early Stopping.
+        critical_order = ["Q12_CONFIRM_NOT_ANIMAL", "Q1_HUMAN", "Q2_TEA_DIAGNOSIS", "Q11_STUDY_DESIGN"]
+        ordered_criteria = []
+        for cid in critical_order:
+            for c in self.config.criteria:
+                if c.id == cid:
+                    ordered_criteria.append(c)
+        for c in self.config.criteria:
+            if c.id not in critical_order:
+                ordered_criteria.append(c)
+
         results: Dict[str, CriterionResult] = {}
         
-        for g_name, g_crit in groups:
-            if not g_crit: continue
+        for criterion in ordered_criteria:
+            console.print(f"[blue]Processando critério: {criterion.id}[/blue]")
             
-            # 4. Semantic Router
-            console.print(f"[blue]Roteando seções para: {g_name}[/blue]")
-            rel_sec_ids = router_agent.route_for_group(g_name, g_crit, article_map)
+            # PASSE 1 - Recuperação Dinâmica Local (Camada 1 e 2)
+            rel_sec_ids = retriever.retrieve(criterion.id, top_k=3, layer=1)
+            retrieved = {sid: sections_db[sid] for sid in rel_sec_ids if sid in sections_db}
             
-            # 5. Original Section Retrieval
-            retrieved = {}
-            for sid in rel_sec_ids:
-                if sid in sections_db:
-                    retrieved[sid] = sections_db[sid]
+            # Interpretação
+            console.print(f"[magenta]Passe 1 - Interpretando seções {list(retrieved.keys())}[/magenta]")
+            res = interpreter_agent.evaluate_criterion(criterion, retrieved)
             
-            if not retrieved:
-                for sid, sdata in sections_db.items():
-                    h = sdata["heading"].lower()
-                    if any(k in h for k in ["intro", "result", "abstract", "background", "method", "find", "conclu", "discuss"]):
-                        retrieved[sid] = sdata
+            # Validação (Verifier Seletivo)
+            sections_text = self._get_sections_text(sections_db, rel_sec_ids)
+            valid, msg = CriterionValidator.validate(res, sections_text)
+            
+            # Recovery Pass Seletivo (Camada 4)
+            # Acionado se: inválido, NC, ou se N/S tiver conflitos (que seria barrado no validator)
+            if not valid or res.answer == "NC":
+                console.print(f"[yellow]Triggering Recovery Pass para {criterion.id} (Motivo: {msg if not valid else 'NC'})[/yellow]")
                 
-                # Se AINDA estiver vazio, pegamos as 3 maiores seções do artigo para garantir que a IA leia algo!
-                if not retrieved:
-                    sorted_sections = sorted(sections_db.items(), key=lambda x: len(x[1].get("text", "")), reverse=True)
-                    for sid, sdata in sorted_sections[:3]:
-                        retrieved[sid] = sdata
-            
-            # 6. Contextual Interpretation
-            # Register retrieved sections in global evidence store so evidence_ids (S00X) can be validated
-            global_evidence_store.clear_article(article.article_id)
-            for sid, sdata in retrieved.items():
-                global_evidence_store.add_evidence(
-                    article_id=article.article_id,
-                    text=sdata["text"],
-                    section=sid,
-                    evidence_id=sid
-                )
+                # Busca seções diferentes expandindo k
+                avoid_sections = list(retrieved.keys())
+                recovery_sec_ids = retriever.retrieve(criterion.id, top_k=5, layer=2, avoid_sections=avoid_sections)
+                
+                rec_retrieved = {sid: sections_db[sid] for sid in recovery_sec_ids if sid in sections_db}
+                
+                if rec_retrieved:
+                    console.print(f"[magenta]Recovery Pass - Interpretando seções {list(rec_retrieved.keys())}[/magenta]")
+                    rec_res = interpreter_agent.evaluate_criterion(
+                        criterion, 
+                        rec_retrieved, 
+                        previous_results=res, 
+                        is_recovery=True
+                    )
+                    
+                    rec_text = self._get_sections_text(sections_db, recovery_sec_ids)
+                    rec_valid, rec_msg = CriterionValidator.validate(rec_res, rec_text)
+                    
+                    if rec_valid:
+                        res = rec_res
+                    else:
+                        console.print(f"[red]Recovery result also invalid: {rec_msg}[/red]")
+                        if not valid:
+                            res.answer = "ERROR"
+                            res.reasoning = f"Validação falhou no passe 1 ({msg}) e no recovery ({rec_msg})"
 
-            console.print(f"[magenta]Interpretando seções {list(retrieved.keys())} para: {g_name}[/magenta]")
-            group_results = interpreter_agent.evaluate_group(g_name, g_crit, retrieved)
-            
-            for res in group_results:
-                crit_desc = next((c.description for c in g_crit if c.id == res.criterion_id), "")
-                valid, msg = CriterionValidator.validate(res, crit_desc)
-                if not valid:
-                    res.answer = "NC"
-                    res.confidence = 0
-                    res.summary = f"Validação falhou: {msg}"
-                results[res.criterion_id] = res
+            results[criterion.id] = res
 
-        # 7. Engine & Verification
+            # EARLY STOPPING
+            # Se um critério obrigatório falhar com evidência explícita, abortamos imediatamente.
+            if criterion.required and res.answer == criterion.fail_value and res.evidence_status == "NEGATIVE_EXPLICIT":
+                console.print(f"[bold red]Early Stopping Acionado! Critério {criterion.id} reprovou com evidência negativa explícita.[/bold red]")
+                break # Interrompe análise dos demais critérios!
+
+        # Engine & Verification Final
         decision, code, justification = self.rule_engine.evaluate(results)
         confidences = [r.confidence for r in results.values() if isinstance(r.confidence, int)]
         avg_confidence = sum(confidences) // len(confidences) if confidences else 0

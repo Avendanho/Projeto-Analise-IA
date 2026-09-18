@@ -1,4 +1,4 @@
-from typing import Dict, Optional, Tuple
+from typing import Dict, Optional, Tuple, List
 from ..domain.models import CriterionResult, ScreeningDecision, ProtocolConfig
 from analiseia.config.settings import get_settings
 
@@ -6,81 +6,71 @@ class RuleEngine:
     def __init__(self, config: ProtocolConfig):
         self.config = config
         self.settings = get_settings()
-        self.exclusion_rules = {}
-        for crit in config.criteria:
-            self.exclusion_rules[crit.id] = {
-                "fail_val": crit.fail_value,
-                "code": crit.exclusion_code
-            }
+        self.mandatory_criteria = [c for c in config.criteria if c.required]
             
     def evaluate(self, results: Dict[str, CriterionResult]) -> Tuple[ScreeningDecision, Optional[str], str]:
-        missing_criteria = []
-        review_reasons = []
-        all_s = True
+        errors = []
         
-        # 1. Verifica falhas explícitas em critérios obrigatórios (Exclusão Direta)
-        for criterion_id, rule in self.exclusion_rules.items():
-            if criterion_id in results:
-                res = results[criterion_id]
-                if res.answer == rule["fail_val"]:
-                    all_s = False
+        # 1. Verifica Exclusão Direta Imediata (Early Stopping amigável)
+        for crit in self.mandatory_criteria:
+            if crit.id in results:
+                res = results[crit.id]
+                if res.answer == crit.fail_value and res.evidence_status == "NEGATIVE_EXPLICIT":
                     return (
                         ScreeningDecision.EXCLUDE, 
-                        rule["code"], 
-                        f"EXCLUÍDO: Evidência explícita de falha no critério obrigatório {criterion_id} ({rule['code']}). Motivo semântico: {res.reasoning}"
+                        crit.exclusion_code, 
+                        f"EXCLUÍDO: Evidência negativa explícita para o critério {crit.id} ({crit.exclusion_code}). Citação: {res.verbatim_quotes}"
                     )
 
-        # 2. Avalia incertezas ou critérios sem evidência clara
-        needs_review = False
+        # 2. Verifica falhas técnicas nos critérios que foram avaliados
+        for crit in self.mandatory_criteria:
+            if crit.id in results:
+                res = results[crit.id]
+                if res.answer not in ["S", "N", "NC"]:
+                    errors.append(f"{crit.id}: Resposta inválida '{res.answer}'")
+                if res.answer == "S" and res.evidence_status != "POSITIVE":
+                    errors.append(f"{crit.id}: Inclusão sem evidência POSITIVE suportada")
+                if res.answer == "N" and res.evidence_status != "NEGATIVE_EXPLICIT":
+                    errors.append(f"{crit.id}: Exclusão sem evidência NEGATIVE_EXPLICIT")
 
-        for criterion_id in self.exclusion_rules.keys():
-            if criterion_id not in results:
-                missing_criteria.append(criterion_id)
-                all_s = False
-                continue
-
-            res = results[criterion_id]
-            rule = self.exclusion_rules[criterion_id]
-
-            if res.answer != "S" and res.answer != rule["fail_val"]:
-                all_s = False
+        if errors:
+            return (
+                ScreeningDecision.ERROR,
+                None,
+                f"PROCESSING_ERROR: Falha técnica de validação. {' | '.join(errors)}"
+            )
             
-            # Se for NC ou IND -> Revisão Manual porque falta informação real
-            if res.answer in ["NC", "IND"]:
-                needs_review = True
-                review_reasons.append(f"{criterion_id} ({res.answer}: impossibilidade objetiva de determinar a partir do conteúdo)")
-            
-            # Não forçaremos revisão manual por confiança baixa a menos que a evidência seja inexistente
-            if res.answer not in ["NC", "IND"] and res.evidence_quality == "INEXISTENTE":
-                needs_review = True
-                review_reasons.append(f"{criterion_id} respondeu {res.answer} mas a própria IA assumiu evidência INEXISTENTE")
-
+        # 3. Verifica se faltou algum critério obrigatório.
+        # Se não excluímos no passo 1, então todos os obrigatórios DEVEM estar presentes para podermos Incluir ou mandar para Revisão.
+        missing_criteria = [c.id for c in self.mandatory_criteria if c.id not in results]
         if missing_criteria:
             return (
-                ScreeningDecision.MANUAL_REVIEW,
+                ScreeningDecision.ERROR,
                 None,
-                f"REVISÃO MANUAL: Falha do modelo em fornecer resultados para: {', '.join(missing_criteria)}."
+                f"PROCESSING_ERROR: Critérios faltando (não houve early stop): {','.join(missing_criteria)}"
             )
 
-        if needs_review:
-            reason = " | ".join(review_reasons)
+        # 4. Revisão Manual (Regra 4 - se algum continuar NC)
+        nc_criteria = [c.id for c in self.mandatory_criteria if results[c.id].answer == "NC"]
+        if nc_criteria:
             return (
                 ScreeningDecision.MANUAL_REVIEW,
                 None,
-                f"REVISÃO MANUAL: Informação realmente insuficiente ou ambígua extrema: {reason}"
+                f"SCIENTIFICALLY_UNCLEAR: Impossibilidade objetiva de determinar a partir do contexto para: {', '.join(nc_criteria)}"
             )
 
+        # 5. Inclusão (Regra 2) - Se chegou até aqui, nenhum faltou, nenhum foi N, nenhum foi NC.
+        all_s = all(results[c.id].answer == "S" for c in self.mandatory_criteria)
         if all_s:
-            # 3. Inclusão (Todos S e com evidência)
             return (
                 ScreeningDecision.INCLUDE, 
                 None, 
-                "INCLUÍDO: Todos os critérios obrigatórios foram atendidos (avaliados semanticamente com evidência)."
+                "INCLUÍDO: Todos os critérios obrigatórios foram atendidos com evidência positiva."
             )
             
         # Caso bizarro
         return (
-            ScreeningDecision.MANUAL_REVIEW,
+            ScreeningDecision.ERROR,
             None,
-            "REVISÃO MANUAL: Respostas não bateram em exclusão nem inclusão total."
+            "PROCESSING_ERROR: Lógica não resolveu a classificação."
         )

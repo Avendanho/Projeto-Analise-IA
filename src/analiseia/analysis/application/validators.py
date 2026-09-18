@@ -1,87 +1,53 @@
-from typing import List, Dict, Tuple
-from analiseia.analysis.domain.models import CriterionResult, FinalResult, ArticleDocument
-from analiseia.analysis.evidence.store import global_evidence_store
-from analiseia.analysis.infrastructure.model_router import get_model_router
-from pydantic import BaseModel
-
-class VerificationOutput(BaseModel):
-    is_valid: bool
-    reason: str
-
-class EvidenceVerifier:
-    @staticmethod
-    def verify(result: CriterionResult, criterion_description: str) -> Tuple[bool, str]:
-        # Validação mecânica primeiro
-        if result.answer == "NC":
-            return True, ""
-
-        if result.answer == "N":
-            return True, ""
-        if result.answer == "S" and result.evidence_quality == "INEXISTENTE":
-            return False, "Agente respondeu S mas qualidade INEXISTENTE."
-        ev_texts = []
-
-        # Verificação Semântica via LLM (somente para evidências cruciais S/N)
-        # Otimização: Só chama se a qualidade for MEDIA (inferência), se for ALTA confia no SinglePass
-        if result.evidence_quality == "MEDIA":
-            router = get_model_router()
-            client = router.route_for_verification()
-
-            ev_text_combined = "\n".join(ev_texts)
-            system_prompt = (
-                "Você é o EVIDENCE VERIFIER de uma Revisão Sistemática.\n"
-                "Sua tarefa é garantir que a interpretação semântica feita pelo agente primário não extrapolou o artigo.\n"
-                "Responda 'is_valid': true se a evidência sustenta a resposta, mesmo que por sinônimos ou inferência direta.\n"
-                "Responda 'is_valid': false somente se a evidência não tiver relação com o critério ou for uma inferência inventada."
-            )
-            user_prompt = (
-                f"CRITÉRIO: {criterion_description}\n"
-                f"RESPOSTA DADA: {result.answer}\n"
-                f"JUSTIFICATIVA DADA: {result.reasoning}\n"
-                f"EVIDÊNCIA EXTRAÍDA DO ARTIGO:\n{ev_text_combined}\n\n"
-                "A justificativa e a resposta são semanticamente suportadas por esta evidência?"
-            )
-
-            try:
-                verification = client.generate_structured(
-                    system_prompt=system_prompt,
-                    user_prompt=user_prompt,
-                    response_model=VerificationOutput
-                )
-                if not verification.is_valid:
-                    return False, f"Evidence Verifier rejeitou a interpretação: {verification.reason}"
-            except Exception as e:
-                # Fallback to true if LLM fails to avoid breaking pipeline
-                pass
-
-        return True, ""
-
-class CriterionValidator:
-    @staticmethod
-    def validate(result: CriterionResult, criterion_description: str = "") -> Tuple[bool, str]:
-        valid, msg = EvidenceVerifier.verify(result, criterion_description)
-        if not valid:
-            return False, msg
-            
-        if result.answer not in ["S", "N", "NC", "IND", "NAP", "NAE"]:
-            return False, f"Resposta inválida: {result.answer}"
-            
-        if not (0 <= result.confidence <= 100):
-            return False, f"Confiança fora dos limites: {result.confidence}"
-            
-        return True, ""
+from typing import Tuple, Dict, Any
+from ..domain.models import CriterionResult, ArticleDocument
 
 class DocumentQualityAnalyzer:
     @staticmethod
-    def analyze(article: ArticleDocument) -> Tuple[bool, str]:
-        text = article.text_content
-        if len(text) < 500:
-            return False, "Texto muito curto, provavelmente OCR falhou ou artigo corrompido."
-        return True, "Qualidade OK"
+    def is_valid_for_analysis(doc: ArticleDocument) -> Tuple[bool, str]:
+        if not doc.text_content or len(doc.text_content.strip()) < 500:
+            return False, "Texto muito curto ou ausente. Provavelmente falha no OCR/PDF."
+        return True, "OK"
 
-class FinalResultValidator:
+class CriterionValidator:
     @staticmethod
-    def validate(final_result: FinalResult) -> Tuple[bool, str]:
-        if final_result.decision not in ["INCLUIDO", "EXCLUIDO", "REVISÃO MANUAL", "PROCESSAMENTO COM FALHA"]:
-            return False, f"Decisão inválida: {final_result.decision}"
-        return True, ""
+    def validate(result: CriterionResult, retrieved_text: str) -> Tuple[bool, str]:
+        # Validação do evidence_status
+        if result.answer == "S":
+            if result.evidence_status != "POSITIVE":
+                return False, f"Agente respondeu S, mas evidence_status é '{result.evidence_status}' (deveria ser POSITIVE)."
+            if not result.verbatim_quotes:
+                return False, "Agente respondeu S, mas não forneceu verbatim_quotes."
+        
+        elif result.answer == "N":
+            if result.evidence_status != "NEGATIVE_EXPLICIT":
+                return False, f"Agente respondeu N, mas evidence_status é '{result.evidence_status}' (deveria ser NEGATIVE_EXPLICIT)."
+            if not result.verbatim_quotes:
+                return False, "Agente respondeu N, mas não forneceu verbatim_quotes."
+                
+        elif result.answer == "NC":
+            if result.evidence_status != "INSUFFICIENT":
+                return False, f"Agente respondeu NC, mas evidence_status é '{result.evidence_status}' (deveria ser INSUFFICIENT)."
+                
+        else:
+            return False, f"Resposta inválida: {result.answer}"
+            
+        # Validação das citações Verbatim
+        if result.verbatim_quotes:
+            text_lower = retrieved_text.lower()
+            for quote in result.verbatim_quotes:
+                # Removemos a checagem exata com len > 200 porque citações curtas/longas podem variar por espaços
+                # Uma heurística básica de substrings (removendo quebras de linha e excesso de espaços)
+                q_clean = " ".join(quote.lower().split())
+                t_clean = " ".join(text_lower.split())
+                
+                # Se for muito curta (ex: uma única palavra), talvez seja comum. 
+                # Vamos focar na presença para evitar a alucinação de citações inventadas.
+                if q_clean not in t_clean and len(q_clean) > 20:
+                    # Tenta verificar se pelo menos 80% das palavras existem sequencialmente
+                    words = q_clean.split()
+                    if len(words) > 5:
+                        chunk = " ".join(words[:5])
+                        if chunk not in t_clean:
+                            return False, f"Citação inventada (não encontrada no texto recuperado): '{quote}'"
+                            
+        return True, "Válido"

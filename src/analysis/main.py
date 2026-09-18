@@ -90,11 +90,6 @@ def analyze(workers: int = 10):
             article_id = meta["article_id"]
             content_path = meta_file.parent / "content.md"
             
-            text_content = ""
-            if content_path.exists():
-                with open(content_path, "r", encoding="utf-8") as f:
-                    text_content = f.read()
-            
             import hashlib
             task_hash = hashlib.md5(f"{meta.get('hash', '')}_v2_{app_settings.ai_provider}".encode('utf-8')).hexdigest()
             
@@ -102,6 +97,11 @@ def analyze(workers: int = 10):
             if cached and cached.get('hash') == task_hash and cached.get('status') == 'COMPLETED':
                 return  # Ignora artigo já processado
                 
+            text_content = ""
+            if content_path.exists():
+                with open(content_path, "r", encoding="utf-8") as f:
+                    text_content = f.read()
+                    
             if not text_content.strip():
                 return
                 

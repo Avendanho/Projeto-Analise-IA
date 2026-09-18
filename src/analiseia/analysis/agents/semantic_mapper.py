@@ -10,14 +10,23 @@ class SemanticMapperAgent:
     def get_system_prompt(self) -> str:
         return (
             "Você é o MAPEADOR SEMÂNTICO CIENTÍFICO de uma revisão sistemática.\n"
-            "Sua tarefa é ler o DOCUMENTO COMPLETO fornecido (formatado em Markdown com seções S00X) e gerar um MAPA SEMÂNTICO estruturado.\n"
-            "O mapa será usado posteriormente para navegação. Mapeie a visão geral do artigo (article_overview) e forneça um resumo super curto de 1 frase para cada seção (sections).\n"
-            "Seja extremamente conciso e direto. Não crie listas longas para economizar tempo de processamento.\n"
-            "RESPONDA ABSOLUTAMENTE TUDO EM PORTUGUÊS DO BRASIL, MESMO QUE O TEXTO ESTEJA EM INGLÊS.\n"
+            "Sua tarefa é ler o DOCUMENTO COMPLETO e gerar um MAPA SEMÂNTICO que sirva APENAS para navegação.\n"
+            "ATENÇÃO: O mapa NÃO deve ser usado como evidência. Não faça resumos tão agressivos que eliminem metodologias importantes.\n"
+            "Na visão geral, extraia a questão central, objetivo, população, condição, desenho de estudo, componentes genéticos/imunológicos e suas relações, e limitações.\n"
+            "Para as SEÇÕES, defina um 'role' claro como: abstract, introduction, methods_population, methods_genetics, methods_inflammation, methods_statistics, results_population, results_genetics, results_inflammation, results_correlation, discussion, limitations.\n"
+            "RESPONDA ABSOLUTAMENTE TUDO EM PORTUGUÊS DO BRASIL.\n"
         )
 
-    def generate_map(self, article: ArticleDocument, markdown_text: str) -> SemanticArticleMap:
-        user_prompt = f"Gere o mapa semântico deste artigo em Markdown:\n\n{markdown_text}"
+    def generate_map(self, article: ArticleDocument, sections_db: dict) -> SemanticArticleMap:
+        # Create a condensed version of the article to save tokens
+        condensed_text = ""
+        for sid, sdata in sections_db.items():
+            content = sdata.get('text', '')
+            # Pega apenas os primeiros 400 caracteres da seção para dar contexto sem gastar milhões de tokens
+            snippet = content[:400] + "..." if len(content) > 400 else content
+            condensed_text += f"\n\n--- SEÇÃO {sid} ({sdata.get('heading', '')}) ---\n{snippet}"
+
+        user_prompt = f"Gere o mapa semântico deste artigo baseado no seguinte resumo de seções:\n{condensed_text}"
         
         difficulty = DifficultyLevel.EASY
         requires_vision = False # Forçando para não crachar modelos locais com erro Multimodal

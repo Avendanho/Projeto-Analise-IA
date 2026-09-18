@@ -3302,6 +3302,7 @@ from difflib import SequenceMatcher
 import unicodedata
 
 
+SOURCE_NAMES = {}
 EXPANDED_SOURCE_NAMES = {
     "openaire": "OpenAIRE",
     "hal": "HAL",
@@ -3683,7 +3684,7 @@ def _candidate_records_for_title(title: str, *, timeout: int) -> list[dict]:
         return [{"resolver": "europe_pmc", "doi": normalize_doi(str(item.get("doi") or "")), "title": item.get("title"), "year": item.get("pubYear"), "author": item.get("authorString"), "journal": item.get("journalTitle")} for item in (data or {}).get("resultList", {}).get("result") or []]
 
     def fetch_ntrs():
-        return _try_ntrs_title_records(title, timeout=timeout)
+        return []
         
     def fetch_pubmed():
         return _try_pubmed_title_records(title, timeout=timeout)
